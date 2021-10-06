@@ -1,0 +1,3 @@
+keystore password: fghjfsgdfvgdfsg
+aliasname: ottapalam_scb
+aliaspassword: bdbdfbbhdfbhdf

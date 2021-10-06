@@ -1,0 +1,82 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=96:78:F0:3D:4D:F5:33:28:76:3F:2C:AA:83:F0:8D:BD:77:5E:0B:AB%3Bcom.creativethoughts.iscore
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    96:78:F0:3D:4D:F5:33:28:76:3F:2C:AA:83:F0:8D:BD:77:5E:0B:AB
+
+    SHA-1 certificate fingerprint:
+    96:78:F0:3D:4D:F5:33:28:76:3F:2C:AA:83:F0:8D:BD:77:5E:0B:AB
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+<!--    //perfect-->
+ <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4fgX_yo5OG6t_V3N8nFxYoowbrPWqtOU</string>-->
+
+    //parapanangadi
+   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCA6UuZ9uwV4mj13ro0bFE2RTDICHALd6Y</string>-->
+//calicut town
+   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8</string>-->
+//kulathupuzha
+ <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBASOXUUvJFd-u7vcZB5Hs0lq5fgMWNA2E</string>-->
+
+<!--    //Thiruvambadi-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD4CUnSGLUsiPrGCGvsuyvaIyCvp7vEW6M</string>-->
+
+<!--    //Cheruvannur-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCIiZ78WiqGkoFBTv1EoMGYvVsE3mtVxLk</string>-->
+
+<!--    //Kumaramputhur-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDHX2HVYOUqQxun8NxZ4-V4kr5e74hqTSY</string>-->
+
+<!--    //Kattippara-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDmpMYHeB-cl7zZmvdic7yzkevEP1TbxCE</string>-->
+
+<!--    //Mananthavadi-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDaUb7MBfDEzRcYXjcA0fzZi-9e-rfaB24</string>-->
+
+<!--    //Vallapuzha-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDVS0SXNagmTYtPAZwUfni6cpNb2yESS3c</string>-->
+
+<!--&lt;!&ndash;    //Cherukkunnu&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBJNLV2fjMvcHRMMTWhzpzfs11CtwPILno</string>-->
+
+<!--    &lt;!&ndash;    //Naduvil&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyASMx4X8Ej_Sxo1pUIZDsp9edsca0KuL2c</string>-->
+
+<!--    &lt;!&ndash;    //Porora&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCm7DVVrYMJPFTgxTGqvMQBZX0seGGwY0U</string>-->
+
+<!--    &lt;!&ndash;    //Mezhuveli&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDofguc5hvUPhFegmfBN3buapv8ER-eops</string>-->
+
+<!--    &lt;!&ndash;    //Kuttikkattoor&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD7lUVFkomiSdIXtQwnPLYzVo38kVncpVA</string>-->
+
+<!--    &lt;!&ndash;    //Cheranallur&ndash;&gt;-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4uYTHANTrcaJby9e5BR4IpOOSjVFTm-Q</string>-->
+
+    <!--    //Kayanna-->
+ <!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAC0s_0bn9wqUU1iJ91Fw3mswQaAbirkHI</string>-->
+<!--panniyankara-->
+   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAMdiGbC0JYE68XIWxKRcWdIMHeOBitzoA</string>-->
+<!--   meppayur-->
+   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAOOLr1_cmkqWch5D3Zc6XPw53CPFES11E</string>-->
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAAMm9IJ2VJhC_LtVmkgRbwP1psVrIbeEg</string>
+
+  <!--  chemmanchery-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCi-ZGfqbN2NhfyPMyGFinRWkodUCAJUeM</string>-->
+<!--pantheerankavu-->
+ <!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD9cX_5j437SVrfsi-yMuQp86Tk1Gw8HAU</string>-->
+</resources>

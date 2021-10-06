@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/txtv_loantype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ruppe"
+            android:text=""></TextView>
+
+    </LinearLayout>
+    <!-- <LinearLayout
+         android:id="@+id/relativeLayout1"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:paddingLeft="25dp"
+         android:layout_marginTop="15dp">
+         <TextView
+
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="fdfdddd"
+             android:textAllCaps="false"
+             android:layout_weight="1"
+             android:textColor="@color/black"
+             android:layout_alignParentLeft="true"
+             android:textSize="18dp"
+             />
+
+
+         <ImageView
+             android:id="@+id/imgv_dirctn"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="3"
+             android:drawableLeft="@drawable/ruppe"
+             android:visibility="visible"
+             android:layout_marginRight="15dp"
+             android:layout_marginLeft="15dp"
+             android:layout_alignParentRight="true"/>
+
+     </LinearLayout>-->
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/txtv_bankname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City bank"
+            android:fontFamily="@font/meera_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/google_blue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/txtv_accno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/txtv_branchname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="15dp"></TextView>
+        <TextView
+            android:id="@+id/txtv_amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="15dp"></TextView>
+        <ImageView
+            android:id="@+id/imgv_details"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/arrow"></ImageView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:id="@+id/txtv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+    </LinearLayout>
+
+</LinearLayout>

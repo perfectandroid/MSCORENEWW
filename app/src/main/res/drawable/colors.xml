@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="grey">#F2F7F7</color>
+    <color name="grey1">#CED1D1</color>
+    <color name="cheue">#115782</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
+    <color name="colorPrimary">#FFFF</color>
+    <color name="colorPrimaryLight">#FFFF</color>
+
+    <color name="accent">#ffc400</color>
+    <color name="text_primary">#DADADA</color>
+    <color name="text_secondary">#999999</color>
+    <color name="text_tertary">#ff333333</color>
+    <color name="black_75_per">#Bf000000</color>
+    <color name="black">#000000</color>
+    <color name="error">#4285F4</color>
+    <color name="dividerBackground">#7E5858</color>
+
+    <color name="white">#ffffff</color>
+
+
+    <color name="google_green1">#63B456</color>
+
+    <color name="google_blue">#4285F4</color>
+
+    <color name="blue_variant">#053863</color>
+    <color name="blue_variant1">#297CCA</color>
+    <color name="blue_variant2">#1196C3</color>
+    <color name="blue_variant3">#AFC0D3</color>
+    <color name="slate">#E3F2F7</color>
+    <color name="gray">#5a585d</color>
+
+    <color name="blue_btn_bg_color">#2ecc71</color>
+
+    <color name="gray_btn_bg_color">#e74c3c</color>
+
+    <color name="red_error_snack_bar">#ca0606</color>
+
+    <color name="black_alpha">#a9000000</color>
+    <color name="light_gray">#a9f1ecec</color>
+    <color name="QRCodeBlackColor">#000000</color>
+    <color name="QRCodeWhiteColor">#ffffff</color>
+    <color name="color_activity_transparent">#00000000</color>
+    <color name="colorPrimaryDark">#472E72</color>
+    <color name="blue">#7FC7D1</color>
+    <color name="bluelight">#8AC9D2</color>
+
+  <!--  <color name="graph1">#f48fb1</color>
+    <color name="graph2">#82b1ff</color>
+    <color name="graph3">#b39ddb</color>
+    <color name="graph4">#ff9e80</color>
+    <color name="graph5">#a5d6a7</color>-->
+
+    <color name="graph1">#4FC3F7</color>
+    <color name="graph2">#F06292</color>
+    <color name="graph3">#FFD54F</color>
+    <color name="graph4">#9575CD</color>
+    <color name="graph5">#81C784</color>
+    <color name="graph6">#90A4AE</color>
+    <color name="graph7">#BA68C8</color>
+    <color name="graph8">#A1887F</color>
+    <color name="graph9">#E57373</color>
+    <color name="graph10">#AED581</color>
+    <color name="graph11">#64B5F6</color>
+    <color name="graph12">#7986CB</color>
+    <color name="graph13">#4DB6AC</color>
+    <color name="graph14">#FFF176</color>
+    <color name="graph15">#FF8A65</color>
+    <color name="graph16">#4DD0E1</color>
+    <color name="graph17">#E0E0E0</color>
+    <color name="graph18">#FFB74D</color>
+    <color name="graph19">#B388FF</color>
+    <color name="graph20">#DCE775</color>
+</resources>

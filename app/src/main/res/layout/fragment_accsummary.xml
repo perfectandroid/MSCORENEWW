@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView
+    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android" >-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/black"
+                app:tabSelectedTextColor="@color/google_blue"
+                android:background="@color/white"
+                app:tabGravity="fill">
+
+            </com.google.android.material.tabs.TabLayout>
+          <!--  <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabPaddingStart="0dp"
+                app:tabPaddingEnd="0dp"
+                app:tabTextColor="@color/black"
+                app:tabSelectedTextColor="@color/google_blue"
+                app:tabBackground="@drawable/whitebg"
+                tools:ignore="MissingConstraints">
+            </com.google.android.material.tabs.TabLayout>-->
+          <!--  <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_below="@id/tabLayout"
+                android:layout_marginTop="15dp"
+                >
+                <RadioGroup
+                    android:id="@+id/radioGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    >
+                    <RadioButton
+                        android:id="@+id/radioMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Active"
+                        android:checked="true" />
+                    <RadioButton
+                        android:id="@+id/radioFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Closed" />
+                </RadioGroup>
+
+            </RelativeLayout>-->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                tools:layout_editor_absoluteX="3dp"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+
+
+        <!--   <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="2"
+               android:orientation="vertical">
+
+               <TextView
+                   android:id="@+id/txtv_purpose"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="15dp"
+                   android:textStyle="bold"
+                   android:visibility="gone"
+                   android:textSize="15sp"
+                   tools:ignore="MissingConstraints" />-->
+      <!--      <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtv_points1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transactions"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        android:drawableLeft="@drawable/ic_star"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/txtv_points2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/singlecard"
+                        android:drawableLeft="@drawable/ic_star"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/txtv_points3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/portfolio"
+                        android:drawableLeft="@drawable/ic_star"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/txtv_points4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/queue"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        android:drawableLeft="@drawable/ic_star"
+                        tools:ignore="MissingConstraints" />
+
+                </LinearLayout>
+            </ScrollView>-->
+      <!--  </LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/llviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:background="@color/blue_variant1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/ll_notice"
+                android:layout_weight="1"
+                android:layout_marginTop="2dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:scaleType="fitXY"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:src="@drawable/notice1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Notice"
+                    android:textSize="15sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/ll_standingins"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:scaleType="fitXY"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:src="@drawable/standinginstruction" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Standing Instruction"
+                    android:textSize="15sp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--
+    </ScrollView>-->

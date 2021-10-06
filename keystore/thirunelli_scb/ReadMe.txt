@@ -1,0 +1,3 @@
+keyAlias: Thirunelli_Scb
+keyPassword: dfdbgfdbgdfbgdf
+storePassword: dfbhfdbhfdbhfd

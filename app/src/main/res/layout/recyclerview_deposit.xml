@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/l2"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/txtv_loantype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="17dp"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ruppe"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/imgv_details"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="30dp"
+            android:visibility="gone"
+            android:background="@drawable/arrow"/>
+        <TextView
+            android:id="@+id/imgv_details1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="0dp"
+            android:visibility="visible"
+            android:backgroundTint="@color/black_alpha"
+            android:background="@drawable/ic_arrow_right_white"/>
+
+    </LinearLayout>
+    <!-- <LinearLayout
+         android:id="@+id/relativeLayout1"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:paddingLeft="25dp"
+         android:layout_marginTop="15dp">
+         <TextView
+
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="fdfdddd"
+             android:textAllCaps="false"
+             android:layout_weight="1"
+             android:textColor="@color/black"
+             android:layout_alignParentLeft="true"
+             android:textSize="18dp"
+             />
+
+
+         <ImageView
+             android:id="@+id/imgv_dirctn"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_weight="3"
+             android:drawableLeft="@drawable/ruppe"
+             android:visibility="visible"
+             android:layout_marginRight="15dp"
+             android:layout_marginLeft="15dp"
+             android:layout_alignParentRight="true"/>
+
+     </LinearLayout>-->
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:id="@+id/txtv_bankname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City bank"
+            android:fontFamily="@font/meera_regular"
+            android:textAllCaps="false"
+            android:textColor="@color/google_blue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="2dp">
+
+        <TextView
+            android:id="@+id/txtv_accno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:text=""
+            android:layout_weight="1"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/txtv_amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:drawablePadding="5dp"
+            android:text=""
+            android:textColor="@color/Green"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/txtv_branchname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="12sp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/txtv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey1"/>
+
+
+</LinearLayout>
+

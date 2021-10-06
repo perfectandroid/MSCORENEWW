@@ -1,0 +1,11 @@
+<ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sidem_bg"
+    android:childDivider="#069dd1"
+    android:choiceMode="singleChoice"
+    android:divider="@color/grey1"
+    android:dividerHeight="1dp"
+    android:groupIndicator="@null"
+    android:padding="8dp"
+    />

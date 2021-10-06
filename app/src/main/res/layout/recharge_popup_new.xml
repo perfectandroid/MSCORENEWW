@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_prepaid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imgimps"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/prepaid"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="Prepaid"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgimps"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_dth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/imgneft"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/dth"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="DTH"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgneft"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_landline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/imgrtgs"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/landline"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="LandLine"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgrtgs"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_postpaid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/imgpostpaid"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/postpaid"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="Post Paid"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgpostpaid"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_datacard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/imgquickpay"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/data_card"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="Data Card"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgquickpay"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_kseb"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:id="@+id/imgkseb"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/icpop_kseb"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:text="KSEB"
+                                    android:paddingLeft="20dp"
+                                    android:layout_toRightOf="@+id/imgkseb"
+                                    android:textColor="@color/black"/>
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1"/>
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/rltv_recharge_history"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/imgrechargehistory"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/icpopup_reacharge_history" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_toRightOf="@+id/imgrechargehistory"
+                                    android:gravity="center"
+                                    android:paddingLeft="20dp"
+                                    android:text="Recharge History"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:scaleType="fitXY"
+                                    android:tint="@color/black"
+                                    app:srcCompat="@drawable/arr1" />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

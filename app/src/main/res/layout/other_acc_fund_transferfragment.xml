@@ -1,0 +1,1188 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    tools:context="com.creativethoughts.iscore.SearchFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_bottombar">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        android:layout_margin="5dp"
+                        android:padding="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingStart="8dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Paying From : "
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:layout_gravity="center"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text="A/C No : "
+                                    android:layout_gravity=""
+                                    android:textColor="@color/black"
+                                    android:drawableLeft="@drawable/icp_acnt_no"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_account_no"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/black"
+                                        android:textSize="16sp"
+                                        android:padding="1dp"
+                                        android:textStyle="normal" />
+                                    <TextView
+                                        android:id="@+id/tv_branch_name"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:layout_gravity="center_vertical"
+                                        android:textColor="@color/DimGray"
+                                        android:textSize="12sp"
+                                        android:textStyle="normal" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingStart="8dp"
+                                android:drawablePadding="4dp"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_gravity="right|center_vertical"
+                                android:textColor="@color/Green"
+                                android:drawableLeft="@drawable/icp_available_blnce"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:visibility="gone"
+                                android:id="@+id/spn_account_num"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginTop="2dp"
+                                android:gravity="start"
+                                android:popupBackground="#cccccc"
+                                android:spinnerMode="dialog"
+                                android:backgroundTint="@color/blue"/>
+                            <!--                style="@style/Base.Widget.AppCompat.Spinner.Underlined"-->
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        android:layout_margin="5dp"
+                        android:padding="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:paddingEnd="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingStart="8dp"
+                                    android:layout_marginTop="5dp"
+                                    android:text="@string/reciever_account_type"
+                                    android:textColor="@color/RoyalBlue"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+
+                                <Spinner
+                                    android:id="@+id/spn_account_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:layout_marginTop="2dp"
+                                    android:gravity="start"
+                                    android:popupBackground="#cccccc"
+                                    android:spinnerMode="dialog"
+                                    android:backgroundTint="@color/blue"/>
+                                <!--                style="@style/Base.Widget.AppCompat.Spinner.Underlined"-->
+
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingStart="8dp"
+                                android:layout_marginTop="15dp"
+                                android:text="@string/account_no"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="16sp"
+                                android:textStyle="bold"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible" >
+
+                                <EditText
+                                    android:id="@+id/acc_no_block_one"
+                                    android:layout_width="60dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignBottom="@+id/acc_no_block_two"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginRight="2dp"
+                                    android:layout_toStartOf="@+id/acc_no_block_two"
+                                    android:layout_toLeftOf="@+id/acc_no_block_two"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="3"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingEnd="5dp" />
+                                <EditText
+                                    android:id="@+id/acc_no_block_two"
+                                    android:layout_width="60dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignBottom="@+id/acc_no_block_three"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toLeftOf="@+id/acc_no_block_three"
+                                    android:layout_toStartOf="@+id/acc_no_block_three"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:ems="3"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="3"
+                                    android:paddingEnd="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingStart="5dp"
+                                    />
+                                <EditText
+                                    android:id="@+id/acc_no_block_three"
+                                    android:layout_width="100dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_alignBottom="@+id/btn_scan_acnt_no"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toLeftOf="@+id/btn_scan_acnt_no"
+                                    android:layout_toStartOf="@+id/btn_scan_acnt_no"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:ems="6"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="numberPassword"
+                                    android:maxLength="6"
+                                    android:paddingEnd="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingStart="5dp"/>
+
+                                <Button
+                                    android:id="@+id/btn_scan_acnt_no"
+                                    android:layout_width="70dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/color_btn_bg"
+                                    android:text="@string/scan"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white" />
+
+                            </RelativeLayout>
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingStart="8dp"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:text="@string/confirm_acc_no"
+                                android:visibility="visible"/>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible">
+                                <EditText
+                                    android:id="@+id/confirm_acc_no_block_one"
+                                    android:layout_width="60dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignBottom="@+id/confirm_acc_no_block_two"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toLeftOf="@+id/confirm_acc_no_block_two"
+                                    android:layout_toStartOf="@+id/confirm_acc_no_block_two"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="number"
+                                    android:maxLength="3"
+                                    android:paddingEnd="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingStart="5dp"
+                                    />
+                                <EditText
+                                    android:id="@+id/confirm_acc_no_block_two"
+                                    android:layout_width="60dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignBottom="@+id/confirm_acc_no_block_three"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toLeftOf="@+id/confirm_acc_no_block_three"
+                                    android:layout_toStartOf="@+id/confirm_acc_no_block_three"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:ems="3"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="number"
+                                    android:maxLength="3"
+                                    android:paddingEnd="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingStart="5dp" />
+                                <EditText
+                                    android:id="@+id/confirm_acc_no_block_three"
+                                    android:layout_width="100dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_alignBottom="@+id/confirm_button"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_marginRight="3dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_toLeftOf="@+id/confirm_button"
+                                    android:layout_toStartOf="@+id/confirm_button"
+                                    android:background="@drawable/custom_edt_txt_account_border"
+                                    android:ems="6"
+                                    android:imeActionId="@integer/viewfinder_border_width"
+                                    android:inputType="number"
+                                    android:maxLength="6"
+                                    android:paddingEnd="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingStart="5dp"/>
+
+                                <Button
+                                    android:id="@+id/confirm_button"
+                                    android:layout_width="70dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    android:background="@null"
+                                    android:text="@string/scan"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white" />
+
+                            </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginRight="5dp"
+                                android:visibility="gone"
+                                >
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/account_number_inputlayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center_vertical"
+                                    >
+
+                                    <androidx.appcompat.widget.AppCompatEditText
+                                        android:id="@+id/account_number"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/account_no"
+                                        android:inputType="numberPassword"
+                                        android:paddingLeft="8dp"
+                                        android:paddingRight="8dp"
+                                        android:textColor="@color/text_tertary"
+                                        android:textColorHint="@color/text_primary"
+                                        android:textSize="14sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <Button
+                                    android:id="@+id/scan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/color_btn_bg"
+                                    android:minHeight="48dp"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="12dp"
+                                    android:text="@string/scan"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    tools:ignore="RelativeOverlap" />
+
+                            </RelativeLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/confirm_account_number_inputlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="16dp"
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/confirm_account_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/confirm_acc_no"
+                                    android:inputType="number"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:textColor="@color/text_tertary"
+                                    android:textColorHint="@color/text_primary"
+                                    android:textSize="14sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/amount_inputlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="16dp"
+                                android:background="@drawable/custom_edt_txt_account_border"
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:background="@null"
+                                    android:hint="@string/amount"
+                                    android:inputType="number"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:textColor="@color/text_tertary"
+                                    android:textColorHint="@color/text_primary"
+                                    android:textSize="18sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="10dp"
+                        android:layout_margin="5dp"
+                        android:padding="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:layout_gravity="left"
+                                android:paddingStart="8dp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:text="Amount Payable :"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:orientation="vertical">
+                                <!--                android:layout_marginLeft="30dp"-->
+                                <!--                android:layout_marginRight="30dp"-->
+                                <!--                <Button-->
+                                <!--                    android:layout_width="1dp"-->
+                                <!--                    android:layout_height="wrap_content"-->
+                                <!--
+                                                 android:background="@null" />-->
+                                <EditText
+                                    android:id="@+id/edt_txt_amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:drawableLeft="@drawable/ruppe"
+                                    android:drawablePadding="10dp"
+                                    android:textSize="30dp"
+                                    android:textColor="@color/Green"
+                                    android:drawableTint="@color/black"
+                                    android:backgroundTint="@color/blue"/>
+
+                                <TextView
+                                    android:id="@+id/txt_amtinword"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/RoyalBlue"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold"
+                                    android:layout_marginTop="5dp"
+                                    android:text=""/>
+
+                                <!--                android:background="@drawable/custom_edt_txt_account_border"-->
+
+                                <TextView
+                                    android:id="@+id/tv_maxamount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingStart="8dp"
+                                    android:textSize="14dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:textColor="@color/red_error_snack_bar"
+                                    android:text=""/>
+
+
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:layout_gravity="left"
+                                android:paddingStart="8dp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:text="Remark : "/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginTop="10dp">
+
+                                <EditText
+                                    android:id="@+id/edt_txt_remark"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:padding="5dp"
+                                    android:inputType="text"
+                                    android:drawableTint="@color/black"
+                                    android:backgroundTint="@color/blue" />
+                            </LinearLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/message_inputlayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="16dp"
+
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/message"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/title_section3"
+                                    android:inputType="phone"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:textColor="@color/text_tertary"
+                                    android:textColorHint="@color/text_primary"
+                                    android:textSize="18sp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_bottombar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            >
+            <!--            android:layout_marginLeft="10dp"-->
+            <!--            android:layout_marginRight="10dp"-->
+            <Button
+                android:id="@+id/btn_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@color/blue_variant2"
+                android:text="@string/clear"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_weight="1"
+                android:background="@color/blue_variant2"
+                android:text="PAY"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                tools:ignore="ButtonStyle" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:background="@color/white"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context="com.creativethoughts.iscore.SearchFragment">-->
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_above="@+id/ll_bottombar">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:orientation="vertical">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_margin="15dp">-->
+
+<!--                    <androidx.cardview.widget.CardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:cardCornerRadius="10dp"-->
+<!--                        android:layout_margin="5dp"-->
+<!--                        android:padding="5dp">-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_margin="5dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:orientation="vertical">-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_account_no"-->
+<!--                                android:layout_width="fill_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:paddingEnd="8dp"-->
+<!--                                android:paddingLeft="8dp"-->
+<!--                                android:paddingStart="8dp"-->
+<!--                                android:drawablePadding="4dp"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:text="A/C No : "-->
+<!--                                android:layout_gravity="center_vertical"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:drawableLeft="@drawable/icp_acnt_no"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textStyle="normal" />-->
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_balance"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:paddingEnd="8dp"-->
+<!--                                android:paddingLeft="8dp"-->
+<!--                                android:paddingStart="8dp"-->
+<!--                                android:drawablePadding="4dp"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:layout_marginBottom="5dp"-->
+<!--                                android:layout_marginRight="5dp"-->
+<!--                                android:layout_gravity="right|center_vertical"-->
+<!--                                android:textColor="@color/Green"-->
+<!--                                android:drawableLeft="@drawable/icp_available_blnce"-->
+<!--                                android:textSize="14sp"-->
+<!--                                android:textStyle="normal" />-->
+
+<!--                            <Spinner-->
+<!--                                android:visibility="gone"-->
+<!--                                android:id="@+id/spn_account_num"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="start"-->
+<!--                                android:layout_marginTop="2dp"-->
+<!--                                android:gravity="start"-->
+<!--                                android:popupBackground="#cccccc"-->
+<!--                                android:spinnerMode="dialog"-->
+<!--                                android:backgroundTint="@color/blue"/>-->
+<!--                            &lt;!&ndash;                style="@style/Base.Widget.AppCompat.Spinner.Underlined"&ndash;&gt;-->
+<!--                        </LinearLayout>-->
+
+<!--                    </androidx.cardview.widget.CardView>-->
+
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_marginTop="15dp">-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView5"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="start"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:text="@string/reciever_account_type"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="14sp"-->
+<!--                            android:textStyle="normal" />-->
+
+<!--                        <Spinner-->
+<!--                            android:id="@+id/spn_account_type"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="start"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:gravity="start"-->
+<!--                            android:popupBackground="#cccccc"-->
+<!--                            android:spinnerMode="dialog"-->
+<!--                            android:backgroundTint="@color/blue"/>-->
+<!--                        &lt;!&ndash;                style="@style/Base.Widget.AppCompat.Spinner.Underlined"&ndash;&gt;-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="fill_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="start"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        android:paddingLeft="8dp"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:text="@string/account_no"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="normal"/>-->
+
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:visibility="visible" >-->
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/acc_no_block_one"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_alignBottom="@+id/acc_no_block_two"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_marginEnd="2dp"-->
+<!--                            android:layout_marginRight="2dp"-->
+<!--                            android:layout_toStartOf="@+id/acc_no_block_two"-->
+<!--                            android:layout_toLeftOf="@+id/acc_no_block_two"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="numberPassword"-->
+<!--                            android:maxLength="3"-->
+<!--                            android:paddingStart="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingEnd="5dp" />-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/acc_no_block_two"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_alignBottom="@+id/acc_no_block_three"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginEnd="3dp"-->
+<!--                            android:layout_marginRight="3dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_toLeftOf="@+id/acc_no_block_three"-->
+<!--                            android:layout_toStartOf="@+id/acc_no_block_three"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:ems="3"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="numberPassword"-->
+<!--                            android:maxLength="3"-->
+<!--                            android:paddingEnd="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingStart="5dp"-->
+<!--                            />-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/acc_no_block_three"-->
+<!--                            android:layout_width="100dp"-->
+<!--                            android:layout_height="fill_parent"-->
+<!--                            android:layout_alignBottom="@+id/btn_scan_acnt_no"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginEnd="3dp"-->
+<!--                            android:layout_marginRight="3dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_toLeftOf="@+id/btn_scan_acnt_no"-->
+<!--                            android:layout_toStartOf="@+id/btn_scan_acnt_no"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:ems="6"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="numberPassword"-->
+<!--                            android:maxLength="6"-->
+<!--                            android:paddingEnd="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingStart="5dp"/>-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/btn_scan_acnt_no"-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:background="@drawable/color_btn_bg"-->
+<!--                            android:text="@string/scan"-->
+<!--                            android:textAllCaps="false"-->
+<!--                            android:textColor="@color/white" />-->
+
+<!--                    </RelativeLayout>-->
+
+
+<!--                    <TextView-->
+<!--                        android:layout_width="fill_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="start"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        android:paddingLeft="8dp"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="normal"-->
+<!--                        android:text="@string/confirm_acc_no"-->
+<!--                        android:visibility="visible"/>-->
+
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:visibility="visible">-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/confirm_acc_no_block_one"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_alignBottom="@+id/confirm_acc_no_block_two"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginEnd="3dp"-->
+<!--                            android:layout_marginRight="3dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_toLeftOf="@+id/confirm_acc_no_block_two"-->
+<!--                            android:layout_toStartOf="@+id/confirm_acc_no_block_two"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="number"-->
+<!--                            android:maxLength="3"-->
+<!--                            android:paddingEnd="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingStart="5dp"-->
+<!--                            />-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/confirm_acc_no_block_two"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_alignBottom="@+id/confirm_acc_no_block_three"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginEnd="3dp"-->
+<!--                            android:layout_marginRight="3dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_toLeftOf="@+id/confirm_acc_no_block_three"-->
+<!--                            android:layout_toStartOf="@+id/confirm_acc_no_block_three"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:ems="3"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="number"-->
+<!--                            android:maxLength="3"-->
+<!--                            android:paddingEnd="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingStart="5dp" />-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/confirm_acc_no_block_three"-->
+<!--                            android:layout_width="100dp"-->
+<!--                            android:layout_height="fill_parent"-->
+<!--                            android:layout_alignBottom="@+id/confirm_button"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:layout_marginEnd="3dp"-->
+<!--                            android:layout_marginRight="3dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_toLeftOf="@+id/confirm_button"-->
+<!--                            android:layout_toStartOf="@+id/confirm_button"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:ems="6"-->
+<!--                            android:imeActionId="@integer/viewfinder_border_width"-->
+<!--                            android:inputType="number"-->
+<!--                            android:maxLength="6"-->
+<!--                            android:paddingEnd="5dp"-->
+<!--                            android:paddingLeft="5dp"-->
+<!--                            android:paddingStart="5dp"/>-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/confirm_button"-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:background="@null"-->
+<!--                            android:text="@string/scan"-->
+<!--                            android:textAllCaps="false"-->
+<!--                            android:textColor="@color/white" />-->
+
+<!--                    </RelativeLayout>-->
+
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="5dp"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:visibility="gone"-->
+<!--                        >-->
+
+<!--                        <com.google.android.material.textfield.TextInputLayout-->
+<!--                            android:id="@+id/account_number_inputlayout"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_gravity="center_vertical"-->
+<!--                            >-->
+
+<!--                            <androidx.appcompat.widget.AppCompatEditText-->
+<!--                                android:id="@+id/account_number"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:hint="@string/account_no"-->
+<!--                                android:inputType="numberPassword"-->
+<!--                                android:paddingLeft="8dp"-->
+<!--                                android:paddingRight="8dp"-->
+<!--                                android:textColor="@color/text_tertary"-->
+<!--                                android:textColorHint="@color/text_primary"-->
+<!--                                android:textSize="14sp" />-->
+<!--                        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--                        <Button-->
+<!--                            android:id="@+id/scan"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:background="@drawable/color_btn_bg"-->
+<!--                            android:minHeight="48dp"-->
+<!--                            android:paddingLeft="12dp"-->
+<!--                            android:paddingRight="12dp"-->
+<!--                            android:text="@string/scan"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:textSize="16sp"-->
+<!--                            tools:ignore="RelativeOverlap" />-->
+
+<!--                    </RelativeLayout>-->
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/confirm_account_number_inputlayout"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:visibility="gone">-->
+
+<!--                        <androidx.appcompat.widget.AppCompatEditText-->
+<!--                            android:id="@+id/confirm_account_number"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="@string/confirm_acc_no"-->
+<!--                            android:inputType="number"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingRight="8dp"-->
+<!--                            android:textColor="@color/text_tertary"-->
+<!--                            android:textColorHint="@color/text_primary"-->
+<!--                            android:textSize="14sp" />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/amount_inputlayout"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                        android:visibility="gone">-->
+
+<!--                        <androidx.appcompat.widget.AppCompatEditText-->
+<!--                            android:id="@+id/amount"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:background="@null"-->
+<!--                            android:hint="@string/amount"-->
+<!--                            android:inputType="number"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingRight="8dp"-->
+<!--                            android:textColor="@color/text_tertary"-->
+<!--                            android:textColorHint="@color/text_primary"-->
+<!--                            android:textSize="18sp" />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:paddingEnd="8dp"-->
+<!--                        android:paddingLeft="8dp"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:text="@string/amount"/>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="5dp"-->
+<!--                        android:orientation="vertical">-->
+<!--                        &lt;!&ndash;                android:layout_marginLeft="30dp"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                android:layout_marginRight="30dp"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                <Button&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    android:layout_width="1dp"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                    android:background="@null" />&ndash;&gt;-->
+<!--                        <EditText-->
+<!--                            android:id="@+id/edt_txt_amount"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:inputType="number"-->
+<!--                            android:drawableLeft="@drawable/rupee"-->
+<!--                            android:drawablePadding="10dp"-->
+<!--                            android:drawableTint="@color/black"-->
+<!--                            android:backgroundTint="@color/blue"/>-->
+
+<!--                        &lt;!&ndash;                android:background="@drawable/custom_edt_txt_account_border"&ndash;&gt;-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_maxamount"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:textSize="14dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:layout_marginLeft="20dp"-->
+<!--                            android:textColor="@color/red_error_snack_bar"-->
+<!--                            android:text=""/>-->
+
+
+
+
+<!--                    </LinearLayout>-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_marginTop="10dp">-->
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/edt_txt_remark"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="80dp"-->
+<!--                            android:gravity="start"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:background="@drawable/custom_edt_txt_account_border"-->
+<!--                            android:inputType="text"-->
+<!--                            android:hint="Remark" />-->
+<!--                    </LinearLayout>-->
+
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/message_inputlayout"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_marginTop="16dp"-->
+
+<!--                        android:visibility="gone">-->
+
+<!--                        <androidx.appcompat.widget.AppCompatEditText-->
+<!--                            android:id="@+id/message"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:hint="@string/title_section3"-->
+<!--                            android:inputType="phone"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingRight="8dp"-->
+<!--                            android:textColor="@color/text_tertary"-->
+<!--                            android:textColorHint="@color/text_primary"-->
+<!--                            android:textSize="18sp" />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+<!--                </LinearLayout>-->
+
+<!--            </LinearLayout>-->
+
+<!--        </ScrollView>-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ll_bottombar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:orientation="horizontal"-->
+<!--            >-->
+<!--            &lt;!&ndash;            android:layout_marginLeft="10dp"&ndash;&gt;-->
+<!--            &lt;!&ndash;            android:layout_marginRight="10dp"&ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/btn_clear"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="1dp"-->
+<!--                android:layout_marginRight="1dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/blue_variant2"-->
+<!--                android:text="@string/clear"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="normal"-->
+<!--                tools:ignore="ButtonStyle" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_submit"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="1dp"-->
+<!--                android:layout_marginStart="1dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/blue_variant2"-->
+<!--                android:text="@string/proceed_to_pay"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="normal"-->
+<!--                tools:ignore="ButtonStyle" />-->
+
+
+<!--        </LinearLayout>-->
+
+<!--    </RelativeLayout>-->
+
+<!--</LinearLayout>-->

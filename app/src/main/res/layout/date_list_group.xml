@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="4dp">
+
+    <TextView
+        android:id="@+id/lblDateListHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#DDDDDD"
+        android:padding="8dp"
+        android:paddingEnd="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:text="@string/date_sample"
+        android:textColor="#333333"
+        android:textSize="16sp"/>
+</LinearLayout>

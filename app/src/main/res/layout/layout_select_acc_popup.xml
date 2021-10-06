@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_variant2"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/tv_popuptitle"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@color/blue_variant2"
+            android:text="Select Account Number"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnBookK"
+            android:paddingTop="15dp"
+            android:background="@color/blue_variant2"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_close"
+            tools:ignore="VectorDrawableCompat" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

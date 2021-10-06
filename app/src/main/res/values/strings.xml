@@ -1,0 +1,380 @@
+<resources>
+      <!--<string name="app_name">Perfect Demo</string>-->
+   <!-- <string name="app_name">Parappanangadi CSB</string>-->
+ <!--   <string name="app_name"> Calicut Town SCB</string>-->
+  <!--  <string name="app_name">Kulathupuzha SCB</string>-->
+   <!-- <string name="app_name">Panniyankara SCB</string>-->
+
+    <string name="app_name">Kadampazhipuram SCB</string>
+
+
+   <!-- <string name="app_name">Ulliyeri SCB</string>-->
+  <!--  <string name="app_name">Meppayur Co-operative Town Bank</string>-->
+ <!--   <string name="app_name">Chemanchery SCB</string>-->
+
+   <!-- <string name="app_name">Pantheerankave SCB</string>-->
+
+<!--    <string name="app_name">Atholi Service Co-op Bank</string>-->
+<!--    <string name="app_name">Thiruvambady SCB</string>-->
+<!--    <string name="app_name">Cheruvannur SCB Ltd</string>-->
+<!--    <string name="app_name">Kumaramputhur SCB</string>-->
+<!--    <string name="app_name">Kattippara SCB</string>-->
+<!--    <string name="app_name">MCUS</string>-->
+<!--    <string name="app_name">Vallapuzha SCB</string>-->
+<!--    <string name="app_name">Cherukunnu Scb</string>-->
+<!--    <string name="app_name">Naduvil SCB</string>-->
+<!--    <string name="app_name">Porora SCB</string>-->
+<!--    <string name="app_name">CSC Bank</string>-->
+<!--    <string name="app_name">Mezhuveli SCB</string> -->
+<!--    <string name="app_name">Kuttikkattoor Urban Society</string>-->
+<!--    <string name="app_name">Calicut City Bank</string>-->
+    <!--<string name="app_name">Kayanna SCB</string>-->
+
+
+    <string name="recent_recharge">Recent Recharges</string>
+    <string name="title_section1">Account Information</string>
+    <string name="title_section2">Search</string>
+    <string name="title_section6">Settings</string>
+    <string name="title_section3">Messages</string>
+    <string name="title_section4">Offers</string>
+    <string name="title_section10">Account Summary</string>
+    <string name="title_recharge">Recharge/Bill pay</string>
+    <string name="title_prepaid">Prepaid</string>
+    <string name="title_postpaid">Post Paid</string>
+    <string name="title_landline">Land Line</string>
+    <string name="title_DTH">DTH</string>
+    <string name="transfer_title">Quick transfer</string>
+    <string name="transfer_payment">Payment</string>
+    <string name="transfer_add_new_sender">Add New Sender</string>
+    <string name="transfer_add_new_receiver">Add New Receiver</string>
+    <string name="fund_transfer_title">Own bank</string>
+    <string name="title_section7">About Us</string>
+    <string name="title_section8">Quit</string>
+    <string name="title_section9">Home</string>
+    <string name="title_section5">Pin Change</string>
+    <string name="title_virtualcard">Virtual Card</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="transaction_update_days">Transaction Update(Days)</string>
+    <string name="update_inerval">Update Interval</string>
+    <string name="default_acc">Default Account</string>
+    <string name="apply">Apply</string>
+    <string name="empty"> </string>
+    <string name="title_section0">Passbook</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_transaction_details">Transaction Details</string>
+    <string name="title_activity_search_result">Search Result</string>
+
+    <string name="COMMON_ok">OK</string>
+    <string name="title_activity_transaction_otp">TransactionOTPActivity</string>
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <!--kseb string starts-->
+    <string name="kseb_name_on_drawer">KSEB</string>
+    <string name="kseb_title_action_bar">KSEB bill payment</string>
+    <string name="consumer_name">Consumer name</string>
+    <string name="mobile_no">Mobile number</string>
+    <string name="consumer_no">Consumer no</string>
+    <string name="bill_no">Bill no</string>
+    <string name="amount">Amount</string>
+    <string name="account_no">Account no</string>
+    <string name="confirm_acc_no">Confirm account no:</string>
+    <string name="section">Section</string>
+    <string name="ensure_correct_bill_amt">Ensure correct bill amount</string>
+    <string name="clear_all">Clear all</string>
+    <string name="proceed_to_pay">PROCEED TO PAY >></string>
+
+    <!--kseb string ends-->
+    <!--alert string starts-->
+    <string name="kseb_bill_expiry_alert">Please check the expiry date of the bill</string>
+    <string name="data_card">Data card</string>
+    <string name="kseb_sub_name_bill_status_on_drawer">KSEB Bill status</string>
+
+    <string name="technology_partner">Technology partner:</string>
+    <!--slert string ends-->
+
+    <string name="select_source_account">Select source account</string>
+    <string name="reciever_account_type">Receiver account type</string>
+    <string name="submit">Submit</string>
+    <string name="scan">Scan</string>
+
+    <string name="select_account">Select account</string>
+    <string name="select_sender">Select sender</string>
+    <string name="add_new_sender">[add new sender]</string>
+    <string name="select_receiver">Select receiver</string>
+    <string name="add_new_receiver">[add new receiver]</string>
+    <string name="make_payment">MAKE PAYMENT</string>
+    <string name="allow_phone_permission_to_conitinue">Please allow phone permission to continue</string>
+
+    <string name="activate_user">Activate User</string>
+    <string name="india_mobile_code">+91</string>
+    <string name="pin_number">Pin Number</string>
+    <string name="activate1">Activate</string>
+    <string name="please_wait_for_pin">Please enter 6 digit OTP send to your registered Mobile number.</string>
+    <string name="four_digit_pin">6 digit pin code</string>
+
+    <string name="date_sample">16–6–1985</string>
+    <string name="withdraw">Withdraw</string>
+    <string name="sample_price">25,000</string>
+    <string name="chequeNo">chequeNo</string>
+    <string name="narration">narration</string>
+    <string name="product_name">Product Name</string>
+    <string name="mscore">mScore</string>
+    <string name="product_version">Product Version</string>
+
+    <string name="licenced_to">Licensed To:</string>
+    <string name="customer_id">Customer Id</string>
+    <string name="sample_account_no">234567895555555</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="cust_name">name</string>
+    <string name="address">Address</string>
+
+    <string name="add_receiver">Add receiver</string>
+    <string name="sender_name">Sender Name</string>
+    <string name="receiver_name">Receiver Name</string>
+    <string name="ifsc_code">IFS Code</string>
+    <string name="register">REGISTER</string>
+
+    <string name="add_sender">Add sender</string>
+    <string name="first_name">FIRST NAME</string>
+    <string name="last_name">LAST NAME</string>
+    <string name="caps_mobile_no">MOBILE NUMBER</string>
+    <string name="dob">DOB</string>
+
+    <string name="enter_old_pin">Enter Old Pin</string>
+    <string name="enter_new_pin">Enter New Pin</string>
+    <string name="confirm_pin">Confirm Pin</string>
+
+    <string name="show_qr_code">Show QR code</string>
+    <string name="my_qr">My QR</string>
+
+    <string name="account_type">Account Type</string>
+    <string name="current">Current</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="sample_amount">25,000 Cr</string>
+    <string name="unclear_amount">Unclear Amount</string>
+    <string name="last_updated">Last updated</string>
+    <string name="sample_date">05/03/2015 06:00:00</string>
+
+    <string name="recharge">Recharge</string>
+    <string name="operator">Operator</string>
+    <string name="circle">Circle</string>
+    <string name="clear">CLEAR</string>
+
+    <!--Fund transfer-->
+
+    <string name="app_logo">App logo</string>
+    <string name="logout">Logout</string>
+    <string name="reg">Register</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+
+    <string name="neft_rtgs">NEFT/RTGS</string>
+    <string name="rtgs">RTGS</string>
+    <string name="neft">NEFT</string>
+    <string name="select_acc_no">Select A/c No</string>
+    <string name="beneficiary_name">Beneficiary name</string>
+    <string name="choose_beneficiary"><u>Saved Beneficiary</u></string>
+    <string name="beneficiary_acc_no">Beneficiary A/c No</string>
+    <string name="beneficiary_confirm_account">Confirm Benificiary A/c Number</string>
+    <string name="others">Others</string>
+    <string name="settings">Settings</string>
+    <string name="pin_change">PIN change</string>
+    <string name="navigation_scroll">Navigate scroll</string>
+
+    <string name="hide_recharge">hide recharge</string>
+    <string name="hide_money_transfer">hide money transfer</string>
+
+    <string name="choose_beneficiary_from_list">Choose a beneficiary from given below</string>
+    <string name="drag_to_top">Drag to top</string>
+    <string name="semi_colon">:</string>
+
+    <string name="savings_bank">Savings bank</string>
+    <string name="current_account">Current account</string>
+    <string name="cash_credit">Cash credit</string>
+    <string name="member_loan">Member loan</string>
+    <string name="recurring_deposit">Recurring deposit</string>
+    <string name="jewell_loan">Jewell loan</string>
+    <string name="gds">GDS</string>
+    <string name="select_section_name">Select section name</string>
+    <string name="search_here"> Search here</string>
+    <string name="section_name">Section name</string>
+
+    <string name="enter_otp">Enter OTP</string>
+    <string name="kseb_section_list">Kseb section list</string>
+    <string name="transhist"><u>Transaction History</u></string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="wait_wile_receive_otp">Otp is send to your phone number</string>
+    <string name="_91xxxxxxxx65">   </string>
+    <string name="otp">OTP</string>
+    <string name="confirm">Confirm</string>
+    <string name="rupee">\u20B9</string>
+    <string name="success">Success</string>
+    <string name="transaction_failed">Transaction failed</string>
+    <string name="save_ben">Save beneficiary for future</string>
+    <string name="other_bank">Other bank</string>
+    <string name="splash_screen">ON</string>
+    <string name="qrcode">Scan QRcode</string>
+    <string name="barcode">Scan Barcode</string>
+    <string name="transactions">Streamlines transactions</string>
+    <string name="singlecard">Enable a single point of contact for credit and debit</string>
+    <string name="portfolio">Strengthen your loan portfolio</string>
+    <string name="queue">Eliminate the long queues</string>
+    <string name="purpose"><u>Purpose of Virtual Card:</u></string>
+    <string name="pledgeDeposit"><b>Pledge Deposit</b></string>
+    <string name="advCus">* Access Bank statement from anywhere. \n
+                            * No need to visit the Bank for updating passbook. \n
+                            * Passbook is updated automatically. \n
+                            * Saves Time &amp; Money for Customers. \n
+                            * Get personalized offers from Bank. \n
+                            * Customers can Recharge any prepaid Mobile/ DTH. \n
+                            * Send money to any account, any time, anywhere. \n
+                            * Send messages to Customer regarding new offers and events.</string>
+
+    <string name="advBank">* No Paper, Passbook nor Printing is required. \n
+                            * No dedicated staffs required to perform Passbook printing. \n
+                            * Saves Time &amp; Money for Bank. \n
+                            * Next Generation Banking for Next Generation Customers. \n
+                            * Paperless Banking </string>
+    <string name="features">* Supports multiple accounts of the same customer. \n
+                            * Supports Savings Bank and Current Account. \n
+                            * Statement Viewing facility with filtering. \n
+                            * Search option based on the Date, Amount, Transaction Type. \n
+                            * Sort transactions on Date, Amount. \n
+                            * Private &amp; Public messages. \n
+                            * Fully secured with encryption. \n
+                            * Smart synchronization. \n
+                            * Virtual card. \n
+                            * Rating &amp; Feedback. \n
+                            * Branch Details with Location. \n
+                            * Passbook Summary Details. \n
+                            * Complete Account Summary. \n
+                            * Due notifications. \n
+                            * Standing Notifications. \n
+                            * Customer Alert (Reminders).</string>
+    <string name="security">* Secured Transmission using TLS 1.2 protocol over the transport layer. \n
+                            * End to End Data Encryption using application-level functions. \n
+                            * Random token generation and verification for each transaction. \n
+                            * Encrypted Database. \n
+                            * PIN-based primary authentication. \n
+                            * OTP based dual authentication. \n
+                            * Security Policy implemented in firewall.</string>
+
+    <string name="Licencedby">LICENSED BY :</string>
+
+    <string name="Technologypartner">TECHNOLOGY PARTNER :</string>
+
+
+<!--    <string name="BankKey">d.22333</string>-->
+<!--    <string name="BankHeader">PERFECT\u0020SCORE\u0020BANK\u0020HEAD\u0020OFFICE</string>-->
+
+   <string name="BankKey"></string>
+    <string name="BankHeader"></string>
+
+   <!-- <string name="BankKey">D.2033</string>
+    <string name="BankHeader">Ulliyeri Service Co-operative Bank Ltd., No.D.2033 HO AND MAIN BRANCH</string>-->
+
+   <!-- <string name="BankKey">F.1497</string>
+    <string name="BankHeader">The Meppayur Co-operative Town Bank Ltd., No.F.1497 Head Office Cum Main Branch</string>-->
+   <!-- <string name="BankKey">No.2110</string>
+    <string name="BankHeader">Pantheerankave Service Co-operative Bank Ltd., No.2110 Head Office Cum Main Branch</string>-->
+
+
+  <!--  <string name="BankKey">F.779</string>
+    <string name="BankHeader">The Chemancheri Service Co-operative Bank Ltd.No.F.779 HEAD OFFICE CUM MAIN BRANCH</string>-->
+<!--    <string name="BankKey">D.2694</string>
+    <string name="BankHeader">Panniyankara Service Co-operative Bank Ltd., No.D.2694, HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+   <!-- <string name="BankKey">F.779</string>
+    <string name="BankHeader">The Chemancheri Service Co-operative Bank Ltd.No.F.779 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+
+<!--    <string name="BankKey">D.2721</string>-->
+<!--    <string name="BankHeader">Atholi Service Co-operative Bank Ltd., No.D.2721 Head Office Cum Main Branch</string>-->
+
+<!--    <string name="BankKey">""</string>-->
+<!--    <string name="BankHeader">""</string>-->
+
+<!--    <string name="BankKey">L.56</string>-->
+<!--    <string name="BankHeader">The Thiruvambady Service Co-operative Bank Ltd., No.L.56 HEAD OFFICE</string>-->
+
+<!--    <string name="BankKey">F.1866</string>-->
+<!--    <string name="BankHeader">The Cheruvannur Service Co-operative Bank Ltd., No.F.1866 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">P.373</string>-->
+<!--    <string name="BankHeader">The Kumaramputhur Service Co-operative Bank Ltd., No.P.373 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">D.2930</string>-->
+<!--    <string name="BankHeader">Kattippara Service Co-operative Bank Ltd.No.D.2930 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">W.221</string>-->
+<!--    <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">F.1207</string>-->
+<!--    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>-->
+
+<!--    <string name="BankKey">LL.114</string>-->
+<!--    <string name="BankHeader">The Cherukunnu Service Co-operative Bank Ltd.No.LL.114 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">LL.136</string>-->
+<!--    <string name="BankHeader">Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE</string>-->
+
+<!--    <string name="BankKey">C.8</string>-->
+<!--    <string name="BankHeader">The Porora Service Co-Operative Bank Ltd., No.C.8 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">No.2570</string>-->
+<!--    <string name="BankHeader">Mezhuveli Service Co-operative Bank Ltd.No.2570 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">D.2747</string>-->
+<!--    <string name="BankHeader">Kuttikkattoor Co-operative Urban Society Ltd.D.2747 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">No.62</string>-->
+<!--    <string name="BankHeader">The Cheranalloor Service Co-operative Bank Ltd., No.62 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+<!--    <string name="BankKey">F.761</string>-->
+<!--    <string name="BankHeader">The Kayanna Service Co-operative Bank Ltd.No.F.761 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.katampazhipuram&amp;hl=en_IN&amp;gl=US</string>
+ <!--   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.parapanangadi&amp;hl=en_IN</string>-->
+ <!--   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.calicuttownbank&amp;hl=en_IN</string>-->
+  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kulathupuzha&amp;hl=en_IN</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.panniyankara&amp;hl=en_IN&amp;gl=US</string>-->
+ <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.meppayur&amp;hl=en_IN&amp;gl=US</string>-->
+  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.ulliyeri&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.chemancheri_scb&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.pantheerankavu&amp;hl=en_IN&amp;gl=US</string>-->
+
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.atholi</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.thiruvambady_scb</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cheruvannur</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kumaramputhoor</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kattippara</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.mananthavaady</string> -->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cherukunu_scb</string> -->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.naduvil_scb</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.porora</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.mezhuveli</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kuttikkattoor</string> -->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cheranallurScb</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kayanna</string>-->
+  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.parapanangadi&amp;hl=en_IN</string>-->
+
+    <string name="remainder">\nOver Due Loans are shown in red colour. \n*  Due amount shown in this list is as of today. \n** You can set reminder on calender for due date intimation of deposits &amp; loans.</string>
+
+</resources>

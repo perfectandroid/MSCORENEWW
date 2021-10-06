@@ -1,0 +1,325 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    tools:context="com.creativethoughts.iscore.AccountInfoFragment">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/im_back"
+            android:src="@drawable/ic_back"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:layout_gravity="left|center"
+            tools:ignore="VectorDrawableCompat" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Summary"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="left|center"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textColor="@color/blue_variant1"
+                android:textStyle="bold"
+                android:text="A/C Type : ">
+
+            </TextView>
+            <TextView
+                android:id="@+id/tv_acc_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:textSize="18dp"
+                android:textColor="@color/blue_variant1"
+                android:textStyle="bold"
+                android:text="">
+
+            </TextView>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/c1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="15dp"
+            tools:ignore="MissingConstraints">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="2dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:gravity="center_vertical"
+                            android:drawableLeft="@drawable/icas_ac_no"
+                            android:text="A/C Number"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@android:color/transparent"
+                            android:text="Balance"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/icas_blnce"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"/>
+                        <LinearLayout
+                            android:id="@+id/ll_shareaccount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="5dp"
+                            android:gravity="right">
+                            <TextView
+                                android:id="@+id/tv_share"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/ic_share"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/white"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_accno"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.3"
+                            android:layout_marginLeft="30dp"
+                            android:background="@android:color/transparent"
+                            android:text="4646466"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="14.5sp"/>
+                        <TextView
+                            android:id="@+id/tv_bal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="25,000.00"
+                            android:layout_marginLeft="30dp"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="14.5sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_share_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp">
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/icas_fundtransfer"
+                                android:text="Fund transfer account"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@android:color/transparent"
+                                android:text="IFSC Code"
+                                android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/icas_ifsc_code"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/tv_fund"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="30dp"
+                                android:background="@android:color/transparent"
+                                android:text="4646466"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="14.5sp"/>
+                            <TextView
+                                android:id="@+id/tv_ifsc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start|center_vertical"
+                                android:text="25,000.00"
+                                android:layout_marginLeft="30dp"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="14.5sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_min_share"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_margin="5dp"
+                        android:gravity="center">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center">
+                            <TextView
+                                android:id="@+id/tv_ministatmnt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:padding="5dp"
+                                android:drawablePadding="5dp"
+                                android:background="@drawable/icas_button_bg"
+                                android:drawableLeft="@drawable/icas_mini_stmnt"
+                                android:text="Mini Statement"
+                                android:textColor="@color/white"
+                                android:textSize="13sp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_accSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="15dp"
+            tools:ignore="MissingConstraints"
+            app:cardBackgroundColor="@android:color/white">
+            <LinearLayout
+                android:id="@+id/ll_accSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/llReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_accountSummary"
+                        android:layout_width="match_parent"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollIndicators="bottom"
+                        android:scrollbars="vertical"
+                        android:fadeScrollbars="false"
+                        android:scrollbarSize="7dp"
+                        android:scrollbarStyle="insideInset"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+

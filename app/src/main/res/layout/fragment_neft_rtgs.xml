@@ -1,0 +1,530 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lnear_impes_rtgs_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    tools:context="com.creativethoughts.iscore.neftrtgs.NeftRtgsFragment">
+    <LinearLayout
+        android:id="@+id/rgts_neft_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_neft_rtgs_clear"
+            style="null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginTop="9dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_submit_button"
+            android:text="@string/clear"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_neft_rtgs_submit"
+            style="null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_submit_button"
+            android:text="PAY"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rgts_neft_footer"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llhist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtTrans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:drawableTop="@drawable/history_icon"
+                    android:text="History"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txt_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/neft_rtgs"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:id="@+id/scroll_view_rtgs_neft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            tools:ignore="UselessParent" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/select_mode_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:baselineAligned="false">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Button
+                            android:id="@+id/btn_mode_rtgs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/custom_rtgs_mode_button"
+                            android:text="@string/rtgs"
+                            android:textColor="@color/white" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <Button
+                            android:id="@+id/btn_mode_neft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:background="@drawable/custom_neft_mode_button"
+                            android:text="@string/neft"
+                            android:textColor="@color/white"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/select_accno"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+
+                                android:id="@+id/txtViewSelectAcNo"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/select_accno"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/select_mode_area"
+                                android:textColor="@color/black"
+                                android:text="@string/select_acc_no" />
+
+                            <Spinner
+                                android:id="@+id/spinner_neft_rtgs_acc_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewSelectAcNo"
+                                android:background="@android:color/transparent"
+                                android:padding="5dp"
+                                android:visibility="visible"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/beneficiary_name"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+                                android:visibility="gone"
+                                android:id="@+id/txt_view__neft_rtgs_choose_benefeciary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/spinner_neft_rtgs_acc_no"
+                                android:layout_marginTop="9dp"
+                                android:text="@string/choose_beneficiary"
+                                android:textColor="@color/google_blue"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/txtViewBenificiaryName"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/beneficiary_name"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:layout_below="@id/txt_view__neft_rtgs_choose_benefeciary"
+                                android:layout_marginTop="9dp"
+                                android:text="@string/beneficiary_name" />
+
+                            <EditText
+                                android:id="@+id/edt_txt_neft_rtgs_benificiary_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewBenificiaryName"
+                                android:layout_marginTop="3dp"
+                                android:hint="@string/beneficiary_name"
+                                android:background="@android:color/transparent"
+                                android:inputType="text"
+                                android:maxLength="50"
+                                android:padding="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/beneficiary_accno"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+                                android:id="@+id/txtViewBenificiaryAccNo"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/beneficiary_accno"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:layout_below="@id/edt_txt_neft_rtgs_benificiary_name"
+                                android:layout_marginTop="9dp"
+                                android:text="@string/beneficiary_acc_no" />
+
+                            <EditText
+                                android:id="@+id/edt_txt_neft_rtgs_benificiary_acc_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewBenificiaryAccNo"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="3dp"
+                                android:hint="@string/beneficiary_acc_no"
+                                android:inputType="text"
+                                android:padding="10dp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/beneficiary_accno_confirm"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+                                android:id="@+id/txtViewConfirmBenificiaryAccNo"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/beneficiary_accno_confirm"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:layout_below="@+id/edt_txt_neft_rtgs_benificiary_acc_no"
+                                android:layout_marginTop="9dp"
+                                android:text="@string/beneficiary_confirm_account" />
+
+                            <EditText
+                                android:id="@+id/edt_txt_neft_rtgs_confirm_benificiary_acc_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewConfirmBenificiaryAccNo"
+                                android:layout_marginTop="3dp"
+                                android:hint="@string/beneficiary_confirm_account"
+                                android:background="@android:color/transparent"
+                                android:inputType="text"
+                                android:padding="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/ifsc_code"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+                                android:id="@+id/txtViewIfscCode"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/ifsc_code"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:layout_below="@id/edt_txt_neft_rtgs_confirm_benificiary_acc_no"
+                                android:layout_marginTop="9dp"
+                                android:text="@string/ifsc_code" />
+
+                            <EditText
+                                android:id="@+id/edt_txt_neft_rtgs_ifsc_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewIfscCode"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="3dp"
+                                android:hint="@string/ifsc_code"
+                                android:inputType="text"
+                                android:maxLength="11"
+                                android:padding="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/chk_save_ben"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:buttonTint="@color/google_blue"
+                            android:textColor="@color/google_blue"
+                            android:layout_below="@id/edt_txt_neft_rtgs_ifsc_code"
+                            android:text="@string/save_ben"/>
+
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone"
+                            android:tint="@color/grey1"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/amnt_icon"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@drawable/underline_drawable">
+
+                            <TextView
+                                android:id="@+id/txtViewAmount"
+                                android:layout_width="match_parent"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/amnt_icon"
+                                android:drawablePadding="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/chk_save_ben"
+                                android:textColor="@color/black"
+                                android:layout_marginTop="9dp"
+                                android:text="Amount Payable"/>
+                            <EditText
+                                android:id="@+id/edt_txt_neft_rtgs_amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtViewAmount"
+                                android:background="@android:color/transparent"
+                                android:layout_marginTop="3dp"
+                                android:hint="@string/amount"
+                                android:inputType="number"
+                                android:maxLength="11"
+                                android:textSize="20dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/Green"
+                                android:padding="10dp" />
+
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_amtinword"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/edt_txt_neft_rtgs_amount"
+                            android:textColor="@color/RoyalBlue"
+                            android:text=""/>
+
+                    </LinearLayout>
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!-- <CheckBox
+         android:id="@+id/checkBox"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/rgts_neft_footer"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginEnd="86dp"
+         android:layout_marginRight="86dp"
+         android:text="CheckBox" />
+ -->
+
+</RelativeLayout>

@@ -1,0 +1,3 @@
+keystore password: G9CRZZ9xn3nfzQTj
+aliasname: pantheerankavu_scb
+aliaspassword: G9CRZZ9xn3nfzQTj

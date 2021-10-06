@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bakground"
+    tools:context=".MoreActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_alignBottom="@+id/ll_orderconfirm"
+                android:layout_alignParentStart="true" android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp" android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp" android:layout_marginRight="0dp"
+                android:layout_marginBottom="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_marginTop="30dp"
+                        android:textSize="20sp"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/colorPrimary"
+                        app:cardCornerRadius="5dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"
+                                       />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="45dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:background="@color/grey"
+                                        android:gravity="center_vertical"
+                                        android:text="How secured is Mscore?"
+                                        android:paddingLeft="10dp"
+                                        android:layout_weight="1"/>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/faq1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="It is a fully secured mobile application which is fully encrypted. Also, it is built with advanced security features."/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="What is End-to-End Data Encryption?
+
+"/>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/faq2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="It is a method of secure communication that prevents third parties from accessing data while it's transferred from one end system or device to another."/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/FAQ3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="what is a virtual card?"/>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/faq3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="A virtual card is a randomly-generated number linked with your account number. It is encrypted into a card to help you perform a smoother transaction at the bank. "/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img4"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="How does a Virtual card works?"/>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/faq4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="By scanning the QR code on the back of your virtual card, one can do any kind of transaction at the bank effortlessly."/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img5"
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="How to generate QR code?"/>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/faq5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="Tap on the virtual code on the screen. You get a virtual card instantly with your Name and Photograph printed on the front and QR code and Bar code at the back."/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img6"
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="How to generate &amp; download a statement report?"/>
+                                </LinearLayout>
+
+
+                                <TextView
+                                    android:id="@+id/faq6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="Tap on the Account Details on the screen. Tap the search icon, enter the valid dates, tap on the statement. Now, you can view/ download the report."/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/FAQ7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blue_variant1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:id="@+id/img7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="5"
+                                        android:layout_margin="5dp"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="50dp"
+                                        android:textSize="16dp"
+                                        android:textColor="@android:color/black"
+                                        android:gravity="center_vertical"
+                                        android:background="@color/grey"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="10dp"
+                                        android:text="How to set a due date reminder?"/>
+                                </LinearLayout>
+                                <TextView
+                                    android:id="@+id/faq7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_margin="10dp"
+                                    android:visibility="gone"
+                                    android:textSize="14dp"
+                                    android:text="Under Due date list, tap on the bell icon. Then enter the time &amp; date. Note that the Date can only be set prior to the due date and before the current date."/>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:background="@android:color/darker_gray"
+                                android:layout_height="1dp"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

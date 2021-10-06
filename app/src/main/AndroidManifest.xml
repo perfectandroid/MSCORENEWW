@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.creativethoughts.iscore">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--
+            <uses-permission android:name="android.permission.READ_SMS" />
+            <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+
+    <application
+        android:usesCleartextTraffic="true"
+        android:name=".IScoreApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/aappicon"
+        android:label="@string/app_name"
+        android:hardwareAccelerated="true"
+        android:requestLegacyExternalStorage="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme"
+        tools:replace="icon, label">
+      <!--  <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>-->
+        <!--<provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>-->
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+        <activity android:name=".BalanceEnqActivity"
+            android:label="Quick Balance"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity android:name=".DuedateActivity"
+            android:label="Due Dates Calender"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".FeaturesActvity"
+            android:label="Features"
+            android:parentActivityName=".MoreActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".FAQActivity"
+            android:label="Frequently Asked Questions"
+            android:parentActivityName=".MoreActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".Webview"
+            android:label="View Statement"
+            android:parentActivityName=".DepositMinistatement"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".VirtualActivity"
+            android:label="Virtual Card"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OwnAccountFundTransferActivity"
+            android:label="Own Account Fund Transfer"
+            android:parentActivityName=".money_transfer.FundTransferActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OtherAccountFundTransferActivity"
+            android:label="Other Account Fund Transfer"
+            android:parentActivityName=".money_transfer.FundTransferActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".money_transfer.FundTransferActivity"
+            android:label="Money Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="Feedback"
+            android:parentActivityName=".MoreActivity"
+            android:theme="@style/HomeActivityTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ContactusActivity"
+            android:label="Contact Us"
+            android:parentActivityName=".MoreActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".money_transfer.FundTransferHistoryActivity"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".money_transfer.FundTransferActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".money_transfer.FundTransferActivity" />
+        </activity>
+        <activity
+            android:name=".ShareActivity"
+            android:label="Share Account"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".RechargeHistoryActivity"
+            android:label="Recharge History"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".EMIActivity"
+            android:label="EMI Calculator"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ReachargeOfferActivity"
+            android:label="Recharge Plans"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
+            android:name=".StatusDetailsActivity"
+            android:label="Status Details"
+            android:parentActivityName=".money_transfer.OtherfundTransferType"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
+            android:name=".Recharge.RechargeActivity"
+            android:label="Reacharge"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".money_transfer.OtherbankFundTransferActivity"
+            android:label="Fund Transfer"
+            android:parentActivityName=".money_transfer.FundTransferActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="money_transfer.FundTransferActivity" />
+        </activity>
+
+        <activity
+            android:name=".money_transfer.MoneyTransferActivity"
+            android:label="Money Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".AboutUsActivity"
+            android:label="About Us"
+            android:parentActivityName=".MoreActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".money_transfer.OtherfundTransferType"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".MoreActivity"
+            android:label="More"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Profile"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAAMm9IJ2VJhC_LtVmkgRbwP1psVrIbeEg" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".AccountsummaryActivity"
+            android:label="My Accounts"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".DepositAccountSummaryDetailsActivity"
+            android:label="Account Details"
+            android:parentActivityName=".AccountsummaryActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".LoanAccountSummaryDetailsActivity"
+            android:label="Account Details"
+            android:parentActivityName=".AccountsummaryActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".BankActivity"
+            android:label="Branch Location Details"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".NotificationPostingActivity"
+            android:label="Notice"
+            android:parentActivityName=".AccountsummaryActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".StandingInstructionActivity"
+            android:label="Standing Instructions List"
+            android:parentActivityName=".AccountsummaryActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".SingleBranchActivity"
+            android:label="Branch Details"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".LoanSlabDetails"
+            android:label="Loan Slab"
+            android:parentActivityName=".LoanAccountSummaryDetailsActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".DepositMinistatement"
+            android:label="Mini Statement"
+            android:parentActivityName=".DepositAccountSummaryDetailsActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".Viewstatement"
+            android:label="Statement"
+            android:parentActivityName=".DepositMinistatement"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".LoanMinistatement"
+            android:label="Mini Statement"
+            android:parentActivityName=".LoanAccountSummaryDetailsActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OtherfundTransferHistory"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".money_transfer.FundTransferActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OtherfundTransferHistoryIMPS"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OtherfundTransferHistoryNEFT"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".OtherfundTransferHistoryRTGS"
+            android:label="Fund Transfer Status"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".DashboardtabActivity"
+            android:label="Dash Board"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity android:name=".BranchDetailsActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="Home"
+            android:theme="@style/HomeActivityTheme" >
+
+        </activity>
+
+        <activity android:name=".RecieveAndValidateOTP" />
+<!--        <activity-->
+<!--            android:name=".TransactionDetailActivity"-->
+<!--            android:label="Transaction Details"-->
+<!--            android:theme="@style/HomeActivityTheme">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value="com.creativethoughts.iscore.HomeActivity" />-->
+<!--        </activity>-->
+
+        <activity
+            android:name=".PassbookActivity"
+            android:label="Passbook"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".PassbookTranscationActivity"
+            android:label="Passbook"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".PassbookTranscationDetailsActivity"
+            android:label="Transaction Details"
+            android:parentActivityName=".PassbookTranscationActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".StatementDownloadViewActivity"
+            android:label="Statement"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".TransactionDetailActivity"
+            android:label="Transaction Details"
+            android:parentActivityName=".PassbookActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".SearchResultActivity"
+            android:label="@string/title_activity_search_result"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".PinLoginActivity"
+            android:label="@string/title_activity_transaction_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name=".receiver.MScoreBootCompleteReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.KeepUpdateBroadcastReceiver" />
+        <receiver android:name=".receiver.SMSReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.MySMSBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".AddSenderReceiverActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TransactionOTPActivity"
+            android:label="@string/title_activity_transaction_otp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ScannerActivity"
+            android:label="@string/title_activity_scanner"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AskPhonePermissionActivity" />
+        <activity android:name=".TimeOutActivity" />
+        <activity
+            android:name=".kseb.KsebSectionSelectionActivity"
+            android:theme="@style/PinLoginActivityTheme" />
+        <activity android:name=".neftrtgs.NeftRtgsOtpActivity" />
+        <activity android:name=".QRcodegeneartionActivity" />
+        <activity android:name=".BarcodegenerationActivity" />
+        <activity
+            android:name=".UserRegistrationActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+    </application>
+
+</manifest>

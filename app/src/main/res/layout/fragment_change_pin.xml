@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical"
+    android:padding="20dp"
+              tools:context="com.creativethoughts.iscore.ChangePinFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/settings_page_top">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_settings"
+            android:padding="2dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Pin"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtOldPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_old_pin"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/custom_edt_txt_account_border"
+                android:padding="5dp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:textSize="16sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtNewPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_new_pin"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/custom_edt_txt_account_border"
+                android:padding="5dp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:textSize="16sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edtCnfrmPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/confirm_pin"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/custom_edt_txt_account_border"
+                android:padding="5dp"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/gray"
+                android:textSize="16sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cmdSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        android:background="@color/blue_variant2"
+        android:text="@string/submit"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+</LinearLayout>

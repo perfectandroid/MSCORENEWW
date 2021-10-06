@@ -1,0 +1,362 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.creativethoughts.iscore.neftrtgs.OtherBankFundTransferServiceChooserFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible"
+        android:background="@drawable/bgnew1">
+
+    <TextView
+        android:id="@+id/btn_hist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:drawablePadding="10dp"
+        android:paddingTop="15dp"
+        android:visibility="gone"
+        android:drawableLeft="@drawable/txnhistory"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:textColor="@color/blue_variant"
+        android:text="Transaction History"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_imps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgimps"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/imps"/>
+
+                        <TextView
+                            android:id="@+id/txt_imps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="IMPS"
+                            android:paddingLeft="10dp"
+                            android:layout_toRightOf="@+id/imgimps"
+                            android:textColor="@color/black"/>
+
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/imghist"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:scaleType="fitXY"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/txt_imps"
+                            android:src="@drawable/txnhistory"/>
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/arr1"
+                            app:tint="@color/black" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_neft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/imgneft"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/neft"/>
+
+                        <TextView
+                            android:id="@+id/txtneft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="NEFT"
+                            android:paddingLeft="10dp"
+                            android:layout_toRightOf="@+id/imgneft"
+                            android:textColor="@color/black"/>
+
+
+                        <ImageView
+                            android:id="@+id/imghist1"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:visibility="gone"
+                            android:layout_marginLeft="15dp"
+                            android:scaleType="fitXY"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/txtneft"
+                            android:src="@drawable/txnhistory"/>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/arr1"
+                            app:tint="@color/black" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_rtgs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/imgrtgs"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/rtgs"/>
+
+                        <TextView
+                            android:id="@+id/txtrtgs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="RTGS"
+                            android:paddingLeft="10dp"
+                            android:layout_toRightOf="@+id/imgrtgs"
+                            android:textColor="@color/black"/>
+                        <ImageView
+                            android:id="@+id/imghist2"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="15dp"
+                            android:scaleType="fitXY"
+                            android:visibility="gone"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/txtrtgs"
+                            android:src="@drawable/txnhistory"/>
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:srcCompat="@drawable/arr1"
+                            app:tint="@color/black" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_quickpay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/imgquickpay"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/quick_pay"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="QUICK PAY"
+                            android:paddingLeft="10dp"
+                            android:layout_toRightOf="@+id/imgquickpay"
+                            android:textColor="@color/black"/>
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:tint="@color/black"
+                            app:srcCompat="@drawable/arr1"/>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_transaction_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/imgtransaction_history"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/txn_history"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:text="FUND TRANSFER STATUS"
+                            android:paddingLeft="10dp"
+                            android:layout_toRightOf="@+id/imgtransaction_history"
+                            android:textColor="@color/black"/>
+
+
+                        <ImageView
+                            android:id="@+id/iv5"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:padding="5dp"
+                            android:scaleType="fitXY"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:tint="@color/black"
+                            app:srcCompat="@drawable/arr1"/>
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_imps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IMPS"
+            android:textColor="@color/google_blue"
+            style="@style/service_chooser_before"
+            android:layout_margin="5dp" />
+        <Button
+            android:id="@+id/btn_neft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEFT"
+            style="@style/service_chooser_before"
+            android:layout_margin="5dp" />
+        <Button
+            android:id="@+id/btn_rtgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RTGS"
+            style="@style/service_chooser_before"
+            android:layout_margin="5dp" />
+        <Button
+            android:id="@+id/btn_qck_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="QUICK PAY"
+            style="@style/service_chooser_before"
+            android:layout_margin="5dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltv_proceed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:layout_margin="10dp">
+        <Button
+            android:id="@+id/btn_proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proceed"
+            android:background="@drawable/ripple_effect_confirmation"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>
