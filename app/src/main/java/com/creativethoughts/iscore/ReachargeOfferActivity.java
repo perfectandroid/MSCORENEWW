@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -158,21 +159,28 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
             APIInterface apiService = retrofit.create(APIInterface.class);
             final JSONObject requestObject1 = new JSONObject();
             try {
-                requestObject1.put("Operator",operatorIds );
-                Log.e(TAG,"requestObject1   255    "+requestObject1);
-            } catch (JSONException e) {
+
+                requestObject1.put("Operator",operatorIds);
+                Log.e(TAG,"requestObject1   165    "+ getResources().getString(R.string.BankKey));
+                Log.e(TAG,"requestObject1   165    "+getResources().getString(R.string.BankHeader));
+                requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
+                requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                Log.e(TAG,"requestObject1   165    "+requestObject1);
+            } catch (Exception e) {
                 e.printStackTrace();
+                Log.e(TAG,"requestObject1   168    "+e.toString());
             }
             RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
             Call<String> call = apiService.getRechargeOffer(body);
             call.enqueue(new Callback<String>() {
                 @Override public void onResponse(Call<String> call, Response<String> response) {
                     progressDialog.dismiss();
+
 //                    Log.e(TAG,"onResponse  1731   ");
 //                    String strBody  = response.body().substring(1,response.body().length()-1);
 //                    Log.e(TAG,"onResponse  1732   ");
                     try {
-
+                        Log.e(TAG,"onResponse  180   "+response.body());
                         JSONObject jsonObj = new JSONObject(response.body());
                         Log.e(TAG,"onResponse  177   "+jsonObj.getString("StatusCode"));
                         if(jsonObj.getString("StatusCode").equals("0")) {
@@ -229,10 +237,10 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
 
                         }else {
 
-                            JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeOffersDets");
-                            Log.e(TAG,"onResponse  233   "+jsonObj1.getString("ResponseMessage"));
+                          //  JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeOffersDets");
+                           // Log.e(TAG,"onResponse  233   "+jsonObj1.getString("ResponseMessage"));
                             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ReachargeOfferActivity.this);
-                            builder.setMessage(""+jsonObj1.getString("ResponseMessage"))
+                            builder.setMessage(""+jsonObj.getString("EXMessage"))
 //                                builder.setMessage("No data found.")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
@@ -300,7 +308,7 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
 
                     }
                     catch (Exception e) {
-                      //  Log.e(TAG,"JSONException  173   "+e.toString());
+                        Log.e(TAG,"JSONException  173   "+e.toString());
                         e.printStackTrace();
                         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ReachargeOfferActivity.this);
                         builder.setMessage("No data Found.")

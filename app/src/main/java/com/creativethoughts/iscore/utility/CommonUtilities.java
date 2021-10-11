@@ -296,11 +296,17 @@ private static final String BASE_URL = Common.getBaseUrl();
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
+//                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
+//                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(activity.getResources().getString(R.string.BankKey)));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(activity.getResources().getString(R.string.BankHeader)));
+
+                    Log.e("requestObject1 ","requestObject1  302   "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
+                    Log.e("Exception ","Exception  302   "+e.toString());
 
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
@@ -310,6 +316,8 @@ private static final String BASE_URL = Common.getBaseUrl();
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try{
+
+                            Log.e("response ","response  302   "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");

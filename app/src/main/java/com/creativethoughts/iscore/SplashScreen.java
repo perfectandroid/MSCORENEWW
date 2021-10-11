@@ -421,6 +421,8 @@ public class SplashScreen extends AppCompatActivity {
                 });
             }
             catch (Exception e) {
+                Log.i("Imagedetails",e.toString());
+
                 e.printStackTrace();
             }
         }

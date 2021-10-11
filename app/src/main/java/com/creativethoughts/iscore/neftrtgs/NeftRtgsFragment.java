@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.neftrtgs;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -141,6 +142,9 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 
         txtViewChooseBeneficiary.setOnClickListener(this );
         mEdtTxtBeneficiaryConfirmAccNo.setFilters( new InputFilter[]{ inputFilterAccountNumber } );
+
+
+        Log.e("NeftRtgsFragment  ","Start");
        try{
            Bundle bundle = getArguments();
            assert bundle != null;
@@ -351,90 +355,98 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void confirmationPopup() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.confirmation_msg_popup, null);
-        dialogBuilder.setCancelable(false);
-        dialogBuilder.setView(dialogView);
 
 
-        String amnt = mEdtTxtAmount.getText().toString().replaceAll(",", "");
-        TextView text_confirmationmsg = dialogView.findViewById(R.id.text_confirmationmsg);
-        TextView tv_amount = dialogView.findViewById(R.id.tv_amount);
-        TextView txtvAcntno = dialogView.findViewById(R.id.txtvAcntno);
-        TextView txtvbranch = dialogView.findViewById(R.id.txtvbranch);
-        TextView txtvbalnce = dialogView.findViewById(R.id.txtvbalnce);
+     try {
+         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+         LayoutInflater inflater = this.getLayoutInflater();
+         View dialogView = inflater.inflate(R.layout.confirmation_msg_popup, null);
+         dialogBuilder.setCancelable(false);
+         dialogBuilder.setView(dialogView);
 
-        TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
-        TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
-        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
 
-        txtvAcntno.setText("A/C No : "+mSpinnerAccountNo.getSelectedItem().toString());
-        reslts = CommonUtilities.result;
-        balnce = CommonUtilities.bal;
-        txtvbranch.setText("Branch :"+reslts);
-       // txtvbranch.setVisibility(View.GONE);
-        double num1 =Double.parseDouble(balnce);
-        DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+         String amnt = mEdtTxtAmount.getText().toString().replaceAll(",", "");
+         TextView text_confirmationmsg = dialogView.findViewById(R.id.text_confirmationmsg);
+         TextView tv_amount = dialogView.findViewById(R.id.tv_amount);
+         TextView txtvAcntno = dialogView.findViewById(R.id.txtvAcntno);
+         TextView txtvbranch = dialogView.findViewById(R.id.txtvbranch);
+         TextView txtvbalnce = dialogView.findViewById(R.id.txtvbalnce);
 
-        txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
-
-        TextView tv_amount_words = dialogView.findViewById(R.id.tv_amount_words);
-        Button butOk = dialogView.findViewById(R.id.btnOK);
-        Button butCan = dialogView.findViewById(R.id.btnCncl);
-
-        txtvAcntnoto.setText("A/C No: "+ mEdtTxtBeneficiaryConfirmAccNo.getText().toString());
-        txtvbranchto.setText("Branch :"+"");
-        txtvbranchto.setVisibility(View.GONE);
-        // txtvbalnceto.setText("Transfer Amount: ");
+         TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
+         TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
+         TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
 
 
 
-        if(amnt!=null)
-        {
-            double num =Double.parseDouble(""+amnt);
-            String stramnt = CommonUtilities.getDecimelFormate(num);
+         txtvAcntno.setText("A/C No : "+mSpinnerAccountNo.getSelectedItem().toString());
+         reslts = CommonUtilities.result;
+         balnce = CommonUtilities.bal;
+         txtvbranch.setText("Branch :"+reslts);
+         // txtvbranch.setVisibility(View.GONE);
+         double num1 =Double.parseDouble(balnce);
+         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
-            text_confirmationmsg.setText("Proceed Transaction with above receipt amount"+ "..?");
+         txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
 
-            // text_confirmationmsg.setText("Proceed Transaction with above receipt amount to A/C no " + accNumber + " ..?");
-            String[] netAmountArr = amnt.split("\\.");
-            String amountInWordPop = "";
-            if ( netAmountArr.length > 0 ){
-                int integerValue = Integer.parseInt( netAmountArr[0] );
-                amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
-                if ( netAmountArr.length > 1 ){
-                    int decimalValue = Integer.parseInt( netAmountArr[1] );
-                    if ( decimalValue != 0 ){
-                        amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
-                    }
-                }
-                amountInWordPop += " only";
-            }
-            tv_amount_words.setText(""+amountInWordPop);
+         TextView tv_amount_words = dialogView.findViewById(R.id.tv_amount_words);
+         Button butOk = dialogView.findViewById(R.id.btnOK);
+         Button butCan = dialogView.findViewById(R.id.btnCncl);
 
-
-            tv_amount.setText("₹ " + stramnt );
-        }
+         txtvAcntnoto.setText("A/C No: "+ mEdtTxtBeneficiaryConfirmAccNo.getText().toString());
+         txtvbranchto.setText("Branch :"+"");
+         txtvbranchto.setVisibility(View.GONE);
+         // txtvbalnceto.setText("Transfer Amount: ");
 
 
 
-        AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
-        butOk.setOnClickListener(v -> {
+         if(amnt!=null)
+         {
+             double num =Double.parseDouble(""+amnt);
+             String stramnt = CommonUtilities.getDecimelFormate(num);
 
-            //   btn_submit.setEnabled(false);
-            alertDialog.dismiss();
-            // submit(alertDialog);
-            submit();
-        });
+             text_confirmationmsg.setText("Proceed Transaction with above receipt amount"+ "..?");
 
-        butCan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
+             // text_confirmationmsg.setText("Proceed Transaction with above receipt amount to A/C no " + accNumber + " ..?");
+             String[] netAmountArr = amnt.split("\\.");
+             String amountInWordPop = "";
+             if ( netAmountArr.length > 0 ){
+                 int integerValue = Integer.parseInt( netAmountArr[0] );
+                 amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+                 if ( netAmountArr.length > 1 ){
+                     int decimalValue = Integer.parseInt( netAmountArr[1] );
+                     if ( decimalValue != 0 ){
+                         amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
+                     }
+                 }
+                 amountInWordPop += " only";
+             }
+             tv_amount_words.setText(""+amountInWordPop);
+
+
+             tv_amount.setText("₹ " + stramnt );
+         }
+
+
+
+         AlertDialog alertDialog = dialogBuilder.create();
+         alertDialog.show();
+         butOk.setOnClickListener(v -> {
+
+             //   btn_submit.setEnabled(false);
+             alertDialog.dismiss();
+             // submit(alertDialog);
+             submit();
+         });
+
+         butCan.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 alertDialog.dismiss();
+             }
+         });
+     }catch (Exception e){
+         Log.e("Exception  446    ",""+e.toString());
+     }
 
 
 

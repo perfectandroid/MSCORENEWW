@@ -5,9 +5,37 @@
   <!--  <string name="app_name">Kulathupuzha SCB</string>-->
    <!-- <string name="app_name">Panniyankara SCB</string>-->
 
-    <string name="app_name">Kadampazhipuram SCB</string>
+   <!-- <string name="app_name">Kadampazhipuram SCB</string>-->
+   <!-- <string name="app_name">Chathamangalam SCB</string>-->
+  <!--  <string name="app_name">Irinave SCB</string>-->
+<!--    <string name="app_name">Nanminda CRB</string>-->
 
+   <string name="app_name">Chekkiad SCB</string>
+   <!-- <string name="app_name">PRCB</string>-->
+   <!-- <string name="app_name">Vayyattupuzha SCB</string>-->
 
+   <!-- <string name="app_name">Vayyattupuzha SCB</string>-->
+   <!-- <string name="app_name">Thekkumbhagam SCB</string>-->
+
+   <!-- <string name="app_name">Thekkumbhagam SCB</string>-->
+
+  <!--  <string name="app_name">Thiruvambady SCB</string>-->
+  <!--  <string name="app_name">Cheruvannur SCB</string>-->
+    <!--<string name="app_name">Kumaramputhur SCB</string>-->
+   <!-- <string name="app_name">Kattippara SCB</string>-->
+
+<!--    <string name="app_name">MCUS</string>-->
+ <!--   <string name="app_name">Porora SCB</string>-->
+  <!--  <string name="app_name">Mezhuveli SCB</string>-->
+
+   <!-- <string name="app_name">Perfect Demo</string>-->
+
+   <!-- <string name="app_name">Cheranalloor SCB</string>-->
+
+   <!-- <string name="app_name">Kayanna SCB</string>-->
+    <!--<string name="app_name">Naduvil SCB</string>-->
+    <!--<string name="app_name">Cherukunnu Scb</string>-->
+  <!--  <string name="app_name">Vallapuzha SCB</string>-->
    <!-- <string name="app_name">Ulliyeri SCB</string>-->
   <!--  <string name="app_name">Meppayur Co-operative Town Bank</string>-->
  <!--   <string name="app_name">Chemanchery SCB</string>-->
@@ -283,9 +311,86 @@
 <!--    <string name="BankKey">d.22333</string>-->
 <!--    <string name="BankHeader">PERFECT\u0020SCORE\u0020BANK\u0020HEAD\u0020OFFICE</string>-->
 
-   <string name="BankKey"></string>
-    <string name="BankHeader"></string>
+<!--  <string name="BankKey"></string>
+    <string name="BankHeader"></string>-->
 
+   <!-- <string name="BankKey">F.1839</string>
+   <string name="BankHeader">The Chathamangalam Service Co-operative Bank Ltd.,No.F.1839 HO CUM MAIN BRANCH</string>-->
+
+ <!-- <string name="BankKey"></string>
+    <string name="BankHeader"></string>-->
+ <!--  <string name="BankKey">F.761</string>
+    <string name="BankHeader">The Kayanna Service Co-operative Bank Ltd.No.F.761 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+ <!-- <string name="BankKey">No.62</string>
+    <string name="BankHeader">The Cheranalloor Service Co-operative Bank Ltd., No.62 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+  <!-- <string name="BankKey">D.2747</string>
+    <string name="BankHeader">Kuttikkattoor Co-operative Urban Society Ltd.D.2747 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+   <!-- <string name="BankKey">No.2570</string>
+    <string name="BankHeader">Mezhuveli Service Co-operative Bank Ltd.No.2570 HEAD OFFICE CUM MAIN BRANCH</string>
+-->
+
+  <!-- <string name="BankKey">C.8</string>
+    <string name="BankHeader">The Porora Service Co-Operative Bank Ltd., No.C.8 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+
+   <!--<string name="BankKey">LL.136</string>
+    <string name="BankHeader">Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE</string>-->
+<!--    <string name="BankKey">LL.114</string>
+    <string name="BankHeader">The Cherukunnu Service Co-operative Bank Ltd.No.LL.114 HEAD OFFICE CUM MAIN BRANCH</string-->>
+
+
+    <!--<string name="BankKey">W.221</string>
+    <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>
+-->
+
+  <!--  <string name="BankKey">F.1207</string>
+    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>
+-->
+  <!-- <string name="BankKey">W.221</string>
+    <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+
+   <!-- <string name="BankKey">D.2930</string>
+    <string name="BankHeader">Kattippara Service Co-operative Bank Ltd.No.D.2930 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+    <!--<string name="BankKey">P.373</string>
+    <string name="BankHeader">The Kumaramputhur Service Co-operative Bank Ltd., No.P.373 HEAD OFFICE CUM MAIN BRANCH</string>-->
+  <!--<string name="BankKey">F.1866</string>
+    <string name="BankHeader">The Cheruvannur Service Co-operative Bank Ltd., No.F.1866 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+   <!-- <string name="BankKey">L.56</string>
+    <string name="BankHeader">The Thiruvambady Service Co-operative Bank Ltd., No.L.56 HEAD OFFICE</string>-->
+
+    <!--<string name="BankKey">D.2721</string>
+    <string name="BankHeader">Atholi Service Co-operative Bank Ltd., No.D.2721 Head Office Cum Main Branch</string>-->
+  <!--  <string name="BankKey">F.450</string>
+    <string name="BankHeader">The Kottur Service Co-operative Bank Ltd.No.F.450 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+  <!-- <string name="BankKey">E.31</string>
+    <string name="BankHeader">The Thekkumbhagam Service Co-operative Bank Ltd.No.E.31 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+   <!-- <string name="BankKey">Q.354</string>
+    <string name="BankHeader">The Vayyattupuzha Service Co-operative Bank Ltd., No.Q.354 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+
+    <!--<string name="BankKey">F.1752</string>
+    <string name="BankHeader">The Perambra Regional Co-operative Bank Ltd., No.F.1752 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+    <string name="BankKey">F.1657</string>
+    <string name="BankHeader">The Chekkiad Service Co-operative Bank Ltd.,No.F.1657 HEAD OFFICE CUM MAIN BRANCH</string>
+
+   <!-- <string name="BankKey">F.1238</string>
+    <string name="BankHeader">Nanminda Co-operative Rural Bank Ltd., No.F.1238 HO And Main Branch</string>-->
+
+   <!-- <string name="BankKey">LL.116</string>
+    <string name="BankHeader">The Irinave Service Co-operative Bank Ltd.No.LL.116 HEAD OFFICE CUM MAIN BRANCH</string>-->
+
+
+   <!-- <string name="BankKey">F.1215</string>
+    <string name="BankHeader">The Kadampazhipuram Service Co-operative Bank Ltd., No.F.1215 HEAD OFFICE CUM MAIN BRANCH</string>-->
    <!-- <string name="BankKey">D.2033</string>
     <string name="BankHeader">Ulliyeri Service Co-operative Bank Ltd., No.D.2033 HO AND MAIN BRANCH</string>-->
 
@@ -348,8 +453,45 @@
 
 <!--    <string name="BankKey">F.761</string>-->
 <!--    <string name="BankHeader">The Kayanna Service Co-operative Bank Ltd.No.F.761 HEAD OFFICE CUM MAIN BRANCH</string>-->
+  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.thekkumbagam&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.atholi&amp;hl=en_IN&amp;gl=US</string>-->
 
-    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.katampazhipuram&amp;hl=en_IN&amp;gl=US</string>
+
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.mananthavaady</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.porora</string>-->
+
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.mezhuveli&amp;hl=en_IN&amp;gl=US</string>-->
+
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kayanna&amp;hl=en_IN&amp;gl=US</string>-->
+
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cheranallurScb&amp;hl=en_IN&amp;gl=US</string>-->
+
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kuttikkattoor&amp;hl=en_IN&amp;gl=US</string>-->
+
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.naduvil_scb</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cherukunu_scb</string>-->
+
+
+  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb&amp;hl=en_IN</string>-->
+
+
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kattippara&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kumaramputhoor&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cheruvannur&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.thiruvambady_scb&amp;hl=en_IN&amp;gl=US</string>-->
+
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.thiruvambady_scb&amp;hl=en_IN&amp;gl=US</string>-->
+
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kotturscb&amp;hl=en_IN&amp;gl=US</string>-->
+ <!--   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.Vayyattupuzha&amp;hl=en_IN&amp;gl=US</string>-->
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.perambra_rcb&amp;hl=en&amp;gl=US</string>-->
+
+    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.chekkiad&amp;hl=en_IN&amp;gl=US</string>
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.nanminda&amp;hl=en_IN&amp;gl=US</string>-->
+    <!--<string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.irinav_scb&amp;hl=en_IN&amp;gl=US</string>-->
+
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.chathamangalam&amp;hl=en_IN&amp;gl=US</string>-->
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.katampazhipuram&amp;hl=en_IN&amp;gl=US</string>-->
  <!--   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.parapanangadi&amp;hl=en_IN</string>-->
  <!--   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.calicuttownbank&amp;hl=en_IN</string>-->
   <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kulathupuzha&amp;hl=en_IN</string>-->

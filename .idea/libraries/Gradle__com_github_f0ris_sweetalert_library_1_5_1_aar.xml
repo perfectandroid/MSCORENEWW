@@ -4,12 +4,17 @@
       <root url="jar://$PROJECT_DIR$/../gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/res" />
       <root url="file://$PROJECT_DIR$/../gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/AndroidManifest.xml" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/jars/classes.jar!/" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/AndroidManifest.xml" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d316cd9e1c74a086b6956df1353f7fba/jetified-library-1.5.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../gradle-6.5/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.1/3271b7c01b8909d776ae7bfdc36104b0d9646c57/library-1.5.1-javadoc.jar!/" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.1/3271b7c01b8909d776ae7bfdc36104b0d9646c57/library-1.5.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../gradle-6.5/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.1/88fd2f7eecfc597fde6e7db1a147029d89f22cfc/library-1.5.1-sources.jar!/" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.f0ris.sweetalert/library/1.5.1/88fd2f7eecfc597fde6e7db1a147029d89f22cfc/library-1.5.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
