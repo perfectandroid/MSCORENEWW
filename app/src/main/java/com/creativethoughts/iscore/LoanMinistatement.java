@@ -1528,15 +1528,23 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                     Log.i("First1 ", String.valueOf(object));
                                     String filename = object.getString("FilePath");
                                     String filename1 = object.getString("FileName");
-                                    StringTokenizer tokens = new StringTokenizer(filename, "\\");
+
+                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
+                                    String two = filename.substring(filename.length() / 2);
+
+                                    String strNew = two.replaceFirst("t", "");
+
+
+                                   /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                     String first = tokens.nextToken();// this will contain "Fruit"
                                     String second = tokens.nextToken();
                                     String third = tokens.nextToken();
                                     String four = tokens.nextToken();
-                                    String five = tokens.nextToken();
+                                    String five = tokens.nextToken();*/
                                     // String six = tokens.nextToken();
+                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
 
-                                    String filename2 = Common.getBaseUrl() + "/" + four + "/" + five + "/" + filename1;
+                                  //  String filename2 = Common.getBaseUrl() + "/" + four + "/" + five + "/" + filename1;
                                     Log.i("Path", filename2 + "\n" + filename1);
 
                                     Intent i = new Intent(LoanMinistatement.this, Viewstatement.class);
@@ -1690,15 +1698,25 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                 Log.i("First1 ",String.valueOf(object));
                                 String filename =object.getString("FilePath");
                                 String filename1 =object.getString("FileName");
-                                StringTokenizer tokens = new StringTokenizer(filename, "\\");
+
+                                String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
+                                String two = filename.substring(filename.length() / 2);
+
+                                String strNew = two.replaceFirst("t", "");
+
+
+
+                               /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                 String first = tokens.nextToken();// this will contain "Fruit"
                                 String second = tokens.nextToken();
                                 String third = tokens.nextToken();
                                 String four = tokens.nextToken();
-                                String five = tokens.nextToken();
+                                String five = tokens.nextToken();*/
                                 // String six = tokens.nextToken();
 
-                                String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
+                                String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+
+                              //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                 Log.i("Path",filename2+"\n"+filename1);
 
                                 downloadFile(filename2, filename1);

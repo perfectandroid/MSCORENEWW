@@ -64,24 +64,24 @@
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD7lUVFkomiSdIXtQwnPLYzVo38kVncpVA</string>-->
 
 <!--    &lt;!&ndash;    //Cheranallur&ndash;&gt;-->
-<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4uYTHANTrcaJby9e5BR4IpOOSjVFTm-Q</string>-->
+  <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4uYTHANTrcaJby9e5BR4IpOOSjVFTm-Q</string>-->
 
     <!--    //Kayanna-->
  <!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAC0s_0bn9wqUU1iJ91Fw3mswQaAbirkHI</string>-->
 <!--panniyankara-->
-   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAMdiGbC0JYE68XIWxKRcWdIMHeOBitzoA</string>-->
+    <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAMdiGbC0JYE68XIWxKRcWdIMHeOBitzoA</string>-->
 <!--   meppayur-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAOOLr1_cmkqWch5D3Zc6XPw53CPFES11E</string>-->
 <!--kadambazhipuram-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDPa8Py8Siaguix18fCSCaCeLa8yTgrpEg</string>-->
 <!--chathamangalam-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDab8P-cXZQ7jVkOWuLdo1bwz1Q3hDt9OE</string>-->
+   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDab8P-cXZQ7jVkOWuLdo1bwz1Q3hDt9OE</string>-->
 <!--irinave-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCWCDMBmPYPfrnFSsQBSL6T-99kWvwqtHE</string>-->
 <!--   nanminda-->
-    <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAc2Ild9yPOrectVVrK2cvpXxYF6tiy-vs</string>-->
+  <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAc2Ild9yPOrectVVrK2cvpXxYF6tiy-vs</string>-->
 <!--chekkiad-->
-   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDSs7MrCgQyw8mKmifEJvkwOvwW_T8iRfk</string>
+  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4fgX_yo5OG6t_V3N8nFxYoowbrPWqtOU</string>
 <!--perambra-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCKWuHpfad_ZvyR4Fw0HE-bQC3mp98cDEQ</string>-->
 
@@ -124,5 +124,5 @@
     <!--  chemmanchery-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCi-ZGfqbN2NhfyPMyGFinRWkodUCAJUeM</string>-->
 <!--pantheerankavu-->
- <!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD9cX_5j437SVrfsi-yMuQp86Tk1Gw8HAU</string>-->
+  <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD9cX_5j437SVrfsi-yMuQp86Tk1Gw8HAU</string>-->
 </resources>

@@ -185,9 +185,9 @@ public class Common {
 
 
 //    //Perfect Demo
-/*  private static final String HOSTNAME_SUBJECT="STATIC-VM";
+  private static final String HOSTNAME_SUBJECT="STATIC-VM";
     private static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
-    public static final String BASE_URL="https://202.164.150.65:14264";*/
+    public static final String BASE_URL="https://202.164.150.65:14264";
 
 
 
@@ -209,9 +209,9 @@ public class Common {
     public static final String BASE_URL="https://117.241.74.118:14001";*/
 
     //Panniyankara scb//chemmanchery//PANTHEERANKAVU//meppayur//KADAMBAZHIPURAM
-   private static final String HOSTNAME_SUBJECT="MSCORESERVER";
+  /* private static final String HOSTNAME_SUBJECT="MSCORESERVER";
     private static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";
-    public static final String BASE_URL="https://13.71.91.134:14002";
+    public static final String BASE_URL="https://13.71.91.134:14002";*/
 
 
 

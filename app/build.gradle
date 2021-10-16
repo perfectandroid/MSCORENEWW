@@ -35,21 +35,21 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 29
-       // applicationId "com.mscore.pss"
+        applicationId "com.mscore.pss"
        // applicationId "com.mscore.parapanangadi"
        // applicationId "com.mscore.calicuttownbank"
         //applicationId "com.mscore.kulathupuzha"
 
-       // applicationId "com.mscore.panniyankara"
+      //  applicationId "com.mscore.panniyankara"
         //applicationId "com.mscore.meppayur"
         //applicationId "com.mscore.chemancheri_scb"
-      //  applicationId "com.mscore.pantheerankavu"
+        //applicationId "com.mscore.pantheerankavu"
 
        // applicationId "com.mscore.ulliyeri"
-      //  applicationId "com.mscore.chathamangalam"
+      // applicationId "com.mscore.chathamangalam"
       //  applicationId "com.mscore.irinav_scb"
-       // applicationId "com.mscore.nanminda"
-        applicationId "com.mscore.chekkiad"
+    //    applicationId "com.mscore.nanminda"
+      //  applicationId "com.mscore.chekkiad"
         //applicationId "com.mscore.perambra_rcb"
        // applicationId "com.mscore.Vayyattupuzha"
        // applicationId "com.mscore.thekkumbagam"
@@ -68,7 +68,7 @@ android {
        // applicationId "com.mscore.porora"
        // applicationId "com.mscore.mezhuveli"
       //  applicationId "com.mscore.kuttikkattoor"
-       // applicationId "com.mscore.cheranallurScb"
+      //  applicationId "com.mscore.cheranallurScb"
         //applicationId "com.mscore.kayanna"
 
        // applicationId "com.mscore.vallapuzha_scb"
@@ -85,7 +85,7 @@ android {
 //        applicationId "com.mscore.porora"
 //        applicationId "com.mscore.mezhuveli"
 //        applicationId "com.mscore.kuttikkattoor"
-//        applicationId "com.mscore.cheranallurScb"
+    //   applicationId "com.mscore.cheranallurScb"
       // applicationId "com.mscore.kayanna"
       //  applicationId "com.mscore.parapanangadi"
 //        versionCode = 24
@@ -103,17 +103,17 @@ android {
         //CALICUT TOWN BANK
       /* versionCode = 15
         versionName = '4.0.3'*/
-      /* versionCode = 1
-        versionName = '1.0.0'*/
+       versionCode = 1
+        versionName = '1.0.0'
         /*chemmanchery*/
        /* versionCode = 6
         versionName = '4.0.3'*/
 //panniyankara
-      /*  versionCode = 10
-        versionName = '4.0.3'*/
+        /*versionCode = 11
+        versionName = '4.0.4'*/
         /*pantheerankavu*/
-       /* versionCode = 4
-        versionName = '4.0.2'*/
+       /* versionCode = 5
+        versionName = '4.0.3'*/
 /*meppayur*/
         /*versionCode = 17
         versionName = '4.0.1'*/
@@ -124,17 +124,17 @@ android {
        /* versionCode = 5
         versionName = '4.0.2'*/
         //chathamangalam
-      /*  versionCode = 2
-        versionName = '4.0.1'*/
+      /*  versionCode = 3
+        versionName = '4.0.2'*/
         //irinav
        /* versionCode = 6
         versionName = '4.0.3'*/
         //nanminda
-      /*  versionCode = 17
-        versionName = '4.0.5'*/
+      /*  versionCode = 18
+        versionName = '4.0.6'*/
         //chekkiad
-        /*versionCode = 2
-        versionName = '4.0.1'*/
+       /* versionCode = 3
+        versionName = '4.0.2'*/
         //perambra
        /* versionCode = 5
         versionName = '4.0.3'*/
@@ -148,8 +148,8 @@ android {
         /*versionCode = 2
         versionName = '4.0.1'*/
         //atholi
-       /* versionCode = 8
-        versionName = '4.0.3'*/
+       /* versionCode = 9
+        versionName = '4.0.4'*/
         //thiruvambadió
        /* versionCode = 7
         versionName = '4.0.3'*/
@@ -184,14 +184,14 @@ android {
        /* versionCode = 2
         versionName = '4.0.1'*/
        //cheranalloor
-        /*versionCode = 7
-        versionName = '4.0.6'*/
+       /* versionCode = 8
+        versionName = '4.0.7'*/
 
        /* versionCode = 2
         versionName = '4.0.1'*/
 
-        versionCode = 2
-        versionName = '4.0.1'
+       /* versionCode = 2
+        versionName = '4.0.1'*/
     }
 
     buildTypes {

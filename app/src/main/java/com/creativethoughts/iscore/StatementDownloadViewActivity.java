@@ -271,6 +271,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     requestObject1.put("LoanType",      IScoreApplication.encryptStart("0"));
                     requestObject1.put("BankKey",       IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
                     requestObject1.put("BankHeader",    IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+
+                    Log.e("requestObject1  ",""+requestObject1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -280,6 +282,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
+
+                            Log.e("response  286  ",""+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
@@ -579,9 +583,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                         .client(client)
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
-                String reqmode = IScoreApplication.encryptStart("1");
+              //  String reqmode = IScoreApplication.encryptStart("1");
                 final JSONObject requestObject1 = new JSONObject();
-                try {
+             //   try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     Date d = dateFormat.parse(from);
                     Date d1 = dateFormat.parse(to);
@@ -601,10 +605,13 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
 
 
-                } catch (Exception e) {
+                Log.e("requestObject1  122 ",""+requestObject1);
+
+              /*  }
+                catch (Exception e) {
                     e.printStackTrace();
 
-                }
+                }*/
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getAccountstatement(body);
                 call.enqueue(new Callback<String>() {
@@ -613,6 +620,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try {
+
+                            Log.e("requestObject1  622 ",""+response.body());
                             String res = response.toString();
                             StringTokenizer tokenss = new StringTokenizer(res, ",");
                             String s = tokenss.nextToken();
@@ -637,16 +646,30 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     Log.i("First1 ",String.valueOf(object));
                                     String filename =object.getString("FilePath");
                                     String filename1 =object.getString("FileName");
-                                    StringTokenizer tokens = new StringTokenizer(filename, "\\");
+
+                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
+                                    String two = filename.substring(filename.length() / 2);
+
+                                    String strNew = two.replaceFirst("t", "");
+
+                                   /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                     String first = tokens.nextToken();// this will contain "Fruit"
                                     String second = tokens.nextToken();
                                     String third = tokens.nextToken();
                                     String four = tokens.nextToken();
-                                    String five = tokens.nextToken();
-                                    // String six = tokens.nextToken();
+                                    String five = tokens.nextToken();*/
+                                  //  String six = tokens.nextToken();
+                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                   // String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
+                                    Log.e("Path",filename2+"\n"+filename1);
+                                 //   String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;
+//
+//                                    Log.e("Path1  ",filename1);
+//                                    Log.e("Path2   ",filename2);
+//                                    Log.e("Path4   ",four);
+//                                    Log.e("Path5   ",five);
 
-                                    String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
-                                    Log.i("Path",filename2+"\n"+filename1);
+
 
                                     Intent i = new Intent(StatementDownloadViewActivity.this, Viewstatement.class);
                                     i.putExtra("docx", filename2);
@@ -697,7 +720,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                             //      Log.i("viewdocument", response.body());
 
                             //Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
+                        }
+                        catch (JSONException e) {
 
                         }
 
@@ -709,7 +733,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     }
                 });
 
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
+                e.printStackTrace();
 
             }
         } else {
@@ -733,6 +759,24 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
             progressDialog.show();
             try {
 
+               /* OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(Common.getBaseUrl())
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+              //  String reqmode = IScoreApplication.encryptStart("1");
+                final JSONObject requestObject1 = new JSONObject();*/
+
+
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -747,7 +791,6 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                         .client(client)
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
-                String reqmode = IScoreApplication.encryptStart("1");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -769,7 +812,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
 
 
-                } catch (Exception e) {
+                }
+
+                catch (Exception e) {
                     e.printStackTrace();
 
                 }
@@ -804,16 +849,28 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                     Log.i("First1 ",String.valueOf(object));
                                     String filename =object.getString("FilePath");
+                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
+                                    String two = filename.substring(filename.length() / 2);
+
+                                    String strNew = two.replaceFirst("t", "");
+
                                     String filename1 =object.getString("FileName");
-                                    StringTokenizer tokens = new StringTokenizer(filename, "\\");
+                                   /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                     String first = tokens.nextToken();// this will contain "Fruit"
                                     String second = tokens.nextToken();
                                     String third = tokens.nextToken();
+
                                     String four = tokens.nextToken();
                                     String five = tokens.nextToken();
-                                    // String six = tokens.nextToken();
+*/
 
-                                    String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
+
+                                   //  String six = tokens.nextToken();
+
+                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                    //String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
+
+                                  //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;
                                     Log.i("Path",filename2+"\n"+filename1);
 
                                     downloadFile(filename2, filename1);
@@ -866,6 +923,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
                             //Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
+                            e.printStackTrace();
 
                         }
 
@@ -878,6 +936,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                 });
 
             } catch (Exception e) {
+                e.printStackTrace();
 
             }
         } else {
