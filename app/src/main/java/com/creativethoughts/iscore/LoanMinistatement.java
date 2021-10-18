@@ -1529,10 +1529,8 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                     String filename = object.getString("FilePath");
                                     String filename1 = object.getString("FileName");
 
-                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
-                                    String two = filename.substring(filename.length() / 2);
-
-                                    String strNew = two.replaceFirst("t", "");
+                                    int index = filename.indexOf("Mscore");
+                                    String strNew = filename.substring(index);
 
 
                                    /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
@@ -1542,7 +1540,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                     String four = tokens.nextToken();
                                     String five = tokens.nextToken();*/
                                     // String six = tokens.nextToken();
-                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
 
                                   //  String filename2 = Common.getBaseUrl() + "/" + four + "/" + five + "/" + filename1;
                                     Log.i("Path", filename2 + "\n" + filename1);
@@ -1699,10 +1697,8 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                 String filename =object.getString("FilePath");
                                 String filename1 =object.getString("FileName");
 
-                                String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
-                                String two = filename.substring(filename.length() / 2);
-
-                                String strNew = two.replaceFirst("t", "");
+                                int index = filename.indexOf("Mscore");
+                                String strNew = filename.substring(index);
 
 
 
@@ -1714,7 +1710,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                 String five = tokens.nextToken();*/
                                 // String six = tokens.nextToken();
 
-                                String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
 
                               //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                 Log.i("Path",filename2+"\n"+filename1);

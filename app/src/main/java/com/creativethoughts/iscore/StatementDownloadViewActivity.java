@@ -65,6 +65,7 @@ import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -647,10 +648,10 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     String filename =object.getString("FilePath");
                                     String filename1 =object.getString("FileName");
 
-                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
-                                    String two = filename.substring(filename.length() / 2);
+                                    int index = filename.indexOf("Mscore");
+                                    String strNew = filename.substring(index);
 
-                                    String strNew = two.replaceFirst("t", "");
+
 
                                    /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                     String first = tokens.nextToken();// this will contain "Fruit"
@@ -659,7 +660,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     String four = tokens.nextToken();
                                     String five = tokens.nextToken();*/
                                   //  String six = tokens.nextToken();
-                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
                                    // String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                     Log.e("Path",filename2+"\n"+filename1);
                                  //   String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;
@@ -849,10 +850,12 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                     Log.i("First1 ",String.valueOf(object));
                                     String filename =object.getString("FilePath");
-                                    String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
+                                   /* String one = filename.substring(0, filename.length() / 2);  // gives "How ar"
                                     String two = filename.substring(filename.length() / 2);
 
-                                    String strNew = two.replaceFirst("t", "");
+                                    String strNew = two.replaceFirst("t", "");*/
+                                    int index = filename.indexOf("Mscore");
+                                    String strNew = filename.substring(index);
 
                                     String filename1 =object.getString("FileName");
                                    /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
@@ -867,7 +870,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
                                    //  String six = tokens.nextToken();
 
-                                    String filename2 = Common.getBaseUrl() +strNew+"\\"+filename1;
+                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
                                     //String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
 
                                   //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;
