@@ -308,10 +308,9 @@
     <string name="Technologypartner">TECHNOLOGY PARTNER :</string>
 
 
- <!--   <string name="BankKey">d.22333</string>
-  &lt;!&ndash;  <string name="BankHeader">PERFECT\u0020SCORE\u0020BANK\u0020HEAD\u0020OFFICE</string>&ndash;&gt;
+    <string name="BankKey">d.22333</string>
   <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
--->
+
 <!--  <string name="BankKey"></string>
     <string name="BankHeader"></string>-->
 
@@ -430,8 +429,8 @@
 <!--    <string name="BankKey">W.221</string>-->
 <!--    <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>-->
 
-   <string name="BankKey">F.1207</string>
-    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>
+  <!-- <string name="BankKey">F.1207</string>
+    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>-->
 
 <!--    <string name="BankKey">LL.114</string>-->
 <!--    <string name="BankHeader">The Cherukunnu Service Co-operative Bank Ltd.No.LL.114 HEAD OFFICE CUM MAIN BRANCH</string>-->
