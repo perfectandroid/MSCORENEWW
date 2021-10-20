@@ -1,5 +1,5 @@
 <resources>
-      <string name="app_name">Perfect Demo</string>
+     <string name="app_name">Perfect Demo</string>
    <!-- <string name="app_name">Parappanangadi CSB</string>-->
  <!--   <string name="app_name"> Calicut Town SCB</string>-->
   <!--  <string name="app_name">Kulathupuzha SCB</string>-->
@@ -35,7 +35,7 @@
    <!-- <string name="app_name">Kayanna SCB</string>-->
     <!--<string name="app_name">Naduvil SCB</string>-->
     <!--<string name="app_name">Cherukunnu Scb</string>-->
-  <!--  <string name="app_name">Vallapuzha SCB</string>-->
+<!--   <string name="app_name">Vallapuzha SCB</string>-->
    <!-- <string name="app_name">Ulliyeri SCB</string>-->
   <!--  <string name="app_name">Meppayur Co-operative Town Bank</string>-->
  <!--   <string name="app_name">Chemanchery SCB</string>-->
@@ -54,7 +54,7 @@
 <!--    <string name="app_name">Porora SCB</string>-->
 <!--    <string name="app_name">CSC Bank</string>-->
 <!--    <string name="app_name">Mezhuveli SCB</string> -->
-<!--    <string name="app_name">Kuttikkattoor Urban Society</string>-->
+<!--   <string name="app_name">Kuttikkattoor Urban Society</string>-->
 <!--    <string name="app_name">Calicut City Bank</string>-->
     <!--<string name="app_name">Kayanna SCB</string>-->
 
@@ -308,10 +308,10 @@
     <string name="Technologypartner">TECHNOLOGY PARTNER :</string>
 
 
-    <string name="BankKey">d.22333</string>
+   <string name="BankKey">d.22333</string>
   <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
 
-<!--  <string name="BankKey"></string>
+<!-- <string name="BankKey"></string>
     <string name="BankHeader"></string>-->
 
     <!--<string name="BankKey">F.1839</string>
@@ -346,9 +346,9 @@
     <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>
 -->
 
-  <!--  <string name="BankKey">F.1207</string>
-    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>
--->
+<!--  <string name="BankKey">F.1207</string>
+    <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>-->
+
   <!-- <string name="BankKey">W.221</string>
     <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>-->
 
@@ -429,7 +429,7 @@
 <!--    <string name="BankKey">W.221</string>-->
 <!--    <string name="BankHeader">The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH</string>-->
 
-  <!-- <string name="BankKey">F.1207</string>
+<!--  <string name="BankKey">F.1207</string>
     <string name="BankHeader">The Vallapuzha Service Co-operative Bank Ltd.No.F.1207 HEAD OFFICE</string>-->
 
 <!--    <string name="BankKey">LL.114</string>-->
@@ -444,8 +444,8 @@
 <!--    <string name="BankKey">No.2570</string>-->
 <!--    <string name="BankHeader">Mezhuveli Service Co-operative Bank Ltd.No.2570 HEAD OFFICE CUM MAIN BRANCH</string>-->
 
-<!--    <string name="BankKey">D.2747</string>-->
-<!--    <string name="BankHeader">Kuttikkattoor Co-operative Urban Society Ltd.D.2747 HEAD OFFICE CUM MAIN BRANCH</string>-->
+  <!-- <string name="BankKey">D.2747</string>
+    <string name="BankHeader">Kuttikkattoor Co-operative Urban Society Ltd.D.2747 HEAD OFFICE CUM MAIN BRANCH</string>-->
 
 <!--    <string name="BankKey">No.62</string>-->
 <!--    <string name="BankHeader">The Cheranalloor Service Co-operative Bank Ltd., No.62 HEAD OFFICE CUM MAIN BRANCH</string>-->
@@ -471,8 +471,8 @@
    <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cherukunu_scb</string>-->
 
 
-    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb&amp;hl=en_IN</string>
-
+   <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb&amp;hl=en_IN</string>
+-->
 
    <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kattippara&amp;hl=en_IN&amp;gl=US</string>-->
    <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kumaramputhoor&amp;hl=en_IN&amp;gl=US</string>-->
@@ -506,7 +506,7 @@
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kumaramputhoor</string>-->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kattippara</string>-->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.mananthavaady</string> -->
-<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb</string>-->
+   <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.vallapuzha_scb</string>
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cherukunu_scb</string> -->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.naduvil_scb</string>-->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.porora</string>-->

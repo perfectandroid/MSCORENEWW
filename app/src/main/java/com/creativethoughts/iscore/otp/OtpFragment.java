@@ -20,6 +20,7 @@ import com.creativethoughts.iscore.FragmentMenuCard;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
+import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment3;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.neftrtgs.NeftRtgsOtpResponseModel;
 import com.creativethoughts.iscore.neftrtgs.PaymentModel;
@@ -254,7 +255,7 @@ public class OtpFragment extends Fragment implements  View.OnClickListener {
                keyValuePair.setKey("Ref.Id");
                keyValuePair.setValue( neftRtgsOtpResponseModel.getRefId()  );
                keyValuePairs.add( keyValuePair );
-               getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment.getInstance(  keyValuePairs  ,"Success",
+               getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment3.getInstance(  keyValuePairs  ,"Success",
                        neftRtgsOtpResponseModel.getMessage() , mPaymentModel, true, false, from) ).commit();
              /*  getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment.getInstance(  keyValuePairs  ,"Success",
                        neftRtgsOtpResponseModel.getMessage() ,mPaymentModel,true, false) ).commit();*/

@@ -46,8 +46,8 @@
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDaUb7MBfDEzRcYXjcA0fzZi-9e-rfaB24</string>-->
 
 <!--    //Vallapuzha-->
-<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDVS0SXNagmTYtPAZwUfni6cpNb2yESS3c</string>-->
-
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDVS0SXNagmTYtPAZwUfni6cpNb2yESS3c</string>
+-->
 <!--&lt;!&ndash;    //Cherukkunnu&ndash;&gt;-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBJNLV2fjMvcHRMMTWhzpzfs11CtwPILno</string>-->
 
@@ -61,7 +61,7 @@
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDofguc5hvUPhFegmfBN3buapv8ER-eops</string>-->
 
 <!--    &lt;!&ndash;    //Kuttikkattoor&ndash;&gt;-->
-<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD7lUVFkomiSdIXtQwnPLYzVo38kVncpVA</string>-->
+ <!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD7lUVFkomiSdIXtQwnPLYzVo38kVncpVA</string>-->
 
 <!--    &lt;!&ndash;    //Cheranallur&ndash;&gt;-->
   <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4uYTHANTrcaJby9e5BR4IpOOSjVFTm-Q</string>-->
@@ -81,7 +81,7 @@
 <!--   nanminda-->
   <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAc2Ild9yPOrectVVrK2cvpXxYF6tiy-vs</string>-->
 <!--chekkiad-->
-  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4fgX_yo5OG6t_V3N8nFxYoowbrPWqtOU</string>
+<!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4fgX_yo5OG6t_V3N8nFxYoowbrPWqtOU</string>-->
 <!--perambra-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCKWuHpfad_ZvyR4Fw0HE-bQC3mp98cDEQ</string>-->
 

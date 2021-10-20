@@ -246,6 +246,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         NetworkManager.getInstance().connector(url, new ResponseManager() {
                             @Override
                             public void onSuccess(String result) {
+                                Log.i("REULT","1"+result);
                                 Log.e("result_true","1"+result);
                                 try{
                                     analyzeResult( result, mobileNumber, countryCode );
@@ -284,6 +285,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private void analyzeResult( String result,String mobileNumber, String countryCode ){
         try {
             int response;
+            Log.i("Response",result);
             result = result.trim();
             if ( result.equals("true")){
                 response = 1;
