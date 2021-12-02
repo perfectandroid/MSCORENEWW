@@ -254,6 +254,7 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
     }
 
     private boolean isIfscIsValid(String ifsCode){
+
         return ifsCode.length() > 0;
     }
 

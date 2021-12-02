@@ -234,6 +234,7 @@ public class AssetsFragment extends Fragment {
                                             tvAsset5.setText(qstnArray.getString("Account"));
                                         }*/
                                         }
+
                                         PieChartData pieChartData = new PieChartData(pieData);
                                         pieChartData.setHasLabels(true).setValueLabelTextSize(12);
                                         pieChartData.setHasCenterCircle(true).setCenterText1("Assets").setCenterText1FontSize(22).setCenterText1Color(Color.parseColor("#0097A7"));

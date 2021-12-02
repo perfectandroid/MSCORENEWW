@@ -179,16 +179,27 @@ public class Common {
     //Kumaramputhur SCB , Naduvil , Porora .Mezhuveli ,Kuttikkattoor
     //Kattippara SCB , Mananthavadi Urban, Vallapuzha , Cherukunnu
 
- /*   private static final String HOSTNAME_SUBJECT        = "AZUSIPRDWVAS01";
-    private static final String CERTIFICATE_ASSET_NAME  = "azusiprdwvas01.pem";
-    private static final String BASE_URL                = "https://13.71.91.134:14006";
-*/
+ /* private static final String HOSTNAME_SUBJECT        = "MSCORESERVER";
+    private static final String CERTIFICATE_ASSET_NAME  = "mscoreserver.pem";
+    private static final String BASE_URL                = "https://13.71.91.134:14006";*/
+
+    /*private static final String HOSTNAME_SUBJECT        = "MSCORESERVER";
+    private static final String CERTIFICATE_ASSET_NAME  = "mscoreserver1.pem";
+    private static final String BASE_URL                = "https://13.71.91.134:14005";*/
+
 
 //    //Perfect Demo
+
+
   private static final String HOSTNAME_SUBJECT="STATIC-VM";
     private static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
     public static final String BASE_URL="https://202.164.150.65:14264";
 
+
+    //amarambalam
+/*    private static final String HOSTNAME_SUBJECT="MSCORESERVER";
+    private static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";
+    public static final String BASE_URL="https://13.71.91.134:14006";*/
 
 
 //Parapanangadi Scb
