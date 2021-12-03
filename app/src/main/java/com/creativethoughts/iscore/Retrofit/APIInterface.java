@@ -15,104 +15,104 @@ import retrofit2.http.Query;
 
 public interface APIInterface {
 
-    @POST("Mscore/api/Image/CustomerImageDets")
+    @POST("api/Image/CustomerImageDets")
     Call<String> getImage(@Body RequestBody body);
 
-    @POST("Mscore/api/AccountSummary/ResellerDetails")
+    @POST("api/AccountSummary/ResellerDetails")
     Call<String> getResellerDetails(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/MaintenanceMessage")
+    @POST("api/AccountSummary/MaintenanceMessage")
     Call<String> getMaintenanceMessage(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/AccountSummaryDetails")
+    @POST("api/AccountSummary/AccountSummaryDetails")
     Call<String> getCustomerModules(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/AccountModuleDetailsListInfo")
+    @POST("api/AccountSummary/AccountModuleDetailsListInfo")
     Call<String> getAccountSummary(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/StandingInstructionDetails")
+    @POST("api/AccountSummary/StandingInstructionDetails")
     Call<String> getStandingInstruction(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/NoticePostingDetails")
+    @POST("api/AccountSummary/NoticePostingDetails")
     Call<String> getIntimations(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/DashBoardAssetsDataDetails")
+    @POST("api/AccountSummary/DashBoardAssetsDataDetails")
     Call<String> getDashboard(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/DashBoardLaibilityDataDetails")
+    @POST("api/AccountSummary/DashBoardLaibilityDataDetails")
     Call<String> getDashboardLaibility(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/DashBoardDataSavingsBankDetails")
+    @POST("api/AccountSummary/DashBoardDataSavingsBankDetails")
     Call<String> getDashboardSavingsbank(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/DashBoardDataPaymentAndReceiptDetails")
+    @POST("api/AccountSummary/DashBoardDataPaymentAndReceiptDetails")
     Call<String> getDashboardpaymentrecept(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/BranchLocationDetails")
+    @POST("api/AccountSummary/BranchLocationDetails")
     Call<String> getBankLocation(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/LoanSlabDetails")
+    @POST("api/AccountSummary/LoanSlabDetails")
     Call<String>getloanslabdetails(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/BankBranchDetails")
+    @POST("api/AccountSummary/BankBranchDetails")
     Call<String> getBranchDetail(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/CustomerBankDetails")
+    @POST("api/AccountSummary/CustomerBankDetails")
     Call<String> getBankbranchList(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/CustomerProfileDetails")
+    @POST("api/AccountSummary/CustomerProfileDetails")
     Call<String> getProfile(@Body RequestBody body);////done
 
-    @POST("Mscore/api/AccountSummary/AccountDueDateDetails")
+    @POST("api/AccountSummary/AccountDueDateDetails")
     Call<String> getDuedate(@Body RequestBody body);////done
 
-    @POST("Mscore/api/AccountSummary/BarcodeFormatDet")
+    @POST("api/AccountSummary/BarcodeFormatDet")
     Call<String> getBardCodeData(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/LoanMiniStatement")
+    @POST("api/AccountSummary/LoanMiniStatement")
     Call<String> getLoanMinistatement(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/BarcodeAgainstCustomerAccountDets")
+    @POST("api/AccountSummary/BarcodeAgainstCustomerAccountDets")
     Call<String>getAccountList(@Body RequestBody body); ////done
 
 
-    @POST("Mscore/api/Statement/StatementOfAccount")
+    @POST("api/Statement/StatementOfAccount")
     Call<String>getAccountstatement(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/CustomerLoanAndDepositDetails")
+    @POST("api/AccountSummary/CustomerLoanAndDepositDetails")
     Call<String>getCustomerLoanandDeposit(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/RechargeHistory")
+    @POST("api/AccountSummary/RechargeHistory")
     Call<String>getRechargeHistory(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/FundTransferLimit")
+    @POST("api/AccountSummary/FundTransferLimit")
     Call<String>getFundTransferLimit(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/OtherFundTransferHistory")
+    @POST("api/AccountSummary/OtherFundTransferHistory")
     Call<String>getFundTransferHistory(@Body RequestBody body); ////done
 
     //   @Headers("Accept: application/json")
     @GET("recharge_plan")
     Call<String> getOfferList(@Query("uid") String uid, @Query("pin") String pin, @Query("operator") String poperator);
 
-    @POST("Mscore/api/Recharge/RechargeOffers")
+    @POST("api/Recharge/RechargeOffers")
     Call<String> getRechargeOffer(@Body RequestBody body);
 
-    @POST("Mscore/api/AccountSummary/BalanceSplitUpDetails")
+    @POST("api/AccountSummary/BalanceSplitUpDetails")
     Call<String>getBalanceSplitUpDetails(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/OwnAccounDetails")
+    @POST("api/AccountSummary/OwnAccounDetails")
     Call<String>getOwnAccounDetails(@Body RequestBody body);
 
-    @POST("Mscore/api/AccountSummary/GetInstalmmentRemittanceAmount")
+    @POST("api/AccountSummary/GetInstalmmentRemittanceAmount")
     Call<String>getGetInstalmmentRemittanceAmount(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/PassBookAccountDetails")
+    @POST("api/AccountSummary/PassBookAccountDetails")
     Call<String>getPassBookAccountDetails(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/PassBookAccountStatement")
+    @POST("api/AccountSummary/PassBookAccountStatement")
     Call<String>getPassBookAccountStatement(@Body RequestBody body); ////done
 
-    @POST("Mscore/api/AccountSummary/PassBookAccountTransactionList")
+    @POST("api/AccountSummary/PassBookAccountTransactionList")
     Call<String>getPassBookAccountTransactionList(@Body RequestBody body); ////done
 }

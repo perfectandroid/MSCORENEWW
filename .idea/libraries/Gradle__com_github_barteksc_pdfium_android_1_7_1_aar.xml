@@ -4,12 +4,17 @@
       <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/dd11ba4ccca91c6696230c062e24801c/jetified-pdfium-android-1.7.1/jars/classes.jar!/" />
       <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/dd11ba4ccca91c6696230c062e24801c/jetified-pdfium-android-1.7.1/res" />
       <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/dd11ba4ccca91c6696230c062e24801c/jetified-pdfium-android-1.7.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41ee3f8a1d0196312854e687d35b1e1/jetified-pdfium-android-1.7.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41ee3f8a1d0196312854e687d35b1e1/jetified-pdfium-android-1.7.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41ee3f8a1d0196312854e687d35b1e1/jetified-pdfium-android-1.7.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.barteksc/pdfium-android/1.7.1/89b2c068c8fd5c088f1edbcab0fade1fe377865b/pdfium-android-1.7.1-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.barteksc/pdfium-android/1.7.1/89b2c068c8fd5c088f1edbcab0fade1fe377865b/pdfium-android-1.7.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.barteksc/pdfium-android/1.7.1/873c2791c515aa5748446911798f9a118092d8f8/pdfium-android-1.7.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.barteksc/pdfium-android/1.7.1/873c2791c515aa5748446911798f9a118092d8f8/pdfium-android-1.7.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

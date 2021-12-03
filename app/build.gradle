@@ -9,12 +9,12 @@ repositories {
 android {
 
     signingConfigs {
-        release {
+        /*release {
             storeFile file('D:\\release\\Mscore\\NEW MSCORE\\atholi\\atholimscorekeystore.jks')
             storePassword '{.fLvd1DIuGD7Ptz'
             keyAlias 'atholimscore'
             keyPassword 'J.J\\JGD1V<!Q+uI7'
-        }
+        }*/
 
         /* release {
              storeFile file('D:\\Perfect\\Mscore\\CalicutCity\\calicutcitymscorekeystore.jks')
@@ -201,7 +201,7 @@ android {
     }
 
     buildTypes {
-       release {
+      /* release {
             lintOptions {
                 disable 'MissingTranslation'
                 checkReleaseBuilds false
@@ -210,7 +210,7 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        }*/
         debug {
             testCoverageEnabled = true
         }

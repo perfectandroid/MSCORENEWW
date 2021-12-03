@@ -70,6 +70,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class SplashScreen extends AppCompatActivity {
+    public static final String BASE_URL="https://202.164.150.65:14264/Mscore/";
 
     TextView tv_error_message;
     Button btn_proceed;
@@ -372,6 +373,11 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor PlayStoreLinkSPEditer = PlayStoreLinkSP.edit();
                                 PlayStoreLinkSPEditer.putString("PlayStoreLink",jobjt.getString("PlayStoreLink"));
                                 PlayStoreLinkSPEditer.commit();
+                                SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+                                baseurlEditer.putString("baseurl",BASE_URL);
+                                baseurlEditer.commit();
+
                                 getMaintenanceMessage();
 
                             }
