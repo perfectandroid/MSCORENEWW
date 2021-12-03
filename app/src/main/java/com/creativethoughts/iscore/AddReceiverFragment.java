@@ -4,6 +4,7 @@ package com.creativethoughts.iscore;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
@@ -229,8 +231,9 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
             String custId = user.customerId;
 
-            url =
-                    CommonUtilities.getUrl() + "/MTAddnewreceiver?senderid=" +
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
+            url = BASE_URL + "/MTAddnewreceiver?senderid=" +
 
                             IScoreApplication.encodedUrl(IScoreApplication.encryptStart(sender.trim()))
                             + "&receiver_name=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart( receiver.trim()))
@@ -369,15 +372,17 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
             String custId = user.customerId;
 
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             //https://122.166.228.144/mscore/api/Mv2/GenerateSenderReceiverList?ID_Customer=101
             String url ;
             try {
-                url = CommonUtilities.getUrl() + "/GenerateSenderReceiverList?ID_Customer=" +
+                url = BASE_URL + "/GenerateSenderReceiverList?ID_Customer=" +
                         IScoreApplication.encodedUrl
                                 (IScoreApplication.encryptStart(custId));
             } catch (Exception e) {
 //                e.printStackTrace();
-                url = CommonUtilities.getUrl() + "/GenerateSenderReceiverList";
+                url = BASE_URL + "/GenerateSenderReceiverList";
             }
 
             Log.d(TAG, "url : " + url);

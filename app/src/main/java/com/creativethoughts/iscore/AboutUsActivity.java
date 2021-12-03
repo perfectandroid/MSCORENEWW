@@ -19,7 +19,9 @@ public class AboutUsActivity extends AppCompatActivity {
         try {
             SharedPreferences companypref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
             ImageView imCompanylogo = findViewById(R.id.imCompanylogo);
-            String strimagepath1 = Common.BASE_URL + companypref.getString("CompanyLogoImageCode", null);
+            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+            String strimagepath1 = BASE_URL + companypref.getString("CompanyLogoImageCode", null);
            //   String strimagepath1 = "https://play-lh.googleusercontent.com/o4P4Bi80PUysmO-y5ulsJJ4H-Vb6AkRMPNtGxtMzBLmobS3DP_DHu6bqu79_iSIBew=w500";
            // PicassoTrustAll.getInstance(this).load(R.d).into(imCompanylogo);
         }catch (Exception e){

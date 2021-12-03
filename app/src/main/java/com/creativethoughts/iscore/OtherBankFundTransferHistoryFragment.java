@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.Otherfundhistoryadapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -120,6 +121,8 @@ public class OtherBankFundTransferHistoryFragment extends Fragment implements Ad
 
     private void showOtherfundhistory(String reqSubMode) {
 
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(getContext(), R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -138,7 +141,7 @@ public class OtherBankFundTransferHistoryFragment extends Fragment implements Ad
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

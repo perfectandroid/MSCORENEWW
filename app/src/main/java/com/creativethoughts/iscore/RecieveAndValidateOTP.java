@@ -83,6 +83,8 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 
         button.setOnClickListener(v -> {
 
+            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             if (NetworkUtil.isOnline()) {
 
                 UserCredential userCredential =
@@ -95,7 +97,7 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                     mSweetAlertDialog.show();
                     String otp = mEtVerificationCode.getText().toString();
                     final String url =
-                            CommonUtilities.getUrl() + "/VerifyOTP?" +
+                            BASE_URL + "/VerifyOTP?" +
                                     "Mobno=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(userCredential.countryCode +
                                     userCredential.mobileNumber ))+
                                     "&OTP=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart( otp )) +

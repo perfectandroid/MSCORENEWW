@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.PassbookTransactionDetailsAdapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -70,6 +72,8 @@ public class PassbookTranscationDetailsActivity extends AppCompatActivity {
     }
 
     private void getPassbookStatementDetails(String transactionID, String subModule) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -80,7 +84,7 @@ public class PassbookTranscationDetailsActivity extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

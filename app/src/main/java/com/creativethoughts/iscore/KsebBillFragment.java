@@ -3,6 +3,7 @@ package com.creativethoughts.iscore;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment1;
@@ -918,7 +920,9 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
             accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(extractedAccNo);
             module = accountInfo.accountTypeShort;
 
-            url = CommonUtilities.getUrl()+"/KSEBPaymentRequest?ConsumerName="+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
+            url = BASE_URL+"/KSEBPaymentRequest?ConsumerName="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(tempStringConsumerName)) +"&MobileNo="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(tempStringMobileNumber))+"&ConsumerNo="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(tempStringConsumerNo))+ "&SectionList="+
@@ -961,6 +965,8 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
 
 
     private void getAccList() {
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -971,7 +977,7 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

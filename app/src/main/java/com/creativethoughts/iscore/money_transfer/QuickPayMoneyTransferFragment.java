@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -40,6 +41,7 @@ import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.AddSenderReceiverActivity;
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
@@ -443,6 +445,8 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         };
     }
     private void getAccList() {
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -453,7 +457,7 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -807,8 +811,10 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
             String accountType = accountInfo.accountTypeShort;
             /*End of Extract account number*/
 
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             String url =
-                    CommonUtilities.getUrl() +
+                    BASE_URL +
                             "/MoneyTransferPayment?senderid=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(sender.trim()))
                             + "&receiverid=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiver.trim()))
                             + "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId))
@@ -854,13 +860,15 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
             String custId = user.customerId;
 
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             String url ;
             try {
-                url = CommonUtilities.getUrl() +
+                url = BASE_URL +
                         "/GenerateSenderReceiverList?ID_Customer=" +
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId));
             } catch (Exception e) {
-                url = CommonUtilities.getUrl() +
+                url = BASE_URL +
                         "/GenerateSenderReceiverList?";
 
             }
@@ -1326,8 +1334,10 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         }
         private String resendingOtp(String senderId){
 
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             try{
-                String url = CommonUtilities.getUrl() +
+                String url = BASE_URL+
                         "/MTResendMPIN?senderid="+senderId;
                 return ConnectionUtil.getResponse(url);
 

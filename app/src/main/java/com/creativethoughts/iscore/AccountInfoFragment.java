@@ -248,6 +248,8 @@ public class AccountInfoFragment extends Fragment implements View.OnClickListene
 
 
     public void getModuleList(final AlertDialog alertDialog){
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
                 progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
@@ -265,7 +267,7 @@ public class AccountInfoFragment extends Fragment implements View.OnClickListene
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -365,6 +367,8 @@ public class AccountInfoFragment extends Fragment implements View.OnClickListene
     }
 
     public void getAccountSummary(String strSubModule){
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
                 progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
@@ -382,7 +386,7 @@ public class AccountInfoFragment extends Fragment implements View.OnClickListene
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

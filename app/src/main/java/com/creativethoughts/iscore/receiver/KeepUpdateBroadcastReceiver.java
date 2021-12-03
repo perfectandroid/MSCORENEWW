@@ -3,10 +3,12 @@ package com.creativethoughts.iscore.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.NotificationMgr;
 import com.creativethoughts.iscore.db.dao.DbSync;
@@ -27,6 +29,7 @@ import com.google.gson.Gson;
  * Created by muthukrishnan on 09/10/15.
  */
 public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
+    private Context mContex = null;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -63,7 +66,7 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
             PBMessagesDAO.getInstance().removeOldMessages();
         }
 
-        private int getSearching() {
+        private int getSearching( ) {
             int transactions = 0;
 
             try {
@@ -91,8 +94,10 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
                     days = settingsModel.days;
                 }
 
+                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                String BASE_URL=pref.getString("oldbaseurl", null);
                 final String url =
-                        CommonUtilities.getUrl() +
+                        BASE_URL +
                                 "/SyncNormal?All="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart("false"))+
                                 "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId)) +
                                 "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin1)) +

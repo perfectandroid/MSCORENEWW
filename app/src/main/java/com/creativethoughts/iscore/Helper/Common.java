@@ -16,9 +16,9 @@ public class Common {
     private static final String API_NAME= "/Mscore/api/MV3";*/
 
 
-    SharedPreferences pref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-    public static final String BASE_URL=pref.getString("baseurl", null);
-    //public static final String BASE_URL="https://202.164.150.65:14264/Mscore/";
+   /* SharedPreferences pref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+    public static final String BASE_URL=pref.getString("baseurl", null);*/
+
     private static final String API_NAME= "api/MV3";
 
     //==== ==== ==== ===== ===== ===== ==== ==== ==== ==== ==== ==== ==== ==== ==== ====
@@ -35,9 +35,9 @@ public class Common {
         return CERTIFICATE_ASSET_NAME;
     }
 
-    public static String getBaseUrl() {
+    /*public static String getBaseUrl() {
         return BASE_URL;
-    }
+    }*/
 
     public static String getApiName() {
         return API_NAME;

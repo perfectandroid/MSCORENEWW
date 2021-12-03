@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountListAdapter;
 import com.creativethoughts.iscore.adapters.AccountSummaryListAdapter;
@@ -156,6 +158,8 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
 
 
     private void getPassBookAccountStatement(String fkaccount, String SubModule, int NoOfDays) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -166,7 +170,7 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -247,6 +251,8 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
     }
 
     private void getAccList() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -257,7 +263,7 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

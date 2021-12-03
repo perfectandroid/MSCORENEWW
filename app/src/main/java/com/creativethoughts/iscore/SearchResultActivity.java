@@ -32,6 +32,7 @@ import androidx.core.content.FileProvider;
 import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.NewAccountExpandableListAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -45,6 +46,7 @@ import com.creativethoughts.iscore.ui.widget.ZaarkDialog;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.creativethoughts.iscore.utility.DialogUtil;
+import com.creativethoughts.iscore.utility.PreferenceUtil;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -59,7 +61,7 @@ import java.util.Locale;
 
 
 public class SearchResultActivity extends AppCompatActivity {
-
+    private static final String BASE_URL_KEY = "iscore_base_url_key";
     private static final int REQUEST_CODE = 54565;
 
     private NewAccountExpandableListAdapter listAdapter;
@@ -262,6 +264,8 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
         if (item.getItemId() == R.id.action_download) {
 
             if (!TextUtils.isEmpty(mAccountNo) || !TextUtils.isEmpty(mFromDate) || !TextUtils
@@ -282,7 +286,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 String IDDemandDeposit = accountInformation.fkDemandDepositID;
                 String url;
                 try {
-                    url = CommonUtilities.getUrl() + "/GenerateStatementOfAccount?" +
+                    url = BASE_URL + "/GenerateStatementOfAccount?" +
                             "Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType)) +
                             "&FromDate=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mFromDate))  +
                             "&ToDate=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mToDate))  +
@@ -291,7 +295,7 @@ public class SearchResultActivity extends AppCompatActivity {
                             "&IDDemandDeposit=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(IDDemandDeposit));
                 } catch (Exception e) {
 
-                    url = CommonUtilities.getUrl() + "/GenerateStatementOfAccount";
+                    url = BASE_URL + "/GenerateStatementOfAccount";
                 }
 
 //                Log.d(TAG, "onOptionsItemSelected: " + url);
@@ -474,8 +478,10 @@ public class SearchResultActivity extends AppCompatActivity {
                 String IDDemandDeposit = accountInformation.fkDemandDepositID;
                 String accountType = accountInformation.accountTypeShort;
 
+                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                String BASE_URL=pref.getString("oldbaseurl", null);
                 final String url =
-                        CommonUtilities.getUrl() +
+                        BASE_URL +
                                 "/TransactionSearch?Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))+
                                 "&TransType=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mTransType))  +
                                 "&FromAmount=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mMinAmt))  +
@@ -703,7 +709,7 @@ public class SearchResultActivity extends AppCompatActivity {
                         String url = firstItem.optString("FilePath");
 
                         if (!TextUtils.isEmpty(url)) {
-                            url = CommonUtilities.getBaseUrl() + "/" + url;
+                            url = getBaseUrl() + "/" + url;
 
 //                            System.out.println("url : " + url);
 
@@ -862,39 +868,15 @@ public class SearchResultActivity extends AppCompatActivity {
         }
     }
 
-// --Commented out by Inspection START (9/8/2017 10:10 AM):
-//    private class SimpleListener implements SimpleDownloadListener {
-//        @Override
-//        public void onSuccess(int downloadId, String filePath) {
-//            //            Log.d(TAG, "simple download listener sucess");
-//            pPDFDialog.dismiss();
-//
-//            Toast.makeText(SearchResultActivity.this, filePath, Toast.LENGTH_SHORT).show();
-//
-//            File file = new File(filePath);
-//            Intent target = new Intent(Intent.ACTION_VIEW);
-//            target.setDataAndType(Uri.fromFile(file), "application/pdf");
-//            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//
-//            Intent intent = Intent.createChooser(target, "Open File");
-//            try {
-//                startActivity(intent);
-//            } catch (ActivityNotFoundException e) {
-//                DialogUtil.showAlert(SearchResultActivity.this,
-//                        "Please install App to open PDF file");
-//            }
-//        }
-//
-//        @Override
-//        public void onFailure(int downloadId, int statusCode, String errMsg) {
-//            //            Log.d(TAG, "simple download listener failt");
-//            pPDFDialog.dismiss();
-//
-//            DialogUtil.showAlert(SearchResultActivity.this,
-//                    "Not able to download PDF file, Please try again later");
-//        }
-//    }
-// --Commented out by Inspection STOP (9/8/2017 10:10 AM)
+    public String getBaseUrl() {
+        String tempBaserUrl = PreferenceUtil.getInstance().getStringValue(BASE_URL_KEY, "");
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if(TextUtils.isEmpty(tempBaserUrl.trim())) {
+            return BASE_URL;
+        }
+        return tempBaserUrl;
+    }
 
 
 

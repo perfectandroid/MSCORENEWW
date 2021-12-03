@@ -1,11 +1,13 @@
 package com.creativethoughts.iscore;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,9 @@ public class Webview extends AppCompatActivity {
      //   wv1=(WebView)findViewById(R.id.webView);
        // wv1.setWebViewClient(new MyBrowser());
 
-         url = Common.getBaseUrl()+"/Mscore/Statement/ASD7.pdf";
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+         url = BASE_URL+"/Mscore/Statement/ASD7.pdf";
         wv1.loadUrl(url);
 
       /* wv1.getSettings().setLoadsImagesAutomatically(true);

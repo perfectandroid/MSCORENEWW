@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountListAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
@@ -243,6 +245,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
     }
 
     private void AccList(AlertDialog alertDialog) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -253,7 +257,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -559,6 +563,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
     }
     private void getAccountStatement1(String from, String to, String acc, String submod) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
 
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(StatementDownloadViewActivity.this, R.style.Progress);
@@ -578,7 +584,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -660,7 +666,10 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     String four = tokens.nextToken();
                                     String five = tokens.nextToken();*/
                                   //  String six = tokens.nextToken();
-                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+
+                                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    String BASE_URL=pref.getString("baseurl", null);
+                                    String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
                                    // String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                     Log.e("Path",filename2+"\n"+filename1);
                                  //   String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;
@@ -750,6 +759,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
     private void getAccountStatement(String from, String to, String acc, String submod) {
 
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(StatementDownloadViewActivity.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -786,7 +797,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -870,7 +881,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
                                    //  String six = tokens.nextToken();
 
-                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+                                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    String BASE_URL=pref.getString("baseurl", null);
+                                    String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
                                     //String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
 
                                   //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+six+"/"+filename1;

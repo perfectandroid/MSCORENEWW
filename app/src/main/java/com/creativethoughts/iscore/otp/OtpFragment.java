@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore.otp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.creativethoughts.iscore.FragmentMenuCard;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
@@ -126,7 +128,9 @@ public class OtpFragment extends Fragment implements  View.OnClickListener {
 
         String url = "";
         try{
-            url = CommonUtilities.getUrl();
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
+            url = BASE_URL;
             url += "/NEFTRTGSPayment?AccountNo="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getAccNo() ))+
                     "&Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getModule() ))+
                     "&BeneName="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getBeneficiaryName() ))+
@@ -157,7 +161,9 @@ public class OtpFragment extends Fragment implements  View.OnClickListener {
             return url;
         }
         try{
-            url = CommonUtilities.getUrl();
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
+            url = BASE_URL;
             url += "/NEFTRTGSPayment?AccountNo="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getAccNo() ))+
                     "&Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getModule() ))+
                     "&BeneName="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getBeneficiaryName() ))+

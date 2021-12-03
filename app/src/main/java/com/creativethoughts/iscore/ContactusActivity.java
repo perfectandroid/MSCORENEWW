@@ -3,12 +3,14 @@ package com.creativethoughts.iscore;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
@@ -79,6 +81,8 @@ public class ContactusActivity extends AppCompatActivity {
 
     private void showBankDetails() {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(ContactusActivity.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -97,7 +101,7 @@ public class ContactusActivity extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

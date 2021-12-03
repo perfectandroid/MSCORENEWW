@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.neftrtgs;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OtherfundTransferHistoryIMPS;
 import com.creativethoughts.iscore.OtherfundTransferHistoryNEFT;
@@ -603,7 +605,9 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 
     private String prepareUrlForPayment( PaymentModel paymentModel  ){
         mPaymentModel = paymentModel;
-        String url = CommonUtilities.getUrl( );
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
+        String url = BASE_URL;
 
 
         try{

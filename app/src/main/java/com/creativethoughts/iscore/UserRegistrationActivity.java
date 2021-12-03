@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.LoginBannerAdapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.receiver.AppSignatureHelper;
@@ -215,6 +217,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
     private void addListenerOnButton() {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
         Button mRegisterBtn = findViewById(R.id.btnRegister);
         assert mRegisterBtn != null;
         mRegisterBtn.setOnClickListener(arg0 -> {
@@ -238,7 +242,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                     try{
                         String url =
-                                CommonUtilities.getUrl() + "/PassBookAuthenticate?Mobno="+
+                                BASE_URL + "/PassBookAuthenticate?Mobno="+
                                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(countryCode+mobileNumber)) + "&Pin=" +
                                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart("0000"))+"&IMEI=";
 //                                        +"&IMEI="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart("123456789"));

@@ -1,6 +1,8 @@
 package com.creativethoughts.iscore.utility;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -69,21 +72,22 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public final class CommonUtilities {
+    private static Context context;
 
     private CommonUtilities(){
         throw new IllegalStateException("Illegal");
     }
 
-    private static final String BASE_URL_KEY = "iscore_base_url_key";
-private static final String BASE_URL = Common.getBaseUrl();
-    private static final String URI = Common.getApiName();
+    //private static final String BASE_URL_KEY = "iscore_base_url_key";
+    //private static final String BASE_URL = Common.getBaseUrl();
+    //private static final String URI = Common.getApiName();
     private static final String BANK_KEY = "BankKey";
     public static String result = "";
     public static String bal="";
     private static final String BANKHEADER = "BankHeader";
     public static ArrayList<ToAccountDetails> AccountDetails;
     static ArrayAdapter<ToAccountDetails> AccountAdapter = null;
-    public static String getBaseUrl() {
+ /*   public static String getBaseUrl() {
         String tempBaserUrl = PreferenceUtil.getInstance().getStringValue(BASE_URL_KEY, "");
 
         if(TextUtils.isEmpty(tempBaserUrl.trim())) {
@@ -91,11 +95,11 @@ private static final String BASE_URL = Common.getBaseUrl();
         }
 
         return tempBaserUrl;
-    }
+    }*/
 
-    public static String getUrl() {
+    /*public static String getUrl() {
             return BASE_URL + URI;
-    }
+    }*/
     private static Date convertStingToDate(String inputDate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a", Locale.getDefault());
         Date date = null;
@@ -269,6 +273,8 @@ private static final String BASE_URL = Common.getBaseUrl();
     private static void showOwnAccToList(Spinner spinner, Activity activity) {
 
 
+        SharedPreferences pref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -279,7 +285,7 @@ private static final String BASE_URL = Common.getBaseUrl();
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

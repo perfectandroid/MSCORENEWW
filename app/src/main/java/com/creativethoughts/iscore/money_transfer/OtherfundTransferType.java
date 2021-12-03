@@ -3,11 +3,13 @@ package com.creativethoughts.iscore.money_transfer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -82,6 +84,8 @@ public class OtherfundTransferType extends AppCompatActivity {
 
     private void showOtherfundhistory(String submode) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -100,7 +104,7 @@ public class OtherfundTransferType extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

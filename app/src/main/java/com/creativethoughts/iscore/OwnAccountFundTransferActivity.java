@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -45,6 +46,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
@@ -453,6 +455,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     }
 
     private void remittanceDetails(String remittanance, String ToSubModule, String ToFK_Account, String IsAdvance) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -463,7 +467,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -554,6 +558,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     }
 
     private void showOwnAccToList() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -564,7 +570,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1168,6 +1174,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     }
 
     private void BalanceSplitUpDetails(String ToSubModule, String ToFK_Account) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -1178,7 +1186,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1391,6 +1399,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
     private void getCustomerAccount(AlertDialog alertDialog, String value, String submodule) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
 //                progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
@@ -1408,7 +1418,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1624,9 +1634,11 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
         Log.e(TAG,"receiverAccNo  1273   "+receiverAccNo+"   "+accountNo+"   "+type+"    "+accountType);
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
         try{
             String url =
-                    CommonUtilities.getUrl() + "/FundTransferIntraBank?AccountNo="
+                    BASE_URL + "/FundTransferIntraBank?AccountNo="
                             + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
                             + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
                             + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))

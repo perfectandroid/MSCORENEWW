@@ -3,8 +3,10 @@ package com.creativethoughts.iscore.utility;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.UserRegistrationActivity;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
@@ -139,16 +141,18 @@ public class SyncAll{
             final String url;
 
 
+            SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             if( mIsRefresh ) {
                 url =
-                        CommonUtilities.getUrl() + "/SyncNormal?" +
+                        BASE_URL + "/SyncNormal?" +
                                 "All="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart("false")) +
                                 "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId)) +
                                 "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin1)) +
                                 "&NoOfDays=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(days+""));
             } else {
                 url =
-                        CommonUtilities.getUrl() + "/SyncNormal?" +
+                        BASE_URL + "/SyncNormal?" +
                                 "All="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart("true")) +
                                 "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId)) +
                                 "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin1)) +

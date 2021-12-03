@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.Otherfundhistoryadapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -162,6 +164,8 @@ public class OtherBankFundTransferPreviousHistoryFragmentNEFT extends Fragment i
 
     private void showOtherfundhistory(String reqSubMode) {
 
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(getContext(), R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -180,7 +184,7 @@ public class OtherBankFundTransferPreviousHistoryFragmentNEFT extends Fragment i
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

@@ -71,6 +71,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
     public static final String BASE_URL="https://202.164.150.65:14264/Mscore/";
+    private static final String API_NAME= "api/MV3";
 
     TextView tv_error_message;
     Button btn_proceed;
@@ -176,6 +177,8 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void getMaintenanceMessage() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -186,7 +189,7 @@ public class SplashScreen extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -321,7 +324,7 @@ public class SplashScreen extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -377,6 +380,10 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
                                 baseurlEditer.putString("baseurl",BASE_URL);
                                 baseurlEditer.commit();
+                                SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                                SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+                                oldbaseurlEditer.putString("oldbaseurl",BASE_URL+API_NAME);
+                                oldbaseurlEditer.commit();
 
                                 getMaintenanceMessage();
 

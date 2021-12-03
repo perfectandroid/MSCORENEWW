@@ -3,6 +3,7 @@ package com.creativethoughts.iscore;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.IntimationAdapter;
 import com.creativethoughts.iscore.adapters.IntimationAdapter1;
@@ -77,6 +79,8 @@ public class NotificationPostingActivity extends AppCompatActivity {
     }
     public void getNotice(){
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
                 progressDialog = new ProgressDialog(NotificationPostingActivity.this, R.style.Progress);
@@ -94,7 +98,7 @@ public class NotificationPostingActivity extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

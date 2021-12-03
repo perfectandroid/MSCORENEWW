@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -101,7 +103,9 @@ public class KsebBillStatusFragment extends Fragment implements View.OnClickList
             String pin;
             UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
             pin = userCredential.pin;
-            url = CommonUtilities.getUrl()+"/KSEBTransactionResponse?TransactioID="+id+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
+            url = BASE_URL+"/KSEBTransactionResponse?TransactioID="+id+
                     "&Pin="+pin;
             response = ConnectionUtil.getResponse(url);
             return response;

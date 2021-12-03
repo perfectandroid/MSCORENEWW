@@ -2,6 +2,7 @@ package com.creativethoughts.iscore.kseb;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -96,7 +98,9 @@ public class KsebSectionSelectionActivity extends Activity {
         };
     }
     private String listenText( String keyWord ){
-        String url = CommonUtilities.getUrl()+"/KSEBSectionList?Sectionname="+ keyWord;
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
+        String url = BASE_URL+"/KSEBSectionList?Sectionname="+ keyWord;
         return ConnectionUtilitySectionList.getResponse( url );
     }
     private void processResult( String result ){

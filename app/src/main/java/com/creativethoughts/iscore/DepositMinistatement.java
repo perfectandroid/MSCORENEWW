@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
@@ -34,6 +35,7 @@ import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
 import com.creativethoughts.iscore.adapters.MinistatementAdapter;
@@ -902,7 +904,11 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
-                    String value = Common.getBaseUrl() + "/Mscore/Statement/ASD7.pdf";
+
+                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                    String BASE_URL=pref.getString("baseurl", null);
+
+                    String value = BASE_URL + "/Mscore/Statement/ASD7.pdf";
                     String fileUrl = value;
                     String fileName = "ASD7.pdf";
                     //   downloadFile(value, fileName);
@@ -1193,7 +1199,11 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
-                    String value = Common.getBaseUrl() + "/Mscore/Statement/ASD7.pdf";
+
+                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                    String BASE_URL=pref.getString("baseurl", null);
+
+                    String value = BASE_URL + "/Mscore/Statement/ASD7.pdf";
                     String fileUrl = value;
                     String fileName = "ASD7.pdf";
                     //   downloadFile(value, fileName);
@@ -1211,6 +1221,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     }
     private void getAccountStatement1(String from, String to, String acc) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
 
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(DepositMinistatement.this, R.style.Progress);
@@ -1230,7 +1242,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1301,7 +1313,9 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                     int index = filename.indexOf("Mscore");
                                     String strNew = filename.substring(index);
 
-                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+                                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    String BASE_URL=pref.getString("baseurl", null);
+                                    String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
 
 
                                 /*    StringTokenizer tokens = new StringTokenizer(filename, "\\");
@@ -1389,6 +1403,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     private void getAccountStatement(String from, String to, String acc) {
 
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(DepositMinistatement.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -1407,7 +1423,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1478,7 +1494,9 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                     String five = tokens.nextToken();*/
                                     // String six = tokens.nextToken();
 
-                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+                                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    String BASE_URL=pref.getString("baseurl", null);
+                                    String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
 
                                   //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                     Log.i("Path",filename2+"\n"+filename1);
@@ -1581,6 +1599,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
 
     private void getPassBookAccountStatement(String fkaccount, String SubModule, int NoOfDays) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -1591,7 +1611,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

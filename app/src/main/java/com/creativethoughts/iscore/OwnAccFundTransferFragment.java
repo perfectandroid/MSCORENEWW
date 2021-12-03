@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -43,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
@@ -974,6 +976,8 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
 //    }
 
     private void balanceSplitUpDetails() {
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
 //                progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
@@ -991,7 +995,7 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1134,6 +1138,8 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
 
     private void getCustomerAccount(AlertDialog alertDialog, String value, String submodule) {
 
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
 //                progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
@@ -1151,7 +1157,7 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1395,8 +1401,10 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
 
 
         try{
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             String url =
-                    CommonUtilities.getUrl() + "/FundTransferIntraBank?AccountNo="
+                    BASE_URL + "/FundTransferIntraBank?AccountNo="
                             + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
                             + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
                             + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))

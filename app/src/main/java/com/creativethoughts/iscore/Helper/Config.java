@@ -15,6 +15,7 @@ public class Config {
     public static final String SHARED_PREF5 = "ProductName";
     public static final String SHARED_PREF6 = "PlayStoreLink";
     public static final String SHARED_PREF7 = "baseurl";
+    public static final String SHARED_PREF8 = "oldbaseurl";
 
     public static final String SHARED_PREF10 = "OperatorIds";
 

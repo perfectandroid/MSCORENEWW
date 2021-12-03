@@ -597,6 +597,8 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getAccList() {
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -607,7 +609,7 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1040,8 +1042,10 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
     }
     private void recharge(String mAccountNumber,int type, String mMobileNumber, String mCircleId, String mOperatorId, String mAmount, String mCircleAccNo, String operatorName ) {
         try {
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
-            String url = CommonUtilities.getUrl();
+            String url = BASE_URL;
             mAccountNumber = mAccountNumber.replace(mAccountNumber.substring(mAccountNumber.indexOf(" (")+1, mAccountNumber.indexOf(')')+1), "");
             mAccountNumber = mAccountNumber.replace(" ","");
             AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(mAccountNumber);
@@ -1526,6 +1530,8 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
 
     private void getHistory(int mSelectedType) {
 
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
 
             try {
@@ -1538,7 +1544,7 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)

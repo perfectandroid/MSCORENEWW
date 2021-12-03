@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtilitySectionList;
@@ -78,9 +80,11 @@ public class SectionListAdapter extends ArrayAdapter<String> implements Filterab
     }
 
     public void downloadList(String constraint){
+        SharedPreferences pref =getContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);
         String response, tempSectionName, tempSectionCode;
         try{
-            String url = CommonUtilities.getUrl()+"/KSEBSectionList?Sectionname="+constraint;
+            String url = BASE_URL+"/KSEBSectionList?Sectionname="+constraint;
             if (IScoreApplication.DEBUG) Log.e("url", url);
             response = ConnectionUtilitySectionList.getResponse(url);
             if(!TextUtils.isEmpty(response)){

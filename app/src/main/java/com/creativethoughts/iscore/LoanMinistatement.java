@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +31,7 @@ import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Common;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoanMiniadapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
@@ -187,6 +189,8 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
     }
 
     private void showMinistatmnt() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(LoanMinistatement.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -205,7 +209,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -988,7 +992,11 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                     String acc = tv_msg.getText().toString();
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
-                    String value = Common.getBaseUrl() + "/Mscore/Statement/ASD7.pdf";
+
+
+                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                    String BASE_URL=pref.getString("baseurl", null);
+                    String value = BASE_URL + "/Mscore/Statement/ASD7.pdf";
                     String fileUrl = value;
                     String fileName = "ASD7.pdf";
                     //   downloadFile(value, fileName);
@@ -1428,7 +1436,10 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                     String acc = tv_msg.getText().toString();
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
-                    String value = Common.getBaseUrl() + "/Mscore/Statement/ASD7.pdf";
+
+                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                    String BASE_URL=pref.getString("baseurl", null);
+                    String value = BASE_URL+ "/Mscore/Statement/ASD7.pdf";
                     String fileUrl = value;
                     String fileName = "ASD7.pdf";
                     //   downloadFile(value, fileName);
@@ -1446,6 +1457,8 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
     }
     private void getAccountStatement1(String from, String to, String acc) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
 
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(LoanMinistatement.this, R.style.Progress);
@@ -1465,7 +1478,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1540,7 +1553,10 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                     String four = tokens.nextToken();
                                     String five = tokens.nextToken();*/
                                     // String six = tokens.nextToken();
-                                    String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+
+                                    SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    String BASE_URL=pref.getString("baseurl", null);
+                                    String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
 
                                   //  String filename2 = Common.getBaseUrl() + "/" + four + "/" + five + "/" + filename1;
                                     Log.i("Path", filename2 + "\n" + filename1);
@@ -1614,6 +1630,8 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
     }
     private void getAccountStatement(String from, String to, String acc) {
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
 
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(LoanMinistatement.this, R.style.Progress);
@@ -1633,7 +1651,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.getBaseUrl())
+                        .baseUrl(BASE_URL)
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -1710,7 +1728,9 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                                 String five = tokens.nextToken();*/
                                 // String six = tokens.nextToken();
 
-                                String filename2 = Common.getBaseUrl() +"\\"+strNew+"\\"+filename1;
+                                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                String BASE_URL=pref.getString("baseurl", null);
+                                String filename2 = BASE_URL +"\\"+strNew+"\\"+filename1;
 
                               //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                 Log.i("Path",filename2+"\n"+filename1);

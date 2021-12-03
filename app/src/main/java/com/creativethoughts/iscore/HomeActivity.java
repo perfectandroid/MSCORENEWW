@@ -305,9 +305,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     private void versionCheck(){
         if (NetworkUtil.isOnline()) {
             int versionNumber = getCurrentVersionNumber(HomeActivity.this);
+            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            String BASE_URL=pref.getString("oldbaseurl", null);
             String url;
             try{
-                url = CommonUtilities.getUrl() +
+                url = BASE_URL +
                         "/Checkstatus?versionNo="+
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(versionNumber +""));
             }catch ( Exception e ){
