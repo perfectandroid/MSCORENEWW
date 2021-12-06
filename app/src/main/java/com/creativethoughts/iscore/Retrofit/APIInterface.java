@@ -57,7 +57,7 @@ public interface APIInterface {
     @POST("api/AccountSummary/BankBranchDetails")
     Call<String> getBranchDetail(@Body RequestBody body); ////done
 
-    @POST("api/AccountSummary/CustomerBankDetails")
+    @POST("/api/AccountSummary/CustomerBankDetails")
     Call<String> getBankbranchList(@Body RequestBody body); ////done
 
     @POST("api/AccountSummary/CustomerProfileDetails")

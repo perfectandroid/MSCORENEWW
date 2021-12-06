@@ -159,8 +159,12 @@ public class DuedateActivity extends AppCompatActivity implements View.OnClickLi
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid) );
                     requestObject1.put("Token",IScoreApplication.encryptStart(token) );
                     requestObject1.put("AccountType",IScoreApplication.encryptStart(acctype));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

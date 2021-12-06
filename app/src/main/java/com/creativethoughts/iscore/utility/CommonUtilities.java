@@ -304,8 +304,12 @@ public final class CommonUtilities {
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
 //                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
 //                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(activity.getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(activity.getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                     Log.e("requestObject1 ","requestObject1  302   "+requestObject1);
 

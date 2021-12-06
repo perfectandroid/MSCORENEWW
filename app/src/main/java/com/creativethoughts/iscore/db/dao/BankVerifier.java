@@ -53,15 +53,8 @@ public class BankVerifier {
         }catch ( Exception e ){
             status = "0";
         }
-        /*Map<String,String> dataMap = IScoreDatabase.getInstance().getSingleRow( BANK_VERIFIER_TABLE, COLUMNS, null, null, null, null, null,
-                false);
-        try {
-            if ( !dataMap.isEmpty() ){
-                status = IScoreApplication.decryptStart(dataMap.get( VERIFY_STATUS ));
-            }else status = "0";
-        }catch (Exception e ){
-            status = "0";
-        }*/
+
+
         return status;
     }
     public long updateVerifyStatus( String value ){

@@ -481,8 +481,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("IsAdvance",IScoreApplication.encryptStart(IsAdvance) );
                     requestObject1.put("FK_Account",IScoreApplication.encryptStart(ToFK_Account));
                     requestObject1.put("InstalmentCount",IScoreApplication.encryptStart(remittanance));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -587,8 +591,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("2"));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1198,8 +1206,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
                     requestObject1.put("SubModule",IScoreApplication.encryptStart(ToSubModule) );
                     requestObject1.put("FK_Account",IScoreApplication.encryptStart(ToFK_Account));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1457,8 +1469,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("SubModule",IScoreApplication.encryptStart(type) );
                     requestObject1.put("ModuleCode",IScoreApplication.encryptStart(submodule) );
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                     Log.e(TAG,"requestObject1    761  "+requestObject1);
                 } catch (JSONException e) {

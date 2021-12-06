@@ -7,6 +7,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.db.IScoreDatabase;
 import com.creativethoughts.iscore.receiver.ConnectivityReceiver;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -46,6 +48,7 @@ import com.creativethoughts.iscore.Helper.Common;
  * Created by muthukrishnan on 22/09/15
  */
 public class IScoreApplication extends Application {
+    private static Context context;
 
     public static final boolean DEBUG = false;
     public static final String SERVICE_NOT_AVAILABLE = "Service is not available";
@@ -122,6 +125,39 @@ public class IScoreApplication extends Application {
                 return IScoreApplication.EXCEPTION_NOIEMI;
             }else {
                 return iemi;
+            }
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+    public static String getBankkey() {
+        try {
+            String bank_Key, bankKey;
+            SharedPreferences bankkeypref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+            bank_Key=bankkeypref.getString("bankkey", null);
+            bankKey      = SplashScreen.BankKey;
+
+            if (bank_Key.isEmpty()){
+                return bankKey;
+            }else {
+                return bank_Key;
+            }
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+    public static String getBankheader() {
+        try {
+            String bankHeader,bank_Header;
+
+            SharedPreferences bankheaderpref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+            bankHeader=bankheaderpref.getString("bankheader", null);
+            bank_Header  = SplashScreen.BankHeader;
+
+            if (bankHeader.isEmpty()){
+                return bank_Header;
+            }else {
+                return bankHeader;
             }
         }catch (Exception e){
             return IScoreApplication.EXCEPTION_NOIEMI;

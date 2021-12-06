@@ -1,14 +1,18 @@
 package com.creativethoughts.iscore.utility;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
+import com.creativethoughts.iscore.SplashScreen;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
 
 import java.io.BufferedInputStream;
@@ -38,13 +42,20 @@ import com.creativethoughts.iscore.Helper.Common;
  */
 
 public class ConnectionUtilitySectionList {
+    private static Context context;
+
     private ConnectionUtilitySectionList(){
         //Do nothing
     }
     public static String getResponse(String url) {
 
-        String bankKey      = IScoreApplication.getAppContext().getResources().getString(R.string.BankKey);
+      /*  String bankKey      = IScoreApplication.getAppContext().getResources().getString(R.string.BankKey);
         String bankHeader   = IScoreApplication.getAppContext().getResources().getString( R.string.BankHeader );
+*/
+
+        String bankKey      = IScoreApplication.getBankkey();
+        String bankHeader   = IScoreApplication.getBankheader();
+
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 
         if (ContextCompat.checkSelfPermission(IScoreApplication.getAppContext(),
@@ -60,11 +71,14 @@ public class ConnectionUtilitySectionList {
             return IScoreApplication.EXCEPTION_NOIEMI;
         }
         url=url+"&imei="+iemi;
+
+
         if ( ! bankHeader.trim().isEmpty() && !bankKey.trim().isEmpty() ){
             try {
                 url = url+"&BankKey="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankKey))+"&BankHeader="+
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankHeader))+
                         "&BankVerified="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankVerified));
+
             } catch (Exception e) {
                 return IScoreApplication.EXCEPTION_ENCRIPTION_IEMI;
             }
@@ -99,7 +113,6 @@ public class ConnectionUtilitySectionList {
 
             updateURL = new URL(url);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
-// From https://www.washington.edu/itconnect/security/ca/load-der.crt
             InputStream caInput =  IScoreApplication.getAppContext().
                     getAssets().open(Common.getCertificateAssetName());
 

@@ -70,11 +70,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class SplashScreen extends AppCompatActivity {
-    public static final String BASE_URL="https://202.164.150.65:14264/Mscore/";
+    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+    //public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA/";
+    public static final String IMAGE_URL="https://202.164.150.65:14264/";
     private static final String API_NAME= "api/MV3";
-
+    public static final String BankKey= "d.22333";
+    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+//    public static final String BankKey= "d.11222";
+//    public static final String BankHeader= "PERFECT SCORE Bhnn ANK QA OFFICE";
+    static String bank_Key, bank_Header;
     TextView tv_error_message;
     Button btn_proceed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +98,16 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
         new Handler().postDelayed(SplashScreen.this::getResellerData, 1000);
+
+
+
+
+        SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+        bank_Key=bankkeypref.getString("bankkey", null);
+
+
+        SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+        bank_Header=bankheaderpref.getString("bankheader", null);
     }
 
     private void startUserregistrationActivity() {
@@ -198,8 +215,14 @@ public class SplashScreen extends AppCompatActivity {
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     requestObject1.put("ReqMode",/*cusid*/IScoreApplication.encryptStart("15"));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -324,7 +347,7 @@ public class SplashScreen extends AppCompatActivity {
                         .setLenient()
                         .create();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(BASE_URL)
+                        .baseUrl(BASE_URL+"/")
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .client(client)
@@ -333,8 +356,8 @@ public class SplashScreen extends AppCompatActivity {
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     requestObject1.put("ReqMode",IScoreApplication.encryptStart("20"));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                     Log.e("requestObject1   344   ",""+requestObject1);
 
@@ -376,14 +399,81 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor PlayStoreLinkSPEditer = PlayStoreLinkSP.edit();
                                 PlayStoreLinkSPEditer.putString("PlayStoreLink",jobjt.getString("PlayStoreLink"));
                                 PlayStoreLinkSPEditer.commit();
-                                SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+                                SharedPreferences.Editor EwireCardServiceEditer = EwireCardServiceSP.edit();
+                                EwireCardServiceEditer.putString("EwireCardService",jobjt.getString("EwireCardService"));
+                                EwireCardServiceEditer.commit();
+
+                                if(jobjt.getString("TestingURL").isEmpty()&&jobjt.getString("TestingImageURL").isEmpty()
+                                   &&jobjt.getString("BankKey").isEmpty()&&jobjt.getString("BankHeader").isEmpty()){
+
+                                    SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+                                    baseurlEditer.putString("baseurl", BASE_URL+"/");
+                                    baseurlEditer.commit();
+                                    SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                                    SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+                                    oldbaseurlEditer.putString("oldbaseurl", BASE_URL+"/" + API_NAME);
+                                    oldbaseurlEditer.commit();
+                                    SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                                    SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+                                    imageurlEditer.putString("imageurl", IMAGE_URL);
+                                    imageurlEditer.commit();
+                                    SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                                    SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+                                    bankkeyEditer.putString("bankkey", BankKey);
+                                    bankkeyEditer.commit();
+                                    SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                                    SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+                                    bankheaderEditer.putString("bankheader", BankHeader);
+                                    bankheaderEditer.commit();
+
+                                    }
+                                else {
+                                    SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                                    SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+                                    baseurlEditer.putString("baseurl", jobjt.getString("TestingURL")+"/");
+                                    baseurlEditer.commit();
+                                    SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                                    SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+                                    oldbaseurlEditer.putString("oldbaseurl", jobjt.getString("TestingURL")+"/"+ API_NAME);
+                                    oldbaseurlEditer.commit();
+                                    SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                                    SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+                                    imageurlEditer.putString("imageurl", jobjt.getString("TestingImageURL"));
+                                    imageurlEditer.commit();
+                                    SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                                    SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+                                    bankkeyEditer.putString("bankkey", jobjt.getString("BankKey"));
+                                    bankkeyEditer.commit();
+                                    SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                                    SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+                                    bankheaderEditer.putString("bankheader", jobjt.getString("BankHeader"));
+                                    bankheaderEditer.commit();
+
+                                }
+
+                              /*  SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                                 SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
-                                baseurlEditer.putString("baseurl",BASE_URL);
+                                baseurlEditer.putString("baseurl", BASE_URL+"/");
                                 baseurlEditer.commit();
                                 SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
                                 SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
-                                oldbaseurlEditer.putString("oldbaseurl",BASE_URL+API_NAME);
+                                oldbaseurlEditer.putString("oldbaseurl", BASE_URL+"/" + API_NAME);
                                 oldbaseurlEditer.commit();
+                                SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                                SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+                                imageurlEditer.putString("imageurl", IMAGE_URL);
+                                imageurlEditer.commit();
+                                SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                                SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+                                bankkeyEditer.putString("bankkey", BankKey);
+                                bankkeyEditer.commit();
+                                SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                                SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+                                bankheaderEditer.putString("bankheader", BankHeader);
+                                bankheaderEditer.commit();*/
+
 
                                 getMaintenanceMessage();
 
@@ -442,6 +532,32 @@ public class SplashScreen extends AppCompatActivity {
         else {
             DialogUtil.showAlert(SplashScreen.this,
                     "Network is currently unavailable. Please try again later.");
+        }
+    }
+
+    public static String getBankkey() {
+        try {
+
+            if (bank_Key.isEmpty()){
+                return BankKey;
+            }else {
+                return bank_Key;
+            }
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getBankheader() {
+        try {
+
+            if (bank_Header.isEmpty()){
+                return BankHeader;
+            }else {
+                return bank_Header;
+            }
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
         }
     }
 

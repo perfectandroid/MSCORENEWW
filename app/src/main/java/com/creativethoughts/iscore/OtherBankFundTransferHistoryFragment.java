@@ -167,8 +167,12 @@ public class OtherBankFundTransferHistoryFragment extends Fragment implements Ad
                     requestObject1.put("TrnsDate",IScoreApplication.encryptStart(currentDateandTime));
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("0"));
                     requestObject1.put("Status",IScoreApplication.encryptStart(reqSubMode));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(getResources().getString(R.string.BankKey)));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(getResources().getString(R.string.BankHeader)));
+                    SharedPreferences bankkeypref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                     Log.e("requestObject1","   183   "+requestObject1);
 
