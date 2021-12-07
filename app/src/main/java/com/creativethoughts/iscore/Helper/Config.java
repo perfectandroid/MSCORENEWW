@@ -22,9 +22,9 @@ public class Config {
     public static final String SHARED_PREF14 = "LoginMobileNo";
     public static final String SHARED_PREF15 = "TestingMobileNo";
 
-    public static final String SHARED_PREF16 = "baseurl";
-    public static final String SHARED_PREF17 = "oldbaseurl";
-    public static final String SHARED_PREF18 = "imageurl";
-    public static final String SHARED_PREF19 = "bankkey";
-    public static final String SHARED_PREF20 = "bankheader";
+    public static final String SHARED_PREF16 = "testbaseurl";
+    public static final String SHARED_PREF17 = "testoldbaseurl";
+    public static final String SHARED_PREF18 = "testimageurl";
+    public static final String SHARED_PREF19 = "testbankkey";
+    public static final String SHARED_PREF20 = "testbankheader";
 }

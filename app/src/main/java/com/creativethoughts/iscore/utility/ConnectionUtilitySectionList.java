@@ -13,6 +13,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.SplashScreen;
+import com.creativethoughts.iscore.UserRegistrationActivity;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
 
 import java.io.BufferedInputStream;
@@ -53,8 +54,8 @@ public class ConnectionUtilitySectionList {
         String bankHeader   = IScoreApplication.getAppContext().getResources().getString( R.string.BankHeader );
 */
 
-        String bankKey      = IScoreApplication.getBankkey();
-        String bankHeader   = IScoreApplication.getBankheader();
+        String bankKey      = UserRegistrationActivity.getBankkey();
+        String bankHeader   = UserRegistrationActivity.getBankheader();
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 

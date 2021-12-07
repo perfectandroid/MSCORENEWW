@@ -56,13 +56,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
     public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
-    //public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA/";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
-//    public static final String BankKey= "d.11222";
-//    public static final String BankHeader= "PERFECT SCORE Bhnn ANK QA OFFICE";
+
     static String bank_Key, bank_Header;
     TextView tv_error_message;
     Button btn_proceed;
@@ -87,12 +85,38 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-        SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-        bank_Key=bankkeypref.getString("bankkey", null);
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
+        String strloginmobile=pref.getString("LoginMobileNo", null);
 
-        SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-        bank_Header=bankheaderpref.getString("bankheader", null);
+        SharedPreferences TestMobileNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
+        String strTestmobile=TestMobileNoSP.getString("TestingMobileNo", null);
+
+        if(strloginmobile == null || strloginmobile.isEmpty()) {
+
+            SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+            bank_Key=bankkeypref.getString("bankkey", null);
+            SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+            bank_Header=bankheaderpref.getString("bankheader", null);
+        }
+        else {
+            if (strTestmobile.equals(strloginmobile)) {
+
+                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
+                bank_Key=bankkeypref.getString("testbankkey", null);
+                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
+                bank_Header=bankheaderpref.getString("testbankheader", null);
+            }
+            else {
+
+                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                bank_Key=bankkeypref.getString("bankkey", null);
+                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                bank_Header=bankheaderpref.getString("bankheader", null);
+
+            }
+        }
+
     }
 
     private void startUserregistrationActivity() {
@@ -396,23 +420,23 @@ public class SplashScreen extends AppCompatActivity {
 
                                 SharedPreferences baseurlSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF16, 0);
                                 SharedPreferences.Editor baseurlEditer1 = baseurlSP1.edit();
-                                baseurlEditer1.putString("baseurl", jobjt.getString("TestingURL") + "/");
+                                baseurlEditer1.putString("testbaseurl", jobjt.getString("TestingURL") + "/");
                                 baseurlEditer1.commit();
                                 SharedPreferences oldbaseurlSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF17, 0);
                                 SharedPreferences.Editor oldbaseurlEditer1 = oldbaseurlSP1.edit();
-                                oldbaseurlEditer1.putString("oldbaseurl", jobjt.getString("TestingURL") + "/" + API_NAME);
+                                oldbaseurlEditer1.putString("testoldbaseurl", jobjt.getString("TestingURL") + "/" + API_NAME);
                                 oldbaseurlEditer1.commit();
                                 SharedPreferences imageurlSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF18, 0);
                                 SharedPreferences.Editor imageurlEditer1 = imageurlSP1.edit();
-                                imageurlEditer1.putString("imageurl", jobjt.getString("TestingImageURL"));
+                                imageurlEditer1.putString("testimageurl", jobjt.getString("TestingImageURL"));
                                 imageurlEditer1.commit();
                                 SharedPreferences bankkeySP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
                                 SharedPreferences.Editor bankkeyEditer1 = bankkeySP1.edit();
-                                bankkeyEditer1.putString("bankkey", jobjt.getString("BankKey"));
+                                bankkeyEditer1.putString("testbankkey", jobjt.getString("BankKey"));
                                 bankkeyEditer1.commit();
                                 SharedPreferences bankheaderSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
                                 SharedPreferences.Editor bankheaderEditer1 = bankheaderSP1.edit();
-                                bankheaderEditer1.putString("bankheader", jobjt.getString("BankHeader"));
+                                bankheaderEditer1.putString("testbankheader", jobjt.getString("BankHeader"));
                                 bankheaderEditer1.commit();
 
 

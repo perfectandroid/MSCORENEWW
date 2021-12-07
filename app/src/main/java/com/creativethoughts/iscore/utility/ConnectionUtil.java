@@ -14,6 +14,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.SplashScreen;
+import com.creativethoughts.iscore.UserRegistrationActivity;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 
@@ -50,8 +51,8 @@ public class ConnectionUtil {
     }
     public static String getResponse(String url) {
 
-        String bankKey      = SplashScreen.getBankkey();
-        String bankHeader   = SplashScreen.getBankheader();
+        String bankKey      = UserRegistrationActivity.getBankkey();
+        String bankHeader   = UserRegistrationActivity.getBankheader();
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 
