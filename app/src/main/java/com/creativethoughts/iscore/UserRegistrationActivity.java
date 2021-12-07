@@ -216,15 +216,59 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     }
     private void addListenerOnButton() {
+        SharedPreferences TestMobileNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
+        String strTestmobile=TestMobileNoSP.getString("TestingMobileNo", null);
 
-        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+
         Button mRegisterBtn = findViewById(R.id.btnRegister);
         assert mRegisterBtn != null;
         mRegisterBtn.setOnClickListener(arg0 -> {
-            String mobileNumber = mMobileNumberET.getText().toString();
 
             String countryCode = "91"; // Need to change this hard coded value.
+            String mobileNumber = mMobileNumberET.getText().toString();
+            String BASE_URL;
+
+
+            if(strTestmobile.equals(mobileNumber)){
+
+                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF17, 0);
+                String base_url=pref.getString("oldbaseurl", null);
+                SharedPreferences imgpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF18, 0);
+                String image_url=imgpref.getString("oldbaseurl", null);
+                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
+                String bank_Key=bankkeypref.getString("bankkey", null);
+                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
+                String bank_Header=bankheaderpref.getString("bankheader", null);
+
+
+                SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+                baseurlEditer.putString("baseurl", base_url + "/");
+                baseurlEditer.commit();
+                SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+                oldbaseurlEditer.putString("oldbaseurl", base_url + "/" /*+ SplashScreen.API_NAME*/);
+                oldbaseurlEditer.commit();
+                SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+                imageurlEditer.putString("imageurl", bank_Key);
+                imageurlEditer.commit();
+                SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+                bankkeyEditer.putString("bankkey", bank_Key);
+                bankkeyEditer.commit();
+                SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+                bankheaderEditer.putString("bankheader", bank_Header);
+                bankheaderEditer.commit();
+
+                SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                BASE_URL=pref1.getString("oldbaseurl", null);
+            }
+            else{
+                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+                BASE_URL=pref.getString("oldbaseurl", null);
+            }
 
             if(mobileNumber.equalsIgnoreCase("124567")) {
 
@@ -285,6 +329,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
 
         });
+
     }
     private void analyzeResult( String result,String mobileNumber, String countryCode ){
         try {

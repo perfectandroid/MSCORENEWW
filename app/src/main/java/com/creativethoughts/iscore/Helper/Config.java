@@ -1,8 +1,5 @@
 package com.creativethoughts.iscore.Helper;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import com.creativethoughts.iscore.R;
 
 public class Config {
@@ -22,5 +19,12 @@ public class Config {
     public static final String SHARED_PREF11 = "bankheader";
     public static final String SHARED_PREF12 = "EwireCardService";
     public static final String SHARED_PREF13 = "imageurl";
+    public static final String SHARED_PREF14 = "LoginMobileNo";
+    public static final String SHARED_PREF15 = "TestingMobileNo";
 
+    public static final String SHARED_PREF16 = "baseurl";
+    public static final String SHARED_PREF17 = "oldbaseurl";
+    public static final String SHARED_PREF18 = "imageurl";
+    public static final String SHARED_PREF19 = "bankkey";
+    public static final String SHARED_PREF20 = "bankheader";
 }
