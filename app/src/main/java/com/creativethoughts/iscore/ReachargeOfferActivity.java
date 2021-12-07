@@ -218,7 +218,7 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
                                 }
 
 
-                              //  Log.e(TAG,"iterator   190   "+(jObject.getJSONObject((String)iterator.next())));
+                                //  Log.e(TAG,"iterator   190   "+(jObject.getJSONObject((String)iterator.next())));
 
                             }
 
@@ -242,8 +242,8 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
 
                         }else {
 
-                          //  JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeOffersDets");
-                           // Log.e(TAG,"onResponse  233   "+jsonObj1.getString("ResponseMessage"));
+                            //  JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeOffersDets");
+                            // Log.e(TAG,"onResponse  233   "+jsonObj1.getString("ResponseMessage"));
                             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ReachargeOfferActivity.this);
                             builder.setMessage(""+jsonObj.getString("EXMessage"))
 //                                builder.setMessage("No data found.")
@@ -360,7 +360,7 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
 
             String jObject5 = jObject4.getString(header);
 
-       //     JSONArray  jsonArray = jObject4.getJSONArray(""+jObject4.getJSONObject(""+header));
+            //     JSONArray  jsonArray = jObject4.getJSONArray(""+jObject4.getJSONObject(""+header));
             Log.e(TAG,"jObject5   338    "+jObject5);
             JSONArray jsonArray = new JSONArray(jObject5);
             Log.e(TAG,"jsonArray   340    "+jsonArray);
