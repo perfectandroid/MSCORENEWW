@@ -27,4 +27,11 @@ public class Config {
     public static final String SHARED_PREF18 = "testimageurl";
     public static final String SHARED_PREF19 = "testbankkey";
     public static final String SHARED_PREF20 = "testbankheader";
+    public static final String SHARED_PREF21 = "testhostname";
+    public static final String SHARED_PREF22 = "testcertificateassetname";
+
+    public static final String SHARED_PREF23 = "hostname";
+    public static final String SHARED_PREF24 = "certificateassetname";
+
+
 }

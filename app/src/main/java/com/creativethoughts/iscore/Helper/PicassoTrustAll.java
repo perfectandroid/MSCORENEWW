@@ -2,6 +2,7 @@ package com.creativethoughts.iscore.Helper;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
@@ -32,7 +33,7 @@ import javax.net.ssl.X509TrustManager;
 public class PicassoTrustAll {
 
     private static Picasso mInstance = null;
-
+    Context context;
     private PicassoTrustAll(Context context) {
         OkHttpClient client = new OkHttpClient();
         client.setHostnameVerifier(new HostnameVerifier() {
@@ -68,11 +69,13 @@ public class PicassoTrustAll {
             throws CertificateException, KeyStoreException, IOException,
             NoSuchAlgorithmException,
             KeyManagementException {
+        SharedPreferences sslnamepref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        String asset_Name=sslnamepref.getString("certificateassetname", null);
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
         // File path: app\src\main\res\raw\your_cert.cer
         InputStream caInput =  IScoreApplication.getAppContext().
-                getAssets().open(Common.getCertificateAssetName());
+                getAssets().open(asset_Name);
         Certificate ca = cf.generateCertificate(caInput);
         caInput.close();
         KeyStore keyStore = KeyStore.getInstance("BKS");

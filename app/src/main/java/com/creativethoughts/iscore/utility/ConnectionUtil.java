@@ -105,17 +105,14 @@ public class ConnectionUtil {
                 if ( Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1 ){
                     return true;
                 }else {
-                    return hv.verify(Common.getHostnameSubject()+"", session )  ;
+                    return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
                 }
             };
             updateURL = new URL(url);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
             InputStream caInput =  IScoreApplication.getAppContext().
-                    getAssets().open( Common.getCertificateAssetName());
-          /* InputStream caInput = IScoreApplication.getAppContext().getResources().openRawResource(
-                   IScoreApplication.getAppContext().getResources().getIdentifier("sample",
-                           "raw", IScoreApplication.getAppContext().getPackageName()));*/
+                    getAssets().open( UserRegistrationActivity.getCertificateAssetName());
 
 
             Certificate ca;

@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore.neftrtgs;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,11 +10,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,14 +37,18 @@ import com.creativethoughts.iscore.OtherfundTransferHistoryIMPS;
 import com.creativethoughts.iscore.OtherfundTransferHistoryNEFT;
 import com.creativethoughts.iscore.OtherfundTransferHistoryRTGS;
 import com.creativethoughts.iscore.R;
+import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
+import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
+import com.creativethoughts.iscore.db.dao.model.UserDetails;
+import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.otp.OtpFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -50,13 +58,44 @@ import com.creativethoughts.iscore.utility.network.NetworkManager;
 import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
@@ -73,7 +112,7 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
     private CheckBox mCheckSaveBeneficiary;
     private RelativeLayout mLinearParent;
     private ScrollView mScrollView;
-    public static final String result ="";
+    public static String result ="";
     public static String balnce ="";
     String from="NEFT";
     String reslts;
@@ -85,6 +124,12 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
     String BranchName ;
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist = new ArrayList<String>();
+
+
+    public ArrayList<ToAccountDetails> AccountDetails;
+    static ArrayAdapter<ToAccountDetails> AccountAdapter = null;
+    public static String bal="";
+
     public NeftRtgsFragment( ) {
         //Do nothing
     }
@@ -751,5 +796,73 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
         mEdtTxtBeneficiaryConfirmAccNo.setEnabled( false );
     }
 
+
+
+    private SSLSocketFactory getSSLSocketFactory()
+            throws CertificateException, KeyStoreException, IOException,
+            NoSuchAlgorithmException,
+            KeyManagementException {
+        SharedPreferences sslnamepref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        String asset_Name=sslnamepref.getString("certificateassetname", null);
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
+        // File path: app\src\main\res\raw\your_cert.cer
+        InputStream caInput =  IScoreApplication.getAppContext().
+                getAssets().open(asset_Name);
+        Certificate ca = cf.generateCertificate(caInput);
+        caInput.close();
+        KeyStore keyStore = KeyStore.getInstance("BKS");
+        keyStore.load(null, null);
+        keyStore.setCertificateEntry("ca", ca);
+        String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+        tmf.init(keyStore);
+        TrustManager[] wrappedTrustManagers = getWrappedTrustManagers(tmf.getTrustManagers());
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, wrappedTrustManagers, null);
+        return sslContext.getSocketFactory();
+    }
+    private TrustManager[] getWrappedTrustManagers(TrustManager[] trustManagers) {
+        final X509TrustManager originalTrustManager = (X509TrustManager) trustManagers[0];
+        return new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return originalTrustManager.getAcceptedIssuers();
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkClientTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkClientTrusted", e.toString());
+                        }
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkServerTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkServerTrusted", e.toString());
+                        }
+                    }
+                }
+        };
+    }
+    private HostnameVerifier getHostnameVerifier() {
+        return new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+    }
 }
 //

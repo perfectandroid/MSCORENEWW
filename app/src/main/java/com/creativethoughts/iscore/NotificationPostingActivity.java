@@ -240,11 +240,13 @@ public class NotificationPostingActivity extends AppCompatActivity {
             throws CertificateException, KeyStoreException, IOException,
             NoSuchAlgorithmException,
             KeyManagementException {
+        SharedPreferences sslnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        String asset_Name=sslnamepref.getString("certificateassetname", null);
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
         // File path: app\src\main\res\raw\your_cert.cer
         InputStream caInput =  IScoreApplication.getAppContext().
-                getAssets().open(Common.getCertificateAssetName());
+                getAssets().open(asset_Name);
         Certificate ca = cf.generateCertificate(caInput);
         caInput.close();
         KeyStore keyStore = KeyStore.getInstance("BKS");
