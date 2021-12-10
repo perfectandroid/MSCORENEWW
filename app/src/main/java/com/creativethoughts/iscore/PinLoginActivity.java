@@ -354,35 +354,39 @@ try {
     }
 
     private void logout(){
-        /*UserCredentialDAO.getInstance().deleteAllUserData();
-        UserDetailsDAO.getInstance().deleteAllRows();
-        PBAccountInfoDAO.getInstance().deleteAllRows();
-        PBMessagesDAO.getInstance().deleteAllRows();
-        RechargeDAO.getInstance().deleteAllRows();
-        NewTransactionDAO.getInstance().deleteAllRow();
-        SettingsDAO.getInstance().deleteAllRows();
-        BankVerifier.getInstance().deleteAllRows();
-        DynamicMenuDao.getInstance().deleteAll();
-        KsebBillDAO.getInstance().deleteAll();
-
-        Intent intent = new Intent(PinLoginActivity.this, UserRegistrationActivity.class);
-        intent.putExtra("from","true");
-        startActivity(intent);
-        finish();*/
-//        new SweetAlertDialog(this,SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-//                // .setTitleText("Are you sure?")
-//                .setContentText("Do you want to delete this account and register with another account?")
-//                .setCancelText("No")
-//                .setConfirmText("Yes")
-//                .showCancelButton(true)
-//                .setCustomImage(R.drawable.aappicon)
-//                .setConfirmClickListener(sweetAlertDialog ->DbSync.getInstance().logout( this ) )
-//                .show();
         delete();
     }
 
     private void delete(){
         try {
+            SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+            baseurlEditer.putString("baseurl", SplashScreen.BASE_URL + "/");
+            baseurlEditer.commit();
+            SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+            SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+            oldbaseurlEditer.putString("oldbaseurl", SplashScreen.BASE_URL + "/" + SplashScreen.API_NAME);
+            oldbaseurlEditer.commit();
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+            imageurlEditer.putString("imageurl", SplashScreen.IMAGE_URL);
+            imageurlEditer.commit();
+            SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+            SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+            bankkeyEditer.putString("bankkey", SplashScreen.BankKey);
+            bankkeyEditer.commit();
+            SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+            SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+            bankheaderEditer.putString("bankheader", SplashScreen.BankHeader);
+            bankheaderEditer.commit();
+            SharedPreferences hostnameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
+            SharedPreferences.Editor hostnameEditer = hostnameSP.edit();
+            hostnameEditer.putString("hostname", SplashScreen.HOSTNAME_SUBJECT/*jobjt.getString("BankKey")*/);
+            hostnameEditer.commit();
+            SharedPreferences assetnameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+            SharedPreferences.Editor assetnameEditer = assetnameSP.edit();
+            assetnameEditer.putString("certificateassetname", SplashScreen.CERTIFICATE_ASSET_NAME/*jobjt.getString("BankHeader")*/);
+            assetnameEditer.commit();
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
             LayoutInflater inflater1 = (LayoutInflater) getApplicationContext().getSystemService(this.LAYOUT_INFLATER_SERVICE);
             View layout = inflater1.inflate(R.layout.logout_popup, null);

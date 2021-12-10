@@ -63,8 +63,8 @@ public class SplashScreen extends AppCompatActivity {
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
 //    public static final String BankKey= "2504";
 //    public static final String BankHeader= "PERFECT SCORE BANK QUALITY OFFICE";
-    private static final String HOSTNAME_SUBJECT="STATIC-VM";
-    private static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
+public static final String HOSTNAME_SUBJECT="STATIC-VM";
+    public static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
     //private static final String CERTIFICATE_ASSET_NAME="testmscore.pem";
 
 
