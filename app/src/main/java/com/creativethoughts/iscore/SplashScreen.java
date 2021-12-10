@@ -56,6 +56,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
     public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+//    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
     //public static final String BASE_URL="https://112.133.227.123:1400/TESTMSCORE";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
@@ -63,7 +64,7 @@ public class SplashScreen extends AppCompatActivity {
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
 //    public static final String BankKey= "2504";
 //    public static final String BankHeader= "PERFECT SCORE BANK QUALITY OFFICE";
-public static final String HOSTNAME_SUBJECT="STATIC-VM";
+    public static final String HOSTNAME_SUBJECT="STATIC-VM";
     public static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
     //private static final String CERTIFICATE_ASSET_NAME="testmscore.pem";
 
@@ -231,6 +232,7 @@ public static final String HOSTNAME_SUBJECT="STATIC-VM";
     private void getMaintenanceMessage() {
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
+        Log.e("TAG","BASE_URL   235 "+BASE_URL);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -460,14 +462,17 @@ public static final String HOSTNAME_SUBJECT="STATIC-VM";
                                 SharedPreferences.Editor bankkeyEditer1 = bankkeySP1.edit();
                                 bankkeyEditer1.putString("testbankkey", jobjt.getString("BankKey"));
                                 bankkeyEditer1.commit();
+
                                 SharedPreferences bankheaderSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
                                 SharedPreferences.Editor bankheaderEditer1 = bankheaderSP1.edit();
                                 bankheaderEditer1.putString("testbankheader", jobjt.getString("BankHeader"));
                                 bankheaderEditer1.commit();
+
                                 SharedPreferences hostnameSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF21, 0);
                                 SharedPreferences.Editor hostnameEditer1 = hostnameSP1.edit();
                                 hostnameEditer1.putString("testhostname", jobjt.getString("HostName"));
                                 hostnameEditer1.commit();
+
                                 SharedPreferences assetnameSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF22, 0);
                                 SharedPreferences.Editor assetnameEditer1 = assetnameSP1.edit();
                                 assetnameEditer1.putString("testcertificateassetname", jobjt.getString("AssetName"));
@@ -647,6 +652,7 @@ public static final String HOSTNAME_SUBJECT="STATIC-VM";
 
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Log.e("TAG","Exception   651   "+e.toString());
 
                         }
                     }
@@ -657,7 +663,7 @@ public static final String HOSTNAME_SUBJECT="STATIC-VM";
                 });
             }
             catch (Exception e) {
-                Log.i("Imagedetails",e.toString());
+                Log.e("Imagedetails",e.toString());
 
                 e.printStackTrace();
             }

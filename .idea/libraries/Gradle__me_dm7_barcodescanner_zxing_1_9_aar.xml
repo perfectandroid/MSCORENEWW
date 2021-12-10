@@ -6,6 +6,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/res" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/res" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/5434cd28a768f514b797584575c2f500/jetified-zxing-1.9/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

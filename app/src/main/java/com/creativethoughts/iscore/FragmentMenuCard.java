@@ -354,17 +354,17 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 
             }
         });
-
-        try {
-            dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
-            if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") &&  IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0")){
-                tvRecharge.setText("Profile");
-                imRecharge.setImageResource(R.drawable.usersprofile);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+//            if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") &&  IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0")){
+//                tvRecharge.setText("Profile");
+//                imRecharge.setImageResource(R.drawable.usersprofile);
+//            }
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
         activeProgressDialog();
         SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
         String acChange = settingsModel.customerId;

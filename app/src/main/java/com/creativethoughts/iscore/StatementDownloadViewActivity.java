@@ -691,9 +691,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
 
 
-                                    Intent i = new Intent(StatementDownloadViewActivity.this, Viewstatement.class);
-                                    i.putExtra("docx", filename2);
-                                    startActivity(i);
+//                                    Intent i = new Intent(StatementDownloadViewActivity.this, Viewstatement.class);
+//                                    i.putExtra("docx", filename2);
+//                                    startActivity(i);
 
                                 }
                                 else {

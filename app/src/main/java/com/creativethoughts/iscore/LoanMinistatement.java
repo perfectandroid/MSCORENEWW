@@ -1570,10 +1570,10 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
 
                                   //  String filename2 = Common.getBaseUrl() + "/" + four + "/" + five + "/" + filename1;
                                     Log.i("Path", filename2 + "\n" + filename1);
-
-                                    Intent i = new Intent(LoanMinistatement.this, Viewstatement.class);
-                                    i.putExtra("docx", filename2);
-                                    startActivity(i);
+//
+//                                    Intent i = new Intent(LoanMinistatement.this, Viewstatement.class);
+//                                    i.putExtra("docx", filename2);
+//                                    startActivity(i);
 
                                 } else {
 

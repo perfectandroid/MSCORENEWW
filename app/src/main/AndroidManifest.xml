@@ -228,15 +228,15 @@
                 android:value="money_transfer.FundTransferActivity" />
         </activity>
 
-        <activity
-            android:name=".money_transfer.MoneyTransferActivity"
-            android:label="Money Transfer"
-            android:parentActivityName=".HomeActivity"
-            android:theme="@style/HomeActivityTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.creativethoughts.iscore.HomeActivity" />
-        </activity>
+<!--        <activity-->
+<!--            android:name=".money_transfer.MoneyTransferActivity"-->
+<!--            android:label="Money Transfer"-->
+<!--            android:parentActivityName=".HomeActivity"-->
+<!--            android:theme="@style/HomeActivityTheme">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value="com.creativethoughts.iscore.HomeActivity" />-->
+<!--        </activity>-->
         <activity
             android:name=".AboutUsActivity"
             android:label="About Us"
@@ -360,15 +360,6 @@
             android:name=".DepositMinistatement"
             android:label="Mini Statement"
             android:parentActivityName=".DepositAccountSummaryDetailsActivity"
-            android:theme="@style/HomeActivityTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.creativethoughts.iscore.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".Viewstatement"
-            android:label="Statement"
-            android:parentActivityName=".DepositMinistatement"
             android:theme="@style/HomeActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

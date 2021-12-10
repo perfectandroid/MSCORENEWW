@@ -9,12 +9,17 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d6f85daf6ceb9143d4816d02c5d23c9/jetified-hellocharts-library-1.5.8/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d6f85daf6ceb9143d4816d02c5d23c9/jetified-hellocharts-library-1.5.8/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d6f85daf6ceb9143d4816d02c5d23c9/jetified-hellocharts-library-1.5.8/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/12b60758ecad49d0678bb135d69865cc/jetified-hellocharts-library-1.5.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/12b60758ecad49d0678bb135d69865cc/jetified-hellocharts-library-1.5.8/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/12b60758ecad49d0678bb135d69865cc/jetified-hellocharts-library-1.5.8/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/593fb22f70474038fe2a72f19e72060eb9f65db8/hellocharts-library-1.5.8-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/593fb22f70474038fe2a72f19e72060eb9f65db8/hellocharts-library-1.5.8-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/51798d4793c333553a68292ee3a47b4758c2ec47/hellocharts-library-1.5.8-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/51798d4793c333553a68292ee3a47b4758c2ec47/hellocharts-library-1.5.8-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

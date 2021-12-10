@@ -54,6 +54,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ContactusActivity extends AppCompatActivity {
+
+    String TAG ="ContactusActivity";
     private ProgressDialog progressDialog;
     TextView txtv_bankname,txtv_branchname,txtv_address,txtv_hour,txtv_land,txtv_mob;
     String cusid,tokenn;
@@ -83,6 +85,7 @@ public class ContactusActivity extends AppCompatActivity {
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
+        Log.e("TAG","BASE_URL   235 "+BASE_URL);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(ContactusActivity.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
@@ -107,6 +110,8 @@ public class ContactusActivity extends AppCompatActivity {
                         .client(client)
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
+
+
                 String reqmode = IScoreApplication.encryptStart("1");
                 String submode = IScoreApplication.encryptStart("1");
                 String token = IScoreApplication.encryptStart(tokenn);
@@ -125,6 +130,7 @@ public class ContactusActivity extends AppCompatActivity {
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1  128  "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -138,7 +144,7 @@ public class ContactusActivity extends AppCompatActivity {
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try {
-                            Log.i("Locationdetails", response.body());
+                            Log.e("Locationdetails", response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")){
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("BankBranchDetailsListInfo");
@@ -191,8 +197,10 @@ public class ContactusActivity extends AppCompatActivity {
                             }
 
                             //Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
-                        }catch (JSONException e)
+                        }catch (Exception e)
                         {
+
+                            Log.e(TAG,"Exception  200   "+e.toString());
 
                         }
 

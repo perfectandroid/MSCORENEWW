@@ -235,6 +235,7 @@ public final class CommonUtilities {
 //        if (accountSpinnerItems.isEmpty())
 //            return;
 
+    //    context  =activity;
         showOwnAccToList(spinner,activity);
 
 //        for (int i = 0; i< accountSpinnerItems.size(); i++){
@@ -273,12 +274,17 @@ public final class CommonUtilities {
     private static void showOwnAccToList(Spinner spinner, Activity activity) {
 
 
-        SharedPreferences pref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null);
+
         if (NetworkUtil.isOnline()) {
             try {
+
+                SharedPreferences pref = activity.getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null);
+
+                Log.e("TAG","BASE_URL   283   "+BASE_URL);
+
                 OkHttpClient client = new OkHttpClient.Builder()
-                        .sslSocketFactory(getSSLSocketFactory())
+                        .sslSocketFactory(getSSLSocketFactory(activity))
                         .hostnameVerifier(getHostnameVerifier())
                         .build();
                 Gson gson = new GsonBuilder()
@@ -304,9 +310,9 @@ public final class CommonUtilities {
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
 //                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
 //                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
-                    SharedPreferences bankkeypref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    SharedPreferences bankkeypref =activity.getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
-                    SharedPreferences bankheaderpref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    SharedPreferences bankheaderpref =activity.getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
@@ -437,6 +443,9 @@ public final class CommonUtilities {
             }
             catch (Exception e)
             {
+                e.printStackTrace();
+
+                Log.e("Exception ","Exception  302   "+e.toString());
 
             }
         }
@@ -490,11 +499,12 @@ public final class CommonUtilities {
         };
     }
 
-    private static SSLSocketFactory getSSLSocketFactory()
+    private static SSLSocketFactory getSSLSocketFactory(Activity activity)
+
             throws CertificateException, KeyStoreException, IOException,
             NoSuchAlgorithmException,
             KeyManagementException {
-        SharedPreferences sslnamepref =context.getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        SharedPreferences sslnamepref = activity.getSharedPreferences(Config.SHARED_PREF24, 0);
         String asset_Name=sslnamepref.getString("certificateassetname", null);
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());

@@ -216,9 +216,9 @@
                             android:id="@+id/imgquickpay"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:scaleType="fitXY"
                             android:layout_alignParentLeft="true"
-                            android:src="@drawable/quick_pay"/>
+                            android:scaleType="fitXY"
+                            android:src="@drawable/quick_pay" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -239,8 +239,8 @@
                             android:scaleType="fitXY"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/arr1"/>
+                            app:srcCompat="@drawable/arr1"
+                            app:tint="@color/black" />
 
 
                     </RelativeLayout>
@@ -281,8 +281,8 @@
                             android:scaleType="fitXY"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:tint="@color/black"
-                            app:srcCompat="@drawable/arr1"/>
+                            app:srcCompat="@drawable/arr1"
+                            app:tint="@color/black" />
 
 
                     </RelativeLayout>

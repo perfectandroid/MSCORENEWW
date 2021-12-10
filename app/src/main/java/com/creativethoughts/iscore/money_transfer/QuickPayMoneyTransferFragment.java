@@ -447,10 +447,11 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         };
     }
     private void getAccList() {
-        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null);
+
         if (NetworkUtil.isOnline()) {
             try {
+                SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null);
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -567,13 +568,18 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                                 }
                             }
                         }
-                        catch (JSONException e) { }
+                        catch (Exception e) {
+                            Log.e(TAG,"Exception  572   "+e.toString());
+                        }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) { }
                 });
             }
-            catch (Exception e) { }
+            catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG,"Exception  578  "+e.toString());
+            }
         }
         else {
             DialogUtil.showAlert(getContext(),"Network is currently unavailable. Please try again later.");
@@ -879,6 +885,7 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
             }
 
+            Log.e(TAG,"url  888   "+url);
 
             String strResponse = ConnectionUtil.getResponse(url);
 

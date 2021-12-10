@@ -1335,9 +1335,9 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                   //  String filename2 = Common.getBaseUrl() + "/"+four+"/"+five+"/"+filename1;
                                     Log.e("Path  2459  ",filename2+"\n"+filename1);
 
-                                    Intent i = new Intent(DepositMinistatement.this, Viewstatement.class);
-                                    i.putExtra("docx", filename2);
-                                    startActivity(i);
+//                                    Intent i = new Intent(DepositMinistatement.this, Viewstatement.class);
+//                                    i.putExtra("docx", filename2);
+//                                    startActivity(i);
 
                                 }
                                 else {

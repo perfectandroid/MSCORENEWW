@@ -103,7 +103,8 @@
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
                                 android:layout_weight="1"
-                                android:gravity="center">
+                                android:gravity="center"
+                                android:visibility="gone">
                                 <TextView
                                     android:id="@+id/tv_view"
                                     android:layout_weight="1"
@@ -116,8 +117,15 @@
                                     android:drawableLeft="@drawable/icas_mini_stmnt"
                                     android:text="View Statement"
                                     android:textColor="@color/white"
-                                    android:textSize="13sp"/>
+                                    android:textSize="13sp"
+                                    android:visibility="gone"/>
                             </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.5"
+                                android:orientation="vertical"/>
                             <LinearLayout
                                 android:id="@+id/ll_download"
                                 android:layout_width="match_parent"
@@ -140,6 +148,11 @@
 
                             </LinearLayout>
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.5"
+                                android:orientation="vertical"/>
                         </LinearLayout>
 
 
