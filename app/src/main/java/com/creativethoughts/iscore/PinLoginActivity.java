@@ -106,19 +106,20 @@ public class PinLoginActivity extends AppCompatActivity implements View.OnClickL
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+try {
+    if (timeOfDay >= 0 && timeOfDay < 12) {
+        txt_user.setText("Good Morning " + userDetails.userCustomerName);
 
-        if(timeOfDay >= 0 && timeOfDay < 12){
-            txt_user.setText("Good Morning "+userDetails.userCustomerName);
+    } else if (timeOfDay >= 12 && timeOfDay < 16) {
+        txt_user.setText("Good Afternoon " + userDetails.userCustomerName);
 
-        }else if(timeOfDay >= 12 && timeOfDay < 16){
-            txt_user.setText("Good Afternoon "+userDetails.userCustomerName);
+    } else if (timeOfDay >= 16 && timeOfDay < 21) {
+        txt_user.setText("Good Evening " + userDetails.userCustomerName);
 
-        }else if(timeOfDay >= 16 && timeOfDay < 21){
-            txt_user.setText("Good Evening "+userDetails.userCustomerName);
-
-        }else if(timeOfDay >= 21 && timeOfDay < 24){
-            txt_user.setText("Good Night "+userDetails.userCustomerName);
-        }
+    } else if (timeOfDay >= 21 && timeOfDay < 24) {
+        txt_user.setText("Good Night " + userDetails.userCustomerName);
+    }
+}catch (Exception e){e.printStackTrace();}
 //        txt_user.setText("Welcome "+userDetails.userCustomerName);
         // getCustomerImage(userDetails.customerId);
         btnArray    =  new Button[]{btnKeyPadOne, btnKeyPadTwo, btnKeyPadThree,

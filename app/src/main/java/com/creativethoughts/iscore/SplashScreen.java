@@ -56,12 +56,16 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
     public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+    //public static final String BASE_URL="https://112.133.227.123:1400/TESTMSCORE";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+//    public static final String BankKey= "2504";
+//    public static final String BankHeader= "PERFECT SCORE BANK QUALITY OFFICE";
     private static final String HOSTNAME_SUBJECT="STATIC-VM";
     private static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
+    //private static final String CERTIFICATE_ASSET_NAME="testmscore.pem";
 
 
     static String bank_Key, bank_Header;
@@ -430,10 +434,10 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor PlayStoreLinkSPEditer = PlayStoreLinkSP.edit();
                                 PlayStoreLinkSPEditer.putString("PlayStoreLink",jobjt.getString("PlayStoreLink"));
                                 PlayStoreLinkSPEditer.commit();
-                                SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+                                /*SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
                                 SharedPreferences.Editor EwireCardServiceEditer = EwireCardServiceSP.edit();
                                 EwireCardServiceEditer.putString("EwireCardService",jobjt.getString("EwireCardService"));
-                                EwireCardServiceEditer.commit();
+                                EwireCardServiceEditer.commit();*/
 
                                 SharedPreferences TestMobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
                                 SharedPreferences.Editor TestMobileNoEditer = TestMobileNoSP.edit();
@@ -462,11 +466,11 @@ public class SplashScreen extends AppCompatActivity {
                                 bankheaderEditer1.commit();
                                 SharedPreferences hostnameSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF21, 0);
                                 SharedPreferences.Editor hostnameEditer1 = hostnameSP1.edit();
-                                hostnameEditer1.putString("testhostname", HOSTNAME_SUBJECT/*jobjt.getString("BankKey")*/);
+                                hostnameEditer1.putString("testhostname", jobjt.getString("HostName"));
                                 hostnameEditer1.commit();
                                 SharedPreferences assetnameSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF22, 0);
                                 SharedPreferences.Editor assetnameEditer1 = assetnameSP1.edit();
-                                assetnameEditer1.putString("testcertificateassetname", CERTIFICATE_ASSET_NAME/*jobjt.getString("BankHeader")*/);
+                                assetnameEditer1.putString("testcertificateassetname", jobjt.getString("AssetName"));
                                 assetnameEditer1.commit();
 
 
@@ -561,11 +565,11 @@ public class SplashScreen extends AppCompatActivity {
                                             bankheaderEditer.commit();
                                             SharedPreferences hostnameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
                                             SharedPreferences.Editor hostnameEditer = hostnameSP.edit();
-                                            hostnameEditer.putString("hostname", HOSTNAME_SUBJECT/*jobjt.getString("BankKey")*/);
+                                            hostnameEditer.putString("hostname", jobjt.getString("HostName"));
                                             hostnameEditer.commit();
                                             SharedPreferences assetnameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
                                             SharedPreferences.Editor assetnameEditer = assetnameSP.edit();
-                                            assetnameEditer.putString("certificateassetname", CERTIFICATE_ASSET_NAME/*jobjt.getString("BankHeader")*/);
+                                            assetnameEditer.putString("certificateassetname", jobjt.getString("AssetName"));
                                             assetnameEditer.commit();
                                         }
                                     }
