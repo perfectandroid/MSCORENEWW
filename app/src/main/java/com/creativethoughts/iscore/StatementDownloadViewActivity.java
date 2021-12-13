@@ -837,6 +837,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e("requestObject1","requestObject1   840   "+requestObject1);
 
                 }
 
@@ -851,6 +852,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
+                        Log.e("response","response   840   "+response.body());
                         try {
                             String res = response.toString();
                             StringTokenizer tokenss = new StringTokenizer(res, ",");

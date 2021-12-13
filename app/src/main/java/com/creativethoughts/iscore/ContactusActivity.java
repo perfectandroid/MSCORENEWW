@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -79,6 +82,106 @@ public class ContactusActivity extends AppCompatActivity {
         tokenn = loginCredential.token;
 
         showBankDetails();
+      //  showBankDetails1();
+
+     //   getMaintenanceMessage();
+    }
+
+    private void showBankDetails1() {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        Log.e("TAG","BASE_URL   235 "+BASE_URL);
+        if (NetworkUtil.isOnline()) {
+            try {
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("1"));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+                    requestObject1.put("Token",IScoreApplication.encryptStart(tokenn));
+                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1  128  "+requestObject1);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getBankbranchList(body);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("response  341   ",response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            String statuscode = jObject.getString("StatusCode");
+                            if(statuscode.equals("0")){
+
+                            }
+                            else {
+
+                                try{
+
+
+                                }
+                                catch (Exception e){
+                                    String EXMessage = jObject.getString("EXMessage");
+                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ContactusActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.i("Imagedetails","Something went wrong");
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            DialogUtil.showAlert(ContactusActivity.this,
+                    "Network is currently unavailable. Please try again later.");
+        }
     }
 
     private void showBankDetails() {
@@ -111,6 +214,7 @@ public class ContactusActivity extends AppCompatActivity {
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
 
+                Log.e(TAG,"BASE_URL   "+BASE_URL);
 
                 String reqmode = IScoreApplication.encryptStart("1");
                 String submode = IScoreApplication.encryptStart("1");
@@ -289,6 +393,121 @@ public class ContactusActivity extends AppCompatActivity {
                 return true;
             }
         };
+    }
+
+    private void getMaintenanceMessage() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        Log.e("TAG","BASE_URL   235 "+BASE_URL);
+        if (NetworkUtil.isOnline()) {
+            try {
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+                    requestObject1.put("ReqMode",/*cusid*/IScoreApplication.encryptStart("15"));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getMaintenanceMessage(body);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("response  341   ",response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            String statuscode = jObject.getString("StatusCode");
+                            if(statuscode.equals("0")){
+                                JSONObject jobjt = jObject.getJSONObject("MaintenanceMessage");
+                                JSONArray maintenancejobjt = jobjt.getJSONArray("MaintenanceMessageList");
+                                JSONObject MaintenanceMessageList =  maintenancejobjt.getJSONObject(0);
+                                String type = MaintenanceMessageList.getString("Type");
+
+                                String message = "";
+
+                                if (maintenancejobjt.length() != 0 ){
+                                    for (int i = 0; i < maintenancejobjt.length(); i++) {
+                                        JSONObject MaintenanceMessageL =  maintenancejobjt.getJSONObject(i);
+                                        if (type.equals("1")){
+                                            message +=   ""+ MaintenanceMessageL.getString("Description");
+                                        }
+                                        else {
+
+                                            if (i== 0){
+                                                message +=   ""+ (i+1) +" - " + MaintenanceMessageL.getString("Description");
+                                            }
+                                            else{
+                                                message +=   "\n"+ (i+1) +" - " + MaintenanceMessageL.getString("Description");
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            else {
+
+                                try{
+
+
+                                }
+                                catch (Exception e){
+                                    String EXMessage = jObject.getString("EXMessage");
+                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ContactusActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.i("Imagedetails","Something went wrong");
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            DialogUtil.showAlert(ContactusActivity.this,
+                    "Network is currently unavailable. Please try again later.");
+        }
     }
 
 }

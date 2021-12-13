@@ -35,7 +35,7 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 30
-     //   applicationId "com.mscore.pss"
+        applicationId "com.mscore.pss"
        // applicationId "com.mscore.parapanangadi"
        // applicationId "com.mscore.calicuttownbank"
         //applicationId "com.mscore.kulathupuzha"
@@ -54,7 +54,7 @@ android {
        // applicationId "com.mscore.Vayyattupuzha"
       //  applicationId "com.mscore.thekkumbagam"
        // applicationId "com.mscore.kotturscb"
-        applicationId "com.mscore.atholi"
+//        applicationId "com.mscore.atholi"
        // applicationId "com.mscore.thiruvambady_scb"
 
         //applicationId "com.mscore.cheruvannur"
