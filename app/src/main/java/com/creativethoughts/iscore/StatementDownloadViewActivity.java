@@ -558,7 +558,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
-                    getAccountStatement1(from,to,acc,submod);
+                //    getAccountStatement1(from,to,acc,submod);
                 }
                 else {
                     Toast.makeText(StatementDownloadViewActivity.this, "Please Select Any Account For View Statement.", Toast.LENGTH_LONG).show();
@@ -664,7 +664,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     String filename =object.getString("FilePath");
                                     String filename1 =object.getString("FileName");
 
-                                    int index = filename.indexOf("Mscore");
+                                //    int index = filename.indexOf("Mscore");
+                                    int index = filename.indexOf("Statement");
                                     String strNew = filename.substring(index);
 
 
@@ -881,7 +882,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                                     String two = filename.substring(filename.length() / 2);
 
                                     String strNew = two.replaceFirst("t", "");*/
-                                    int index = filename.indexOf("Mscore");
+                                  //  int index = filename.indexOf("Mscore");
+                                    int index = filename.indexOf("Statement");
                                     String strNew = filename.substring(index);
 
                                     String filename1 =object.getString("FileName");

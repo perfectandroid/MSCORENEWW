@@ -51,10 +51,10 @@ public class ConnectionUtil {
     }
     public static String getResponse(String url) {
 
-//        String bankKey      = UserRegistrationActivity.getBankkey();
-//        String bankHeader   = UserRegistrationActivity.getBankheader();
-        String bankKey      = SplashScreen.BankKey;
-        String bankHeader   = SplashScreen.BankHeader;
+        String bankKey      = UserRegistrationActivity.getBankkey();
+        String bankHeader   = UserRegistrationActivity.getBankheader();
+//        String bankKey      = SplashScreen.BankKey;
+//        String bankHeader   = SplashScreen.BankHeader;
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 
@@ -107,17 +107,17 @@ public class ConnectionUtil {
                 if ( Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1 ){
                     return true;
                 }else {
-//                    return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
-                    return hv.verify(SplashScreen.HOSTNAME_SUBJECT+"", session )  ;
+                    return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
+//                    return hv.verify(SplashScreen.HOSTNAME_SUBJECT+"", session )  ;
                 }
             };
             updateURL = new URL(url);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-//            InputStream caInput =  IScoreApplication.getAppContext().
-//                    getAssets().open( UserRegistrationActivity.getCertificateAssetName());
             InputStream caInput =  IScoreApplication.getAppContext().
-                    getAssets().open( SplashScreen.CERTIFICATE_ASSET_NAME);
+                    getAssets().open( UserRegistrationActivity.getCertificateAssetName());
+//            InputStream caInput =  IScoreApplication.getAppContext().
+//                    getAssets().open( SplashScreen.CERTIFICATE_ASSET_NAME);
 
 
             Certificate ca;

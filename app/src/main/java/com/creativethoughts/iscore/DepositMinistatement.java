@@ -337,7 +337,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                 break;
 
             case R.id.ll_view:
-                popupDownloaddoc1();
+              //  popupDownloaddoc1();
             //    Intent i = new Intent(DepositMinistatement.this, Viewstatement.class);
             //    startActivity(i);
                 break;
@@ -1316,7 +1316,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                     Log.e("filename","filename    2459   "+filename);
                                     String filename1 =object.getString("FileName");
 
-                                    int index = filename.indexOf("Mscore");
+                                  //  int index = filename.indexOf("Mscore");
+                                    int index = filename.indexOf("Statement");
                                     String strNew = filename.substring(index);
 
                                     SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
@@ -1494,7 +1495,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                     String filename =object.getString("FilePath");
                                     String filename1 =object.getString("FileName");
 
-                                    int index = filename.indexOf("Mscore");
+                                    //int index = filename.indexOf("Mscore");
+                                    int index = filename.indexOf("Statement");
                                     String strNew = filename.substring(index);
                                    /* StringTokenizer tokens = new StringTokenizer(filename, "\\");
                                     String first = tokens.nextToken();// this will contain "Fruit"
