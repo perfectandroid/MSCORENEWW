@@ -308,11 +308,11 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         llMore.setOnClickListener(v -> {
             SharedPreferences ewarepref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
             String strEwireCardService=ewarepref.getString("EwireCardService", null);
-            if(strEwireCardService.equals("false")) {
-                Intent i = new Intent(getContext(), MoreActivity.class);
+            if(strEwireCardService.equals("1")) {
+                Intent i = new Intent(getContext(), WalletServiceActivity.class);
                 startActivity(i);
             }else {
-                Intent i = new Intent(getContext(),WalletServiceActivity.class);
+                Intent i = new Intent(getContext(),MoreActivity.class);
                 startActivity(i);
             }
 
