@@ -306,8 +306,15 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 
         });
         llMore.setOnClickListener(v -> {
-            Intent i=new Intent(getContext(),MoreActivity.class);
-            startActivity(i);
+            SharedPreferences ewarepref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+            String strEwireCardService=ewarepref.getString("EwireCardService", null);
+            if(strEwireCardService.equals("false")) {
+                Intent i = new Intent(getContext(), MoreActivity.class);
+                startActivity(i);
+            }else {
+                Intent i = new Intent(getContext(),WalletServiceActivity.class);
+                startActivity(i);
+            }
 
         });
         llDashboard.setOnClickListener(v -> {

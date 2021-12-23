@@ -444,10 +444,10 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor PlayStoreLinkSPEditer = PlayStoreLinkSP.edit();
                                 PlayStoreLinkSPEditer.putString("PlayStoreLink",jobjt.getString("PlayStoreLink"));
                                 PlayStoreLinkSPEditer.commit();
-                                /*SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+                                SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
                                 SharedPreferences.Editor EwireCardServiceEditer = EwireCardServiceSP.edit();
                                 EwireCardServiceEditer.putString("EwireCardService",jobjt.getString("EwireCardService"));
-                                EwireCardServiceEditer.commit();*/
+                                EwireCardServiceEditer.commit();
 
                                 SharedPreferences TestMobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
                                 SharedPreferences.Editor TestMobileNoEditer = TestMobileNoSP.edit();
