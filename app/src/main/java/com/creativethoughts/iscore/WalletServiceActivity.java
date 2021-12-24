@@ -13,6 +13,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
+import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -124,7 +125,7 @@ public class WalletServiceActivity extends AppCompatActivity {
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                 JSONObject jobj = jObject.getJSONObject("BalanceDetails");
-                                txtv_totalbal.setText("\u20B9 "+ NumberFormat.getNumberInstance(Locale.US).format(jobj.getDouble("Balance")));
+                                txtv_totalbal.setText("\u20B9 "+  CommonUtilities.getDecimelFormate(jobj.getDouble("Balance")));
 
                             }
                             else{
