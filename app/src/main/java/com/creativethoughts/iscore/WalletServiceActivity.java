@@ -1,13 +1,19 @@
 package com.creativethoughts.iscore;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -51,16 +57,20 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class WalletServiceActivity extends AppCompatActivity {
+public class WalletServiceActivity extends AppCompatActivity implements View.OnClickListener{
     ProgressDialog progressDialog;
     TextView txt_userdetails,  txt_userid, txtv_totalbal;
-;
+    TextView tvTransaction,tvLoadmoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walletservice);
 
+        tvTransaction = findViewById(R.id.tvTransaction);
+        tvTransaction.setOnClickListener(this);
+        tvLoadmoney = findViewById(R.id.tvLoadmoney);
+        tvLoadmoney.setOnClickListener(this);
         txt_userid =  findViewById(R.id.txt_userid);
         txt_userdetails =  findViewById(R.id.txt_userdetails);
         txtv_totalbal =  findViewById(R.id.txtv_totalbal);
@@ -250,5 +260,28 @@ public class WalletServiceActivity extends AppCompatActivity {
         sslContext.init(null, wrappedTrustManagers, null);
         return sslContext.getSocketFactory();
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tvLoadmoney:
+                tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle3));
+                tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle1));
+                tvTransaction.setTextColor(Color.parseColor("#000000"));
+                tvLoadmoney.setTextColor(Color.parseColor("#ffffff"));
+//                acctype ="1";
+//                strHeader="Load Money";
+                break;
+            case R.id.tvTransaction:
+                tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle));
+                tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
+                tvTransaction.setTextColor(Color.parseColor("#ffffff"));
+                tvLoadmoney.setTextColor(Color.parseColor("#000000"));
+//                acctype ="2";
+//                strHeader="Transactions";
+                break;
+        }
+    }
+
 }
 

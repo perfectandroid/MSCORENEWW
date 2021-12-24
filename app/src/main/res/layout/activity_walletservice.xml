@@ -133,38 +133,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@drawable/view_bg">
                 <TextView
-                    android:id="@+id/tvDeposit"
+                    android:id="@+id/tvLoadmoney"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Deposit"
+                    android:text="Load Money"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:background="@drawable/toggle1"
-                    android:contentDescription="@string/address"
                     android:src="@drawable/ic_right_arrow"/>
                 <TextView
-                    android:id="@+id/tvLoan"
+                    android:id="@+id/tvTransaction"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_weight="1"
-                    android:text="Loan"
+                    android:text="Transactions"
                     android:background="@drawable/toggle3"
-                    android:contentDescription="@string/address"
                     android:src="@drawable/ic_right_arrow"/>
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/ll_standnginstr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                             android:layout_height="match_parent"
                             android:background="@color/colorPrimary" />
 
-                        <!-- <TextView
+                        &lt;!&ndash; <TextView
                              android:id="@+id/txtv_AcntType"
                              android:layout_width="match_parent"
                              android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                          <View
                              android:layout_width="1dp"
                              android:layout_height="match_parent"
-                             android:background="@color/colorPrimary" />-->
+                             android:background="@color/colorPrimary" />&ndash;&gt;
 
                         <TextView
                             android:id="@+id/txtv_Accno"
@@ -379,22 +379,7 @@
                     android:textSize="13dp"
                     android:text="@string/remainder"
                     android:textColor="@color/red_btn_bg_color"/>
-            </LinearLayout>
-            <com.creativethoughts.iscore.Helper.MovableFloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                app:backgroundTint="#141875"
-                android:visibility="gone"
-                android:src="@drawable/ic_date_white"
-                android:layout_marginRight="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/fab_background"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>-->
 
         </LinearLayout>
     </ScrollView>
