@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="34231267241"
+                        android:text=""
                         android:textColor="@android:color/white"
                         android:textSize="25dp"
                         android:layout_weight="1"

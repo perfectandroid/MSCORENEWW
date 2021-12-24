@@ -122,14 +122,14 @@ public class WalletServiceActivity extends AppCompatActivity {
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                 JSONObject jobj = jObject.getJSONObject("BalanceDetails");
-                                txtv_totalbal.setText(jobj.getString("Balance"));
+                                txtv_totalbal.setText(""+jobj.getString("Balance"));
 
                             }
                             else{
 //                                ll_standnginstr.setVisibility(View.GONE);
 //                                llreminder.setVisibility(View.GONE);
                                 try{
-                                    JSONObject jobj = jObject.getJSONObject("AccountDueDateDetailsIfo");
+                                    JSONObject jobj = jObject.getJSONObject("BalanceDetails");
                                     String ResponseMessage = jobj.getString("ResponseMessage");
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage(ResponseMessage)
