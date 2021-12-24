@@ -31,6 +31,8 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -122,7 +124,7 @@ public class WalletServiceActivity extends AppCompatActivity {
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                 JSONObject jobj = jObject.getJSONObject("BalanceDetails");
-                                txtv_totalbal.setText(""+jobj.getString("Balance"));
+                                txtv_totalbal.setText("\u20B9 "+ NumberFormat.getNumberInstance(Locale.US).format(jobj.getDouble("Balance")));
 
                             }
                             else{
