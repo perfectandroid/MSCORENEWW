@@ -172,6 +172,8 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         TextView tvPhone        = view.findViewById(R.id.tvPhone);
         TextView tvLoginDate    = view.findViewById(R.id.tvLoginDate);
         TextView tvRecharge     = view.findViewById(R.id.tvRecharge);
+        TextView tvwallet     = view.findViewById(R.id.tvwallet);
+        ImageView imwallet     = view.findViewById(R.id.imwallet);
         tvAccno                 = view.findViewById(R.id.tvAccno);
         tv_vwBalance            = view.findViewById(R.id.tv_vwBalance);
         tv_hdBalance            = view.findViewById(R.id.tv_hdBalance);
@@ -281,6 +283,27 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         mHorizontalScrollVew        =   view.findViewById(R.id.recharge_paybill_horizontal_scroll_view);
         ImageButton mRightButton    =   view.findViewById(R.id.right_button);
         ImageButton mLeftButton     =   view.findViewById(R.id.left_button);
+
+
+
+
+        SharedPreferences ewarepref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+        String strEwireCardService=ewarepref.getString("EwireCardService", null);
+        if(strEwireCardService.equals("1")) {
+
+            tvwallet.setText("Wallet Services");
+            imwallet.setImageDrawable(getResources().getDrawable(R.drawable.walllet));
+        }else {
+            tvwallet.setText("More");
+            imwallet.setImageDrawable(getResources().getDrawable(R.drawable.more));
+        }
+
+
+
+
+
+
+
         llVirtualcard.setOnClickListener(this);
         // llRecharge.setOnClickListener(this);
         llEMI.setOnClickListener(this);
@@ -306,8 +329,6 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 
         });
         llMore.setOnClickListener(v -> {
-            SharedPreferences ewarepref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
-            String strEwireCardService=ewarepref.getString("EwireCardService", null);
             if(strEwireCardService.equals("1")) {
                 Intent i = new Intent(getContext(), WalletServiceActivity.class);
                 startActivity(i);

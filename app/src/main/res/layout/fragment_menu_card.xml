@@ -736,6 +736,7 @@
                                 android:layout_gravity="center"
                                 android:orientation="vertical">
                                 <ImageView
+                                    android:id="@+id/imwallet"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:scaleType="fitXY"
@@ -743,6 +744,7 @@
                                     android:layout_gravity="center"
                                     android:src="@drawable/more" />
                                 <TextView
+                                    android:id="@+id/tvwallet"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
