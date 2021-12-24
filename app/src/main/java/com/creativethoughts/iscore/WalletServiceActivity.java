@@ -5,26 +5,19 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.DuedateAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,7 +50,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WalletServiceActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
-    TextView txt_userdetails,  txt_userid;
+    TextView txt_userdetails,  txt_userid, txtv_totalbal;
 ;
 
     @Override
@@ -67,6 +60,7 @@ public class WalletServiceActivity extends AppCompatActivity {
 
         txt_userid =  findViewById(R.id.txt_userid);
         txt_userdetails =  findViewById(R.id.txt_userdetails);
+        txtv_totalbal =  findViewById(R.id.txtv_totalbal);
 
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         txt_userid.setText( "Customer Id : "+userDetails.customerId);
@@ -113,8 +107,8 @@ public class WalletServiceActivity extends AppCompatActivity {
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                   /* requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -125,28 +119,11 @@ public class WalletServiceActivity extends AppCompatActivity {
                         try {
                             progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
-                            Log.i("Duedatelist",response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
-                              /*  ll_standnginstr.setVisibility(View.VISIBLE);
-                                llreminder.setVisibility(View.VISIBLE);
-                                JSONObject jobj = jObject.getJSONObject("AccountDueDateDetailsIfo");
-                                JSONArray jarray = jobj.getJSONArray("AccountDueDateDetails");
-                                if(jarray.length()!=0){
-                                    GridLayoutManager lLayout = new GridLayoutManager(DuedateActivity.this, 1);
-                                    rv_standinginst.setLayoutManager(lLayout);
-                                    rv_standinginst.setHasFixedSize(true);
-                                    DuedateAdapter adapter = new DuedateAdapter(DuedateActivity.this, jarray, strHeader);
-                                    rv_standinginst.setAdapter(adapter);
-                                }
-                                else {
-                                    ll_standnginstr.setVisibility(View.GONE);
-                                    llreminder.setVisibility(View.GONE);
-                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(DuedateActivity.this);
-                                    builder.setMessage("No data found.")
-                                            .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
-                                    android.app.AlertDialog alert = builder.create();
-                                    alert.show();
-                                }*/
+
+                                JSONObject jobj = jObject.getJSONObject("BalanceDetails");
+                                txtv_totalbal.setText(jobj.getString("Balance"));
+
                             }
                             else{
 //                                ll_standnginstr.setVisibility(View.GONE);

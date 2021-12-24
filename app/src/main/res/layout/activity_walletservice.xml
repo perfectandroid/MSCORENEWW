@@ -74,7 +74,7 @@
                         android:textColor="@android:color/white"
                         android:textSize="13dp" />
                     <TextView
-                        android:id="@+id/txtv_custgenid"
+                        android:id="@+id/txtv_totalbal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

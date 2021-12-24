@@ -9,7 +9,7 @@ repositories {
 android {
 
     signingConfigs {
-       /* release {
+      /*  release {
             storeFile file('D:\\Ranjith\\Mscore\\Atholi\\Keystore\\atholimscorekeystore.jks')
             storePassword '{.fLvd1DIuGD7Ptz'
             keyAlias 'atholimscore'
@@ -38,172 +38,14 @@ android {
         minSdkVersion 15
         targetSdkVersion 30
         applicationId "com.mscore.pss"
-       // applicationId "com.mscore.parapanangadi"
-       // applicationId "com.mscore.calicuttownbank"
-        //applicationId "com.mscore.kulathupuzha"
 
-       // applicationId "com.mscore.panniyankara"
-       // applicationId "com.mscore.meppayur"
-        //applicationId "com.mscore.chemancheri_scb"
-      // applicationId "com.mscore.pantheerankavu"
-
-       // applicationId "com.mscore.ulliyeri"
-       //applicationId "com.mscore.chathamangalam"
-      //  applicationId "com.mscore.irinav_scb"
-       // applicationId "com.mscore.nanminda"
-       // applicationId "com.mscore.chekkiad"
-        //applicationId "com.mscore.perambra_rcb"
-       // applicationId "com.mscore.Vayyattupuzha"
-      //  applicationId "com.mscore.thekkumbagam"
-       // applicationId "com.mscore.kotturscb"
-//        applicationId "com.mscore.atholi"
-       // applicationId "com.mscore.thiruvambady_scb"
-
-        //applicationId "com.mscore.cheruvannur"
-       // applicationId "com.mscore.kumaramputhoor"
-       // applicationId "com.mscore.kattippara"
-
-      //  applicationId "com.mscore.mananthavaady"
-       // applicationId "com.mscore.cherukunu_scb"
-        //applicationId "com.mscore.naduvil_scb"
-
-       // applicationId "com.mscore.porora"
-       // applicationId "com.mscore.mezhuveli"
-      //  applicationId "com.mscore.kuttikkattoor"
-        //applicationId "com.mscore.cheranallurScb"
-        //applicationId "com.mscore.kayanna"
-
-       // applicationId "com.mscore.vallapuzha_scb"
-       /* applicationId "com.mscore.katampazhipuram"*/
-//        applicationId "com.mscore.atholi"
-//        applicationId "com.mscore.thiruvambady_scb"
-//        applicationId "com.mscore.cheruvannur"
-//        applicationId "com.mscore.kumaramputhoor"
-//        applicationId "com.mscore.kattippara"
-     //     applicationId "com.mscore.mananthavaady"
-    //    applicationId "com.mscore.vallapuzha_scb"
-//        applicationId "com.mscore.cherukunu_scb"
-//        applicationId "com.mscore.naduvil_scb"
-//        applicationId "com.mscore.porora"
-//        applicationId "com.mscore.mezhuveli"
-//        applicationId "com.mscore.kuttikkattoor"
-      // applicationId "com.mscore.cheranallurScb"
-      //  applicationId "com.mscore.amarambalam"
-      // applicationId "com.mscore.kayanna"
-      //  applicationId "com.mscore.parapanangadi"
-
-        /*meppayur*/
-       /* versionCode = 17
-        versionName = '4.0.5'*/
-//        versionCode = 24
-//        versionName = '5.0.2'
-      /*  versionCode = 3
-        versionName = '4.0.2'*/
-        //kulathupuzha
-     /*  versionCode = 1
-        versionName = '4.0.0'*/
-       /* versionCode = 15
-        versionName = '4.0.3'*/
-//parapanangadi
-       /* versionCode = 4
-        versionName = '4.0.3'*/
-        //CALICUT TOWN BANK
-      /* versionCode = 15
-        versionName = '4.0.3'*/
-      versionCode = 1
+        versionCode = 1
         versionName = '1.0.0'
-        /*chemmanchery*/
-       /* versionCode = 6
-        versionName = '4.0.3'*/
-//panniyankara
-      /*  versionCode = 13
-        versionName = '4.0.6'*/
-        /*pantheerankavu*/
-      /*  versionCode = 6
-        versionName = '4.0.4'*/
 
-        //Ulliyeri
-        /*versionCode = 2
-        versionName = '4.0.1'*/
-        //katampazhipuram
-       /* versionCode = 5
-        versionName = '4.0.2'*/
-        //chathamangalam
-       /* versionCode = 4
-        versionName = '4.0.3'*/
-        //irinav
-       /* versionCode = 6
-        versionName = '4.0.3'*/
-        //nanminda
-        /*versionCode = 19
-        versionName = '4.0.7'*/
-        //chekkiad
-       /* versionCode = 4
-        versionName = '4.0.3'*/
-        //perambra
-       /* versionCode = 5
-        versionName = '4.0.3'*/
-        //vayyatupuzha
-       /* versionCode = 7
-        versionName = '4.0.2'*/
-        //thekkubagam
-       /* versionCode = 7
-        versionName = '4.0.2'*/
-//kottur
-        /*versionCode = 2
-        versionName = '4.0.1'*/
-//        atholi
-//       versionCode = 17
-//        versionName = '4.1.2'
-        //thiruvambadió
-       /* versionCode = 7
-        versionName = '4.0.3'*/
-        //cheruvannur
-       /*versionCode = 12
-        versionName = '4.0.1'*/
-        //kumaramputhur
-        /*versionCode = 5
-        versionName = '4.0.2'*/
-        //kattipara
-      /*  versionCode = 10
-        versionName = '4.0.2'*/
-        //mananthavady
-      /*  versionCode = 2
-        versionName = '4.0.0'*/
-        //vallapuzha
-       /* versionCode = 4
-        versionName = '4.0.2'*/
-        //cherukunnu
-       /* versionCode = 6
-        versionName = '4.0.4'*/
-        //naduvil
-       /* versionCode = 2
-        versionName = '4.0.1'*/
-        //PORORA
-       /* versionCode = 2
-        versionName = '4.0.1'*/
-        //mezhuveli
-      /* versionCode = 2
-        versionName = '4.0.0'*/
-        //kuttikattoor
-        /*versionCode = 2
-        versionName = '4.0.1'*/
-       //cheranalloor
-     /*   versionCode = 9
-        versionName = '4.0.8'*/
-  /*   kayanna*/
-       /* versionCode = 2
-        versionName = '4.0.1'*/
-      //kottur
-       /* versionCode = 2
-        versionName = '4.0.1'*/
-        //amarambalam
-     /*   versionCode = 1
-        versionName = '4.0.0'*/
     }
 
     buildTypes {
-      /* release {
+     /*  release {
             lintOptions {
                 disable 'MissingTranslation'
                 checkReleaseBuilds false
