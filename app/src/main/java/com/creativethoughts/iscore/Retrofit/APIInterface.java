@@ -114,5 +114,8 @@ public interface APIInterface {
     Call<String>getPassBookAccountStatement(@Body RequestBody body); ////done
 
     @POST("api/AccountSummary/PassBookAccountTransactionList")
-    Call<String>getPassBookAccountTransactionList(@Body RequestBody body); ////done
+    Call<String>getPassBookAccountTransactionList(@Body RequestBody body);
+
+    @POST("api/cbsMobile/CardBalance")
+    Call<String>getCardBalance(@Body RequestBody body);
 }
