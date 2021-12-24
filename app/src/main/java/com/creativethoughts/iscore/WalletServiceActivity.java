@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.DuedateAdapter;
+import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
+import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -54,11 +57,20 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WalletServiceActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
+    TextView txt_userdetails,  txt_userid;
+;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walletservice);
+
+        txt_userid =  findViewById(R.id.txt_userid);
+        txt_userdetails =  findViewById(R.id.txt_userdetails);
+
+        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+        txt_userid.setText( "Customer Id : "+userDetails.customerId);
+        txt_userdetails.setText( userDetails.userCustomerName);
         getWalletAmount();
 
     }

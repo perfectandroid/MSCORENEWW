@@ -16,7 +16,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="200dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/frontcard">
             <ImageView
@@ -59,9 +59,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="40dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
 
 
                     <TextView
@@ -72,29 +72,16 @@
                         android:gravity="center"
                         android:text="TOTAL BALANCE"
                         android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:layout_weight="1"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:text="  : "
-                        android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:textSize="13dp" />
                     <TextView
                         android:id="@+id/txtv_custgenid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="10dp"
                         android:gravity="center"
                         android:text="34231267241"
                         android:textColor="@android:color/white"
-                        android:textSize="20dp"
+                        android:textSize="25dp"
                         android:layout_weight="1"
                         android:textStyle="bold" />
 
@@ -115,6 +102,7 @@
                             android:layout_weight="1"
                             android:padding="5dp">
                             <TextView
+                                android:id="@+id/txt_userdetails"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
@@ -124,7 +112,7 @@
                                 android:layout_weight="1"
                                 android:gravity="start"/>
                             <TextView
-                                android:id="@+id/txt_userdetails"
+                                android:id="@+id/txt_userid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/white"
