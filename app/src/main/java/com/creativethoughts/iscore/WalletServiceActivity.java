@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -9,7 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -22,10 +26,13 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.SourceAccListAdapter;
 import com.creativethoughts.iscore.adapters.StandingInstructionAdapter1;
+import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
+import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
+import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -47,6 +54,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
@@ -72,7 +80,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     TextView tvTransaction,tvLoadmoney;
     LinearLayout ll_loadmoney, llministatement;
     RecyclerView rv_ministatmnt;
-    RecyclerView rv_source_acc_list_own;
+    private Spinner spn_account_type;
+    ArrayList<ToAccountDetails> AccountDetails = new ArrayList<>();
+    ArrayAdapter<ToAccountDetails> AccountAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,17 +99,18 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         ll_loadmoney =  findViewById(R.id.ll_loadmoney);
         llministatement =  findViewById(R.id.llministatement);
         rv_ministatmnt =  findViewById(R.id.rv_ministatmnt);
-        rv_source_acc_list_own    = findViewById( R.id.rv_source_acc_list_own );
+        spn_account_type = findViewById(R.id.spn_account_type);
 
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         txt_userid.setText( "Customer Id : "+userDetails.customerId);
         txt_userdetails.setText( userDetails.userCustomerName);
-        showOwnAccFromList("1");
+        showOwnAccToList();
         getWalletAmount();
         getTransactiondetails();
     }
 
-    private void showOwnAccFromList(String loantype) {
+
+    private void showOwnAccToList() {
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
@@ -118,19 +129,17 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                         .client(client)
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
-                String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
                     String token = loginCredential.token;
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     String cusid = userDetails.customerId;
-                    String types = loantype;
 
                     requestObject1.put("ReqMode",IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("2"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
@@ -155,20 +164,68 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                 JSONArray Jarray  = object.getJSONArray("OwnAccountdetailsList");
                                 if(Jarray.length()!=0) {
-                                    GridLayoutManager Layout = new GridLayoutManager(WalletServiceActivity.this, 1);
-                                    SourceAccListAdapter adapterown = new SourceAccListAdapter(WalletServiceActivity.this, Jarray,0);
-                                    rv_source_acc_list_own.setLayoutManager(Layout);
-                                    rv_source_acc_list_own.setHasFixedSize(true);
-                                    rv_source_acc_list_own.setAdapter(adapterown);
+
+//                                    Date date = Calendar.getInstance().getTime();
+//                                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//                                    String formattedDate = df.format(date);
+//                                    tv_as_on_date.setText("As On "+ formattedDate+"");
+                                    JSONObject jsonobject= (JSONObject) Jarray.get(0);
+                                    AccountDetails = new ArrayList<>();
+                                    AccountDetails.add(new ToAccountDetails("", "Select Account","","", "", ""));
+
+                                    for (int k = 0; k < Jarray.length(); k++) {
+                                        JSONObject kjsonObject = Jarray.getJSONObject(k);
+
+                                        AccountDetails.add(new ToAccountDetails( kjsonObject.getString("FK_Account"), kjsonObject.getString("AccountNumber"), kjsonObject.getString("SubModule"), kjsonObject.getString("Balance"), kjsonObject.getString("typeShort"), kjsonObject.getString("BranchName")));
+                                    }
+
+                                    AccountAdapter = new ArrayAdapter<>(WalletServiceActivity.this,  R.layout.list_content_spin,R.id.textview, AccountDetails);
+//                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
+                                    spn_account_type.setAdapter(AccountAdapter);
+
+
+
+
+                                    spn_account_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                        @Override
+                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                            if (position!=0) {
+
+                                               // result = AccountAdapter.getItem(position).getBranchName();
+
+                                                Object item = parent.getItemAtPosition(position);
+
+                                              //  BalanceSplitUpDetails(AccountAdapter.getItem(position).getSubModule(),AccountAdapter.getItem(position).getFK_Account());
+                                            }
+                                            else {
+
+                                                /*ll_needTochange.setVisibility(View.GONE);
+                                                ll_needToPayAdvance.setVisibility(View.GONE);
+                                                ll_remittance.setVisibility(View.GONE);
+                                                rv_split_details.setVisibility(View.GONE);*/
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onNothingSelected(AdapterView<?> parent) {
+                                            //Do nothing
+                                        }
+                                    });
                                 }
                                 else {
+
+//                                    tv_as_on_date.setVisibility(View.GONE);
                                 }
                             }
                             else {
 
+//                                tv_as_on_date.setVisibility(View.GONE);
                             }
+
                         }
                         catch (JSONException e) {
+
                         }
 
                     }
@@ -186,12 +243,12 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
             }
         }
         else {
+           // alertMessage1("", "Network is currently unavailable. Please try again later.");
             DialogUtil.showAlert(WalletServiceActivity.this,
                     "Network is currently unavailable. Please try again later.");
         }
 
     }
-
 
     public void getTransactiondetails(){
 
