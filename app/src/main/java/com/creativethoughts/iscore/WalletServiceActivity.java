@@ -98,7 +98,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         txt_userdetails.setText( userDetails.userCustomerName);
         showOwnAccToList();
         getWalletAmount();
-       // getTransactiondetails("001001999315 (SB)","25567","DDSB");
+        getTransactiondetails("001001999315 (SB)","25567","DDSB");
         doUploadMoney("001001999315 (SB)","25567","DDSB", "500");
     }
 
@@ -425,7 +425,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                             if(jObject.getString("StatusCode").equals("0")) {
                                /* JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
                                 JSONArray jarray = jobj.getJSONArray("Data");*/
-
+                                {"CardTopUpDetails":{"TransactonrefNo":"EWR11Ewire0001085","ResponseCode":0,"ResponseMessage":"Validation Error"},"StatusCode":0,"EXMessage":"Validation Error"}
                             }
                             else{
                                 try{
