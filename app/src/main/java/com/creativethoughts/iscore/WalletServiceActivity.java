@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.adapters.DuedateAdapter;
 import com.creativethoughts.iscore.adapters.SourceAccListAdapter;
 import com.creativethoughts.iscore.adapters.StandingInstructionAdapter1;
+import com.creativethoughts.iscore.adapters.WalletTransactionAdapter;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
@@ -316,30 +318,26 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                         try {
                             progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
-
                             if(jObject.getString("StatusCode").equals("0")) {
-                               /* JSONObject jobj = jObject.getJSONObject("StandingInstructionInfo");
-
-                                JSONArray jarray = jobj.getJSONArray("StandingInstructionDetailsList");
+                                JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
+                                JSONArray jarray = jobj.getJSONArray("Data");
                                 if(jarray.length()!=0){
                                     GridLayoutManager lLayout = new GridLayoutManager(WalletServiceActivity.this, 1);
-                                    rv_standinginst.setLayoutManager(lLayout);
-                                    rv_standinginst.setHasFixedSize(true);
-                                    StandingInstructionAdapter1 adapter = new StandingInstructionAdapter1(WalletServiceActivity.this, jarray);
-                                    rv_standinginst.setAdapter(adapter);
+                                    rv_ministatmnt.setLayoutManager(lLayout);
+                                    rv_ministatmnt.setHasFixedSize(true);
+                                    WalletTransactionAdapter adapter = new WalletTransactionAdapter(WalletServiceActivity.this, jarray);
+                                    rv_ministatmnt.setAdapter(adapter);
                                 }else {
-                                    ll_standnginstr.setVisibility(View.GONE);
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
                                     android.app.AlertDialog alert = builder.create();
                                     alert.show();
-                                }*/
+                                }
                             }
-                            else {
-
+                            else{
                                 try{
-                                    JSONObject jobj = jObject.getJSONObject("StandingInstructionInfo");
+                                    JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
                                     String ResponseMessage = jobj.getString("ResponseMessage");
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage(ResponseMessage)
