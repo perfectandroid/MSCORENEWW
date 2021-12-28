@@ -106,7 +106,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         txt_userdetails.setText( userDetails.userCustomerName);
         showOwnAccToList();
         getWalletAmount();
-        getTransactiondetails();
+       // getTransactiondetails();
     }
 
 
@@ -171,7 +171,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 //                                    tv_as_on_date.setText("As On "+ formattedDate+"");
                                     JSONObject jsonobject= (JSONObject) Jarray.get(0);
                                     AccountDetails = new ArrayList<>();
-                                    AccountDetails.add(new ToAccountDetails("", "Select Account","","", "", ""));
+                                   // AccountDetails.add(new ToAccountDetails("", "Select Account","","", "", ""));
 
                                     for (int k = 0; k < Jarray.length(); k++) {
                                         JSONObject kjsonObject = Jarray.getJSONObject(k);
