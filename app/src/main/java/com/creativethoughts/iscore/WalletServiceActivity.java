@@ -107,7 +107,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         txt_userdetails.setText( userDetails.userCustomerName);
         showOwnAccToList();
         getWalletAmount();
-       // getTransactiondetails();
+        getTransactiondetails("001001999315 (SB)","25567","DDSB");
+
     }
 
 
@@ -181,7 +182,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                     }
 
                                     AccountAdapter = new ArrayAdapter<>(WalletServiceActivity.this,  R.layout.list_content_spin,R.id.textview, AccountDetails);
-//                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
+                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
                                     spn_account_type.setAdapter(AccountAdapter);
 
 
@@ -312,13 +313,12 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 Call<String> call = apiService.getCardMiniStatement(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                      /*  try {
+                        try {
                             progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
 
                             if(jObject.getString("StatusCode").equals("0")) {
-                                ll_standnginstr.setVisibility(View.VISIBLE);
-                                JSONObject jobj = jObject.getJSONObject("StandingInstructionInfo");
+                               /* JSONObject jobj = jObject.getJSONObject("StandingInstructionInfo");
 
                                 JSONArray jarray = jobj.getJSONArray("StandingInstructionDetailsList");
                                 if(jarray.length()!=0){
@@ -334,7 +334,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                             .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
                                     android.app.AlertDialog alert = builder.create();
                                     alert.show();
-                                }
+                                }*/
                             }
                             else {
 
@@ -374,7 +374,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                         catch (JSONException e) {
                             progressDialog.dismiss();
                             e.printStackTrace();
-                        }*/
+                        }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) { progressDialog.dismiss();}
