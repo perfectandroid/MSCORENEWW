@@ -83,6 +83,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     private Spinner spn_account_type;
     ArrayList<ToAccountDetails> AccountDetails = new ArrayList<>();
     ArrayAdapter<ToAccountDetails> AccountAdapter = null;
+    String strAccNo, strFKacc, strSubModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,6 +197,10 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
                                                 Object item = parent.getItemAtPosition(position);
 
+                                                strAccNo=AccountAdapter.getItem(position).getSubModule();
+                                                strFKacc=AccountAdapter.getItem(position).getSubModule();
+                                                strSubModule=AccountAdapter.getItem(position).getSubModule();
+                                                getTransactiondetails(strAccNo,strFKacc,strSubModule);
                                               //  BalanceSplitUpDetails(AccountAdapter.getItem(position).getSubModule(),AccountAdapter.getItem(position).getFK_Account());
                                             }
                                             else {
@@ -250,7 +255,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public void getTransactiondetails(){
+    public void getTransactiondetails(String straccno,String stracccode, String strsubmodule){
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -289,9 +294,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
 
-                    requestObject1.put("AccNo",IScoreApplication.encryptStart(BankKey) );
-                    requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(BankKey) );
-                    requestObject1.put("SubModule",IScoreApplication.encryptStart(BankKey) );
+                    requestObject1.put("AccNo",IScoreApplication.encryptStart(straccno) );
+                    requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(stracccode) );
+                    requestObject1.put("SubModule",IScoreApplication.encryptStart(strsubmodule) );
 
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
