@@ -1,12 +1,9 @@
 package com.creativethoughts.iscore;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,14 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.DuedateAdapter;
-import com.creativethoughts.iscore.adapters.SourceAccListAdapter;
-import com.creativethoughts.iscore.adapters.StandingInstructionAdapter1;
-import com.creativethoughts.iscore.adapters.WalletTransactionAdapter;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
+import com.creativethoughts.iscore.adapters.WalletMintransAdapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.ToAccountDetails;
@@ -55,9 +46,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -325,7 +314,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                     GridLayoutManager lLayout = new GridLayoutManager(WalletServiceActivity.this, 1);
                                     rv_ministatmnt.setLayoutManager(lLayout);
                                     rv_ministatmnt.setHasFixedSize(true);
-                                    WalletTransactionAdapter adapter = new WalletTransactionAdapter(WalletServiceActivity.this, jarray);
+                                    WalletMintransAdapter adapter = new WalletMintransAdapter(WalletServiceActivity.this, jarray);
                                     rv_ministatmnt.setAdapter(adapter);
                                 }else {
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
