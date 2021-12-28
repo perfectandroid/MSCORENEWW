@@ -253,13 +253,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
-                progressDialog = new ProgressDialog(WalletServiceActivity.this, R.style.Progress);
-                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
-                progressDialog.setCancelable(false);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setIndeterminateDrawable(this.getResources()
-                        .getDrawable(R.drawable.progress));
-                progressDialog.show();
+
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -305,7 +299,6 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                         try {
-                            progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
                                 JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
@@ -359,12 +352,11 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
                         }
                         catch (JSONException e) {
-                            progressDialog.dismiss();
                             e.printStackTrace();
                         }
                     }
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) { progressDialog.dismiss();}
+                    public void onFailure(Call<String> call, Throwable t) { }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -562,6 +554,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 tvTransaction.setTextColor(Color.parseColor("#000000"));
                 tvLoadmoney.setTextColor(Color.parseColor("#ffffff"));
                 ll_loadmoney.setVisibility(View.VISIBLE);
+                llministatement.setVisibility(View.GONE);
 
 //                acctype ="1";
 //                strHeader="Load Money";
@@ -572,6 +565,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 tvTransaction.setTextColor(Color.parseColor("#ffffff"));
                 tvLoadmoney.setTextColor(Color.parseColor("#000000"));
                 llministatement.setVisibility(View.VISIBLE);
+                ll_loadmoney.setVisibility(View.GONE);
 
 //                acctype ="2";
 //                strHeader="Transactions";
