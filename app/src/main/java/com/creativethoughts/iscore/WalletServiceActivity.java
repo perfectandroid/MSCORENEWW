@@ -98,8 +98,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         txt_userdetails.setText( userDetails.userCustomerName);
         showOwnAccToList();
         getWalletAmount();
-        getTransactiondetails("001001999315 (SB)","25567","DDSB");
-
+       // getTransactiondetails("001001999315 (SB)","25567","DDSB");
+        doUploadMoney("001001999315 (SB)","25567","DDSB", "500");
     }
 
 
@@ -316,6 +316,116 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                     android.app.AlertDialog alert = builder.create();
                                     alert.show();
                                 }
+                            }
+                            else{
+                                try{
+                                    JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");
+                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+                                    builder.setMessage(ResponseMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (JSONException e){
+                                    String EXMessage = jObject.getString("EXMessage");
+                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    android.app.AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) { }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            DialogUtil.showAlert(WalletServiceActivity.this,
+                    "Network is currently unavailable. Please try again later.");
+        }
+    }
+
+    public void doUploadMoney(String straccno,String stracccode, String strsubmodule, String stramount){
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+
+                    requestObject1.put("AccNo",IScoreApplication.encryptStart(straccno) );
+                    requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(stracccode) );
+                    requestObject1.put("SubModule",IScoreApplication.encryptStart(strsubmodule) );
+                    requestObject1.put("SubTranType",IScoreApplication.encryptStart("P") );
+                    requestObject1.put("Amount",IScoreApplication.encryptStart(stramount) );
+
+                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
+                    requestObject1.put("MobNo",IScoreApplication.encryptStart(userDetails.userMobileNo));
+                    requestObject1.put("CustId",IScoreApplication.encryptStart(userDetails.userCustomerNo));
+                    requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getCardTopUpandReverse(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                        try {
+                            JSONObject jObject = new JSONObject(response.body());
+                            if(jObject.getString("StatusCode").equals("0")) {
+                               /* JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
+                                JSONArray jarray = jobj.getJSONArray("Data");*/
+
                             }
                             else{
                                 try{

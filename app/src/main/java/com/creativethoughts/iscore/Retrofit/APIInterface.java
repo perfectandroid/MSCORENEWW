@@ -121,4 +121,7 @@ public interface APIInterface {
 
     @POST("api/cbsMobile/CardMiniStatement")
     Call<String>getCardMiniStatement(@Body RequestBody body);
+
+    @POST("api/cbsMobile/CardTopUpandReverse")
+    Call<String>getCardTopUpandReverse(@Body RequestBody body);
 }
