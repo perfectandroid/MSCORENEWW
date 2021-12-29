@@ -437,7 +437,6 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                 builder.setMessage("Congrats on successful top up, your Transaction Reference number is "+jobj.getString("TransactonrefNo"))
-//                                builder.setMessage("No data found.")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -704,12 +703,16 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 //                strHeader="Transactions";
                 break;
             case R.id.btn_submit:
-
+                validationforloadmoney();
                 doUploadMoney("001001999315 (SB)","25567","DDSB", edt_txt_amount.getText().toString());
 
 
                 break;
         }
+    }
+
+    private void validationforloadmoney() {
+
     }
 
 }
