@@ -106,6 +106,11 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         showOwnAccToList();
         getWalletAmount();
         getTransactiondetails("001001999315 (SB)","25567","DDSB");
+
+
+
+        ll_loadmoney.setVisibility(View.VISIBLE);
+        llministatement.setVisibility(View.GONE);
     }
 
 
@@ -427,13 +432,27 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                         try {
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
-                               /* JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
-                                JSONArray jarray = jobj.getJSONArray("Data");*/
-                              //  {"CardTopUpDetails":{"TransactonrefNo":"EWR11Ewire0001085","ResponseCode":0,"ResponseMessage":"Validation Error"},"StatusCode":0,"EXMessage":"Validation Error"}
+
+                                JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");
+
+                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+                                builder.setMessage("Congrats on successful top up, your Transaction Reference number is "+jobj.getString("TransactonrefNo"))
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                                startActivity(getIntent());
+                                            }
+                                        });
+                                android.app.AlertDialog alert = builder.create();
+                                alert.show();
+
                             }
                             else{
                                 try{
-                                    JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
+                                    JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");
                                     String ResponseMessage = jobj.getString("ResponseMessage");
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage(ResponseMessage)
