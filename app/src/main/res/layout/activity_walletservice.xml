@@ -170,16 +170,17 @@
                         android:background="@drawable/select_amnt_icon"/>
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingEnd="8dp"
                         android:text="@string/select_account"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_vertical"
-                        android:textStyle="normal"
-                        android:paddingRight="8dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingEnd="8dp"
+                        android:paddingLeft="8dp"
+                        android:layout_gravity="left"
+                        android:paddingStart="8dp"
+                        android:textColor="@color/RoyalBlue"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
@@ -258,14 +259,114 @@
                 android:visibility="gone"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Due Date list for upcoming two weeks"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
+                    android:layout_marginBottom="15dp"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:paddingEnd="8dp"
+                            android:paddingLeft="8dp"
+                            android:layout_gravity="left"
+                            android:paddingStart="8dp"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:text="Amount "/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+                            <!--                android:layout_marginLeft="30dp"-->
+                            <!--                android:layout_marginRight="30dp"-->
+                            <!--                <Button-->
+                            <!--                    android:layout_width="1dp"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--
+                                             android:background="@null" />-->
+                            <EditText
+                                android:id="@+id/edt_txt_amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:drawableLeft="@drawable/ruppe"
+                                android:drawablePadding="10dp"
+                                android:textSize="30dp"
+                                android:textColor="@color/Green"
+                                android:drawableTint="@color/black"
+                                android:backgroundTint="@color/blue"/>
+
+                            <TextView
+                                android:id="@+id/txt_amtinword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/RoyalBlue"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="5dp"
+                                android:text=""/>
+
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:paddingEnd="8dp"
+                            android:paddingLeft="8dp"
+                            android:layout_gravity="left"
+                            android:paddingStart="8dp"
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:text="Remark  "/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="10dp">
+
+                            <EditText
+                                android:id="@+id/edt_txt_remark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:padding="5dp"
+                                android:inputType="text"
+                                android:drawableTint="@color/black"
+                                android:backgroundTint="@color/blue" />
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/btn_submit"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/color_btn_bg"
+                            android:text="@string/submit"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llministatement"

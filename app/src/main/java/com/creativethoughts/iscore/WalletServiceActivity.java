@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -75,6 +77,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     ArrayList<ToAccountDetails> AccountDetails = new ArrayList<>();
     ArrayAdapter<ToAccountDetails> AccountAdapter = null;
     String strAccNo, strFKacc, strSubModule;
+    EditText edt_txt_amount;
+    Button btn_submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         llministatement =  findViewById(R.id.llministatement);
         rv_ministatmnt =  findViewById(R.id.rv_ministatmnt);
         spn_account_type = findViewById(R.id.spn_account_type);
+        edt_txt_amount = findViewById(R.id.edt_txt_amount);
+        btn_submit = findViewById(R.id.btn_submit);
+        btn_submit.setOnClickListener(this);
 
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         txt_userid.setText( "Customer Id : "+userDetails.customerId);
@@ -99,7 +106,6 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         showOwnAccToList();
         getWalletAmount();
         getTransactiondetails("001001999315 (SB)","25567","DDSB");
-        doUploadMoney("001001999315 (SB)","25567","DDSB", "500");
     }
 
 
@@ -391,14 +397,12 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
-
 
                     requestObject1.put("AccNo",IScoreApplication.encryptStart(straccno) );
                     requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(stracccode) );
@@ -425,7 +429,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                             if(jObject.getString("StatusCode").equals("0")) {
                                /* JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
                                 JSONArray jarray = jobj.getJSONArray("Data");*/
-                                {"CardTopUpDetails":{"TransactonrefNo":"EWR11Ewire0001085","ResponseCode":0,"ResponseMessage":"Validation Error"},"StatusCode":0,"EXMessage":"Validation Error"}
+                              //  {"CardTopUpDetails":{"TransactonrefNo":"EWR11Ewire0001085","ResponseCode":0,"ResponseMessage":"Validation Error"},"StatusCode":0,"EXMessage":"Validation Error"}
                             }
                             else{
                                 try{
@@ -679,6 +683,12 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
 //                acctype ="2";
 //                strHeader="Transactions";
+                break;
+            case R.id.btn_submit:
+
+                doUploadMoney("001001999315 (SB)","25567","DDSB", edt_txt_amount.getText().toString());
+
+
                 break;
         }
     }
