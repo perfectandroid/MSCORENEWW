@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
+import com.creativethoughts.iscore.utility.NumberToWord;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -72,7 +75,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WalletServiceActivity extends AppCompatActivity implements View.OnClickListener{
     ProgressDialog progressDialog;
-    TextView txt_userdetails,  txt_userid, txtv_totalbal;
+    TextView txt_userdetails,  txt_userid, txtv_totalbal, txt_amtinword;
     TextView tvTransaction,tvLoadmoney;
     LinearLayout ll_loadmoney, llministatement;
     RecyclerView rv_ministatmnt;
@@ -96,6 +99,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         mAccountSpinner = findViewById(R.id.spnAccountNum);
 
         tvTransaction = findViewById(R.id.tvTransaction);
+        txt_amtinword = findViewById(R.id.txt_amtinword);
         tvTransaction.setOnClickListener(this);
         tvLoadmoney = findViewById(R.id.tvLoadmoney);
         tvLoadmoney.setOnClickListener(this);
@@ -127,6 +131,73 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         strSubModule="DDSB";*/
 
         getTransactiondetails(strAccNo,strFKacc,strSubModule);
+
+
+
+        edt_txt_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                edt_txt_amount.removeTextChangedListener(this);
+
+                try {
+                    String originalString = s.toString();
+
+//                    Long longval;
+//                    if (originalString.contains(",")) {
+//                        originalString = originalString.replaceAll(",", "");
+//                    }
+//                    longval = Long.parseLong(originalString);
+//
+//                    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+//                    formatter.applyPattern("#,###,###,###");
+//                    String formattedString = formatter.format(longval);
+
+                    Double longval;
+                    if (originalString.contains(",")) {
+                        originalString = originalString.replaceAll(",", "");
+                    }
+                    longval = Double.parseDouble(originalString);
+                    String formattedString = CommonUtilities.getDecimelFormateForEditText(longval);
+                    //setting text after format to EditText
+                    edt_txt_amount.setText(formattedString);
+                    edt_txt_amount.setSelection(edt_txt_amount.getText().length());
+
+                    String amnt = edt_txt_amount.getText().toString().replaceAll(",", "");
+                    String[] netAmountArr = amnt.split("\\.");
+                    String amountInWordPop = "";
+                    if ( netAmountArr.length > 0 ){
+                        int integerValue = Integer.parseInt( netAmountArr[0] );
+                        amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+                        if ( netAmountArr.length > 1 ){
+                            int decimalValue = Integer.parseInt( netAmountArr[1] );
+                            if ( decimalValue != 0 ){
+                                amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
+                            }
+                        }
+                        amountInWordPop += " only";
+                    }
+                    txt_amtinword.setText(""+amountInWordPop);
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                }
+
+                edt_txt_amount.addTextChangedListener(this);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+
+                }
+                catch(NumberFormatException e)
+                {
+
+                }
+
+            }
+        });
 
     }
 
