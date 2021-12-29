@@ -704,15 +704,12 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.btn_submit:
                 validationforloadmoney();
-                doUploadMoney("001001999315 (SB)","25567","DDSB", edt_txt_amount.getText().toString());
-
-
                 break;
         }
     }
 
     private void validationforloadmoney() {
-
+        doUploadMoney("001001999315 (SB)","25567","DDSB", edt_txt_amount.getText().toString());
     }
 
 }
