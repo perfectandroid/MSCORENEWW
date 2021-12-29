@@ -1,5 +1,6 @@
 package com.creativethoughts.iscore;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -23,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.WalletMintransAdapter;
+import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
+import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.ToAccountDetails;
@@ -79,11 +82,18 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     String strAccNo, strFKacc, strSubModule;
     EditText edt_txt_amount;
     Button btn_submit;
+    Spinner mAccountSpinner;
+
+    private JSONArray jresult = new JSONArray();
+    private ArrayList<String> accountlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walletservice);
+        //accountlist = new ArrayList<String>();
+
+        mAccountSpinner = findViewById(R.id.spnAccountNum);
 
         tvTransaction = findViewById(R.id.tvTransaction);
         tvTransaction.setOnClickListener(this);
@@ -103,18 +113,24 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         txt_userid.setText( "Customer Id : "+userDetails.customerId);
         txt_userdetails.setText( userDetails.userCustomerName);
-        showOwnAccToList();
+      //  showOwnAccToList();
         getWalletAmount();
-        getTransactiondetails("001001999315 (SB)","25567","DDSB");
 
-
+        getAccList();
 
         ll_loadmoney.setVisibility(View.VISIBLE);
         llministatement.setVisibility(View.GONE);
+
+
+        /*strAccNo= "001001999315 (SB)";
+        strFKacc="25567";
+        strSubModule="DDSB";*/
+
+        getTransactiondetails(strAccNo,strFKacc,strSubModule);
+
     }
 
-
-    private void showOwnAccToList() {
+    private void getAccList() {
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
@@ -139,123 +155,126 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     String token = loginCredential.token;
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     String cusid = userDetails.customerId;
-
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("13"));
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("2"));
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
-
                 } catch (Exception e) {
                     e.printStackTrace();
-
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getOwnAccounDetails(body);
                 call.enqueue(new Callback<String>() {
-
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        try{
+                        try {
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
+
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
-                                JSONArray Jarray  = object.getJSONArray("OwnAccountdetailsList");
-                                if(Jarray.length()!=0) {
+                                JSONArray newJArray = object.getJSONArray("OwnAccountdetailsList");
+                                accountlist = new ArrayList<String>();
 
-//                                    Date date = Calendar.getInstance().getTime();
-//                                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-//                                    String formattedDate = df.format(date);
-//                                    tv_as_on_date.setText("As On "+ formattedDate+"");
-                                    JSONObject jsonobject= (JSONObject) Jarray.get(0);
-                                    AccountDetails = new ArrayList<>();
-                                   // AccountDetails.add(new ToAccountDetails("", "Select Account","","", "", ""));
+                                for(int i=0;i<newJArray.length();i++){
+                                    try {
+                                        JSONObject json = newJArray.getJSONObject(i);
+                                        jresult.put(json);
 
-                                    for (int k = 0; k < Jarray.length(); k++) {
-                                        JSONObject kjsonObject = Jarray.getJSONObject(k);
+                                        accountlist.add(json.getString("AccountNumber"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                mAccountSpinner.setAdapter(new ArrayAdapter<String>(WalletServiceActivity.this, android.R.layout.simple_spinner_dropdown_item, accountlist));
 
-                                        AccountDetails.add(new ToAccountDetails( kjsonObject.getString("FK_Account"), kjsonObject.getString("AccountNumber"), kjsonObject.getString("SubModule"), kjsonObject.getString("Balance"), kjsonObject.getString("typeShort"), kjsonObject.getString("BranchName")));
+                                mAccountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        try {
+                                            strAccNo = jresult.getJSONObject(position).getString("AccountNumber");
+                                            strFKacc = jresult.getJSONObject(position).getString("FK_Account");
+                                            strSubModule = jresult.getJSONObject(position).getString("SubModule");
+                                            getTransactiondetails(strAccNo,strFKacc,strSubModule);
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
 
-                                    AccountAdapter = new ArrayAdapter<>(WalletServiceActivity.this,  R.layout.list_content_spin,R.id.textview, AccountDetails);
-                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
-                                    spn_account_type.setAdapter(AccountAdapter);
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                })
+                                ;
+                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
 
 
-
-
-                                    spn_account_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                            if (position!=0) {
-
-                                               // result = AccountAdapter.getItem(position).getBranchName();
-
-                                                Object item = parent.getItemAtPosition(position);
-
-                                                strAccNo=AccountAdapter.getItem(position).getSubModule();
-                                                strFKacc=AccountAdapter.getItem(position).getSubModule();
-                                                strSubModule=AccountAdapter.getItem(position).getSubModule();
-                                                getTransactiondetails(strAccNo,strFKacc,strSubModule);
-                                              //  BalanceSplitUpDetails(AccountAdapter.getItem(position).getSubModule(),AccountAdapter.getItem(position).getFK_Account());
-                                            }
-                                            else {
-
-                                                /*ll_needTochange.setVisibility(View.GONE);
-                                                ll_needToPayAdvance.setVisibility(View.GONE);
-                                                ll_remittance.setVisibility(View.GONE);
-                                                rv_split_details.setVisibility(View.GONE);*/
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-                                            //Do nothing
-                                        }
-                                    });
-                                }
-                                else {
-
-//                                    tv_as_on_date.setVisibility(View.GONE);
-                                }
                             }
                             else {
 
-//                                tv_as_on_date.setVisibility(View.GONE);
+                                try{
+                                    JSONObject jobj = jsonObj.getJSONObject("OwnAccountdetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(WalletServiceActivity.this);
+                                    builder.setMessage(ResponseMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (JSONException e){
+                                    String EXMessage = jsonObj.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(WalletServiceActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
                             }
-
                         }
-                        catch (JSONException e) {
-
-                        }
-
+                        catch (JSONException e) { }
                     }
-
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                    }
+                    public void onFailure(Call<String> call, Throwable t) { }
                 });
-
             }
-            catch (Exception e)
-            {
-
-            }
+            catch (Exception e) { }
         }
         else {
-           // alertMessage1("", "Network is currently unavailable. Please try again later.");
-            DialogUtil.showAlert(WalletServiceActivity.this,
-                    "Network is currently unavailable. Please try again later.");
+             DialogUtil.showAlert(WalletServiceActivity.this,"Network is currently unavailable. Please try again later.");
         }
 
+    }
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     public void getTransactiondetails(String straccno,String stracccode, String strsubmodule){
@@ -709,8 +728,36 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     }
 
     private void validationforloadmoney() {
-        doUploadMoney("001001999315 (SB)","25567","DDSB", edt_txt_amount.getText().toString());
+
+        if(strAccNo.isEmpty()){
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+            builder.setMessage("Please select account")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            android.app.AlertDialog alert = builder.create();
+            alert.show();
+        }else if(edt_txt_amount.getText().toString().isEmpty()){
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+            builder.setMessage("Please enter amount")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            android.app.AlertDialog alert = builder.create();
+            alert.show();
+        }else {
+            doUploadMoney(strAccNo, strFKacc, strSubModule, edt_txt_amount.getText().toString());
+        }
     }
+
 
 }
 
