@@ -54,7 +54,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -76,7 +79,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class WalletServiceActivity extends AppCompatActivity implements View.OnClickListener{
     ProgressDialog progressDialog;
     TextView txt_userdetails,  txt_userid, txtv_totalbal, txt_amtinword;
-    TextView tvTransaction,tvLoadmoney;
+    TextView tvTransaction,tvLoadmoney, tvwalletbal;
     LinearLayout ll_loadmoney, llministatement;
     RecyclerView rv_ministatmnt;
     private Spinner spn_account_type;
@@ -98,6 +101,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
         mAccountSpinner = findViewById(R.id.spnAccountNum);
 
+        tvwalletbal = findViewById(R.id.tvwalletbal);
         tvTransaction = findViewById(R.id.tvTransaction);
         txt_amtinword = findViewById(R.id.txt_amtinword);
         tvTransaction.setOnClickListener(this);
@@ -117,6 +121,10 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         txt_userid.setText( "Customer Id : "+userDetails.customerId);
         txt_userdetails.setText( userDetails.userCustomerName);
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        tvwalletbal.setText( "WALLET BALANCE ON "+currentDate);
+
       //  showOwnAccToList();
         getWalletAmount();
 
