@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 
 import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.SplashScreen;
@@ -45,16 +46,38 @@ import javax.net.ssl.TrustManagerFactory;
 
 public class ConnectionUtil {
     private static Context context;
+    private static String bankKey =""    ;
+    private static String bankHeader=""   ;
+    private static String AssetName =""  ;
+    private static String Hostname  =""  ;
+
+
 
     private ConnectionUtil(){
         throw new IllegalStateException( "exception ");
     }
     public static String getResponse(String url) {
 
-        String bankKey      = UserRegistrationActivity.getBankkey();
-        String bankHeader   = UserRegistrationActivity.getBankheader();
-//        String bankKey      = SplashScreen.BankKey;
-//        String bankHeader   = SplashScreen.BankHeader;
+        Log.e("571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
+         bankKey      = UserRegistrationActivity.getBankkey();
+         bankHeader   = UserRegistrationActivity.getBankheader();
+         AssetName   = UserRegistrationActivity.getCertificateAssetName();
+         Hostname   = UserRegistrationActivity.getHostnameSubject();
+
+        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
+            bankKey      = HomeActivity.getBankkey();
+            bankHeader   = HomeActivity.getBankheader();
+            AssetName   = HomeActivity.getCertificateAssetName();
+            Hostname   = HomeActivity.getHostnameSubject();
+        }
+
+
+//        bankKey      = SplashScreen.BankKey;
+//        bankHeader   = SplashScreen.BankHeader;
+
+
+
+        Log.e("5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname);
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 
@@ -66,33 +89,41 @@ public class ConnectionUtil {
         Log.e("imei","         myy     "+iemi);
 
         if (iemi.equals(IScoreApplication.EXCEPTION_NOIEMI)){
+            Log.e("TEST","         14     "+iemi);
             return IScoreApplication.EXCEPTION_NOIEMI;
         }
+        Log.e("TEST","         15     "+iemi);
         url = url+"&imei="+iemi;
         if ( UserCredentialDAO.getInstance().isUserAlreadyLogin() ) {
             String token = UserCredentialDAO.getInstance().getLoginCredential().token;
-
+            Log.e("TEST","         1     "+iemi);
             try {
                 url = url+"&token="+token;
+                Log.e("TEST","         12     "+iemi);
             } catch (Exception e) {
-                if (IScoreApplication.DEBUG)Log.e("exception",e.toString()+"");
+                Log.e("exception",e.toString()+"");
+                if (IScoreApplication.DEBUG)
                 url = url +"&token=exceptiontoken";
             }
         }
+        Log.e("TEST","         16     "+iemi);
 
-        if ( ! bankHeader.trim().isEmpty() && !bankKey.trim().isEmpty() ){
+        if (!bankHeader.trim().isEmpty() && !bankKey.trim().isEmpty() ){
             try {
-
+                Log.e("TEST","         13     "+iemi);
                 url=url+"&BankKey="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankKey))+"&BankHeader="+
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankHeader))+
                         "&BankVerified="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankVerified));
+                Log.e("url971   ",url+"");
             } catch (Exception e) {
+                Log.e("Exception 97   ",""+e.toString());
                 return IScoreApplication.EXCEPTION_ENCRIPTION_IEMI;
+
             }
         }
 
 
-
+        Log.e("url97   ",url+"");
         if ( IScoreApplication.DEBUG )
             Log.e("url",url+"");
         String result ;
@@ -107,17 +138,18 @@ public class ConnectionUtil {
                 if ( Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1 ){
                     return true;
                 }else {
-                    return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
-//                    return hv.verify(SplashScreen.HOSTNAME_SUBJECT+"", session )  ;
+                   // return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
+                    return hv.verify(Hostname+"", session )  ;
+
                 }
             };
             updateURL = new URL(url);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 
-            InputStream caInput =  IScoreApplication.getAppContext().
-                    getAssets().open( UserRegistrationActivity.getCertificateAssetName());
 //            InputStream caInput =  IScoreApplication.getAppContext().
-//                    getAssets().open( SplashScreen.CERTIFICATE_ASSET_NAME);
+//                    getAssets().open( UserRegistrationActivity.getCertificateAssetName());
+            InputStream caInput =  IScoreApplication.getAppContext().
+                    getAssets().open( AssetName);
 
 
             Certificate ca;

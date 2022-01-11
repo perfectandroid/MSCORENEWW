@@ -341,12 +341,20 @@ public class UserRegistrationActivity extends AppCompatActivity {
             else {
                 if (NetworkUtil.isOnline()) {
 
+
+//                    bank_Key = "LL.136";
+//                    bank_Header ="Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
+//                    host_nameCommon = "MSCORESERVER";
+//                    asset_namecommon ="naduviltest.pem";
+
                     bank_Key = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0).getString("bankkey", null);
                     bank_Header =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0).getString("bankheader", null);
                     host_nameCommon = getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0).getString("hostname", null);
                     asset_namecommon =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0).getString("certificateassetname", null);
 
 
+//                            BASE_URL = "https://13.71.91.134:14009/Mscore";
+//                            BASE_URL = "https://13.71.91.134:14008/MscoreQALive";
                     try{
                         String url =
                                 BASE_URL + "/PassBookAuthenticate?Mobno="+

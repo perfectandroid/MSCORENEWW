@@ -1,16 +1,20 @@
 package com.creativethoughts.iscore;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -48,6 +52,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.OkHttpClient;
@@ -414,28 +419,41 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
         {
             case R.id.tv_ministatmnt:
                 if (NetworkUtil.isOnline()) {
-                    final ProgressDialog pDialog = ProgressDialog.show(DepositAccountSummaryDetailsActivity.this, "", "Loading Details...");
-                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
-                        @Override
-                        public void onCompleted() {
-                            Intent i = new Intent(DepositAccountSummaryDetailsActivity.this, DepositMinistatement.class);
-                            i.putExtra("accno", tv_accno.getText().toString());
-                            i.putExtra("amt", tv_bal.getText().toString());
-                            i.putExtra("submodule", subModule);
-                            i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
-                            i.putExtra("account", account);
-                            startActivity(i);
-                            pDialog.dismiss();
-                            return;
-                        }
-                        @Override
-                        public void onFailed() {
-                            //                        updateTopView();
-                            pDialog.dismiss();
-                        }
-                    }, true,DepositAccountSummaryDetailsActivity.this);
+//                    final ProgressDialog pDialog = ProgressDialog.show(DepositAccountSummaryDetailsActivity.this, "", "Loading Details...");
+//                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
+//                        @Override
+//                        public void onCompleted() {
+//                            Log.e("TAG","Success 2222   ");
+//
+////                            Intent i = new Intent(DepositAccountSummaryDetailsActivity.this, DepositMinistatement.class);
+////                            i.putExtra("accno", tv_accno.getText().toString());
+////                            i.putExtra("amt", tv_bal.getText().toString());
+////                            i.putExtra("submodule", subModule);
+////                            i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+////                            i.putExtra("account", account);
+////                            startActivity(i);
+////                            pDialog.dismiss();
+//                            return;
+//                        }
+//                        @Override
+//                        public void onFailed() {
+//                            Log.e("TAG","FAiled 2222   ");
+//                            //                        updateTopView();
+//                            pDialog.dismiss();
+//                        }
+//                    }, true,DepositAccountSummaryDetailsActivity.this);
+
+                    Intent i = new Intent(DepositAccountSummaryDetailsActivity.this, DepositMinistatement.class);
+                    i.putExtra("accno", tv_accno.getText().toString());
+                    i.putExtra("amt", tv_bal.getText().toString());
+                    i.putExtra("submodule", subModule);
+                    i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+                    i.putExtra("account", account);
+                    startActivity(i);
+
                 }
                 else{
+                    Log.e("TAG","FAiled 22221   ");
                     Intent i = new Intent(DepositAccountSummaryDetailsActivity.this, DepositMinistatement.class);
                     i.putExtra("accno", tv_accno.getText().toString());
                     i.putExtra("amt", tv_bal.getText().toString());
@@ -551,6 +569,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
             e.printStackTrace();
         }
     }*/
+
 
 }
 

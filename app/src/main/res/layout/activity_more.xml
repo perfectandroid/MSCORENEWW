@@ -229,10 +229,13 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="20dp"
                     android:gravity="center">
+
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/companylogo"/>
+                        android:background="@drawable/companylogo"
+                        android:backgroundTint="@color/grey" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>

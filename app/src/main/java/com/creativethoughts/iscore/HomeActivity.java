@@ -44,6 +44,10 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HomeActivity extends AppCompatActivity implements NavigationDrawerCallbacks, ConnectivityReceiver.ConnectivityReceiverListener {
 
+    static String bank_Key, bank_Header;
+    static String host_nameCommon, asset_namecommon;
+
+
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -80,6 +84,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,  findViewById(R.id.drawer_layout));
 
+        bank_Key = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0).getString("bankkey", null);
+        bank_Header =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0).getString("bankheader", null);
+        host_nameCommon = getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0).getString("hostname", null);
+        asset_namecommon =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0).getString("certificateassetname", null);
         onSectionAttached(0);
 
 
@@ -377,5 +385,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         sweetAlertDialog.show();
 
     }
+
+
+    public static String getBankkey() {
+        try {
+            return bank_Key;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getBankheader() {
+        try {
+            return bank_Header;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getHostnameSubject() {
+        try {
+            return host_nameCommon;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getCertificateAssetName() {
+        try {
+            return asset_namecommon;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
 
 }

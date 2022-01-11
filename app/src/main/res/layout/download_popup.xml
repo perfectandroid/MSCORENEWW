@@ -11,99 +11,102 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_popupdelete"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center"
             android:background="@color/white"
+            android:gravity="center"
             android:text="Download Statement"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="left"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
             <RadioButton
                 android:id="@+id/rb1"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/blue_variant2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:buttonTint="@color/blue_variant2"
                 android:text="Select Month"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/imgv_month"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:paddingLeft="40dp"
                 android:background="@drawable/edt3"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+                android:paddingLeft="40dp"
+                android:visibility="gone" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:gravity="left"
             android:layout_marginTop="20dp"
-            android:orientation="vertical" >
+            android:gravity="left"
+            android:orientation="vertical">
+
             <RadioButton
                 android:id="@+id/rb2"
-                android:layout_marginLeft="10dp"
-                android:buttonTint="@color/blue_variant2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:buttonTint="@color/blue_variant2"
                 android:text="Select Dates"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/l0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:id="@+id/l0"
-            android:visibility="gone"
-            android:gravity="left"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/txtv_From"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="15dp"
+                android:layout_weight="1"
                 android:text="From Date"
                 android:textColor="@color/gray"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtv_To"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
                 android:text="To Date"
                 android:textColor="@color/gray"
                 android:textStyle="bold" />
@@ -117,33 +120,36 @@
 
 
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
-            android:id="@+id/l1"
-            android:visibility="gone"
-            android:layout_marginTop="5dp">
+            android:visibility="gone">
+
             <EditText
                 android:id="@+id/etxtFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="From Date"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="10dp"
-                android:paddingLeft="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/edt3"
-                android:layout_weight="1"></EditText>
+                android:hint="From Date"
+                android:paddingLeft="20dp"></EditText>
+
             <EditText
                 android:id="@+id/etxtTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="To Date"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="25dp"
-                android:paddingLeft="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/edt3"
-                android:layout_weight="1"></EditText>
+                android:hint="To Date"
+                android:paddingLeft="20dp"></EditText>
         </LinearLayout>
         <!--  <View
               android:layout_width="match_parent"
@@ -153,16 +159,16 @@
               android:background="@color/blue_variant1" />-->
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,14 +181,10 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
                     android:hint=""
-                    android:visibility="gone"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
-
-
-
-
 
 
         </LinearLayout>
@@ -199,24 +201,25 @@
                 android:id="@+id/tv_cancel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="10dp"
+                android:layout_weight=".5"
                 android:background="@drawable/bg_unselect"
-                android:textColor="@color/RoyalBlue"
                 android:gravity="center"
-                android:text="Cancel"/>
+                android:text="Cancel"
+                android:textColor="@color/RoyalBlue" />
+
             <TextView
                 android:id="@+id/tv_share"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="40dp"
+                android:layout_weight=".5"
                 android:background="@drawable/bg_select"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:text="Download"/>
+                android:text="Download"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

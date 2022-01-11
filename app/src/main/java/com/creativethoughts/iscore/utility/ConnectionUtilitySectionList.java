@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.SplashScreen;
@@ -44,6 +45,11 @@ import com.creativethoughts.iscore.Helper.Common;
 
 public class ConnectionUtilitySectionList {
     private static Context context;
+    private static String bankKey =""    ;
+    private static String bankHeader=""   ;
+    private static String AssetName =""  ;
+    private static String Hostname  =""  ;
+
 
     private ConnectionUtilitySectionList(){
         //Do nothing
@@ -54,8 +60,22 @@ public class ConnectionUtilitySectionList {
         String bankHeader   = IScoreApplication.getAppContext().getResources().getString( R.string.BankHeader );
 */
 
-        String bankKey      = UserRegistrationActivity.getBankkey();
-        String bankHeader   = UserRegistrationActivity.getBankheader();
+//        String bankKey      = UserRegistrationActivity.getBankkey();
+//        String bankHeader   = UserRegistrationActivity.getBankheader();
+
+
+        bankKey      = UserRegistrationActivity.getBankkey();
+        bankHeader   = UserRegistrationActivity.getBankheader();
+        AssetName   = UserRegistrationActivity.getCertificateAssetName();
+        Hostname   = UserRegistrationActivity.getHostnameSubject();
+
+        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
+            bankKey      = HomeActivity.getBankkey();
+            bankHeader   = HomeActivity.getBankheader();
+            AssetName   = HomeActivity.getCertificateAssetName();
+            Hostname   = HomeActivity.getHostnameSubject();
+        }
+
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 
@@ -108,14 +128,14 @@ public class ConnectionUtilitySectionList {
                 if ( Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1 ){
                     return true;
                 }else {
-                    return hv.verify(UserRegistrationActivity.getHostnameSubject()+"", session )  ;
+                    return hv.verify(Hostname+"", session )  ;
                 }
             };
 
             updateURL = new URL(url);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             InputStream caInput =  IScoreApplication.getAppContext().
-                    getAssets().open(UserRegistrationActivity.getCertificateAssetName());
+                    getAssets().open(AssetName);
 
 
             Certificate ca;

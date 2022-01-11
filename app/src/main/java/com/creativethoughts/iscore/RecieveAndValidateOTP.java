@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -102,9 +103,23 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                                     userCredential.mobileNumber ))+
                                     "&OTP=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart( otp )) +
                                     "&NoOfDays=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart("30"));
+                    Log.e("TAG","url  109    "+url);
+                    Log.e("TAG","mobileNumber  109    "+IScoreApplication.encryptStart(userCredential.countryCode + userCredential.mobileNumber ));
+                    Log.e("TAG","otp  109    "+IScoreApplication.encryptStart( otp ));
+                    Log.e("TAG","url  109    "+IScoreApplication.encryptStart("30"));
+
+                    final String url11 =
+                            BASE_URL + "/VerifyOTP?" +
+                                    "Mobno=" + IScoreApplication.encryptStart(userCredential.countryCode + userCredential.mobileNumber )+
+                                    "&OTP=" +  IScoreApplication.encryptStart( otp ) +
+                                    "&NoOfDays=" +IScoreApplication.encryptStart("30");
+
+                    Log.e("TAG","url11  10911    "+url11);
+
                     NetworkManager.getInstance().connector(url, new ResponseManager() {
                         @Override
                         public void onSuccess(String result) {
+                            Log.e("TAG","result   109   "+result);
                             processResponse( analyzeResponse( result, otp ) );
                             if ( mSweetAlertDialog != null )
                                 mSweetAlertDialog.dismiss();

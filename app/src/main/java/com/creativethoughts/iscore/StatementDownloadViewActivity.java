@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -543,7 +544,19 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
 
-                    getAccountStatement(from,to,acc,submod);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        if (Environment.isExternalStorageManager()){
+                            getAccountStatement(from,to,acc,submod);
+                        }else {
+                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        }
+                    }else{
+                        getAccountStatement(from,to,acc,submod);
+                    }
+//                    getAccountStatement(from,to,acc,submod);
                 }
                 else {
                     Toast.makeText(StatementDownloadViewActivity.this, "Please Select Any Account For Download Statement.", Toast.LENGTH_LONG).show();

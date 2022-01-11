@@ -1274,26 +1274,61 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
         String BASE_URL=pref.getString("oldbaseurl", null);
         try{
-            String url =
-                    BASE_URL + "/FundTransferIntraBank?AccountNo="
-                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
-                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
-                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
-                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
-                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
-                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue))
-                            + "&Remark=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(remark));
+//            String url =
+//                    BASE_URL + "/FundTransferIntraBank?AccountNo="
+//                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
+//                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
+//                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
+//                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
+//                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
+//                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+//                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue))
+//                            + "&Remark=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(remark));
+
+
+            SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+            String BankKey=bankkeypref.getString("bankkey", null);
+            SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+            String BankHeader=bankheaderpref.getString("bankheader", null);
+
+
+//            String url =   BASE_URL + "/FundTransferIntraBank?AccountNo="
+//                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
+//                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
+//                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
+//                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
+//                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
+//                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+//                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
+//                            + "&IMEI=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(""))
+//                            + "&Token=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.token));
+//                            + "&BankKey=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(BankKey))
+//                            + "&BankHeader=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(BankHeader))
+//                            + "&BankVerified=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart("1"));
+
+            String url =   BASE_URL + "/FundTransferIntraBank?AccountNo="
+                    + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
+                    + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
+                    + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
+                    + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
+                    + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
+                    + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+                    + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
+
             Log.e(TAG,"startTransfer   954     "+url);
+
             NetworkManager.getInstance().connector(url, new ResponseManager() {
                 @Override
                 public void onSuccess(String result) {
                     try{
+                        Log.e(TAG,"result  12971   "+result+"  "+result);
                         Gson gson = new Gson();
                         OtherAccFundTransferFragment.FundTransferResult fundTransferResult = gson.fromJson( result, OtherAccFundTransferFragment.FundTransferResult.class );
                         int statusCode = fundTransferResult.getStatusCode();
                         reference = fundTransferResult.getRefId();
                         statusmessage= fundTransferResult.getStatusMessage();
+                        Log.e(TAG,"gson  12972   "+gson);
+                        Log.e(TAG,"statusmessage  12973   "+statusmessage+"  "+statusCode);
                         if ( statusCode == 1 ){
                             ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
 
@@ -1335,7 +1370,9 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                             alertMessage1("", statusmessage);
                         }
                     }catch ( Exception e ){
+
                         alertMessage1("Transaction failed...!", "Please try again later");
+                        Log.e(TAG,"Exception  12974   "+e.toString());
 
                     }
                 }
@@ -1343,6 +1380,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 @Override
                 public void onError(String error) {
                     alertMessage1("Transaction failed...!", "Please try again later");
+                    Log.e(TAG,"error  12975   "+error.toString());
 
                 }
             }, this, "Talking to server. Please wait....");

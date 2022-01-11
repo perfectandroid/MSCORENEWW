@@ -65,6 +65,34 @@ public class SplashScreen extends AppCompatActivity {
     public static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
 
 
+    // Perfect test
+//    public static final String BASE_URL="https://112.133.227.123:1400/TESTMSCORE";
+//    public static final String IMAGE_URL="https://112.133.227.123:1400/TESTMSCORE";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "2504";
+//    public static final String BankHeader= "PERFECT SCORE BANK QUALITY OFFICE";
+//    public static final String HOSTNAME_SUBJECT="TEST16";
+//    public static final String CERTIFICATE_ASSET_NAME="mscoredemotest.pem";
+
+    // NADUVIL live
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore/";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "LL.136";
+//    public static final String BankHeader= "Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="naduviltest.pem";
+
+    // NADUVIL test
+//    public static final String BASE_URL="https://13.71.91.134:14008/MscoreQALive";
+//    public static final String IMAGE_URL="https://13.71.91.134:14008/MscoreQALive";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "D.2721";
+//    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="naduviltesting.pem";
+
+
 //    LIVE
     /*public static final String BASE_URL="https://13.71.91.134:14006/Mscore";
     public static final String IMAGE_URL="https://13.71.91.134:14006/";
@@ -75,6 +103,15 @@ public class SplashScreen extends AppCompatActivity {
     public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";*/
 
 
+    // kuruvattoor
+
+//    public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
+//    public static final String IMAGE_URL="https://103.78.221.136:14001/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="backoffice28";
+//    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";
 
 
     static String bank_Key, bank_Header;

@@ -2,6 +2,7 @@ package com.creativethoughts.iscore.utility.network;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.creativethoughts.iscore.IScoreApplication;
@@ -62,6 +63,7 @@ public class NetworkManager {
                 if ( mSweetAlertDialog != null ){
                     mSweetAlertDialog.dismissWithAnimation();
                 }
+                Log.e("TAG","result  66   "+result);
                 if ( result.equals( IScoreApplication.SERVICE_NOT_AVAILABLE ) )
                     mResponseManager.onError( IScoreApplication.SERVICE_NOT_AVAILABLE );
                 else mResponseManager.onSuccess( result );

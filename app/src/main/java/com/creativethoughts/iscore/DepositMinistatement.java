@@ -1,19 +1,27 @@
 package com.creativethoughts.iscore;
 
+import static android.Manifest.permission.MANAGE_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,12 +40,10 @@ import android.widget.Toast;
 import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
 import com.creativethoughts.iscore.adapters.MinistatementAdapter;
-import com.creativethoughts.iscore.adapters.PassbookTranscationListAdapter;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
@@ -50,11 +54,9 @@ import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,8 +93,11 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -115,6 +120,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DepositMinistatement extends AppCompatActivity implements View.OnClickListener {
+
     RecyclerView rv_passbook;
     LinearLayout ll_download,ll_view;
     MinistatementAdapter adapter;
@@ -141,6 +147,10 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     ArrayAdapter aa;
     LinearLayout llstatement;
     int noofdays;
+    public static final int RequestPermissionCode = 7;
+    public static final int RequestManagePermissionCode = 5;
+
+    private  String[] PERMISSIONS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,11 +176,11 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         tv_accno.setText(acChange);
         tv_bal.setText(amt);
 
+
       //  prepareListData();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
 
 
         if(EnableDownloadStatement.equals("1")){
@@ -587,6 +597,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         @Override
         public void onFailure(int downloadId, int statusCode, String errMsg) {
           progressDialog.dismiss();
+          Log.e("TAG","errMsg  590     "+errMsg);
           alertMessage1("", "Not able to download PDF file, Please try again later");
         /*  DialogUtil.showAlert(DepositMinistatement.this,
                   "Not able to download PDF file, Please try again later");*/
@@ -896,6 +907,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                 }
             });
             tv_share.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.R)
                 @Override
                 public void onClick(View view) {
 
@@ -914,8 +926,60 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                     String fileUrl = value;
                     String fileName = "ASD7.pdf";
                     //   downloadFile(value, fileName);
+//
+//                    final int REQUEST_EXTERNAL_STORAGE = 1;
+//                    String[] PERMISSIONS_STORAGE = {
+//                            Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE };
+//                    if (ContextCompat.checkSelfPermission(DepositMinistatement.this,
+//                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                        ActivityCompat.requestPermissions(DepositMinistatement.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 101);
+//                    } else {
+//                        getAccountStatement(from,to,acc);
+//                    }
 
-                    getAccountStatement(from,to,acc);
+//                    if (checkDiskPermission()){
+//                        getAccountStatement(from,to,acc);
+//                    }
+//
+//                    if (checkPermission()){
+//                        getAccountStatement(from,to,acc);
+//                    }
+
+//                    if(CheckingPermissionIsEnabledOrNot())
+//                    {
+//                        Toast.makeText(DepositMinistatement.this, "All Permissions Granted Successfully", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                    // If, If permission is not enabled then else condition will execute.
+//                    else {
+//
+//                        //Calling method to enable permission.
+//                        RequestMultiplePermission();
+//                        //Toast.makeText(DepositMinistatement.this, "No Permissions Granted ", Toast.LENGTH_LONG).show();
+//
+//                    }
+
+                //    getAccountStatement(from,to,acc);
+
+//                    if (!hasPermissions(DepositMinistatement.this,PERMISSIONS)){
+//                        ActivityCompat.requestPermissions(DepositMinistatement.this,PERMISSIONS,1);
+//                    }
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                         if (Environment.isExternalStorageManager()){
+                             getAccountStatement(from,to,acc);
+                        }else {
+                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        getAccountStatement(from,to,acc);
+                    }
+
 
 
                 }
@@ -1593,13 +1657,16 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     private void downloadFile(String filename2, String filename1) {
 
 
+        Log.e("rrrrrrr","rrrrrrrrrr");
+
+
         DownloadRequest request = new DownloadRequest().setDownloadId(39)
 //                .setSimpleDownloadListener(new SimpleListener())
                 .setRetryTime(2).setDestDirectory(
                         Environment
                                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                                 .getAbsolutePath() ).setFileName(filename1)
-                .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_WIFI)
+                .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_MOBILE | DownloadRequest.NETWORK_WIFI)
                 .setDownloadListener(new Listener())
                 .setProgressInterval(1000).setUrl(filename2);
         mDownloadManager.add(request);
@@ -1745,7 +1812,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
           /*     Intent viewDownloadsIntent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
                 startActivity(viewDownloadsIntent);*/
 
-                if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ){
+                if ( SDK_INT >= Build.VERSION_CODES.N ){
                     try{
                         final Uri data = FileProvider.getUriForFile(
                                 DepositMinistatement.this, BuildConfig.APPLICATION_ID + ".fileprovider", new File( msg2 )
@@ -1793,13 +1860,149 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
 
 
+//    private boolean checkDiskPermission ()
+//
+//    {
+//
+//        if (ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//         || ActivityCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//         || ActivityCompat.checkSelfPermission(this, MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//
+//            Toast.makeText(this, "No Permissions" , Toast.LENGTH_LONG).show();
+//
+//            ActivityCompat.requestPermissions(this, new String[]{READ_EXTERNAL_STORAGE}, 0);
+//            ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE}, 0);
+//            ActivityCompat.requestPermissions(this, new String[]{MANAGE_EXTERNAL_STORAGE}, 0);
+//
+//        }
+//        else
+//        {
+//            Toast.makeText(this, "Has Permissions" , Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
 
 
 
+//    public boolean CheckingPermissionIsEnabledOrNot() {
+//
+//        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+//        int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+//        int ThirdPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(), MANAGE_EXTERNAL_STORAGE);
+//
+//
+//        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
+//                SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
+//                ThirdPermissionResult == PackageManager.PERMISSION_GRANTED ;
+//    }
+//
+//
+//    private void RequestMultiplePermission() {
+//
+//        // Creating String Array with Permissions.
+//        ActivityCompat.requestPermissions(DepositMinistatement.this, new String[]
+//                {
+//                        READ_EXTERNAL_STORAGE,
+//                        WRITE_EXTERNAL_STORAGE,
+//                        MANAGE_EXTERNAL_STORAGE
+//                }, RequestPermissionCode);
+//
+//    }
 
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        switch (requestCode) {
+//            case RequestPermissionCode:
+//                if (grantResults.length > 0) {
+//
+//                    boolean ReadPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                    boolean WritePermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+////                    boolean ManagePermission = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+//
+//
+//                    if (ReadPermission && WritePermission) {
+//
+//                        Toast.makeText(DepositMinistatement.this, "Permission Granted", Toast.LENGTH_LONG).show();
+//                    }
+//                    else {
+//                        Toast.makeText(DepositMinistatement.this,"Permission Denied",Toast.LENGTH_LONG).show();
+//
+//                    }
+//                }
+//
+//                break;
+//        }
+//    }
 
-
-
-
+//    private boolean hasPermissions(Context context,String... PERMISSIONS){
+//
+//        if (context != null && PERMISSIONS != null){
+//            for (String permissions: PERMISSIONS){
+//                if (ActivityCompat.checkSelfPermission(context,permissions) == PackageManager.PERMISSION_GRANTED){
+//                    return false;
+//                }
+//            }
+//
+//        }
+//        return true;
+//    }
+//
+//    @RequiresApi(api = Build.VERSION_CODES.R)
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == 1){
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                Toast.makeText(DepositMinistatement.this, "Permission Granted0", Toast.LENGTH_LONG).show();
+//            }
+//            else {
+//                Toast.makeText(DepositMinistatement.this,"Permission Denied0",Toast.LENGTH_LONG).show();
+//            }
+//
+//            if (grantResults[1] == PackageManager.PERMISSION_GRANTED){
+//                Toast.makeText(DepositMinistatement.this, "Permission Granted1", Toast.LENGTH_LONG).show();
+//            }
+//            else {
+//                Toast.makeText(DepositMinistatement.this,"Permission Denied1",Toast.LENGTH_LONG).show();
+//            }
+//            if (Environment.isExternalStorageManager()){
+//
+//            }else {
+//                final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+//                intent.setData(uri);
+//                startActivity(intent);
+//            }
+////            if (grantResults[2] == PackageManager.PERMISSION_GRANTED){
+////                Toast.makeText(DepositMinistatement.this, "Permission Granted2", Toast.LENGTH_LONG).show();
+////            }
+////            else {
+////                Toast.makeText(DepositMinistatement.this,"Permission Denied2",Toast.LENGTH_LONG).show();
+//////                if (ActivityCompat.shouldShowRequestPermissionRationale(DepositMinistatement.this,
+//////                        MANAGE_EXTERNAL_STORAGE)) {
+//////                    androidx.appcompat.app.AlertDialog.Builder alertDialogBuilder=new androidx.appcompat.app.AlertDialog.Builder(DepositMinistatement.this);
+//////                    alertDialogBuilder.setMessage("We are asking phone permission only for security purpose.Please allow this permission");
+//////                    alertDialogBuilder.setCancelable(false);
+//////                    alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
+//////                        ActivityCompat.requestPermissions(DepositMinistatement.this,
+//////                                new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},
+//////                                RequestManagePermissionCode);
+//////                        dialog.dismiss();
+//////
+//////                    });
+//////                    alertDialogBuilder.show();
+//////
+//////                }
+////
+//////                final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//////                final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+//////                intent.setData(uri);
+//////                startActivity(intent);
+////            }
+//        }
+//    }
 }

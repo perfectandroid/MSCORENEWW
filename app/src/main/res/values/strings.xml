@@ -30,6 +30,7 @@
   <!--  <string name="app_name">Mezhuveli SCB</string>-->
 
     <string name="app_name">Mscore Demo</string>
+<!--    <string name="app_name">Kuruvattoor Bank</string>-->
 
 <!--    <string name="app_name">Cheranalloor SCB</string>-->
    <!-- <string name="app_name">Amarambalam SCB</string>-->
@@ -508,7 +509,8 @@
    <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.chemancheri_scb&amp;hl=en_IN&amp;gl=US</string>-->
  <!--  <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.pantheerankavu&amp;hl=en_IN&amp;gl=US</string>-->
 
-    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.atholi</string>
+<!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.atholi</string>-->
+    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kuruvattoor</string>F
    <!-- <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.thiruvambady_scb</string>-->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.cheruvannur</string>-->
 <!--    <string name="app_link">https://play.google.com/store/apps/details?id=com.mscore.kumaramputhoor</string>-->
