@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -306,16 +307,20 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
                             + "&sender_mobile=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mobileNumber));
 
             String strResponse = ConnectionUtil.getResponse(url);
-
+            Log.e("TAG","url   3144   "+url);
+            Log.e("TAG","strResponse   3145   "+strResponse);
 
             try {
                 Gson gson = new Gson();
+                Log.e("TAG","gson   3141   "+gson);
                 return gson.fromJson( strResponse, AddSenderReceiverResponseModel.class );
             }catch ( Exception e){
+                Log.e("TAG","Exception   3142   "+e.toString());
                 return new AddSenderReceiverResponseModel();
             }
         } catch (Exception e) {
             //Do nothing
+            Log.e("TAG","Exception   3143   "+e.toString());
         }
         return new AddSenderReceiverResponseModel();
     }

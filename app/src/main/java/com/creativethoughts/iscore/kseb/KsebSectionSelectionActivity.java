@@ -107,6 +107,8 @@ public class KsebSectionSelectionActivity extends Activity {
         Gson gson = new Gson();
         try{
             SectionSearchResult sectionSearchResult  = gson.fromJson( result, SectionSearchResult.class );
+            Log.e("TAG","sectionSearchResult  1101  "+sectionSearchResult);
+            Log.e("TAG","result  1102  "+result);
             if ( mRecyclerSectionListAdapter != null ){
                 mRecyclerSectionListAdapter.addSections( sectionSearchResult.getSectionDetailsList() );
                 mRecyclerSectionListAdapter.notifyDataSetChanged();
@@ -114,7 +116,7 @@ public class KsebSectionSelectionActivity extends Activity {
 
         }catch ( Exception e ){
             if ( IScoreApplication.DEBUG ){
-                Log.e("ksebsectionexc", e.toString() );
+                Log.e("ksebsectionexc  1102", e.toString() );
             }
         }
     }

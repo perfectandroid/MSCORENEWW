@@ -61,9 +61,9 @@
                                 android:id="@+id/imgimps"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
-                                android:scaleType="fitXY"
                                 android:layout_alignParentLeft="true"
-                                android:src="@drawable/icmt_ownbank"/>
+                                android:scaleType="fitXY"
+                                android:src="@drawable/icmt_ownbank" />
 
                             <TextView
                                 android:id="@+id/txt_imps"

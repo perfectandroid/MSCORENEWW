@@ -329,6 +329,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                     result = result.trim();
                     try{
                         int res = Integer.parseInt( result );
+                        Log.e("TAG","res   332   "+res);
                         if ( res == 10 )
                             goToPlayStore();
                     }catch ( Exception e ){
