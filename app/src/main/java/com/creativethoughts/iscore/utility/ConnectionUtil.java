@@ -51,14 +51,12 @@ public class ConnectionUtil {
     private static String AssetName =""  ;
     private static String Hostname  =""  ;
 
-
-
     private ConnectionUtil(){
         throw new IllegalStateException( "exception ");
     }
     public static String getResponse(String url) {
 
-        Log.e("571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
+        Log.e("ConnectionUtil 571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
          bankKey      = UserRegistrationActivity.getBankkey();
          bankHeader   = UserRegistrationActivity.getBankheader();
          AssetName   = UserRegistrationActivity.getCertificateAssetName();
@@ -77,7 +75,7 @@ public class ConnectionUtil {
 
 
 
-        Log.e("5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname);
+        Log.e("ConnectionUtil 5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname);
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();
 

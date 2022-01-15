@@ -966,20 +966,20 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 //                        ActivityCompat.requestPermissions(DepositMinistatement.this,PERMISSIONS,1);
 //                    }
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                         if (Environment.isExternalStorageManager()){
-                             getAccountStatement(from,to,acc);
-                        }else {
-                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        }
-                    }
-                    else {
-                        getAccountStatement(from,to,acc);
-                    }
-
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                         if (Environment.isExternalStorageManager()){
+//                             getAccountStatement(from,to,acc);
+//                        }else {
+//                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+//                            intent.setData(uri);
+//                            startActivity(intent);
+//                        }
+//                    }
+//                    else {
+//                        getAccountStatement(from,to,acc);
+//                    }
+                    getAccountStatement(from,to,acc);
 
 
                 }
@@ -1625,10 +1625,6 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                                        s4);*/
                             }
 
-
-
-
-
                             //Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
 
@@ -1658,18 +1654,33 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
 
         Log.e("rrrrrrr","rrrrrrrrrr");
+        try {
+            long filename3 = System.currentTimeMillis();
+            File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
+            boolean isPresent = true;
+            Log.e("photoURI","StatementDownloadViewActivity   5682   ");
+            if (!docsFolder.exists()) {
+               // isPresent = docsFolder.mkdir();
+                docsFolder.mkdir();
+                Log.e("photoURI","StatementDownloadViewActivity   5683   ");
+            }
 
-
-        DownloadRequest request = new DownloadRequest().setDownloadId(39)
+            DownloadRequest request = new DownloadRequest().setDownloadId(39)
 //                .setSimpleDownloadListener(new SimpleListener())
-                .setRetryTime(2).setDestDirectory(
-                        Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                                .getAbsolutePath() ).setFileName(filename1)
-                .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_MOBILE | DownloadRequest.NETWORK_WIFI)
-                .setDownloadListener(new Listener())
-                .setProgressInterval(1000).setUrl(filename2);
-        mDownloadManager.add(request);
+                    .setRetryTime(2).setDestDirectory(
+                            Environment
+                                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                    .getAbsolutePath() ).setFileName(filename3+"-"+filename1)
+                    .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_MOBILE | DownloadRequest.NETWORK_WIFI)
+                    .setDownloadListener(new Listener())
+                    .setProgressInterval(1000).setUrl(filename2);
+            mDownloadManager.add(request);
+        }catch (Exception e){
+            Log.e("Exception","Exception   1664   "+e.toString());
+        }
+
+
+
 
     }
 

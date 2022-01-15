@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,6 +116,7 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
     ListView list_view;
     TextView tv_popuptitle;
     String submodule,branchcode,submod;
+    File destination = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -544,19 +546,22 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     acc = acc.replace(acc.substring(acc.indexOf(" (")+1, acc.indexOf(")")+1), "");
                     acc = acc.replace(" ","");
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        if (Environment.isExternalStorageManager()){
-                            getAccountStatement(from,to,acc,submod);
-                        }else {
-                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        }
-                    }else{
-                        getAccountStatement(from,to,acc,submod);
-                    }
-//                    getAccountStatement(from,to,acc,submod);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                        if (Environment.isExternalStorageManager()){
+//                            getAccountStatement(from,to,acc,submod);
+//                        }else {
+//                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
+//                            intent.setData(uri);
+//                            startActivity(intent);
+//                        }
+//                    }else{
+//                        getAccountStatement(from,to,acc,submod);
+//                    }
+                    getAccountStatement(from,to,acc,submod);
+
+
+
                 }
                 else {
                     Toast.makeText(StatementDownloadViewActivity.this, "Please Select Any Account For Download Statement.", Toast.LENGTH_LONG).show();
@@ -998,16 +1003,38 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
     private void downloadFile(String filename2, String filename1) {
 
 
-        DownloadRequest request = new DownloadRequest().setDownloadId(39)
+        try {
+            long filename3 = System.currentTimeMillis();
+            File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
+            boolean isPresent = true;
+            Log.e("photoURI","StatementDownloadViewActivity   5682   ");
+            if (!docsFolder.exists()) {
+               // isPresent = docsFolder.mkdir();
+                docsFolder.mkdir();
+                Log.e("photoURI","StatementDownloadViewActivity   5683   ");
+            }
+
+            Log.e("Exception","StatementDownloadViewActivity  1012   ");
+            DownloadRequest request = new DownloadRequest().setDownloadId(39)
 //                .setSimpleDownloadListener(new SimpleListener())
-                .setRetryTime(2).setDestDirectory(
-                        Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                                .getAbsolutePath() ).setFileName(filename1)
-                .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_WIFI)
-                .setDownloadListener(new Listener())
-                .setProgressInterval(1000).setUrl(filename2);
-        mDownloadManager.add(request);
+//                    .setRetryTime(2).setDestDirectory(
+//                            Environment
+//                                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//                                    .getAbsolutePath() ).setFileName(filename1)
+//                    .setRetryTime(2).setDestDirectory(docsFolder.toString())
+                    .setRetryTime(2).setDestDirectory(
+                            Environment
+                                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                    .getAbsolutePath() ).setFileName(filename3+"-"+filename1)
+                    .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_WIFI)
+                    .setDownloadListener(new Listener())
+                    .setProgressInterval(1000).setUrl(filename2);
+            mDownloadManager.add(request);
+        }catch (Exception e){
+            Log.e("Exception","StatementDownloadViewActivity  10122   "+e.toString());
+        }
+
+
 
      /*    .setRetryTime(2).setDestDirectory(
                 Environment

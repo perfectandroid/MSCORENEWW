@@ -1283,69 +1283,93 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
 
+                Log.e("img_share","img_share   1170   ");
+                Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+                        rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                rltv_share.draw(canvas);
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    if (Environment.isExternalStorageManager()){
-                        Log.e("img_share","img_share   1170   ");
-                        Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-                                rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-                        Canvas canvas = new Canvas(bitmap);
-                        rltv_share.draw(canvas);
+                try {
 
-                        try {
+                    File file = saveBitmap(bitmap, mAccNo+".png");
+                    Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
+                    Uri bmpUri = Uri.fromFile(file);
+                    //   Uri bmpUri = getLocalBitmapUri(bitmap);
 
-                            File file = saveBitmap(bitmap, mAccNo+".png");
-                            Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-                            Uri bmpUri = Uri.fromFile(file);
-                            //   Uri bmpUri = getLocalBitmapUri(bitmap);
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(shareIntent, "Share"));
 
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-                            shareIntent.setType("image/*");
-                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            startActivity(Intent.createChooser(shareIntent, "Share"));
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e("Exception","Exception   117   "+e.toString());
-                        }
-
-                    }
-                    else {
-                        final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                        final Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
-                        intent.setData(uri);
-                        startActivity(intent);
-                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("Exception","Exception   117   "+e.toString());
                 }
-                else{
-                    Log.e("img_share","img_share   1170   ");
-                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-                    Canvas canvas = new Canvas(bitmap);
-                    rltv_share.draw(canvas);
 
-                    try {
-
-                        File file = saveBitmap(bitmap, mAccNo+".png");
-                        Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-                        Uri bmpUri = Uri.fromFile(file);
-                        //   Uri bmpUri = getLocalBitmapUri(bitmap);
-
-                        Intent shareIntent = new Intent();
-                        shareIntent.setAction(Intent.ACTION_SEND);
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-                        shareIntent.setType("image/*");
-                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        startActivity(Intent.createChooser(shareIntent, "Share"));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e("Exception","Exception   117   "+e.toString());
-                    }
-
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//                    if (Environment.isExternalStorageManager()){
+//                        Log.e("img_share","img_share   1170   ");
+//                        Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+//                                rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+//                        Canvas canvas = new Canvas(bitmap);
+//                        rltv_share.draw(canvas);
+//
+//                        try {
+//
+//                            File file = saveBitmap(bitmap, mAccNo+".png");
+//                            Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
+//                            Uri bmpUri = Uri.fromFile(file);
+//                            //   Uri bmpUri = getLocalBitmapUri(bitmap);
+//
+//                            Intent shareIntent = new Intent();
+//                            shareIntent.setAction(Intent.ACTION_SEND);
+//                            shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+//                            shareIntent.setType("image/*");
+//                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                            startActivity(Intent.createChooser(shareIntent, "Share"));
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                            Log.e("Exception","Exception   117   "+e.toString());
+//                        }
+//
+//                    }
+//                    else {
+//                        final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+//                        final Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+//                        intent.setData(uri);
+//                        startActivity(intent);
+//                    }
+//                }
+//                else{
+//                    Log.e("img_share","img_share   1170   ");
+//                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+//                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+//                    Canvas canvas = new Canvas(bitmap);
+//                    rltv_share.draw(canvas);
+//
+//                    try {
+//
+//                        File file = saveBitmap(bitmap, mAccNo+".png");
+//                        Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
+//                        Uri bmpUri = Uri.fromFile(file);
+//                        //   Uri bmpUri = getLocalBitmapUri(bitmap);
+//
+//                        Intent shareIntent = new Intent();
+//                        shareIntent.setAction(Intent.ACTION_SEND);
+//                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+//                        shareIntent.setType("image/*");
+//                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                        startActivity(Intent.createChooser(shareIntent, "Share"));
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        Log.e("Exception","Exception   117   "+e.toString());
+//                    }
+//
+//                }
 
 
 
@@ -1431,13 +1455,23 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
     }
 
     private File saveBitmap(Bitmap bm, String fileName){
-        String mess = getResources().getString(R.string.app_name);
-        Log.e("Resources","Resources   117   "+mess);
-        final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+mess;
-        File dir = new File(path);
-        if(!dir.exists())
-            dir.mkdirs();
-        File file = new File(dir, fileName);
+//        String mess = getResources().getString(R.string.app_name);
+//        Log.e("Resources","Resources   117   "+mess);
+//        final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+mess;
+//        File dir = new File(path);
+//        if(!dir.exists())
+//            dir.mkdirs();
+//        File file = new File(dir, fileName);
+        File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
+        boolean isPresent = true;
+        Log.e("photoURI","StatementDownloadViewActivity   5682   ");
+        if (!docsFolder.exists()) {
+            // isPresent = docsFolder.mkdir();
+            docsFolder.mkdir();
+            Log.e("photoURI","StatementDownloadViewActivity   5683   ");
+        }
+
+        File file = new File(docsFolder, fileName);
         try {
             FileOutputStream fOut = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);
