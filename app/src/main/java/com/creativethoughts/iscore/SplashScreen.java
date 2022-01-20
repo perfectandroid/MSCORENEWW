@@ -56,14 +56,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
 
-//    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
-    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+ /*   public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
+  //  public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="STATIC-VM";
-    public static final String CERTIFICATE_ASSET_NAME="mscoredemo.pem";
+    public static final String CERTIFICATE_ASSET_NAME="staticvm.pem";*/
 
 
 
@@ -107,13 +107,13 @@ public class SplashScreen extends AppCompatActivity {
 
     // kuruvattoor
 
-//    public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
-//    public static final String IMAGE_URL="https://103.78.221.136:14001/";
-//    public static final String API_NAME= "api/MV3";
-//    public static final String BankKey= "";
-//    public static final String BankHeader= "";
-//    public static final String HOSTNAME_SUBJECT="backoffice28";
-//    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";
+    public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
+    public static final String IMAGE_URL="https://103.78.221.136:14001/";
+    public static final String API_NAME= "api/MV3";
+    public static final String BankKey= "";
+    public static final String BankHeader= "";
+    public static final String HOSTNAME_SUBJECT="backoffice28";
+    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";
 
 
     static String bank_Key, bank_Header;
@@ -305,6 +305,8 @@ public class SplashScreen extends AppCompatActivity {
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+
+                 //   requestObject1.put("BankKey" +"" +"",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                 } catch (Exception e) {
@@ -440,6 +442,7 @@ public class SplashScreen extends AppCompatActivity {
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     requestObject1.put("ReqMode",IScoreApplication.encryptStart("20"));
+                    String s= BankKey;
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 

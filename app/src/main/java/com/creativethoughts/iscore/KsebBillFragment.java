@@ -482,24 +482,31 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
             tv_bill_num.setText("Bill NO : "+tempStringBillNo);
 
 
-            double num =Double.parseDouble(""+tempStringAmount);
-            String stramnt = CommonUtilities.getDecimelFormate(num);
-            text_confirmationmsg.setText("Proceed Recharge With Above Amount"+ "..?");
-            String[] netAmountArr = tempStringAmount.split("\\.");
-            String amountInWordPop = "";
-            if ( netAmountArr.length > 0 ){
-                int integerValue = Integer.parseInt( netAmountArr[0] );
-                amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
-                if ( netAmountArr.length > 1 ){
-                    int decimalValue = Integer.parseInt( netAmountArr[1] );
-                    if ( decimalValue != 0 ){
-                        amountInWordPop += " And " + NumberToWord.convertNumberToWords( decimalValue ) + " Paise" ;
-                    }
-                }
-                amountInWordPop += " Only";
-            }
-            tv_amount_words.setText(""+amountInWordPop);
-            tv_amount.setText("₹ " + stramnt );
+
+               String stramnt = tempStringAmount.replace(",","");
+               text_confirmationmsg.setText("Proceed Recharge With Above Amount"+ "..?");
+               String[] netAmountArr = stramnt.split("\\.");
+               String amountInWordPop = "";
+               if ( netAmountArr.length > 0 ){
+                   int integerValue = Integer.parseInt( netAmountArr[0] );
+                   amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+                   if ( netAmountArr.length > 1 ){
+                       int decimalValue = Integer.parseInt( netAmountArr[1] );
+                       if ( decimalValue != 0 ){
+                           amountInWordPop += " And " + NumberToWord.convertNumberToWords( decimalValue ) + " Paise" ;
+                       }
+                   }
+                   amountInWordPop += " Only";
+               }
+               tv_amount_words.setText(""+amountInWordPop);
+
+               tv_amount.setText("₹ " + CommonUtilities.getDecimelFormate(Double.parseDouble(stramnt)) );
+
+
+
+          //  double num =Double.parseDouble(""+tempStringAmount);
+          //  String stramnt = CommonUtilities.getDecimelFormate(num);
+
             bt_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -832,6 +839,7 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
 
             }
             else if ( ksebRechargeStatus.getStatusCode()< 0 ){
+                statusmessage=ksebRechargeStatus.getStatusMessage();
                 if ( ksebRechargeStatus.getStatusCode() == -72 ){
                   //  String message =  "You have no sufficient balance on your account\n";
                     String message = statusmessage;
@@ -840,7 +848,8 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
                     keyValuePairs.add( keyValuePair );
                   /*  getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment.getInstance( keyValuePairs  ,"Failed", message,
                             mPaymentModel,   false, false ) ).commit();*/
-                    alertMessage1("Failed" ,message);
+                    alertMessage1("" ,message);
+                 //   alertMessage1(statusmessage ,message);
 
                //     getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment1.getInstance( keyValuePairs  ,"Failed", message
                            // , ksebRechargeStatus, false, false, from) ).commit();
@@ -853,7 +862,8 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
                     KeyValuePair keyValuePair = new KeyValuePair();
                     keyValuePairs.add( keyValuePair );
 
-                    alertMessage1("Failed" ,message);
+                    alertMessage1("" ,message);
+                  //  alertMessage1(statusmessage ,message);
                    /* getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment.getInstance( keyValuePairs  ,"Failed", message,
                             mPaymentModel,    false, false ) ).commit();*/
                 //    getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment1.getInstance( keyValuePairs  ,"Failed", message
@@ -865,8 +875,8 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
                     ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
                     KeyValuePair keyValuePair = new KeyValuePair();
                     keyValuePairs.add( keyValuePair );
-
-                    alertMessage1("Failed" ,message);
+                 //   alertMessage1(statusmessage ,message);
+                    alertMessage1("" ,message);
                  //   getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment1.getInstance( keyValuePairs  ,"Pending", message
                         //    , ksebRechargeStatus, true, false,from ) ).commit();
                 }
@@ -932,7 +942,9 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(extractedAccNo)) + "&Module="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(module)) + "&Pin="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin));
+            Log.i("URL",tempStringAmount+"\n"+url);
             response = ConnectionUtil.getResponse(url);
+
             return response;
         }catch (Exception e){
             if(IScoreApplication.DEBUG) Log.e("ksebexcetpion", e.toString());

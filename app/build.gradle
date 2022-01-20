@@ -11,7 +11,7 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\Ranjith\\Mscore\\Kuruvattor\\Keystore\\kuruvattoor.jks')
+            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\kuruvattoor\\kuruvattoor.jks')
             storePassword 'mocte$8316Zuma'
             keyAlias 'Kuruvattoor Bank'
             keyPassword 'mocte$8317Zuma'
@@ -31,13 +31,16 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 30
-        applicationId "com.mscore.pss"
-//        applicationId "com.mscore.kuruvattoor"
+       // applicationId "com.mscore.pss"
+        applicationId "com.mscore.kuruvattoor"
 
-        versionCode = 1
-        versionName = '1.0.0'
-//        versionCode = 15
-//        versionName = '4.0.4'
+       /* versionCode = 1
+        versionName = '1.0.0'*/
+      /*  versionCode = 15
+       versionName = '4.0.4'*/
+
+        versionCode = 19
+        versionName = '4.0.8'
 
     }
 
