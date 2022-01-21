@@ -44,7 +44,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HomeActivity extends AppCompatActivity implements NavigationDrawerCallbacks, ConnectivityReceiver.ConnectivityReceiverListener {
 
-    static String bank_Key, bank_Header;
+    static String bank_Key, bank_Header,version;
     static String host_nameCommon, asset_namecommon;
 
 
@@ -77,6 +77,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        version = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0).getString("version", null);
+        Log.i("Version1",version);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
@@ -319,7 +322,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
             try{
                 url = BASE_URL +
                         "/Checkstatus?versionNo="+
-                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart(versionNumber +""));
+                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart(version +""));
             }catch ( Exception e ){
                 url = "";
             }

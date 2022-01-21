@@ -32,6 +32,7 @@ public class Config {
 
     public static final String SHARED_PREF23 = "hostname";
     public static final String SHARED_PREF24 = "certificateassetname";
+    public static final String SHARED_PREF25 = "version";
 
 
 }

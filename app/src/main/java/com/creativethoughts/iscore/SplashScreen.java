@@ -56,14 +56,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
 
- /*   public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
-  //  public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+  // public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
+    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="STATIC-VM";
-    public static final String CERTIFICATE_ASSET_NAME="staticvm.pem";*/
+    public static final String CERTIFICATE_ASSET_NAME="staticvm.pem";
 
 
 
@@ -107,13 +107,13 @@ public class SplashScreen extends AppCompatActivity {
 
     // kuruvattoor
 
-    public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
+ /*   public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
     public static final String IMAGE_URL="https://103.78.221.136:14001/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "";
     public static final String BankHeader= "";
     public static final String HOSTNAME_SUBJECT="backoffice28";
-    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";
+    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";*/
 
 
     static String bank_Key, bank_Header;
@@ -527,6 +527,12 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor assetnameEditer1 = assetnameSP1.edit();
                                 assetnameEditer1.putString("testcertificateassetname", jobjt.getString("AssetName"));
                                 assetnameEditer1.commit();
+
+
+                                SharedPreferences versionSP1 = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0);
+                                SharedPreferences.Editor versionSP1Editer1 = versionSP1.edit();
+                                versionSP1Editer1.putString("version", jobjt.getString("VersionCode"));
+                                versionSP1Editer1.commit();
 
 
                                 SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
