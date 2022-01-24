@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MSCORE.iml" filepath="$PROJECT_DIR$/.idea/modules/MSCORE.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORE.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORE.MPChartLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORE.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORE.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MSCORENEW.iml" filepath="$PROJECT_DIR$/.idea/modules/MSCORENEW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORENEW.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORENEW.MPChartLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORENEW.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORENEW.app.iml" />
     </modules>
   </component>
 </project>
