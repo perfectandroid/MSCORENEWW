@@ -34,5 +34,15 @@ public class Config {
     public static final String SHARED_PREF24 = "certificateassetname";
     public static final String SHARED_PREF25 = "version";
 
+    public static final String SHARED_PREF26 = "customerId";
+    public static final String SHARED_PREF27 = "customerNo";
+    public static final String SHARED_PREF28 = "customerName";
+    public static final String SHARED_PREF29 = "customerAddress1";
+    public static final String SHARED_PREF30 = "customerAddress2";
+    public static final String SHARED_PREF31 = "mobileNo";
+    public static final String SHARED_PREF32 = "pin";
+    public static final String SHARED_PREF33 = "login";
+    public static final String SHARED_PREF34 = "TokenNo";
+
 
 }

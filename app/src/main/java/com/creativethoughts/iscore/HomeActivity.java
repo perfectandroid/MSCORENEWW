@@ -98,6 +98,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         onBackPressed();
        versionCheck();
 
+//        SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+//        SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();
+//        TokenNoEditer.putString("TokenNo", "426C1BEF-E890-4F9D-B011-06CFEC496863");
+//        TokenNoEditer.commit();
+
 
     }
 

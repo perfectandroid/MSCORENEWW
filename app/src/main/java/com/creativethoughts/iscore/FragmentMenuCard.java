@@ -39,6 +39,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
@@ -642,10 +643,14 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
-                        fragment = new RechargeFragment().newInstance(0);
-                        assert actionBar != null;
-                        actionBar.setTitle( getString(R.string.title_prepaid) );
-                        alertDialogrecharge.dismiss();
+//                        fragment = new RechargeFragment().newInstance(0);
+//                        assert actionBar != null;
+//                        actionBar.setTitle( getString(R.string.title_prepaid) );
+//                        alertDialogrecharge.dismiss();
+
+                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+                        intent.putExtra("from", "prepaid");
+                        startActivity(intent);
                     }
                 }
                 catch (Exception e){
@@ -666,10 +671,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
-                        fragment = new RechargeFragment().newInstance(3);
-                        assert actionBar != null;
-                        actionBar.setTitle( getString(R.string.title_DTH) );
-                        alertDialogrecharge.dismiss();
+//                        fragment = new RechargeFragment().newInstance(3);
+//                        assert actionBar != null;
+//                        actionBar.setTitle( getString(R.string.title_DTH) );
+//                        alertDialogrecharge.dismiss();
+                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+                        intent.putExtra("from", "DTH");
+                        startActivity(intent);
                     }
                 }
                 catch (Exception e){
@@ -689,10 +697,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
-                        fragment = new RechargeFragment().newInstance(2);
-                        assert actionBar != null;
-                        actionBar.setTitle( getString(R.string.title_landline) );
-                        alertDialogrecharge.dismiss();
+//                        fragment = new RechargeFragment().newInstance(2);
+//                        assert actionBar != null;
+//                        actionBar.setTitle( getString(R.string.title_landline) );
+//                        alertDialogrecharge.dismiss();
+                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+                        intent.putExtra("from", "Landline");
+                        startActivity(intent);
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -715,6 +726,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         assert actionBar != null;
                         actionBar.setTitle( getString(R.string.title_postpaid) );
                         alertDialogrecharge.dismiss();
+
+//                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+//                        intent.putExtra("from", "postpaid");
+//                        startActivity(intent);
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -734,10 +749,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
-                        fragment = new RechargeFragment().newInstance(4);
-                        assert actionBar != null;
-                        actionBar.setTitle( getString(R.string.data_card) );
-                        alertDialogrecharge.dismiss();
+//                        fragment = new RechargeFragment().newInstance(4);
+//                        assert actionBar != null;
+//                        actionBar.setTitle( getString(R.string.data_card) );
+//                        alertDialogrecharge.dismiss();
+                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+                        intent.putExtra("from", "datacard");
+                        startActivity(intent);
                     }
                 }
                 catch (Exception e){

@@ -45,9 +45,9 @@
                                     android:id="@+id/imgimps"
                                     android:layout_width="60dp"
                                     android:layout_height="60dp"
-                                    android:scaleType="fitXY"
                                     android:layout_alignParentLeft="true"
-                                    android:src="@drawable/prepaid"/>
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/prepaid" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
