@@ -39,6 +39,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
@@ -775,10 +776,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     }else {
-                        fragment = new KsebBillFragment().newInstance();
-                        assert actionBar != null;
-                        actionBar.setTitle(getString(R.string.kseb_sub_name_bill_status_on_drawer));
-                        alertDialogrecharge.dismiss();
+//                        fragment = new KsebBillFragment().newInstance();
+//                        assert actionBar != null;
+//                        actionBar.setTitle(getString(R.string.kseb_sub_name_bill_status_on_drawer));
+//                        alertDialogrecharge.dismiss();
+
+                        Intent intent = new Intent(getContext(), KsebActivity.class);
+                        startActivity(intent);
 
                     }
                 } catch (Exception e) {

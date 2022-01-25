@@ -232,6 +232,16 @@
                 android:value=".HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".Recharge.KsebActivity"
+            android:label="Kseb"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
 
         <activity
             android:name=".money_transfer.OtherbankFundTransferActivity"

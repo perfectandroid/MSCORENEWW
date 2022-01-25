@@ -206,8 +206,9 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
 
     private boolean isCircleAccountNumberMandatory() {
-      //  return (mSelectedType == 1 || mSelectedType == 2) && ((mOperatorSpinner.getSelectedItem().toString().contains("MTNL") && mCircleSpinner.getSelectedItem().toString().contains("Delhi")) || mOperatorSpinner.getSelectedItem().toString().contains("BSNL"));
-        return (mSelectedType == 1 || mSelectedType == 2);
+       // return (mSelectedType == 1 || mSelectedType == 2) && ((mOperatorSpinner.getSelectedItem().toString().contains("MTNL") && mCircleSpinner.getSelectedItem().toString().contains("Delhi")) || mOperatorSpinner.getSelectedItem().toString().contains("BSNL"));
+        return (mSelectedType == 1 || mSelectedType == 2) && ((tv_operator.getText().toString().contains("MTNL") && tv_circle.getText().toString().contains("Delhi")) || tv_operator.getText().toString().contains("BSNL"));
+      //  return (mSelectedType == 1 || mSelectedType == 2);
 
 
     }
@@ -647,12 +648,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                                 builder1.setView(customLayout1);
 
 
-                                GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
-                                rvCircle.setLayoutManager(lLayout1);
-                                rvCircle.setHasFixedSize(true);
-                                CircleAdapter adapter1 = new CircleAdapter(getApplicationContext(), JarrayOperator);
-                                rvCircle.setAdapter(adapter1);
-                                adapter1.setOnItemClickListener(RechargeActivity.this);
+//                                GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
+//                                rvCircle.setLayoutManager(lLayout1);
+//                                rvCircle.setHasFixedSize(true);
+//                                CircleAdapter adapter1 = new CircleAdapter(getApplicationContext(), JarrayOperator);
+//                                rvCircle.setAdapter(adapter1);
+//                                adapter1.setOnItemClickListener(RechargeActivity.this);
 
 //                                AlertDialog dialog = builder.create();
                                 dialog = builder1.create();
@@ -782,12 +783,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                                 builder.setView(customLayout);
 
 
-                                GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
-                                rvOperator.setLayoutManager(lLayout);
-                                rvOperator.setHasFixedSize(true);
-                                OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
-                                rvOperator.setAdapter(adapter);
-                                adapter.setOnItemClickListener(RechargeActivity.this);
+//                                GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
+//                                rvOperator.setLayoutManager(lLayout);
+//                                rvOperator.setHasFixedSize(true);
+//                                OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
+//                                rvOperator.setAdapter(adapter);
+//                                adapter.setOnItemClickListener(RechargeActivity.this);
 
 //                                AlertDialog dialog = builder.create();
                                 dialog = builder.create();
