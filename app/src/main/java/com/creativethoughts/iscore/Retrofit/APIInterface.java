@@ -134,5 +134,8 @@ public interface APIInterface {
     @POST("api/AccountSummary/FundTransferIntraBank")
     Call<String>getfundtransfrintrabnk(@Body RequestBody body);
 
+    @POST("api/Recharge/MobileRecharge")
+    Call<String>getMobileRecharge(@Body RequestBody body);
+
 
 }

@@ -339,100 +339,7 @@
 
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="bottom"
-                        android:layout_marginTop="10dp"
-                        android:orientation="vertical">
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageButton
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_alignParentRight="true"
-                                android:visibility="visible"
-                                android:tint="@color/grey1"
-                                android:layout_marginRight="5dp"
-                                android:background="@drawable/amnt_icon"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical"
-                                android:paddingEnd="8dp"
-                                android:text="@string/amount"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="14sp"
-                                android:layout_gravity="center_vertical"
-                                android:textStyle="normal"
-                                android:paddingRight="8dp" />
-
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="30dp"
-                            android:orientation="horizontal"
-                            android:background="@drawable/underline_drawable">
-
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/amount"
-                                android:layout_width="match_parent"
-                                android:layout_height="40dp"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                android:backgroundTint="@color/color_edtbg"
-                                android:imeOptions="actionDone"
-                                android:inputType="phone"
-                                android:maxLength="6"
-                                android:paddingRight="5dp"
-                                android:textColor="@color/Green"
-                                android:textColorHint="@color/text_primary"
-                                android:textSize="22dp"
-                                android:textStyle="bold" />
-
-
-                            <LinearLayout
-                                android:id="@+id/lnr_offers"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="4"
-                                android:gravity="right|center_vertical"
-                                android:orientation="horizontal"
-                                android:visibility="visible">
-                                <ImageButton
-                                    android:id="@+id/browse_offer_image"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:text=""
-                                    android:layout_alignParentRight="true"
-                                    android:visibility="visible"
-                                    android:background="@drawable/search_icon"/>
-                            </LinearLayout>
-
-                        </LinearLayout>
-                        <TextView
-                            android:id="@+id/txt_amtinword"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="left"
-                            android:paddingEnd="8dp"
-                            android:layout_marginTop="15dp"
-                            android:text=""
-                            android:textColor="@color/RoyalBlue"
-                            android:textSize="15dp"
-                            android:layout_marginLeft="25dp"
-                            android:layout_gravity="left"
-                            android:textStyle="bold"
-                            android:paddingRight="8dp" />
-
-                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_accountno"
@@ -579,9 +486,127 @@
                                 android:paddingLeft="5dp"
                                 android:background="@drawable/underline_drawable"
                                 android:popupBackground="#cccccc"
-                                android:spinnerMode="dialog"/>
+                                android:spinnerMode="dialog"
+                                android:visibility="gone"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@drawable/underline_drawable">
+
+                                <TextView
+                                    android:id="@+id/tv_accountno"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:textSize="14sp"
+                                    android:gravity="center_vertical"
+                                    android:hint=""
+                                    android:drawableTint="@color/grey1"
+                                    android:drawableRight="@drawable/ic_arrow_down_white"
+                                    android:layout_gravity="center_vertical"
+                                    android:textStyle="normal" />
+
+
+                            </LinearLayout>
+
 
                         </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageButton
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentRight="true"
+                                android:visibility="visible"
+                                android:tint="@color/grey1"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/amnt_icon"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingEnd="8dp"
+                                android:text="@string/amount"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp"
+                                android:layout_gravity="center_vertical"
+                                android:textStyle="normal"
+                                android:paddingRight="8dp" />
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="30dp"
+                            android:orientation="horizontal"
+                            android:background="@drawable/underline_drawable">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:backgroundTint="@color/color_edtbg"
+                                android:imeOptions="actionDone"
+                                android:inputType="phone"
+                                android:maxLength="6"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Green"
+                                android:textColorHint="@color/text_primary"
+                                android:textSize="22dp"
+                                android:textStyle="bold" />
+
+
+                            <LinearLayout
+                                android:id="@+id/lnr_offers"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="4"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+                                <ImageButton
+                                    android:id="@+id/browse_offer_image"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:text=""
+                                    android:layout_alignParentRight="true"
+                                    android:visibility="visible"
+                                    android:background="@drawable/search_icon"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txt_amtinword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left"
+                            android:paddingEnd="8dp"
+                            android:layout_marginTop="15dp"
+                            android:text=""
+                            android:textColor="@color/RoyalBlue"
+                            android:textSize="15dp"
+                            android:layout_marginLeft="25dp"
+                            android:layout_gravity="left"
+                            android:textStyle="bold"
+                            android:paddingRight="8dp" />
 
                     </LinearLayout>
 

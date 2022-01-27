@@ -260,10 +260,10 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                         mobileNoEditer.putString("mobileNo",  object3.getString("pin"));
                         mobileNoEditer.commit();
 
-                        SharedPreferences pinSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
-                        SharedPreferences.Editor pinEditer = pinSP.edit();
-                        pinEditer.putString("BankVerifier",  "1");
-                        pinEditer.commit();
+                        SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                        SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+                        BankVerifierEditer.putString("BankVerifier",  "1");
+                        BankVerifierEditer.commit();
 
                         SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
                         SharedPreferences.Editor loginEditer = loginSP.edit();
