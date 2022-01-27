@@ -41,6 +41,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -210,6 +214,41 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
             }else {
 
                 Log.e("TAG","response  123   "+response.toString());
+
+
+                JSONObject jObject = null;
+                try {
+                    jObject = new JSONObject(response.toString());
+                   // JSONObject jobjt = jObject.getJSONObject("acInfo");
+
+                    JSONArray jArray3 = jObject.getJSONArray("acInfo");
+                    for(int i = 0; i < jArray3 .length(); i++)
+                    {
+                        JSONObject object3 = jArray3.getJSONObject(i);
+
+
+                        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                        SharedPreferences.Editor tokenIdSPEditer = tokenIdSP.edit();
+                        tokenIdSPEditer.putString("Token", object3.getString("TokenNo"));
+                        tokenIdSPEditer.commit();
+
+
+
+                        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                        SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+                        pinIdSPEditer.putString("pinlog", object3.getString("pin"));
+                        pinIdSPEditer.commit();
+
+                    }
+
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
                 SharedPreferences.Editor customerIdEditer = customerIdSP.edit();

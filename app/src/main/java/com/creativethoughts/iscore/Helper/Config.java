@@ -44,5 +44,8 @@ public class Config {
     public static final String SHARED_PREF33 = "login";
     public static final String SHARED_PREF34 = "TokenNo";
 
+    public static final String SHARED_PREF35 = "Token";
+    public static final String SHARED_PREF36 = "pinlog";
+
 
 }

@@ -124,4 +124,7 @@ public interface APIInterface {
 
     @POST("api/cbsMobile/CardTopUpandReverse")
     Call<String>getCardTopUpandReverse(@Body RequestBody body);
+
+    @POST("api/AccountSummary/FundTransferIntraBank")
+    Call<String>getfundtransfrintrabnk(@Body RequestBody body);
 }

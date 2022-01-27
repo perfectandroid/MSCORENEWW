@@ -1071,7 +1071,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                 String finalAmount = amount;
                                 butOk.setOnClickListener(v -> {
                                     alertDialog.dismiss();
-                                    startTransfer( accountNumber, type, accNumber, finalAmount,remark);
+                                    //startTransfer( accountNumber, type, accNumber, finalAmount,remark);
+                                    startTransfer1( accountNumber, type, accNumber, finalAmount,remark);
                                 });
 
                                 butCan.setOnClickListener(new View.OnClickListener() {
@@ -1128,6 +1129,162 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
             }
         }
     }
+
+    private void startTransfer1( String accountNo, String type, String receiverAccNo, String amount, String remark) {
+
+
+        if (TextUtils.isEmpty(mScannedValue)) {
+            mScannedValue = "novalue";
+        }
+
+        mScannedValue = mScannedValue.replaceAll(" ", "%20");
+
+        Log.e(TAG,"accountNo  1455  "+accountNo);
+        String accountType = accountNo.substring(accountNo.indexOf("(")+1, accountNo.indexOf(")"));
+
+        /*Extract account number*/
+        accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (") + 1, accountNo.indexOf(")") + 1), "");
+        accountNo = accountNo.replace(" ", "");
+
+
+        final String tempFromAccNo = accountNo +"("+ accountType +")";
+        final String tempToAccNo = receiverAccNo +"("+ type +")";
+
+        /*End of Extract account number*/
+
+
+        Log.e(TAG,"accountNo  1465  "+accountType+"  "+tempFromAccNo+"  "+tempToAccNo);
+
+        Log.e(TAG,"receiverAccNo  1273   "+receiverAccNo+"   "+accountNo+"   "+type+"    "+accountType);
+
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+                 //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(accountNo));
+                    requestObject1.put("Module",IScoreApplication.encryptStart(accountType) );
+                    requestObject1.put("ReceiverModule",IScoreApplication.encryptStart(type));
+                    requestObject1.put("amount",IScoreApplication.encryptStart(amount.trim()));
+
+                    SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                    String pin =prefpin.getString("pinlog", "");
+
+                    requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
+                    requestObject1.put("QRCode",IScoreApplication.encryptStart(mScannedValue));
+                    requestObject1.put("Remark",IScoreApplication.encryptStart(remark));
+
+                   // requestObject1.put("IMEI",IScoreApplication.encryptStart(ToFK_Account));
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token",IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("requestObject1   344   ",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getfundtransfrintrabnk(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e(TAG,"Response ownaccount   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            if(jObject.getString("StatusCode").equals("0")){
+                               // JSONObject jobj = jObject.getJSONObject("BalanceSplitUpDetails");
+                              //  JSONArray jarray = jobj.getJSONArray( "Data");
+
+                            }
+                            else{
+
+
+                                try{
+                                  /*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");*/
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage("ResponseMessage")
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (Exception e){
+                                    String EXMessage = jObject.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
+    }
+
+
 
     private boolean isValid() {
 
