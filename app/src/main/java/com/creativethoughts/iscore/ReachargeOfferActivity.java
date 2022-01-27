@@ -92,40 +92,43 @@ public class ReachargeOfferActivity extends AppCompatActivity implements OnItemC
 //        setResult(RESULT_OK, intent);
 //        finish();
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF10, 0);
-        String operatorIds = pref.getString("operatorIds", null);
-        if (operatorIds.equals("1")){
-            tv_header.setText("Airtel");
-        }
-        else if (operatorIds.equals("2")){
-            tv_header.setText("V!");
-        }
-        else if (operatorIds.equals("3")){
-            tv_header.setText("BSNL");
-        }
-        else if (operatorIds.equals("400")){
-            tv_header.setText("Jio");
-        }
-        else if (operatorIds.equals("18")){
-            tv_header.setText("Dish TV DTH");
-        }
-        else if (operatorIds.equals("19")){
-            tv_header.setText("Tata Sky DTH");
-        }
-        else if (operatorIds.equals("20")) {
-            tv_header.setText("Big TV DTH");
-        }
-        else if (operatorIds.equals("21")){
-            tv_header.setText("Videocon DTH");
-        }
-        else if (operatorIds.equals("22")){
-            tv_header.setText("Sun DTH");
-        }
-        else if (operatorIds.equals("23")){
-            tv_header.setText("Airtel DTH");
-        }
+//        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF10, 0);
+//        String operatorIds = pref.getString("operatorIds", null);
+//        if (operatorIds.equals("1")){
+//            tv_header.setText("Airtel");
+//        }
+//        else if (operatorIds.equals("2")){
+//            tv_header.setText("V!");
+//        }
+//        else if (operatorIds.equals("3")){
+//            tv_header.setText("BSNL");
+//        }
+//        else if (operatorIds.equals("400")){
+//            tv_header.setText("Jio");
+//        }
+//        else if (operatorIds.equals("18")){
+//            tv_header.setText("Dish TV DTH");
+//        }
+//        else if (operatorIds.equals("19")){
+//            tv_header.setText("Tata Sky DTH");
+//        }
+//        else if (operatorIds.equals("20")) {
+//            tv_header.setText("Big TV DTH");
+//        }
+//        else if (operatorIds.equals("21")){
+//            tv_header.setText("Videocon DTH");
+//        }
+//        else if (operatorIds.equals("22")){
+//            tv_header.setText("Sun DTH");
+//        }
+//        else if (operatorIds.equals("23")){
+//            tv_header.setText("Airtel DTH");
+//        }
 
-        Log.e(TAG,"operatorIds   164    "+pref.getString("operatorIds", null));
+        String operatorIds = getIntent().getStringExtra("operatorIds");
+        tv_header.setText(""+getIntent().getStringExtra("operatorName"));
+        Log.e(TAG,"operatorIds   164    "+getIntent().getStringExtra("operatorIds"));
+     //   Log.e(TAG,"operatorIds   164    "+pref.getString("operatorIds", null));
 
         getDataUsingOperator(operatorIds);
 

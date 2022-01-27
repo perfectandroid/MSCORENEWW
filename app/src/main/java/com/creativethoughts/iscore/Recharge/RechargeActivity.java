@@ -710,11 +710,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.browse_offer_image:
               //  operatorIds = ID_Providers
-                if (ID_Providers.equals("")){
-
+                if (ProvidersCode.equals("")){
+                    showToast("Select operator");
                 }else {
                     Intent intent = new Intent(getApplicationContext(), ReachargeOfferActivity.class);
-                    intent.putExtra("operatorIds", ID_Providers);
+                    intent.putExtra("operatorIds", ProvidersCode);
+                    intent.putExtra("operatorName", tv_operator.getText().toString());
                     startActivityForResult(intent, REACHARGE_OFFER);
                 }
                 break;
