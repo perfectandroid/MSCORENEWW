@@ -15,18 +15,24 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -47,7 +53,10 @@ import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
+import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
+import com.creativethoughts.iscore.utility.NumberToWord;
+import com.creativethoughts.iscore.utility.RechargeValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -89,14 +98,25 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     String TAG = "RechargeActivity";
     TextView tv_header;
     TextView tv_operator,tv_circle;
+    TextView txt_amtinword;
+
     LinearLayout ll_accountno;
     LinearLayout ll_recent_history;
+
     Spinner mOperatorSpinner,mCircleSpinner,mAccountSpinner;
+
     ImageButton browse_offer_image,selectContactImgBtn;
+
     AppCompatEditText mAmountEt;
+    AppCompatEditText mAccNumEdt;
+
     AutoCompleteTextView mMobileNumEt;
+
     FullLenghRecyclertview rv_recarge_history;
+
     ScrollView scrl_main;
+
+    Button mSubmitButton;
 
 
     private int mSelectedType = 0;
@@ -107,12 +127,20 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
     JSONArray Jarray;
     public JSONArray JarrayOperator;
+    public JSONArray JarrayCircle;
     RecentHistoryAdapter adapter;
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist;
 
     AlertDialog dialog =  null;
 
+    String ID_Providers="";
+    String ProvidersName="";
+    String ProvidersCode="";
+
+    String ID_RechargeCircle="";
+    String CircleName="";
+    String CircleMode="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,20 +182,72 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         getAccList();
 
 
-//        mOperatorSpinner.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        mAmountEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
 
-//        mOperatorSpinner.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                Log.e(TAG,"mOperatorSpinner  159   onTouch");
-//                return false;
-//            }
-//        });
+                mAmountEt.removeTextChangedListener(this);
+
+                try {
+                    String originalString = s.toString();
+
+                    Double longval;
+                    if (originalString.contains(",")) {
+                        originalString = originalString.replaceAll(",", "");
+                    }
+                    longval = Double.parseDouble(originalString);
+                    String formattedString = CommonUtilities.getDecimelFormateForEditText(longval);
+                    //setting text after format to EditText
+                    mAmountEt.setText(formattedString);
+                    mAmountEt.setSelection(mAmountEt.getText().length());
+
+                    String amnt = mAmountEt.getText().toString().replaceAll(",", "");
+                    String[] netAmountArr = amnt.split("\\.");
+                    String amountInWordPop = "";
+                    if ( netAmountArr.length > 0 ){
+                        int integerValue = Integer.parseInt( netAmountArr[0] );
+                        amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+                        if ( netAmountArr.length > 1 ){
+                            int decimalValue = Integer.parseInt( netAmountArr[1] );
+                            if ( decimalValue != 0 ){
+                                amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
+                            }
+                        }
+                        amountInWordPop += " only";
+                    }
+                    txt_amtinword.setText(""+amountInWordPop);
+                } catch (NumberFormatException nfe) {
+                    nfe.printStackTrace();
+                }
+
+                mAmountEt.addTextChangedListener(this);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    if(s.length() != 0) {
+                        String originalString = s.toString();
+
+                        if (originalString.contains(",")) {
+                            originalString = originalString.replaceAll(",", "");
+                        }
+
+                        double num =Double.parseDouble(""+originalString);
+                        mSubmitButton.setText( "PAY  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+                    }
+                    else{
+                        mSubmitButton.setText( "PAY");
+                    }
+                }
+                catch(NumberFormatException e)
+                {
+
+                }
+
+            }
+        });
 
     }
 
@@ -175,9 +255,11 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     private void setInitialise() {
 
         accountlist = new ArrayList<String>();
+
         tv_header = (TextView)findViewById(R.id.tv_header);
         tv_operator = (TextView)findViewById(R.id.tv_operator);
         tv_circle = (TextView)findViewById(R.id.tv_circle);
+        txt_amtinword = (TextView)findViewById(R.id.txt_amtinword);
 
         ll_accountno = (LinearLayout) findViewById(R.id.ll_accountno);
         ll_recent_history = (LinearLayout) findViewById(R.id.ll_recent_history);
@@ -188,11 +270,16 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
         browse_offer_image = (ImageButton)findViewById(R.id.browse_offer_image);
         selectContactImgBtn = (ImageButton)findViewById(R.id.select_contact_image);
+
         mAmountEt = (AppCompatEditText)findViewById(R.id.amount);
         mMobileNumEt =   (AutoCompleteTextView)findViewById(R.id.phoneno);
+        mAccNumEdt =   (AppCompatEditText)findViewById(R.id.account_number);
+
 
         rv_recarge_history =   (FullLenghRecyclertview) findViewById(R.id.rv_recarge_history);
         scrl_main = (ScrollView)findViewById(R.id.scrl_main);
+
+        mSubmitButton = (Button) findViewById(R.id.btn_submit);
 
     }
 
@@ -202,6 +289,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         selectContactImgBtn.setOnClickListener(this);
         tv_operator.setOnClickListener(this);
         tv_circle.setOnClickListener(this);
+        mSubmitButton.setOnClickListener(this);
     }
 
 
@@ -239,8 +327,9 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-                    SharedPreferences TokenNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-                    String token=TokenNoSP.getString("TokenNo", null);
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
                     SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
                     String cusid=customerIdSP.getString("customerId", null);
 
@@ -257,6 +346,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("RechargeType", IScoreApplication.encryptStart(String.valueOf(mSelectedType)));
 
                     Log.e(TAG,"requestObject1     1341   "+requestObject1);
+                    Log.e(TAG,"mSelectedType     1341   "+mSelectedType);
 
 
                 } catch (Exception e) {
@@ -365,8 +455,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-                    SharedPreferences TokenNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-                    String token=TokenNoSP.getString("TokenNo", null);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
                     SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
                     String cusid=customerIdSP.getString("customerId", null);
 
@@ -434,10 +524,11 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                             else {
 
                                 try{
-                                    JSONObject jobj = jsonObj.getJSONObject("PassBookAccountDetails");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                                    builder.setMessage(ResponseMessage)
+//                                    JSONObject jobj = jsonObj.getJSONObject("PassBookAccountDetails");
+//                                    String ResponseMessage = jobj.getString("ResponseMessage");
+                                    String EXMessage = jsonObj.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                                    builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -451,7 +542,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                                 }catch (JSONException e){
                                     String EXMessage = jsonObj.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -553,11 +644,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.browse_offer_image:
-                if (operatorIds.equals("")){
+              //  operatorIds = ID_Providers
+                if (ID_Providers.equals("")){
 
                 }else {
                     Intent intent = new Intent(getApplicationContext(), ReachargeOfferActivity.class);
-                    intent.putExtra("operatorIds", operatorIds);
+                    intent.putExtra("operatorIds", ID_Providers);
                     startActivityForResult(intent, REACHARGE_OFFER);
                 }
                 break;
@@ -573,8 +665,15 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tv_circle:
                 getCircleList();
                 break;
+
+            case R.id.btn_submit:
+                onClickSubmit();
+                break;
         }
     }
+
+
+
 
     private void getCircleList() {
 
@@ -602,22 +701,21 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-                    SharedPreferences TokenNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-                    String token=TokenNoSP.getString("TokenNo", null);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
                     SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
                     String cusid=customerIdSP.getString("customerId", null);
-
-                    requestObject1.put("ReqMode",reqmode);
-                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("BranchCode", IScoreApplication.encryptStart("0"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("31"));
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
-                    requestObject1.put("RechargeType", IScoreApplication.encryptStart(String.valueOf(mSelectedType)));
 
                     Log.e(TAG,"requestObject1     1341   "+requestObject1);
 
@@ -627,7 +725,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getRechargeHistory(body);
+                Call<String> call = apiService.getRechargeCircleDetails(body);
                 call.enqueue(new Callback<String>() {
 
                     @Override
@@ -636,11 +734,14 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                         Log.e(TAG,"response  232   "+response.body());
                         try{
 
-                            Log.e(TAG," getRechargeHistory    1360       "+response.body());
+                            Log.e(TAG," getRechargeCircleDetails    728       "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
-                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeHistory");
-                                JarrayOperator  = jsonObj1.getJSONArray("RechargeHistoryList");
+
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeCircleDetails");
+                                JarrayCircle  = jsonObj1.getJSONArray("RechargeCircleDetailsList");
+
+
 
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(RechargeActivity.this);
                                 final View customLayout1 = getLayoutInflater().inflate(R.layout.pop_circlelist, null);
@@ -648,12 +749,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                                 builder1.setView(customLayout1);
 
 
-//                                GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
-//                                rvCircle.setLayoutManager(lLayout1);
-//                                rvCircle.setHasFixedSize(true);
-//                                CircleAdapter adapter1 = new CircleAdapter(getApplicationContext(), JarrayOperator);
-//                                rvCircle.setAdapter(adapter1);
-//                                adapter1.setOnItemClickListener(RechargeActivity.this);
+                                GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
+                                rvCircle.setLayoutManager(lLayout1);
+                                rvCircle.setHasFixedSize(true);
+                                CircleAdapter adapter1 = new CircleAdapter(getApplicationContext(), JarrayCircle);
+                                rvCircle.setAdapter(adapter1);
+                                adapter1.setOnItemClickListener(RechargeActivity.this);
 
 //                                AlertDialog dialog = builder.create();
                                 dialog = builder1.create();
@@ -662,7 +763,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                             }
                             else {
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
                                 builder.setMessage(jsonObj.getString("EXMessage"))
 //                                builder.setMessage("No data found.")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -679,6 +780,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                         }
                         catch (JSONException e)
                         {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                            builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
 
                         }
 
@@ -693,11 +806,22 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             }
             catch (Exception e)
             {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
 
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }
         else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
             builder.setMessage("Network error occured. Please try again later")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -737,24 +861,24 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-                    SharedPreferences TokenNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-                    String token=TokenNoSP.getString("TokenNo", null);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
                     SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
                     String cusid=customerIdSP.getString("customerId", null);
-
-                    requestObject1.put("ReqMode",reqmode);
-                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("BranchCode", IScoreApplication.encryptStart("0"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("Reqmode",IScoreApplication.encryptStart("30"));
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
-                    requestObject1.put("RechargeType", IScoreApplication.encryptStart(String.valueOf(mSelectedType)));
+                    requestObject1.put("ProvidersMode", IScoreApplication.encryptStart(String.valueOf(mSelectedType)));
 
-                    Log.e(TAG,"requestObject1     1341   "+requestObject1);
+                    Log.e(TAG,"requestObject1     876   "+requestObject1);
+                    Log.e(TAG,"mSelectedType     876   "+mSelectedType);
 
 
                 } catch (Exception e) {
@@ -762,7 +886,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getRechargeHistory(body);
+                Call<String> call = apiService.getProvidersList(body);
                 call.enqueue(new Callback<String>() {
 
                     @Override
@@ -774,30 +898,69 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                             Log.e(TAG," getRechargeHistory    1360       "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
-                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeHistory");
-                                JarrayOperator  = jsonObj1.getJSONArray("RechargeHistoryList");
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("ProvidersDetailsInfo");
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-                                final View customLayout = getLayoutInflater().inflate(R.layout.pop_operatorlist, null);
-                                RecyclerView rvOperator = customLayout.findViewById(R.id.rvOperator);
-                                builder.setView(customLayout);
+                                if (jsonObj1.getString("ResponseCode").equals("0")){
+                                    JarrayOperator  = jsonObj1.getJSONArray("ProvidersDetails");
+                                    Log.e(TAG," JarrayOperator    1360       "+JarrayOperator);
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                                    final View customLayout = getLayoutInflater().inflate(R.layout.pop_operatorlist, null);
+                                    RecyclerView rvOperator = customLayout.findViewById(R.id.rvOperator);
+                                    builder.setView(customLayout);
 
 
-//                                GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
-//                                rvOperator.setLayoutManager(lLayout);
-//                                rvOperator.setHasFixedSize(true);
-//                                OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
-//                                rvOperator.setAdapter(adapter);
-//                                adapter.setOnItemClickListener(RechargeActivity.this);
+                                    GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
+                                    rvOperator.setLayoutManager(lLayout);
+                                    rvOperator.setHasFixedSize(true);
+                                    OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
+                                    rvOperator.setAdapter(adapter);
+                                    adapter.setOnItemClickListener(RechargeActivity.this);
 
-//                                AlertDialog dialog = builder.create();
-                                dialog = builder.create();
-                                dialog.setCancelable(true);
-                                dialog.show();
+                                    dialog = builder.create();
+                                    dialog = builder.create();
+                                    dialog.setCancelable(true);
+                                    dialog.show();
+
+                                }else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                                    builder.setMessage(jsonObj1.getString("ResponseMessage"))
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                }
+
+//                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeHistory");
+//                                JarrayOperator  = jsonObj1.getJSONArray("RechargeHistoryList");
+//
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+//                                final View customLayout = getLayoutInflater().inflate(R.layout.pop_operatorlist, null);
+//                                RecyclerView rvOperator = customLayout.findViewById(R.id.rvOperator);
+//                                builder.setView(customLayout);
+//
+//
+////                                GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
+////                                rvOperator.setLayoutManager(lLayout);
+////                                rvOperator.setHasFixedSize(true);
+////                                OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
+////                                rvOperator.setAdapter(adapter);
+////                                adapter.setOnItemClickListener(RechargeActivity.this);
+//
+////                                AlertDialog dialog = builder.create();
+//                                dialog = builder.create();
+//                                dialog.setCancelable(true);
+//                                dialog.show();
                             }
                             else {
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
                                 builder.setMessage(jsonObj.getString("EXMessage"))
 //                                builder.setMessage("No data found.")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -832,7 +995,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             }
         }
         else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
             builder.setMessage("Network error occured. Please try again later")
 //                                builder.setMessage("No data found.")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -924,10 +1087,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         Log.e(TAG,"onItemClick   765   "+position+"   "+data);
         if (data.equals("operator")){
             dialog.dismiss();
+            ID_Providers = "";
+            ProvidersName = "";
+            ProvidersCode = "";
+            tv_operator.setText("");
            try {
                JSONObject jsonObject = JarrayOperator.getJSONObject(position);
-               Log.e(TAG,"jsonObject   7651   "+jsonObject.getString("ID_Recharge"));
-               tv_operator.setText(""+jsonObject.getString("ID_Recharge"));
+               Log.e(TAG,"jsonObject   7651   "+jsonObject.getString("ProvidersName"));
+               tv_operator.setText(""+jsonObject.getString("ProvidersName"));
+
+               ID_Providers=jsonObject.getString("ID_Providers");
+               ProvidersName=jsonObject.getString("ProvidersName");
+               ProvidersCode=jsonObject.getString("ProvidersCode");
 
            }catch (Exception e){
 
@@ -936,10 +1107,19 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
         if (data.equals("circle")){
             dialog.dismiss();
+
+            ID_RechargeCircle = "";
+            CircleName = "";
+            CircleMode = "";
+            tv_circle.setText("");
             try {
-                JSONObject jsonObject = JarrayOperator.getJSONObject(position);
-                Log.e(TAG,"jsonObject   76512   "+jsonObject.getString("ID_Recharge"));
-                tv_circle.setText(""+jsonObject.getString("ID_Recharge"));
+                JSONObject jsonObject = JarrayCircle.getJSONObject(position);
+                Log.e(TAG,"jsonObject   76512   "+jsonObject.getString("CircleName"));
+                tv_circle.setText(""+jsonObject.getString("CircleName"));
+                ID_RechargeCircle = jsonObject.getString("ID_RechargeCircle");
+                CircleName = jsonObject.getString("CircleName");
+                CircleMode = jsonObject.getString("CircleMode");
+
 
             }catch (Exception e){
 
@@ -947,4 +1127,110 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
+    private void onClickSubmit() {
+
+        final String mobileNumber   = mMobileNumEt.getText().toString();
+        final String amount         = mAmountEt.getText().toString();
+        final String operatorName = tv_operator.getText().toString();
+        final String circleName = tv_circle.getText().toString();
+
+        String tempAmountInr = " And Amount INR.";
+        String tempForRecharging = " For Recharging";
+        String confirmSubscriberId = "Please Confirm The SUBSCRIBER ID ";
+
+        final String accountNumber = mAccountSpinner.getSelectedItem().toString();
+        final String circleAccountNo = mAccNumEdt.getText().toString();
+
+        if( (mSelectedType == 0 || mSelectedType == 1) && mobileNumber.length() != 10 ){
+            showToast("Please enter valid 10 digit mobile number");
+        } else if( (mSelectedType == 2) && ( (mobileNumber.length() <10 ) || (mobileNumber.length() > 15  ) ) ){
+            showToast("Please enter valid land line number");
+        }
+        else if( (mSelectedType == 3) && ( (mobileNumber.length() < 6) || (mobileNumber.length()>15) ) ){
+            showToast("Please enter valid subscriber ID");
+        }
+        else if( (mSelectedType == 4) && ( (mobileNumber.length() < 6) || (mobileNumber.length()>15) ) ){
+            showToast("Please enter valid subscriber ID");
+        }
+        else if( ID_Providers.equals("") ){
+            showToast("Select operator");
+        }
+        else if( ID_RechargeCircle.equals("") ){
+            showToast("Select circle");
+        }
+        else{
+            if(amount.length() > 0){
+                String Finamount = amount.replace(",","");
+
+                try {
+                    Integer.parseInt(Finamount);
+
+                }catch (Exception e){
+                    showToast("Please enter valid amount");
+                    return;
+                }
+                if(TextUtils.isDigitsOnly(Finamount.trim())){
+                    long value = Long.parseLong(Finamount.trim());
+                    if( value < 10 || value > 10000){
+                        showToast("Please enter the amount 10 to 10000 to recharge");
+                        return;
+                    }
+                }
+                else return;
+            }
+            else{
+                showToast("Please enter the amount to recharge");
+                return;
+            }
+
+
+            if (NetworkUtil.isOnline() && getApplicationContext() != null ) {
+
+             //   RechargeConfirmation(accountNumber, mSelectedType, mobileNumber, circleId, operatorId, amount, circleAccountNo, operatorName );
+//                mAccountNumber = mAccountNumber.replace(mAccountNumber.substring(mAccountNumber.indexOf(" (")+1, mAccountNumber.indexOf(')')+1), "");
+//                mAccountNumber = mAccountNumber.replace(" ","");
+//                Log.e(TAG,"RECHARGE"
+//                +"\n"+"MobileNumer    "+mobileNumber
+//                        +"\n"+"Operator    "+ID_Providers
+//                        +"\n"+"Circle    "+ID_RechargeCircle
+//                        +"\n"+"AccountNo    "+mAccountNumber
+//                        +"\n"+"Module    "+
+//                        +"\n"+"Pin    "+
+//                        +"\n"+"Type    "+
+//                        +"\n"+"OperatorName    "+
+//                        +"\n"+"imei    "+
+//                        +"\n"+"token    "+
+//                        +"\n"+"BankKey    "+
+//                        +"\n"+"BankHeader    "+
+//                        +"\n"+"BankVerified    "+)
+//
+//                mAmount
+
+
+
+
+            }else {
+
+                showToast("Network error occured. Please try again later");
+            }
+        }
+
+
+
+    }
+
+
+    private void showToast(String value) {
+        if ( getApplicationContext()  == null )
+            return;
+        Toast toast = Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT);
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View toastView = layoutInflater.inflate(R.layout.custom_toast, findViewById(R.id.container));
+        TextView textView = toastView.findViewById(R.id.text);
+        textView.setText(value);
+        toast.setView(toastView);
+        toast.show();
+    }
+
 }

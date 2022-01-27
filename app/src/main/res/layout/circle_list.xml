@@ -15,7 +15,7 @@
         tools:ignore="MissingConstraints">
 
         <LinearLayout
-            android:id="@+id/ll_operators"
+            android:id="@+id/ll_circle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -23,18 +23,19 @@
             android:background="@color/DarkGray">
 
             <ImageView
-                android:id="@+id/img_operator"
+                android:id="@+id/img_circle"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/aappicon"/>
+                android:src="@drawable/aappicon"
+                android:visibility="gone"/>
 
             <TextView
-                android:id="@+id/tva_oprator"
+                android:id="@+id/tva_circle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:layout_marginLeft="5dp"
+                android:layout_margin="5dp"
                 android:textStyle="normal"
                 android:padding="10dp"
                 android:textSize="15dp"

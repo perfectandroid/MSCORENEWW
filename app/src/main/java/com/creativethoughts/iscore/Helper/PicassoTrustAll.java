@@ -43,7 +43,7 @@ public class PicassoTrustAll {
             }
         });
         try{
-            client.setSslSocketFactory(getSSLSocketFactory());
+            client.setSslSocketFactory(getSSLSocketFactory(context));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class PicassoTrustAll {
         return mInstance;
     }
 
-    private SSLSocketFactory getSSLSocketFactory()
+    private SSLSocketFactory getSSLSocketFactory(Context context)
             throws CertificateException, KeyStoreException, IOException,
             NoSuchAlgorithmException,
             KeyManagementException {

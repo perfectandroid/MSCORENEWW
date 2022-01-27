@@ -54,6 +54,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastReceiver.SmsReceiveHandler {
+    public String TAG = "RecieveAndValidateOTP";
     private EditText mEtVerificationCode;
     SweetAlertDialog mSweetAlertDialog;
 
@@ -216,16 +217,58 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                 Log.e("TAG","response  123   "+response.toString());
 
 
+
+
                 JSONObject jObject = null;
                 try {
                     jObject = new JSONObject(response.toString());
-                   // JSONObject jobjt = jObject.getJSONObject("acInfo");
+                    // JSONObject jobjt = jObject.getJSONObject("acInfo");
 
                     JSONArray jArray3 = jObject.getJSONArray("acInfo");
                     for(int i = 0; i < jArray3 .length(); i++)
                     {
                         JSONObject object3 = jArray3.getJSONObject(i);
 
+
+                        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                        SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
+                        customerIdEditer.putString("customerId",  object3.getString("customerId"));
+                        customerIdEditer.commit();
+
+                        SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+                        SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
+                        customerNoEditer.putString("customerNo",  object3.getString("customerNo"));
+                        customerNoEditer.commit();
+
+                        SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+                        SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
+                        customerNameEditer.putString("customerName", object3.getString("customerName"));
+                        customerNameEditer.commit();
+
+                        SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
+                        SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
+                        customerAddress1Editer.putString("customerAddress1", object3.getString("customerAddress1"));
+                        customerAddress1Editer.commit();
+
+                        SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
+                        SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
+                        customerAddress2Editer.putString("customerAddress2", object3.getString("customerAddress2"));
+                        customerAddress2Editer.commit();
+
+                        SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                        SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+                        mobileNoEditer.putString("mobileNo",  object3.getString("pin"));
+                        mobileNoEditer.commit();
+
+                        SharedPreferences pinSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                        SharedPreferences.Editor pinEditer = pinSP.edit();
+                        pinEditer.putString("BankVerifier",  "1");
+                        pinEditer.commit();
+
+                        SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+                        SharedPreferences.Editor loginEditer = loginSP.edit();
+                        loginEditer.putString("login", "0");
+                        loginEditer.commit();
 
                         SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                         SharedPreferences.Editor tokenIdSPEditer = tokenIdSP.edit();
@@ -239,63 +282,88 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                         pinIdSPEditer.putString("pinlog", object3.getString("pin"));
                         pinIdSPEditer.commit();
 
+
+//                        SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
+//                        SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();
+//                        TokenNoEditer.putString("TokenNo", "");
+//                        TokenNoEditer.commit();
+
+//                        SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+//                        SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+//                        BankVerifierEditer.putString("BankVerifier", "1");
+//                        BankVerifierEditer.commit();
+
+
+
+
+
                     }
 
 
 
 
 
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e(TAG,"JSONException  308    "+e.toString());
                 }
 
 
-                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
-                SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
-                customerIdEditer.putString("customerId", "23");
-                customerIdEditer.commit();
+                ///
 
-                SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
-                SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
-                customerNoEditer.putString("customerNo", "001001000025");
-                customerNoEditer.commit();
+//                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+//                SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
+//                customerIdEditer.putString("customerId", "23");
+//                customerIdEditer.commit();
+//
+//                SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+//                SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
+//                customerNoEditer.putString("customerNo", "001001000025");
+//                customerNoEditer.commit();
+//
+//                SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+//                SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
+//                customerNameEditer.putString("customerName", "ABOOBAKKAR.T.P");
+//                customerNameEditer.commit();
+//
+//                SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
+//                SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
+//                customerAddress1Editer.putString("customerAddress1", "");
+//                customerAddress1Editer.commit();
+//
+//                SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
+//                SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
+//                customerAddress2Editer.putString("customerAddress2", "");
+//                customerAddress2Editer.commit();
+//
+//                SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+//                SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+//                mobileNoEditer.putString("mobileNo", "9456328197");
+//                mobileNoEditer.commit();
+//
+//                SharedPreferences pinSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+//                SharedPreferences.Editor pinEditer = pinSP.edit();
+//                pinEditer.putString("pin", "123456");
+//                pinEditer.commit();
+//
+//                SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+//                SharedPreferences.Editor loginEditer = loginSP.edit();
+//                loginEditer.putString("login", "0");
+//                loginEditer.commit();
+//
+//                SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
+//                SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();
+//                TokenNoEditer.putString("TokenNo", "");
+//                TokenNoEditer.commit();
+//
+//                SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+//                SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+//                BankVerifierEditer.putString("BankVerifier", "1");
+//                BankVerifierEditer.commit();
 
-                SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
-                SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
-                customerNameEditer.putString("customerName", "ABOOBAKKAR.T.P");
-                customerNameEditer.commit();
-
-                SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
-                SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
-                customerAddress1Editer.putString("customerAddress1", "");
-                customerAddress1Editer.commit();
-
-                SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
-                SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
-                customerAddress2Editer.putString("customerAddress2", "");
-                customerAddress2Editer.commit();
-
-                SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
-                SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
-                mobileNoEditer.putString("mobileNo", "9456328197");
-                mobileNoEditer.commit();
-
-                SharedPreferences pinSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
-                SharedPreferences.Editor pinEditer = pinSP.edit();
-                pinEditer.putString("pin", "123456");
-                pinEditer.commit();
-
-                SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
-                SharedPreferences.Editor loginEditer = loginSP.edit();
-                loginEditer.putString("login", "0");
-                loginEditer.commit();
-
-                SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-                SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();
-                TokenNoEditer.putString("TokenNo", "");
-                TokenNoEditer.commit();
 
 
+                /////////////
 
 
                 UserCredentialDAO.getInstance().
