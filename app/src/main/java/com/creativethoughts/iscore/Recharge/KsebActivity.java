@@ -135,8 +135,6 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         alertMessage1("", "Please check the expiry date of the bill");
 
-
-
         edtTxtAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -417,6 +415,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         autoCompleMobileNumber.setText("");
         autoCompleConsumerNo.setText("");
         txtSectionName.setText("");
+        sectionCode = "";
         txt_amtinword.setText("");
         edtTxtBillNo.setText("");
         edtTxtAmount.setText("");
@@ -691,6 +690,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(tempStringBillNo.length() == 0) {
             edtTxtBillNo.setError("Please Enter Valid Bill Number.");
+            showToast("Please Enter Valid Bill Number.");
         }
         else if(tempStringAmount.length() == 0) {
             boolean isValidInteger = false;
@@ -701,6 +701,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             }
             if(tempStringAmount.isEmpty() || isValidInteger == false)
                 edtTxtAmount.setError("Please Enter Amount.");
+            showToast("Please Enter Amount.");
         }
         else {
 
@@ -954,6 +955,19 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     public void onFailure(Call<String> call, Throwable t) {
                         progressDialog.dismiss();
                         Log.e(TAG,"onFailure     7902   "+t.toString());
+                        progressDialog.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
+                        builder.setMessage(t.toString())
+//                                builder.setMessage("No data found.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
                     }
                 });
 

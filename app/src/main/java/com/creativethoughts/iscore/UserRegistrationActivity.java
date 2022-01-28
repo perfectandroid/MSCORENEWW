@@ -2,6 +2,8 @@ package com.creativethoughts.iscore;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -24,6 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Recharge.KsebActivity;
+import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoginBannerAdapter;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -36,17 +40,49 @@ import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static com.creativethoughts.iscore.IScoreApplication.FLAG_NETWORK_EXCEPTION;
 
+import org.json.JSONObject;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
 public class UserRegistrationActivity extends AppCompatActivity {
 
+    public String TAG = "UserRegistrationActivity";
+    private ProgressDialog progressDialog;
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 100;
     private static final int PHONE_FETCHING = 200;
     private EditText mMobileNumberET;
@@ -356,6 +392,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 //                            BASE_URL = "https://13.71.91.134:14009/Mscore";
 //                            BASE_URL = "https://13.71.91.134:14008/MscoreQALive";
                     try{
+
                         String url =
                                 BASE_URL + "/PassBookAuthenticate?Mobno="+
                                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(countryCode+mobileNumber)) + "&Pin=" +
@@ -389,6 +426,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                 }, error);
                             }
                         }, this, "Loading");
+
+                      //  getLogin(countryCode+mobileNumber);
+
+
                     }catch ( Exception e ){
                         //Do nothing
                     }
@@ -402,6 +443,171 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
 
     }
+
+//    private void getLogin(String mobileNumber) {
+//
+//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//        String BASE_URL=pref.getString("baseurl", null);
+//        if (NetworkUtil.isOnline()) {
+//            progressDialog = new ProgressDialog(UserRegistrationActivity.this, R.style.Progress);
+//            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+//            progressDialog.setCancelable(false);
+//            progressDialog.setIndeterminate(true);
+//            progressDialog.setIndeterminateDrawable(this.getResources()
+//                    .getDrawable(R.drawable.progress));
+//            progressDialog.show();
+//            try {
+//
+//                OkHttpClient client = new OkHttpClient.Builder()
+//                        .sslSocketFactory(getSSLSocketFactory())
+//                        .hostnameVerifier(getHostnameVerifier())
+//                        .build();
+//                Gson gson = new GsonBuilder()
+//                        .setLenient()
+//                        .create();
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl(BASE_URL)
+//                        .addConverterFactory(ScalarsConverterFactory.create())
+//                        .addConverterFactory(GsonConverterFactory.create(gson))
+//                        .client(client)
+//                        .build();
+//                APIInterface apiService = retrofit.create(APIInterface.class);
+//                String reqmode = IScoreApplication.encryptStart("21");
+//                final JSONObject requestObject1 = new JSONObject();
+//                try {
+//
+//                    String iemi =   IScoreApplication.getIEMI();
+//                    Log.e("imei","         15381     "+iemi);
+//
+//                    requestObject1.put("Mobno",IScoreApplication.encryptStart(mobileNumber));
+//                    requestObject1.put("Pin",IScoreApplication.encryptStart("0000"));
+//                    requestObject1.put("IMEI",IScoreApplication.encryptStart(iemi));
+//
+//
+//                    Log.e(TAG,"requestObject1     790   "+requestObject1);
+//
+//
+//
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    progressDialog.dismiss();
+//                    Log.e(TAG,"Exception     790   "+e.toString());
+//
+//                }
+//                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+//                Call<String> call = apiService.getPassBookAuthenticateNew(body);
+//                call.enqueue(new Callback<String>() {
+//
+//                    @Override
+//                    public void onResponse(Call<String> call, Response<String> response) {
+//
+//                        Log.e(TAG,"KSEBPaymentRequest  7901   "+response.body());
+//                        try{
+//                            progressDialog.dismiss();
+//
+//                            Log.e(TAG," KSEBPaymentRequest    7902       "+response.body());
+//                            JSONObject jsonObj = new JSONObject(response.body());
+//                            if(jsonObj.getString("StatusCode").equals("0")) {
+//
+////                                alertMessage2("",jsonObj.getString("EXMessage"));
+//
+//                            }
+//                            else {
+//
+//                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+//                                builder.setMessage(jsonObj.getString("EXMessage"))
+////                                builder.setMessage("No data found.")
+//                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                dialog.dismiss();
+//
+//                                            }
+//                                        });
+//                                android.app.AlertDialog alert = builder.create();
+//                                alert.show();
+//                            }
+//
+//                        }
+//                        catch (Exception e)
+//                        {
+//                            Log.e(TAG,"Exception     7901   "+e.toString());
+//                            progressDialog.dismiss();
+//                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+//                            builder.setMessage(e.toString())
+////                                builder.setMessage("No data found.")
+//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//
+//                                        }
+//                                    });
+//                            android.app.AlertDialog alert = builder.create();
+//                            alert.show();
+//
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+//                        Log.e(TAG,"onFailure     7902   "+t.toString());
+//                        progressDialog.dismiss();
+//                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+//                        builder.setMessage(t.toString())
+////                                builder.setMessage("No data found.")
+//                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//
+//                                    }
+//                                });
+//                        android.app.AlertDialog alert = builder.create();
+//                        alert.show();
+//                    }
+//                });
+//
+//            }
+//            catch (Exception e)
+//            {
+//                Log.e(TAG,"Exception     7903   "+e.toString());
+//
+//                progressDialog.dismiss();
+//                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+//                builder.setMessage(e.toString())
+////                                builder.setMessage("No data found.")
+//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//
+//                            }
+//                        });
+//                android.app.AlertDialog alert = builder.create();
+//                alert.show();
+//            }
+//        }
+//        else {
+//            progressDialog.dismiss();
+//            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+//            builder.setMessage("Network error occured. Please try again later")
+//                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//
+//                        }
+//                    });
+//            android.app.AlertDialog alert = builder.create();
+//            alert.show();
+//
+//        }
+//    }
+
     private void analyzeResult( String result,String mobileNumber, String countryCode ){
         try {
             int response;
@@ -587,6 +793,73 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+
+    private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,
+            KeyManagementException {
+        SharedPreferences sslnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        String asset_Name=sslnamepref.getString("certificateassetname", null);
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
+        // File path: app\src\main\res\raw\your_cert.cer
+        InputStream caInput =  IScoreApplication.getAppContext().
+                getAssets().open(asset_Name);
+        Certificate ca = cf.generateCertificate(caInput);
+        caInput.close();
+        KeyStore keyStore = KeyStore.getInstance("BKS");
+        keyStore.load(null, null);
+        keyStore.setCertificateEntry("ca", ca);
+        String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+        tmf.init(keyStore);
+        TrustManager[] wrappedTrustManagers = getWrappedTrustManagers(tmf.getTrustManagers());
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, wrappedTrustManagers, null);
+        return sslContext.getSocketFactory();
+    }
+
+    private TrustManager[] getWrappedTrustManagers(TrustManager[] trustManagers) {
+        final X509TrustManager originalTrustManager = (X509TrustManager) trustManagers[0];
+        return new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return originalTrustManager.getAcceptedIssuers();
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkClientTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkClientTrusted", e.toString());
+                        }
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkServerTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkServerTrusted", e.toString());
+                        }
+                    }
+                }
+        };
+    }
+
+    private HostnameVerifier getHostnameVerifier() {
+        return new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+    }
 
 
 }
