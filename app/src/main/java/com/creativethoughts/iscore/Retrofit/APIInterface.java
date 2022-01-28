@@ -143,5 +143,11 @@ public interface APIInterface {
     @POST("api/Recharge/DTHRecharge")
     Call<String>getDTHRecharge(@Body RequestBody body);
 
+    @POST("api/Recharge/KSEBSectionDetails")
+    Call<String>getKSEBSectionDetails(@Body RequestBody body);
+
+    @POST("api/Recharge/KSEBPaymentRequest")
+    Call<String>getKSEBPaymentRequest(@Body RequestBody body);
+
 
 }

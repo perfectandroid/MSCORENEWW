@@ -1,26 +1,26 @@
-package com.creativethoughts.iscore.kseb;
+package com.creativethoughts.iscore.Recharge;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.utility.ConnectionUtilitySectionList;
+import com.creativethoughts.iscore.kseb.KsebSectionSelectionActivity;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +34,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -44,11 +43,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -58,28 +52,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class KsebSectionSelectionActivity extends Activity {
-    private RecyclerSectionListAdapter mRecyclerSectionListAdapter;
-    public String TAG = "KsebSectionSelectionActivity";
+public class KsebSectionActivity  extends AppCompatActivity {
+
+    public String TAG = "KsebSectionActivity";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kseb_section_selection);
-
-        RecyclerView recyclerSectionList = findViewById(R.id.recycler_select_kseb_section);
-        recyclerSectionList.setHasFixedSize( true );
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
-        recyclerSectionList.setLayoutManager( layoutManager );
-
-        mRecyclerSectionListAdapter = new RecyclerSectionListAdapter(new ArrayList< >(), sectionDetails -> {
-            Intent intent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable( getString(R.string.kseb_section_list  ), sectionDetails );
-            intent.putExtras( bundle );
-            setResult( RESULT_OK, intent );
-            finish();
-        });
-        recyclerSectionList.setAdapter(mRecyclerSectionListAdapter);
 
         EditText edtTxtSectionName = findViewById( R.id.edt_txt_section_name );
         edtTxtSectionName.addTextChangedListener(new TextWatcher() {
@@ -90,11 +70,7 @@ public class KsebSectionSelectionActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence keyWord, int i, int i1, int i2) {
-                 getObservable( keyWord.toString() )
-                         .subscribeOn( Schedulers.io() )
-                         .observeOn( AndroidSchedulers.mainThread() )
-                         .subscribe(  getObserver() );
-             //   getSection(keyWord.toString());
+                getSection(keyWord.toString());
             }
 
             @Override
@@ -102,6 +78,8 @@ public class KsebSectionSelectionActivity extends Activity {
                 //Do nothing
             }
         });
+
+
     }
 
     private void getSection(String keyword) {
@@ -160,10 +138,9 @@ public class KsebSectionSelectionActivity extends Activity {
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("KSEBSectionDetails");
                                 Log.e(TAG,"jsonObj1   1502   "+jsonObj1);
 //                                JSONObject object = new JSONObject(String.valueOf(jsonObj1));
-                            //    JSONArray newJArray = jsonObj1.getJSONArray("OwnAccountdetailsList");
-                             //   String ss = " {\"KSEBSectionList\":[{\"SectionName\":\"Atholy\",\"SectionCode\":6615}]}";
-                              //  processResult(ss);
-                                processResult(jsonObj1.toString());
+                                //    JSONArray newJArray = jsonObj1.getJSONArray("OwnAccountdetailsList");
+                              //  processResult(jsonObj1.toString());
+
 
                             }
                             else {
@@ -171,7 +148,7 @@ public class KsebSectionSelectionActivity extends Activity {
                                 try{
 
                                     String EXMessage = jsonObj.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -186,7 +163,7 @@ public class KsebSectionSelectionActivity extends Activity {
 
                                 }catch (JSONException e){
                                     String EXMessage = jsonObj.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -218,7 +195,7 @@ public class KsebSectionSelectionActivity extends Activity {
         else {
 
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionActivity.this);
             builder.setMessage("Network error occured. Please try again later")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -232,55 +209,6 @@ public class KsebSectionSelectionActivity extends Activity {
         }
     }
 
-    private Observable< String > getObservable( String keyword ){
-        return Observable.fromCallable( ()-> listenText( keyword ));
-    }
-    private Observer< String > getObserver(  ){
-        return  new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                //Do nothing
-            }
-
-            @Override
-            public void onNext(String result ) {
-                processResult( result );
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                //Do nothing
-            }
-
-            @Override
-            public void onComplete() {
-                //Do nothing
-            }
-        };
-    }
-    private String listenText( String keyWord ){
-        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
-        String url = BASE_URL+"/KSEBSectionList?Sectionname="+ keyWord;
-        return ConnectionUtilitySectionList.getResponse( url );
-    }
-    private void processResult( String result ){
-        Gson gson = new Gson();
-        try{
-            SectionSearchResult sectionSearchResult  = gson.fromJson( result, SectionSearchResult.class );
-            Log.e("TAG","sectionSearchResult  1101  "+sectionSearchResult);
-            Log.e("TAG","result  1102  "+result);
-            if ( mRecyclerSectionListAdapter != null ){
-                mRecyclerSectionListAdapter.addSections( sectionSearchResult.getSectionDetailsList() );
-                mRecyclerSectionListAdapter.notifyDataSetChanged();
-            }
-
-        }catch ( Exception e ){
-            if ( IScoreApplication.DEBUG ){
-                Log.e("ksebsectionexc  1102", e.toString() );
-            }
-        }
-    }
 
 
     private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,
@@ -349,4 +277,5 @@ public class KsebSectionSelectionActivity extends Activity {
             }
         };
     }
+
 }

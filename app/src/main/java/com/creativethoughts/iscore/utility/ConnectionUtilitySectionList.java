@@ -99,6 +99,7 @@ public class ConnectionUtilitySectionList {
                 url = url+"&BankKey="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankKey))+"&BankHeader="+
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankHeader))+
                         "&BankVerified="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankVerified));
+                Log.e("ConnectionUtility","url102  "+url);
 
             } catch (Exception e) {
                 return IScoreApplication.EXCEPTION_ENCRIPTION_IEMI;

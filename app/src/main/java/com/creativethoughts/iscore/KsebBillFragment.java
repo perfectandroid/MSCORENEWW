@@ -792,6 +792,7 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
     }
     private void processResponse(String response){
         try{
+            Log.e("TAG","response   795   "+response);
             KsebRechargeStatus ksebRechargeStatus = new Gson().fromJson( response, KsebRechargeStatus.class );
             ksebRechargeStatus.setAccNo( tempStringAccountNo  );
             ksebRechargeStatus.setBranch(  BranchName );

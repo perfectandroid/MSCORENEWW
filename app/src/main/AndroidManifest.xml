@@ -59,6 +59,11 @@
 
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
+        <activity
+            android:name=".Recharge.KsebSectionActivity"
+            android:label="Section List"
+            android:theme="@style/PinLoginActivityTheme" />
+
         <activity android:name=".WalletServiceActivity"
             android:label="Wallet Services"
             android:parentActivityName=".HomeActivity"
