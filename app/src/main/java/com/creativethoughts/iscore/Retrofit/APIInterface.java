@@ -137,5 +137,11 @@ public interface APIInterface {
     @POST("api/Recharge/MobileRecharge")
     Call<String>getMobileRecharge(@Body RequestBody body);
 
+    @POST("api/Recharge/POSTPaidBilling")
+    Call<String>getPOSTPaidBilling(@Body RequestBody body);
+
+    @POST("api/Recharge/DTHRecharge")
+    Call<String>getDTHRecharge(@Body RequestBody body);
+
 
 }

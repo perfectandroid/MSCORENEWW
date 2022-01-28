@@ -83,6 +83,26 @@
                             android:layout_marginLeft="30dp"
                             android:orientation="vertical">
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/phoneno_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingEnd="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingStart="8dp"
+                                android:visibility="gone">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/phonenoa"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="phone"
+                                    android:textColor="@color/black_75_per"
+                                    android:textColorHint="@color/black_75_per" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"

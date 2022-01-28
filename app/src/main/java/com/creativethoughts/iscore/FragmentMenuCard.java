@@ -665,6 +665,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
                     if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -672,10 +673,12 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
+
 //                        fragment = new RechargeFragment().newInstance(3);
 //                        assert actionBar != null;
 //                        actionBar.setTitle( getString(R.string.title_DTH) );
 //                        alertDialogrecharge.dismiss();
+
                         Intent intent = new Intent(getContext(), RechargeActivity.class);
                         intent.putExtra("from", "DTH");
                         startActivity(intent);
@@ -702,6 +705,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 //                        assert actionBar != null;
 //                        actionBar.setTitle( getString(R.string.title_landline) );
 //                        alertDialogrecharge.dismiss();
+
                         Intent intent = new Intent(getContext(), RechargeActivity.class);
                         intent.putExtra("from", "Landline");
                         startActivity(intent);
@@ -723,14 +727,14 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                         alertDialog.setIcon(R.drawable.ic_warning);
                         alertDialog.show();
                     } else {
-                        fragment = new RechargeFragment().newInstance(1);
-                        assert actionBar != null;
-                        actionBar.setTitle( getString(R.string.title_postpaid) );
-                        alertDialogrecharge.dismiss();
+//                        fragment = new RechargeFragment().newInstance(1);
+//                        assert actionBar != null;
+//                        actionBar.setTitle( getString(R.string.title_postpaid) );
+//                        alertDialogrecharge.dismiss();
 
-//                        Intent intent = new Intent(getContext(), RechargeActivity.class);
-//                        intent.putExtra("from", "postpaid");
-//                        startActivity(intent);
+                        Intent intent = new Intent(getContext(), RechargeActivity.class);
+                        intent.putExtra("from", "postpaid");
+                        startActivity(intent);
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -754,6 +758,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 //                        assert actionBar != null;
 //                        actionBar.setTitle( getString(R.string.data_card) );
 //                        alertDialogrecharge.dismiss();
+
                         Intent intent = new Intent(getContext(), RechargeActivity.class);
                         intent.putExtra("from", "datacard");
                         startActivity(intent);

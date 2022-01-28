@@ -62,6 +62,7 @@ import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.NumberToWord;
 import com.creativethoughts.iscore.utility.RechargeValue;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -105,6 +106,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     TextView tv_header;
     TextView tv_operator,tv_circle,tv_accountno;
     TextView txt_amtinword;
+    TextView tv_number_hint;
 
     LinearLayout ll_accountno;
     LinearLayout ll_recent_history;
@@ -117,6 +119,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     AppCompatEditText mAccNumEdt;
 
     AutoCompleteTextView mMobileNumEt;
+
+    TextInputLayout phonenumberLayout;
 
     FullLenghRecyclertview rv_recarge_history;
 
@@ -163,22 +167,35 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         if(getIntent().getStringExtra("from").equals("prepaid")){
             mSelectedType = "0";
             tv_header.setText("Prepaid");
+            phonenumberLayout.setHint("Mobile number");
+            tv_number_hint.setText("Mobile number");
         }
         if(getIntent().getStringExtra("from").equals("postpaid")){
             mSelectedType = "1";
             tv_header.setText("Postpaid");
+            phonenumberLayout.setHint("Mobile number");
+            tv_number_hint.setText("Mobile number");
         }
         if(getIntent().getStringExtra("from").equals("Landline")){
             mSelectedType = "2";
             tv_header.setText("Landline");
+            phonenumberLayout.setHint("Phone Number");
+            tv_number_hint.setText("Phone number");
+            selectContactImgBtn.setVisibility(View.GONE);
         }
         if(getIntent().getStringExtra("from").equals("DTH")){
             mSelectedType = "3";
             tv_header.setText("DTH");
+            phonenumberLayout.setHint("SUBSCRIBER ID");
+            tv_number_hint.setText("SUBSCRIBER ID");
+            selectContactImgBtn.setVisibility(View.GONE);
         }
         if(getIntent().getStringExtra("from").equals("datacard")){
             mSelectedType = "4";
             tv_header.setText("Datacard");
+            phonenumberLayout.setHint("SUBSCRIBER ID");
+            tv_number_hint.setText("SUBSCRIBER ID");
+            selectContactImgBtn.setVisibility(View.VISIBLE);
         }
 
         ll_accountno.setVisibility(View.GONE);
@@ -189,6 +206,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
 
         getHistory(mSelectedType);
+
 
 
 
@@ -271,6 +289,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         tv_circle = (TextView)findViewById(R.id.tv_circle);
         tv_accountno = (TextView)findViewById(R.id.tv_accountno);
         txt_amtinword = (TextView)findViewById(R.id.txt_amtinword);
+        tv_number_hint = (TextView)findViewById(R.id.tv_number_hint);
 
         ll_accountno = (LinearLayout) findViewById(R.id.ll_accountno);
         ll_recent_history = (LinearLayout) findViewById(R.id.ll_recent_history);
@@ -285,6 +304,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         mAmountEt = (AppCompatEditText)findViewById(R.id.amount);
         mMobileNumEt =   (AutoCompleteTextView)findViewById(R.id.phoneno);
         mAccNumEdt =   (AppCompatEditText)findViewById(R.id.account_number);
+
+        phonenumberLayout =   (TextInputLayout)findViewById(R.id.phoneno_layout);
 
 
         rv_recarge_history =   (FullLenghRecyclertview) findViewById(R.id.rv_recarge_history);
@@ -1218,6 +1239,15 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                ProvidersName=jsonObject.getString("ProvidersName");
                ProvidersCode=jsonObject.getString("ProvidersCode");
 
+               if (isCircleAccountNumberMandatory()) {
+                   ll_accountno.setVisibility(View.VISIBLE);
+                     mAccNumEdt.setText("");
+               } else {
+                   ll_accountno.setVisibility(View.GONE);
+                   mAccNumEdt.setText("");
+               }
+
+
            }catch (Exception e){
 
            }
@@ -1233,10 +1263,19 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             try {
                 JSONObject jsonObject = JarrayCircle.getJSONObject(position);
                 Log.e(TAG,"jsonObject   76512   "+jsonObject.getString("CircleName"));
+               // tv_circle.setText("Delhi");
                 tv_circle.setText(""+jsonObject.getString("CircleName"));
                 ID_RechargeCircle = jsonObject.getString("ID_RechargeCircle");
                 CircleName = jsonObject.getString("CircleName");
                 CircleMode = jsonObject.getString("CircleMode");
+
+                if (isCircleAccountNumberMandatory()) {
+                    ll_accountno.setVisibility(View.VISIBLE);
+                    mAccNumEdt.setText("");
+                } else {
+                    ll_accountno.setVisibility(View.GONE);
+                    mAccNumEdt.setText("");
+                }
 
 
             }catch (Exception e){
@@ -1441,7 +1480,15 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 public void onClick(View view) {
                     alertDialog.dismiss();
                     if (mSelectedType.equals("0")){
-                        recharge( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                        rechargePrepaid( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                    }
+
+                    if (mSelectedType.equals("1") || mSelectedType.equals("2")){
+                        rechargePostLand( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                    }
+
+                    if (mSelectedType.equals("3") || mSelectedType.equals("4")){
+                        rechargeDthDatacard( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
                     }
 
 
@@ -1454,7 +1501,313 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void recharge(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+    private void rechargeDthDatacard(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+                                     String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            progressDialog = new ProgressDialog(RechargeActivity.this, R.style.Progress);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setIndeterminateDrawable(this.getResources()
+                    .getDrawable(R.drawable.progress));
+            progressDialog.show();
+            try {
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                String reqmode = IScoreApplication.encryptStart("21");
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    String iemi =   IScoreApplication.getIEMI();
+                    Log.e("imei","         15381     "+iemi);
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", "");
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", "");
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", "");
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", "");
+                    SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                    String pin =prefpin.getString("pinlog", "");
+                    SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                    String BankVerifier =BankVerifierSP.getString("BankVerifier","");
+
+                    requestObject1.put("SUBSCRIBER_ID",IScoreApplication.encryptStart(mMobileNumber));
+                    requestObject1.put("Operator",IScoreApplication.encryptStart(mOperatorId));
+                    requestObject1.put("Circle",IScoreApplication.encryptStart(mCircleId));
+                  //  requestObject1.put("Circleaccount",IScoreApplication.encryptStart(mCircleAccNo));
+                    requestObject1.put("amount",IScoreApplication.encryptStart(mAmount));
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(mAccountNumber));
+                    requestObject1.put("Module",IScoreApplication.encryptStart(SubModule));
+                    requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
+                    requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
+                    requestObject1.put("OperatorName",IScoreApplication.encryptStart(operatorName));
+                    requestObject1.put("imei",IScoreApplication.encryptStart(iemi));
+                    requestObject1.put("token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
+
+                    Log.e(TAG,"DthDatacard requestObject1     15382   "+requestObject1);
+                    Log.e(TAG,"DthDatacard mAmount     15383   "+mAmount);
+
+
+
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getDTHRecharge(body);
+                call.enqueue(new Callback<String>() {
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Log.e(TAG,"DthDatacard response  15384   "+response.body());
+                        try{
+                            progressDialog.dismiss();
+                            Log.e(TAG,"DthDatacard response    15385       "+response.body());
+
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            Log.e(TAG,"DthDatacard jsonObj    15386       "+jsonObj.getString("EXMessage"));
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+
+
+                                alertMessage1("",jsonObj.getString("EXMessage"));
+
+                            }
+                            else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                                builder.setMessage(jsonObj.getString("EXMessage"))
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+
+                        }
+                        catch (JSONException e)
+                        {
+                            progressDialog.dismiss();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
+                    }
+                });
+
+            }
+            catch (Exception e)
+            {
+                progressDialog.dismiss();
+            }
+        }
+        else {
+            progressDialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+            builder.setMessage("Network error occured. Please try again later")
+//                                builder.setMessage("No data found.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+        }
+    }
+
+    private void rechargePostLand(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+                                  String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            progressDialog = new ProgressDialog(RechargeActivity.this, R.style.Progress);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setIndeterminateDrawable(this.getResources()
+                    .getDrawable(R.drawable.progress));
+            progressDialog.show();
+            try {
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                String reqmode = IScoreApplication.encryptStart("21");
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    String iemi =   IScoreApplication.getIEMI();
+                    Log.e("imei","         16901     "+iemi);
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", "");
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", "");
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", "");
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", "");
+                    SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                    String pin =prefpin.getString("pinlog", "");
+                    SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                    String BankVerifier =BankVerifierSP.getString("BankVerifier","");
+
+                    requestObject1.put("MobileNumer",IScoreApplication.encryptStart(mMobileNumber));
+                    requestObject1.put("Operator",IScoreApplication.encryptStart(mOperatorId));
+                    requestObject1.put("Circle",IScoreApplication.encryptStart(mCircleId));
+                    requestObject1.put("Circleaccount",IScoreApplication.encryptStart(mCircleAccNo));
+                    requestObject1.put("amount",IScoreApplication.encryptStart(mAmount));
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(mAccountNumber));
+                    requestObject1.put("Module",IScoreApplication.encryptStart(SubModule));
+                    requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
+                    requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
+                    requestObject1.put("OperatorName",IScoreApplication.encryptStart(operatorName));
+                    requestObject1.put("imei",IScoreApplication.encryptStart(iemi));
+                    requestObject1.put("token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
+
+                    Log.e(TAG,"PostLand requestObject1     16902   "+requestObject1);
+                    Log.e(TAG,"PostLand mAmount     16903   "+mAmount);
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getPOSTPaidBilling(body);
+                call.enqueue(new Callback<String>() {
+
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Log.e(TAG,"PostLand response  14884   "+response.body());
+                        try{
+                            progressDialog.dismiss();
+                            Log.e(TAG," PostLand response    14885       "+response.body());
+
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            Log.e(TAG,"PostLand  jsonObj    14886       "+jsonObj.getString("EXMessage"));
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+
+
+                                alertMessage1("",jsonObj.getString("EXMessage"));
+
+                            }
+                            else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+                                builder.setMessage(jsonObj.getString("EXMessage"))
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+
+                        }
+                        catch (JSONException e)
+                        {
+                            progressDialog.dismiss();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
+                    }
+                });
+
+            }
+            catch (Exception e)
+            {
+                progressDialog.dismiss();
+            }
+        }
+        else {
+            progressDialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+            builder.setMessage("Network error occured. Please try again later")
+//                                builder.setMessage("No data found.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+
+        }
+    }
+
+    private void rechargePrepaid(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
                           String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
@@ -1513,13 +1866,13 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
                     requestObject1.put("OperatorName",IScoreApplication.encryptStart(operatorName));
                     requestObject1.put("imei",IScoreApplication.encryptStart(iemi));
-                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("token", IScoreApplication.encryptStart(token));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
 
-                    Log.e(TAG,"requestObject1     1488   "+requestObject1);
-                    Log.e(TAG,"mAmount     1488   "+mAmount);
+                    Log.e(TAG,"Prepaid requestObject1     18711   "+requestObject1);
+                    Log.e(TAG,"Prepaid mAmount     18712   "+mAmount);
 
 
 
@@ -1535,13 +1888,13 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
 
-                        Log.e(TAG,"response  232   "+response.body());
+                        Log.e(TAG,"Prepaid response  18713   "+response.body());
                         try{
                             progressDialog.dismiss();
-                            Log.e(TAG," response    1488       "+response.body());
+                            Log.e(TAG," response    18714       "+response.body());
 
                             JSONObject jsonObj = new JSONObject(response.body());
-                            Log.e(TAG," jsonObj    1488       "+jsonObj.getString("EXMessage"));
+                            Log.e(TAG," jsonObj    18715       "+jsonObj.getString("EXMessage"));
                             if(jsonObj.getString("StatusCode").equals("0")) {
                               //  JSONObject jsonObj1 = jsonObj.getJSONObject("ProvidersDetailsInfo");
 
