@@ -56,18 +56,18 @@ public class ConnectionUtil {
     }
     public static String getResponse(String url) {
 
-        Log.e("ConnectionUtil 571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
-         bankKey      = UserRegistrationActivity.getBankkey();
-         bankHeader   = UserRegistrationActivity.getBankheader();
-         AssetName   = UserRegistrationActivity.getCertificateAssetName();
-         Hostname   = UserRegistrationActivity.getHostnameSubject();
-
-        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
-            bankKey      = HomeActivity.getBankkey();
-            bankHeader   = HomeActivity.getBankheader();
-            AssetName   = HomeActivity.getCertificateAssetName();
-            Hostname   = HomeActivity.getHostnameSubject();
-        }
+//        Log.e("ConnectionUtil 571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
+//         bankKey      = UserRegistrationActivity.getBankkey();
+//         bankHeader   = UserRegistrationActivity.getBankheader();
+//         AssetName   = UserRegistrationActivity.getCertificateAssetName();
+//         Hostname   = UserRegistrationActivity.getHostnameSubject();
+//
+//        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
+//            bankKey      = HomeActivity.getBankkey();
+//            bankHeader   = HomeActivity.getBankheader();
+//            AssetName   = HomeActivity.getCertificateAssetName();
+//            Hostname   = HomeActivity.getHostnameSubject();
+//        }
 
 
 //        bankKey      = SplashScreen.BankKey;

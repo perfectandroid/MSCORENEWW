@@ -398,37 +398,37 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     }
 
 
-    public static String getBankkey() {
-        try {
-            return bank_Key;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getBankheader() {
-        try {
-            return bank_Header;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getHostnameSubject() {
-        try {
-            return host_nameCommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getCertificateAssetName() {
-        try {
-            return asset_namecommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
+//    public static String getBankkey() {
+//        try {
+//            return bank_Key;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getBankheader() {
+//        try {
+//            return bank_Header;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getHostnameSubject() {
+//        try {
+//            return host_nameCommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getCertificateAssetName() {
+//        try {
+//            return asset_namecommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
 
 
 }

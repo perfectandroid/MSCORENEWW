@@ -64,17 +64,17 @@ public class ConnectionUtilitySectionList {
 //        String bankHeader   = UserRegistrationActivity.getBankheader();
 
 
-        bankKey      = UserRegistrationActivity.getBankkey();
-        bankHeader   = UserRegistrationActivity.getBankheader();
-        AssetName   = UserRegistrationActivity.getCertificateAssetName();
-        Hostname   = UserRegistrationActivity.getHostnameSubject();
-
-        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
-            bankKey      = HomeActivity.getBankkey();
-            bankHeader   = HomeActivity.getBankheader();
-            AssetName   = HomeActivity.getCertificateAssetName();
-            Hostname   = HomeActivity.getHostnameSubject();
-        }
+//        bankKey      = UserRegistrationActivity.getBankkey();
+//        bankHeader   = UserRegistrationActivity.getBankheader();
+//        AssetName   = UserRegistrationActivity.getCertificateAssetName();
+//        Hostname   = UserRegistrationActivity.getHostnameSubject();
+//
+//        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
+//            bankKey      = HomeActivity.getBankkey();
+//            bankHeader   = HomeActivity.getBankheader();
+//            AssetName   = HomeActivity.getCertificateAssetName();
+//            Hostname   = HomeActivity.getHostnameSubject();
+//        }
 
 
         String bankVerified = BankVerifier.getInstance().getVerifyStatus();

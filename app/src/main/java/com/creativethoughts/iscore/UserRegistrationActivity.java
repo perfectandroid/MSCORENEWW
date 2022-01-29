@@ -160,45 +160,47 @@ public class UserRegistrationActivity extends AppCompatActivity {
         SharedPreferences TestMobileNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
         String strTestmobile=TestMobileNoSP.getString("TestingMobileNo", null);
 
-        if(strloginmobile == null || strloginmobile.isEmpty()) {
+//        if(strloginmobile == null || strloginmobile.isEmpty()) {
+//
+//            SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+//            bank_Key=bankkeypref.getString("bankkey", null);
+//            SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+//            bank_Header=bankheaderpref.getString("bankheader", null);
+//
+//            SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
+//            host_nameCommon=hostnamepref.getString("hostname", null);
+//            SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+//            asset_namecommon=assetnamepref.getString("certificateassetname", null);
+//        }
+//        else {
+//            if (strTestmobile.equals(strloginmobile)) {
+//
+//                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
+//                bank_Key=bankkeypref.getString("testbankkey", null);
+//                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
+//                bank_Header=bankheaderpref.getString("testbankheader", null);
+//
+//                SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF21, 0);
+//                host_nameCommon=hostnamepref.getString("testhostname", null);
+//                SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF22, 0);
+//                asset_namecommon=assetnamepref.getString("testcertificateassetname", null);
+//            }
+//            else {
+//
+//                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+//                bank_Key=bankkeypref.getString("bankkey", null);
+//                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+//                bank_Header=bankheaderpref.getString("bankheader", null);
+//
+//                SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
+//                host_nameCommon=hostnamepref.getString("hostname", null);
+//                SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+//                asset_namecommon=assetnamepref.getString("certificateassetname", null);
+//
+//            }
+//        }
 
-            SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-            bank_Key=bankkeypref.getString("bankkey", null);
-            SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-            bank_Header=bankheaderpref.getString("bankheader", null);
 
-            SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
-            host_nameCommon=hostnamepref.getString("hostname", null);
-            SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
-            asset_namecommon=assetnamepref.getString("certificateassetname", null);
-        }
-        else {
-            if (strTestmobile.equals(strloginmobile)) {
-
-                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
-                bank_Key=bankkeypref.getString("testbankkey", null);
-                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
-                bank_Header=bankheaderpref.getString("testbankheader", null);
-
-                SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF21, 0);
-                host_nameCommon=hostnamepref.getString("testhostname", null);
-                SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF22, 0);
-                asset_namecommon=assetnamepref.getString("testcertificateassetname", null);
-            }
-            else {
-
-                SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-                bank_Key=bankkeypref.getString("bankkey", null);
-                SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-                bank_Header=bankheaderpref.getString("bankheader", null);
-
-                SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
-                host_nameCommon=hostnamepref.getString("hostname", null);
-                SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
-                asset_namecommon=assetnamepref.getString("certificateassetname", null);
-
-            }
-        }
     }
 
 
@@ -766,37 +768,37 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
 
-    public static String getBankkey() {
-        try {
-            return bank_Key;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getBankheader() {
-        try {
-            return bank_Header;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getHostnameSubject() {
-        try {
-            return host_nameCommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getCertificateAssetName() {
-        try {
-            return asset_namecommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
+//    public static String getBankkey() {
+//        try {
+//            return bank_Key;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getBankheader() {
+//        try {
+//            return bank_Header;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getHostnameSubject() {
+//        try {
+//            return host_nameCommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getCertificateAssetName() {
+//        try {
+//            return asset_namecommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
 
 
     private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,
