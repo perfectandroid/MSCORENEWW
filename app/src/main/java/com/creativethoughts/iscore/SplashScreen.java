@@ -158,7 +158,9 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void startUserregistrationActivity() {
-        if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
+        SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+        if (loginSP.getString("login","").equals("0")){
+//        if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
             Intent pinLoginActivity =
                     new Intent(SplashScreen.this, PinLoginActivity.class);
             startActivity(pinLoginActivity);
@@ -438,6 +440,7 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor ResellerNameeSPEditer = ResellerNameeSP.edit();
                                 ResellerNameeSPEditer.putString("ResellerName", jobjt.getString("ResellerName"));
                                 ResellerNameeSPEditer.commit();
+
                                 SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
                                 SharedPreferences.Editor AppIconImageCodeSPEditer = AppIconImageCodeSP.edit();
                                 AppIconImageCodeSPEditer.putString("AppIconImageCode", jobjt.getString("AppIconImageCode"));

@@ -354,10 +354,48 @@ try {
     }
 
     private void logout(){
-        delete();
+
+        try {
+
+
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            LayoutInflater inflater1 = (LayoutInflater) getApplicationContext().getSystemService(this.LAYOUT_INFLATER_SERVICE);
+
+            View layout = inflater1.inflate(R.layout.logout_popup, null);
+            TextView tv_share =  layout.findViewById(R.id.tv_share);
+            TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
+
+            builder.setView(layout);
+            final android.app.AlertDialog alertDialog = builder.create();
+
+
+
+
+            tv_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+            tv_share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                  //  DbSync.getInstance().logout( PinLoginActivity.this );
+                    alertDialog.dismiss();
+                    delete();
+                }
+            });
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void delete(){
+
         try {
             SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
@@ -389,36 +427,70 @@ try {
             SharedPreferences.Editor assetnameEditer = assetnameSP.edit();
             assetnameEditer.putString("certificateassetname", SplashScreen.CERTIFICATE_ASSET_NAME/*jobjt.getString("BankHeader")*/);
             assetnameEditer.commit();
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-            LayoutInflater inflater1 = (LayoutInflater) getApplicationContext().getSystemService(this.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater1.inflate(R.layout.logout_popup, null);
-            TextView tv_share =  layout.findViewById(R.id.tv_share);
-            TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
-
-            builder.setView(layout);
-            final android.app.AlertDialog alertDialog = builder.create();
 
 
+            SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+            SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
+            customerIdEditer.putString("customerId",  "");
+            customerIdEditer.commit();
+
+            SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+            SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
+            customerNoEditer.putString("customerNo",  "");
+            customerNoEditer.commit();
+
+            SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+            SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
+            customerNameEditer.putString("customerName", "");
+            customerNameEditer.commit();
+
+            SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
+            SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
+            customerAddress1Editer.putString("customerAddress1", "");
+            customerAddress1Editer.commit();
+
+            SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
+            SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
+            customerAddress2Editer.putString("customerAddress2", "");
+            customerAddress2Editer.commit();
+
+            SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+            SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+            mobileNoEditer.putString("mobileNo",  "");
+            mobileNoEditer.commit();
+
+            SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+            SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+            BankVerifierEditer.putString("BankVerifier",  "");
+            BankVerifierEditer.commit();
+
+            SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+            SharedPreferences.Editor loginEditer = loginSP.edit();
+            loginEditer.putString("login", "");
+            loginEditer.commit();
+
+            SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+            SharedPreferences.Editor tokenIdSPEditer = tokenIdSP.edit();
+            tokenIdSPEditer.putString("Token", "");
+            tokenIdSPEditer.commit();
 
 
-            tv_cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
-            tv_share.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    DbSync.getInstance().logout( PinLoginActivity.this );
-                    alertDialog.dismiss();
-                }
-            });
-            alertDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+            SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+            SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+            pinIdSPEditer.putString("pinlog", "");
+            pinIdSPEditer.commit();
+
+            Intent intent = new Intent( this, UserRegistrationActivity.class );
+            intent.putExtra("from","true");
+            startActivity( intent );
+            finish();
+
+        }catch (Exception e){
+
+
         }
+
     }
 
     private void shareApp(){

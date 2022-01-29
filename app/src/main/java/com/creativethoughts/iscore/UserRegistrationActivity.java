@@ -139,7 +139,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
         else {
             if (IScoreApplication.DEBUG)Log.e("Iemi", IScoreApplication.getIEMI()+"");
-            if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
+            SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+            if (loginSP.getString("login","").equals("0")){
+//            if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
                 Intent pinLoginActivity =
                         new Intent(UserRegistrationActivity.this, PinLoginActivity.class);
                 startActivity(pinLoginActivity);
@@ -381,6 +383,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             else {
                 if (NetworkUtil.isOnline()) {
 
+
+//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
                     SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                     BASE_URL=pref.getString("baseurl", null);
