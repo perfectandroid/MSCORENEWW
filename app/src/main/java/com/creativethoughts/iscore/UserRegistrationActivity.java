@@ -316,16 +316,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 SharedPreferences imgpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF18, 0);
                 String image_url=imgpref.getString("testimageurl", null);
-
                 SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF19, 0);
                 String bank_Key=bankkeypref.getString("testbankkey", null);
-
                 SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF20, 0);
                 String bank_Header=bankheaderpref.getString("testbankheader", null);
-
                 SharedPreferences hostnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF21, 0);
                 String Hostname=hostnamepref.getString("testhostname", null);
-
                 SharedPreferences assetnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF22, 0);
                 String SSLAssetname=assetnamepref.getString("testcertificateassetname", null);
 
@@ -334,12 +330,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
                 baseurlEditer.putString("baseurl", base_url11);
                 baseurlEditer.commit();
-
 //                SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //                SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
 //                oldbaseurlEditer.putString("oldbaseurl", base_url);
 //                oldbaseurlEditer.commit();
-
                 SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
                 SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
                 imageurlEditer.putString("imageurl", image_url);
@@ -360,15 +354,15 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 SharedPreferences.Editor asset_nameEditer = asset_nameSP.edit();
                 asset_nameEditer.putString("certificateassetname", SSLAssetname);
                 asset_nameEditer.commit();
-
+//
 //                SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //                BASE_URL=pref1.getString("oldbaseurl", null);
 
             }
 //            else{
 //
-//                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//                BASE_URL=pref.getString("oldbaseurl", null);
+////                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+////                BASE_URL=pref.getString("oldbaseurl", null);
 //            }
 
             if(mobileNumber.equalsIgnoreCase("124567")) {
@@ -385,13 +379,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
             else {
                 if (NetworkUtil.isOnline()) {
 
-//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-//                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
                     SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                     BASE_URL=pref.getString("baseurl", null);
-
-
 
 //                    bank_Key = "LL.136";
 //                    bank_Header ="Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
@@ -407,8 +397,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 //                            BASE_URL = "https://13.71.91.134:14009/Mscore";
 //                            BASE_URL = "https://13.71.91.134:14008/MscoreQALive";
                     try{
-
-
 
                         String url =
                                 BASE_URL + "/PassBookAuthenticate?Mobno="+
