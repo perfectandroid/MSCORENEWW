@@ -80,8 +80,12 @@ public class SectionListAdapter extends ArrayAdapter<String> implements Filterab
     }
 
     public void downloadList(String constraint){
-        SharedPreferences pref =getContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+//        SharedPreferences pref =getContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//        String BASE_URL=pref.getString("oldbaseurl", null);
+
+        SharedPreferences pref = getContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
         String response, tempSectionName, tempSectionCode;
         try{
             String url = BASE_URL+"/KSEBSectionList?Sectionname="+constraint;

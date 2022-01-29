@@ -1273,8 +1273,12 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         final String tempFromAccNo = accountNo +"("+ accountType +")";
         final String tempToAccNo = receiverAccNo +"("+ type +")";
 
-        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//        String BASE_URL=pref.getString("oldbaseurl", null);
+
+        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
         try{
 //            String url =
 //                    BASE_URL + "/FundTransferIntraBank?AccountNo="

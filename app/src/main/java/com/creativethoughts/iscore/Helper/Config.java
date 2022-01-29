@@ -13,7 +13,7 @@ public class Config {
     public static final String SHARED_PREF5 = "ProductName";
     public static final String SHARED_PREF6 = "PlayStoreLink";
     public static final String SHARED_PREF7 = "baseurl";
-    public static final String SHARED_PREF8 = "oldbaseurl";
+  //  public static final String SHARED_PREF8 = "oldbaseurl";
     public static final String SHARED_PREF9 = "bankkey";
     public static final String SHARED_PREF10 = "OperatorIds";
     public static final String SHARED_PREF11 = "bankheader";
@@ -23,7 +23,7 @@ public class Config {
     public static final String SHARED_PREF15 = "TestingMobileNo";
 
     public static final String SHARED_PREF16 = "testbaseurl";
-    public static final String SHARED_PREF17 = "testoldbaseurl";
+   // public static final String SHARED_PREF17 = "testoldbaseurl";
     public static final String SHARED_PREF18 = "testimageurl";
     public static final String SHARED_PREF19 = "testbankkey";
     public static final String SHARED_PREF20 = "testbankheader";

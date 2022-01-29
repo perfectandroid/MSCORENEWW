@@ -141,8 +141,12 @@ public class SyncAll{
             final String url;
 
 
-            SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             if( mIsRefresh ) {
                 url =
                         BASE_URL + "/SyncNormal?" +

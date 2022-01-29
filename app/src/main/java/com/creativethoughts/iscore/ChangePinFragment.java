@@ -270,8 +270,10 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
 
             String custId = user.customerId;
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
             String url;
             try {
                 url = BASE_URL + "/ChangeMpin?IDCustomer=" +

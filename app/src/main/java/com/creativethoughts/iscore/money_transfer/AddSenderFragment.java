@@ -245,8 +245,12 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
                     }
                     else if ( !addSenderResponseModel.getOtpRefNo().equals("0") && addSenderResponseModel.getStatusCode().equals("200") ){
 
-                        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-                        String BASE_URL=pref.getString("oldbaseurl", null);
+//                        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//                        String BASE_URL=pref.getString("oldbaseurl", null);
+                        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                        String BASE_URL=pref.getString("baseurl", null);
+
+
                         String mOtpResendLink = BASE_URL + "/MTResendSenderOTP?senderid=" + IScoreApplication.encodedUrl(addSenderResponseModel.getIdSender());
                         TransactionOTPFragment.openSenderOTP( getActivity(),   addSenderResponseModel , mOtpResendLink, true);
                         getActivity().finish();
@@ -296,8 +300,12 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
             dob = dob.trim();
             mobileNumber = mobileNumber.trim();
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             String url =
                     BASE_URL + "/MTAddnewsender?sender_fname="
                             + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(firstName))

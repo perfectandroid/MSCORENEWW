@@ -103,8 +103,13 @@ public class KsebBillStatusFragment extends Fragment implements View.OnClickList
             String pin;
             UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
             pin = userCredential.pin;
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             url = BASE_URL+"/KSEBTransactionResponse?TransactioID="+id+
                     "&Pin="+pin;
             response = ConnectionUtil.getResponse(url);

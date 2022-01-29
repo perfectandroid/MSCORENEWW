@@ -89,8 +89,12 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 
         button.setOnClickListener(v -> {
 
-            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             if (NetworkUtil.isOnline()) {
 
                 UserCredential userCredential =

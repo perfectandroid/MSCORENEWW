@@ -99,8 +99,12 @@ public class ListSavedBeneficiaryFragment extends Fragment implements View.OnCli
     }
     private void fetchBeneficiary(){
         try{
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             UserDetails user = UserDetailsDAO.getInstance( ).getUserDetail( );
             String url = BASE_URL;
             url += "/NEFTRTGSGetReceiver?ID_Customer="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart( user.customerId  ) );
@@ -220,8 +224,13 @@ public class ListSavedBeneficiaryFragment extends Fragment implements View.OnCli
     }
     private void deleteBeneficiary( BeneficiaryDetailsModel beneficiaryDetailsModel, int index,
                                     ArrayList< BeneficiaryDetailsModel > beneficiaryDetailsModelList){
-        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+//        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//        String BASE_URL=pref.getString("oldbaseurl", null);
+
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
+
         String baseUrl =BASE_URL;
         try{
             baseUrl += "/NEFTRTGSDeleteReceiver?BeneName="+IScoreApplication.encodedUrl( beneficiaryDetailsModel.getBeneficiaryName( )  )+

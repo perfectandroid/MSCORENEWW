@@ -128,8 +128,10 @@ public class OtpFragment extends Fragment implements  View.OnClickListener {
 
         String url = "";
         try{
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
             url = BASE_URL;
             url += "/NEFTRTGSPayment?AccountNo="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getAccNo() ))+
                     "&Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getModule() ))+
@@ -161,8 +163,12 @@ public class OtpFragment extends Fragment implements  View.OnClickListener {
             return url;
         }
         try{
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             url = BASE_URL;
             url += "/NEFTRTGSPayment?AccountNo="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getAccNo() ))+
                     "&Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart( mPaymentModel.getModule() ))+

@@ -94,8 +94,12 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
                     days = settingsModel.days;
                 }
 
-                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-                String BASE_URL=pref.getString("oldbaseurl", null);
+//                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//                String BASE_URL=pref.getString("oldbaseurl", null);
+
+                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null);
+
                 final String url =
                         BASE_URL +
                                 "/SyncNormal?All="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart("false"))+

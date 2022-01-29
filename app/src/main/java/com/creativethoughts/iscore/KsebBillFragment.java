@@ -931,8 +931,12 @@ public class KsebBillFragment extends Fragment implements View.OnClickListener {
             accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(extractedAccNo);
             module = accountInfo.accountTypeShort;
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             url = BASE_URL+"/KSEBPaymentRequest?ConsumerName="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(tempStringConsumerName)) +"&MobileNo="+
                     IScoreApplication.encodedUrl(IScoreApplication.encryptStart(tempStringMobileNumber))+"&ConsumerNo="+

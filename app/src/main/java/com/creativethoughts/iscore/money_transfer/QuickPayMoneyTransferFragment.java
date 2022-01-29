@@ -824,8 +824,12 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
             String accountType = accountInfo.accountTypeShort;
             /*End of Extract account number*/
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             String url =
                     BASE_URL +
                             "/MoneyTransferPayment?senderid=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(sender.trim()))
@@ -873,8 +877,12 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
             String custId = user.customerId;
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             String url ;
             try {
                 url = BASE_URL +
@@ -1416,8 +1424,12 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         }
         private String resendingOtp(String senderId){
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             try{
                 String url = BASE_URL+
                         "/MTResendMPIN?senderid="+senderId;

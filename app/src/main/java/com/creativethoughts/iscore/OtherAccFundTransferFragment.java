@@ -1271,8 +1271,12 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
 
 
         try{
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             String url =
                     BASE_URL + "/FundTransferIntraBank?AccountNo="
                             + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))

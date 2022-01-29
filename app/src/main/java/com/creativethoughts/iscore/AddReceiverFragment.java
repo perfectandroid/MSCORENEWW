@@ -231,8 +231,12 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
             String custId = user.customerId;
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             url = BASE_URL + "/MTAddnewreceiver?senderid=" +
 
                             IScoreApplication.encodedUrl(IScoreApplication.encryptStart(sender.trim()))
@@ -372,8 +376,12 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
             String custId = user.customerId;
 
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             //https://122.166.228.144/mscore/api/Mv2/GenerateSenderReceiverList?ID_Customer=101
             String url ;
             try {

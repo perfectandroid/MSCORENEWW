@@ -31,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PinLoginActivity extends AppCompatActivity implements View.OnClickListener{
+    public class PinLoginActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnShwPassFirst;
     private Button btnShwPassSecond;
     private Button btnShwPassThird;
@@ -363,10 +363,12 @@ try {
             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
             baseurlEditer.putString("baseurl", SplashScreen.BASE_URL + "/");
             baseurlEditer.commit();
-            SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
-            oldbaseurlEditer.putString("oldbaseurl", SplashScreen.BASE_URL + "/" + SplashScreen.API_NAME);
-            oldbaseurlEditer.commit();
+
+//            SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+//            oldbaseurlEditer.putString("oldbaseurl", SplashScreen.BASE_URL + "/" + SplashScreen.API_NAME);
+//            oldbaseurlEditer.commit();
+
             SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
             SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
             imageurlEditer.putString("imageurl", SplashScreen.IMAGE_URL);

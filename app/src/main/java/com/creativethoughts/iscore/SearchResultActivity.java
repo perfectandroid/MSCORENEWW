@@ -264,8 +264,12 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//        String BASE_URL=pref.getString("oldbaseurl", null);
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
         if (item.getItemId() == R.id.action_download) {
 
             if (!TextUtils.isEmpty(mAccountNo) || !TextUtils.isEmpty(mFromDate) || !TextUtils
@@ -478,8 +482,12 @@ public class SearchResultActivity extends AppCompatActivity {
                 String IDDemandDeposit = accountInformation.fkDemandDepositID;
                 String accountType = accountInformation.accountTypeShort;
 
-                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-                String BASE_URL=pref.getString("oldbaseurl", null);
+//                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//                String BASE_URL=pref.getString("oldbaseurl", null);
+
+                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null);
+
                 final String url =
                         BASE_URL +
                                 "/TransactionSearch?Module="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))+

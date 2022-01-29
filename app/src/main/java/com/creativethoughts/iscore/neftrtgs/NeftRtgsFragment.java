@@ -608,8 +608,13 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 //        String url = CommonUtilities.getUrl( );
 
         mPaymentModel = paymentModel;
-        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);
+//        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//        String BASE_URL=pref.getString("oldbaseurl", null);
+
+        SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
+
         String url = BASE_URL;
         try{
 

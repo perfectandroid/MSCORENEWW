@@ -1047,8 +1047,12 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
     }
     private void recharge(String mAccountNumber,int type, String mMobileNumber, String mCircleId, String mOperatorId, String mAmount, String mCircleAccNo, String operatorName ) {
         try {
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-            String BASE_URL=pref.getString("oldbaseurl", null);
+//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//            String BASE_URL=pref.getString("oldbaseurl", null);
+
+            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null);
+
             UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
             String url = BASE_URL;
             mAccountNumber = mAccountNumber.replace(mAccountNumber.substring(mAccountNumber.indexOf(" (")+1, mAccountNumber.indexOf(')')+1), "");
