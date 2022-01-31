@@ -3,7 +3,8 @@
     <ANNOTATIONS>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/bda4976300a6b6785fc12cf02ca46d87/jetified-gifdecoder-4.9.0/annotations.zip!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/annotations.zip!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/bda4976300a6b6785fc12cf02ca46d87/jetified-gifdecoder-4.9.0/jars/classes.jar!/" />
@@ -12,19 +13,24 @@
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/AndroidManifest.xml" />
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/res" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/AndroidManifest.xml" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/jars/classes.jar!/" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/res" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e9c3d2bca4e8c778c856e83654f421d4/jetified-gifdecoder-4.9.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/c3e7cef494029034ee6bb60dd935d3f3/jetified-gifdecoder-4.9.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5a535e1ca9189de869e65c35ebf5f76b565e6c07/gifdecoder-4.9.0-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5a535e1ca9189de869e65c35ebf5f76b565e6c07/gifdecoder-4.9.0-javadoc.jar!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5a535e1ca9189de869e65c35ebf5f76b565e6c07/gifdecoder-4.9.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5a535e1ca9189de869e65c35ebf5f76b565e6c07/gifdecoder-4.9.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5a535e1ca9189de869e65c35ebf5f76b565e6c07/gifdecoder-4.9.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5b2b5c315c48fdfef00435450d8366e498dba7de/gifdecoder-4.9.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5b2b5c315c48fdfef00435450d8366e498dba7de/gifdecoder-4.9.0-sources.jar!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5b2b5c315c48fdfef00435450d8366e498dba7de/gifdecoder-4.9.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5b2b5c315c48fdfef00435450d8366e498dba7de/gifdecoder-4.9.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/gifdecoder/4.9.0/5b2b5c315c48fdfef00435450d8366e498dba7de/gifdecoder-4.9.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

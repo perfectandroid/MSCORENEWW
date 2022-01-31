@@ -7,9 +7,12 @@
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/res" />
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/AndroidManifest.xml" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/jars/classes.jar!/" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/res" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/AndroidManifest.xml" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/res" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/b2aa4ce3be3a3078d872beee2775e8ee/jetified-core-1.9/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/res" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

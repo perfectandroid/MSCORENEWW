@@ -98,10 +98,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     static String bank_Key, bank_Header;
     static String host_nameCommon, asset_namecommon;
-
-
-    private static final String HOSTNAME_SUBJECT="TEST16";
-    private static final String CERTIFICATE_ASSET_NAME="testmscore.pem";
+//
+//
+//    private static final String HOSTNAME_SUBJECT="TEST16";
+//    private static final String CERTIFICATE_ASSET_NAME="testmscore.pem";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -385,15 +385,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
                     SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                   BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
-                  /*  SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                    BASE_URL=pref.getString("baseurl", null);*/
+//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//                    BASE_URL=pref.getString("baseurl", null);
 
-//                    bank_Key = "LL.136";
-//                    bank_Header ="Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
-//                    host_nameCommon = "MSCORESERVER";
-//                    asset_namecommon ="naduviltest.pem";
 
                     bank_Key = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0).getString("bankkey", null);
                     bank_Header =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0).getString("bankheader", null);
@@ -405,41 +401,41 @@ public class UserRegistrationActivity extends AppCompatActivity {
 //                            BASE_URL = "https://13.71.91.134:14008/MscoreQALive";
                     try{
 
-                        String url =
-                                BASE_URL + "/PassBookAuthenticate?Mobno="+
-                                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart(countryCode+mobileNumber)) + "&Pin=" +
-                                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart("0000"))+"&IMEI=";
-//                                        +"&IMEI="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart("123456789"));
-                        Log.e("urll",""+url);
-                        NetworkManager.getInstance().connector(url, new ResponseManager() {
-                            @Override
-                            public void onSuccess(String result) {
-                                Log.i("REULT","1"+result);
-                                Log.e("result_true","1"+result);
-                                try{
-                                    analyzeResult( result, mobileNumber, countryCode );
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                            }
+//                        String url =
+//                                BASE_URL + "/PassBookAuthenticate?Mobno="+
+//                                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart(countryCode+mobileNumber)) + "&Pin=" +
+//                                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart("0000"))+"&IMEI=";
+////                                        +"&IMEI="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart("123456789"));
+//                        Log.e("urll",""+url);
+//                        NetworkManager.getInstance().connector(url, new ResponseManager() {
+//                            @Override
+//                            public void onSuccess(String result) {
+//                                Log.i("REULT","1"+result);
+//                                Log.e("result_true","1"+result);
+//                                try{
+//                                    analyzeResult( result, mobileNumber, countryCode );
+//                                }catch (Exception e){
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onError(String error) {
+//                                Log.e("result_true","2  "+error);
+//                                IScoreApplication.simpleAlertDialog( UserRegistrationActivity.this, new IScoreApplication.AlertProcess() {
+//                                    @Override
+//                                    public void ok() {
+//                                        //Do nothing
+//                                    }
+//                                    @Override
+//                                    public void cancel() {
+//                                        //Do nothing
+//                                    }
+//                                }, error);
+//                            }
+//                        }, this, "Loading");
 
-                            @Override
-                            public void onError(String error) {
-                                Log.e("result_true","2  "+error);
-                                IScoreApplication.simpleAlertDialog( UserRegistrationActivity.this, new IScoreApplication.AlertProcess() {
-                                    @Override
-                                    public void ok() {
-                                        //Do nothing
-                                    }
-                                    @Override
-                                    public void cancel() {
-                                        //Do nothing
-                                    }
-                                }, error);
-                            }
-                        }, this, "Loading");
-
-                      //  getLogin(countryCode+mobileNumber);
+                        getLogin(countryCode,mobileNumber);
 
 
                     }catch ( Exception e ){
@@ -456,169 +452,261 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     }
 
-//    private void getLogin(String mobileNumber) {
-//
-//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-//        String BASE_URL=pref.getString("baseurl", null);
-//        if (NetworkUtil.isOnline()) {
-//            progressDialog = new ProgressDialog(UserRegistrationActivity.this, R.style.Progress);
-//            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
-//            progressDialog.setCancelable(false);
-//            progressDialog.setIndeterminate(true);
-//            progressDialog.setIndeterminateDrawable(this.getResources()
-//                    .getDrawable(R.drawable.progress));
-//            progressDialog.show();
-//            try {
-//
-//                OkHttpClient client = new OkHttpClient.Builder()
-//                        .sslSocketFactory(getSSLSocketFactory())
-//                        .hostnameVerifier(getHostnameVerifier())
-//                        .build();
-//                Gson gson = new GsonBuilder()
-//                        .setLenient()
-//                        .create();
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl(BASE_URL)
-//                        .addConverterFactory(ScalarsConverterFactory.create())
-//                        .addConverterFactory(GsonConverterFactory.create(gson))
-//                        .client(client)
-//                        .build();
-//                APIInterface apiService = retrofit.create(APIInterface.class);
-//                String reqmode = IScoreApplication.encryptStart("21");
-//                final JSONObject requestObject1 = new JSONObject();
-//                try {
-//
-//                    String iemi =   IScoreApplication.getIEMI();
-//                    Log.e("imei","         15381     "+iemi);
-//
-//                    requestObject1.put("Mobno",IScoreApplication.encryptStart(mobileNumber));
-//                    requestObject1.put("Pin",IScoreApplication.encryptStart("0000"));
-//                    requestObject1.put("IMEI",IScoreApplication.encryptStart(iemi));
-//
-//
-//                    Log.e(TAG,"requestObject1     790   "+requestObject1);
-//
-//
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    progressDialog.dismiss();
-//                    Log.e(TAG,"Exception     790   "+e.toString());
-//
-//                }
-//                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-//                Call<String> call = apiService.getPassBookAuthenticateNew(body);
-//                call.enqueue(new Callback<String>() {
-//
-//                    @Override
-//                    public void onResponse(Call<String> call, Response<String> response) {
-//
-//                        Log.e(TAG,"KSEBPaymentRequest  7901   "+response.body());
-//                        try{
-//                            progressDialog.dismiss();
-//
-//                            Log.e(TAG," KSEBPaymentRequest    7902       "+response.body());
-//                            JSONObject jsonObj = new JSONObject(response.body());
-//                            if(jsonObj.getString("StatusCode").equals("0")) {
-//
-////                                alertMessage2("",jsonObj.getString("EXMessage"));
-//
-//                            }
-//                            else {
-//
-//                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-//                                builder.setMessage(jsonObj.getString("EXMessage"))
-////                                builder.setMessage("No data found.")
-//                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                dialog.dismiss();
-//
-//                                            }
-//                                        });
-//                                android.app.AlertDialog alert = builder.create();
-//                                alert.show();
-//                            }
-//
-//                        }
-//                        catch (Exception e)
-//                        {
-//                            Log.e(TAG,"Exception     7901   "+e.toString());
-//                            progressDialog.dismiss();
-//                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-//                            builder.setMessage(e.toString())
-////                                builder.setMessage("No data found.")
-//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            dialog.dismiss();
-//
-//                                        }
-//                                    });
-//                            android.app.AlertDialog alert = builder.create();
-//                            alert.show();
-//
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<String> call, Throwable t) {
-//                        progressDialog.dismiss();
-//                        Log.e(TAG,"onFailure     7902   "+t.toString());
-//                        progressDialog.dismiss();
-//                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-//                        builder.setMessage(t.toString())
-////                                builder.setMessage("No data found.")
-//                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        dialog.dismiss();
-//
-//                                    }
-//                                });
-//                        android.app.AlertDialog alert = builder.create();
-//                        alert.show();
-//                    }
-//                });
-//
-//            }
-//            catch (Exception e)
-//            {
-//                Log.e(TAG,"Exception     7903   "+e.toString());
-//
-//                progressDialog.dismiss();
-//                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-//                builder.setMessage(e.toString())
-////                                builder.setMessage("No data found.")
-//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                dialog.dismiss();
-//
-//                            }
-//                        });
-//                android.app.AlertDialog alert = builder.create();
-//                alert.show();
-//            }
-//        }
-//        else {
-//            progressDialog.dismiss();
-//            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-//            builder.setMessage("Network error occured. Please try again later")
-//                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//
-//                        }
-//                    });
-//            android.app.AlertDialog alert = builder.create();
-//            alert.show();
-//
-//        }
-//    }
+    private void getLogin(String countryCode,String mobileNumber) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            progressDialog = new ProgressDialog(UserRegistrationActivity.this, R.style.Progress);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setIndeterminateDrawable(this.getResources()
+                    .getDrawable(R.drawable.progress));
+            progressDialog.show();
+            try {
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                String reqmode = IScoreApplication.encryptStart("21");
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    String iemi =   IScoreApplication.getIEMI();
+                    Log.e("imei","         15381     "+iemi);
+
+                    requestObject1.put("MobileNo",IScoreApplication.encryptStart(countryCode+mobileNumber));
+                    requestObject1.put("Pin",IScoreApplication.encryptStart("0000"));
+                    requestObject1.put("IMEI",IScoreApplication.encryptStart("123456789"));
+                    requestObject1.put("imei",IScoreApplication.encryptStart(iemi));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified",IScoreApplication.encryptStart("1"));
+
+
+                    Log.e(TAG,"requestObject1     506   "+requestObject1);
+
+//                    {"Mobno":"9745413880","Pin":"vHyQzFkgJvE%3D%0A","IMEI":"","imei":"1465619482e61710",
+//                            "BankKey":"d.22333","BankHeader":"prxuXYDph13cofyYPekZyk3XkN%2BX3E%2FObqX2qrdI%2BoU%3D%0A",
+//                            "BankVerified":"tF2uAVUMAxg%3D%0A"}
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                    Log.e(TAG,"Exception     5061   "+e.toString());
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getPassBookAuthenticateNew(body);
+                call.enqueue(new Callback<String>() {
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Log.e(TAG,"LOGIN  5062   "+response.body());
+                        try{
+                            progressDialog.dismiss();
+
+                            Log.e(TAG," LOGIN    5063       "+response.body());
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+
+//                                alertMessage2("",jsonObj.getString("EXMessage"));
+
+                                SharedPreferences countryCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
+                                SharedPreferences.Editor countryCodeEditer = countryCodeSP.edit();
+                                countryCodeEditer.putString("countryCode",  countryCode);
+                                countryCodeEditer.commit();
+
+                                SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                                SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+                                mobileNoEditer.putString("mobileNo",  mobileNumber);
+                                mobileNoEditer.commit();
+
+                                Intent passBookAccount =
+                                        new Intent(UserRegistrationActivity.this, RecieveAndValidateOTP.class);
+                                passBookAccount.putExtra("changePin", "false");
+                                startActivity(passBookAccount);
+
+                                finish();
+
+
+                            }
+                            else {
+                                deleteCustDetails();
+                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+                                builder.setMessage(jsonObj.getString("EXMessage"))
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+
+                                            }
+                                        });
+                                android.app.AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+
+
+
+                        }
+                        catch (Exception e)
+                        {
+                            deleteCustDetails();
+                            Log.e(TAG,"Exception     5064   "+e.toString());
+                            progressDialog.dismiss();
+                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+                            builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+
+                                        }
+                                    });
+                            android.app.AlertDialog alert = builder.create();
+                            alert.show();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Log.e(TAG,"onFailure     5065   "+t.toString());
+                        progressDialog.dismiss();
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+                        builder.setMessage(t.toString())
+//                                builder.setMessage("No data found.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                        android.app.AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                });
+
+            }
+            catch (Exception e)
+            {
+                deleteCustDetails();
+                Log.e(TAG,"Exception     5066   "+e.toString());
+
+                progressDialog.dismiss();
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+                builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                android.app.AlertDialog alert = builder.create();
+                alert.show();
+            }
+        }
+        else {
+            Log.e(TAG,"onFailure     5067   ");
+            progressDialog.dismiss();
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
+            builder.setMessage("Network error occured. Please try again later")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            android.app.AlertDialog alert = builder.create();
+            alert.show();
+
+        }
+    }
+
+    private void deleteCustDetails() {
+
+
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
+        customerIdEditer.putString("customerId",  "");
+        customerIdEditer.commit();
+
+        SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+        SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
+        customerNoEditer.putString("customerNo",  "");
+        customerNoEditer.commit();
+
+        SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+        SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
+        customerNameEditer.putString("customerName", "");
+        customerNameEditer.commit();
+
+        SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
+        SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
+        customerAddress1Editer.putString("customerAddress1", "");
+        customerAddress1Editer.commit();
+
+        SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
+        SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
+        customerAddress2Editer.putString("customerAddress2", "");
+        customerAddress2Editer.commit();
+
+        SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+        SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+        mobileNoEditer.putString("mobileNo",  "");
+        mobileNoEditer.commit();
+
+        SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+        SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+        BankVerifierEditer.putString("BankVerifier",  "");
+        BankVerifierEditer.commit();
+
+        SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+        SharedPreferences.Editor loginEditer = loginSP.edit();
+        loginEditer.putString("login", "");
+        loginEditer.commit();
+
+        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+        SharedPreferences.Editor tokenIdSPEditer = tokenIdSP.edit();
+        tokenIdSPEditer.putString("Token","");
+        tokenIdSPEditer.commit();
+
+
+
+        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+        SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+        pinIdSPEditer.putString("pinlog", "");
+        pinIdSPEditer.commit();
+
+    }
 
     private void analyzeResult( String result,String mobileNumber, String countryCode ){
         try {
@@ -772,14 +860,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+
     public static String getBankkey() {
         try {
             return bank_Key;
-        }catch (Exception e){ return IScoreApplication.EXCEPTION_NOIEMI;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
         }
     }
 
-   public static String getBankheader() {
+    public static String getBankheader() {
         try {
             return bank_Header;
         }catch (Exception e){
@@ -790,16 +880,16 @@ public class UserRegistrationActivity extends AppCompatActivity {
     public static String getHostnameSubject() {
         try {
             return host_nameCommon;
-       }catch (Exception e){
+        }catch (Exception e){
             return IScoreApplication.EXCEPTION_NOIEMI;
         }
-   }
+    }
 
     public static String getCertificateAssetName() {
         try {
             return asset_namecommon;
         }catch (Exception e){
-           return IScoreApplication.EXCEPTION_NOIEMI;
+            return IScoreApplication.EXCEPTION_NOIEMI;
         }
     }
 

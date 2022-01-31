@@ -42,7 +42,7 @@ public class Config {
     public static final String SHARED_PREF31 = "mobileNo";
     public static final String SHARED_PREF32 = "BankVerifier";
     public static final String SHARED_PREF33 = "login";
-   // public static final String SHARED_PREF34 = "TokenNo";
+    public static final String SHARED_PREF34 = "countryCode";
     public static final String SHARED_PREF35 = "Token";
     public static final String SHARED_PREF36 = "pinlog";
 

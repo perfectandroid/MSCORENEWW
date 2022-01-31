@@ -7,15 +7,19 @@
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/res" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/AndroidManifest.xml" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/res" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/jars/classes.jar!/" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/63d5fc0051e60c8ca4f3028cbc538094/vectordrawable-1.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.1.0/1e0694477eed874c50c54b547cc3e5a62a57a62b/vectordrawable-1.1.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

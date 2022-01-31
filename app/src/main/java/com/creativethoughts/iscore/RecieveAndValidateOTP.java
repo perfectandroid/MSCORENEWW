@@ -92,8 +92,8 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 //            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
 
-        //    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-      //      String BASE_URL=pref.getString("baseurl", null);
+//            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//            String BASE_URL=pref.getString("baseurl", null);
 
             SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
@@ -101,8 +101,15 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 
             if (NetworkUtil.isOnline()) {
 
-                UserCredential userCredential =
-                        UserCredentialDAO.getInstance().getLoginCredential();
+//                UserCredential userCredential =
+//                        UserCredentialDAO.getInstance().getLoginCredential();
+
+                SharedPreferences countryCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
+                String countryCode = countryCodeSP.getString("countryCode","");
+                SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                String mobileNumber = mobileNoSP.getString("mobileNo","");
+
+
                 try{
                     mSweetAlertDialog = new SweetAlertDialog( RecieveAndValidateOTP.this, SweetAlertDialog.PROGRESS_TYPE );
                     mSweetAlertDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -112,22 +119,15 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                     String otp = mEtVerificationCode.getText().toString();
                     final String url =
                             BASE_URL + "/VerifyOTP?" +
-                                    "Mobno=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(userCredential.countryCode +
-                                    userCredential.mobileNumber ))+
+                                    "Mobno=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(countryCode +
+                                    mobileNumber ))+
                                     "&OTP=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart( otp )) +
                                     "&NoOfDays=" +IScoreApplication.encodedUrl(IScoreApplication.encryptStart("30"));
+
                     Log.e("TAG","url  109    "+url);
-                    Log.e("TAG","mobileNumber  109    "+IScoreApplication.encryptStart(userCredential.countryCode + userCredential.mobileNumber ));
+                    Log.e("TAG","mobileNumber  109    "+IScoreApplication.encryptStart(countryCode + mobileNumber ));
                     Log.e("TAG","otp  109    "+IScoreApplication.encryptStart( otp ));
                     Log.e("TAG","url  109    "+IScoreApplication.encryptStart("30"));
-
-                    final String url11 =
-                            BASE_URL + "/VerifyOTP?" +
-                                    "Mobno=" + IScoreApplication.encryptStart(userCredential.countryCode + userCredential.mobileNumber )+
-                                    "&OTP=" +  IScoreApplication.encryptStart( otp ) +
-                                    "&NoOfDays=" +IScoreApplication.encryptStart("30");
-
-                    Log.e("TAG","url11  10911    "+url11);
 
                     NetworkManager.getInstance().connector(url, new ResponseManager() {
                         @Override
