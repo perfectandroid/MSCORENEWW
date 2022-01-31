@@ -1,20 +1,25 @@
 <component name="libraryTable">
   <library name="Gradle: me.relex:circleindicator:1.2.2@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/res" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/res" />
+      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/res" />
+      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/aa9a2ed60cc35d7989a1b71b15062883/jetified-circleindicator-1.2.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/77f1d282daaf9190a15b8462d9312ad0/jetified-circleindicator-1.2.2/res" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/596d5dd4277d69430c4fbb48752d93b9/jetified-circleindicator-1.2.2/jars/classes.jar!/" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/596d5dd4277d69430c4fbb48752d93b9/jetified-circleindicator-1.2.2/AndroidManifest.xml" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/596d5dd4277d69430c4fbb48752d93b9/jetified-circleindicator-1.2.2/res" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/5ac222ac0e9b3d4488b1ad300c23e2271e8a5e0d/circleindicator-1.2.2-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/5ac222ac0e9b3d4488b1ad300c23e2271e8a5e0d/circleindicator-1.2.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/5ac222ac0e9b3d4488b1ad300c23e2271e8a5e0d/circleindicator-1.2.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/5ac222ac0e9b3d4488b1ad300c23e2271e8a5e0d/circleindicator-1.2.2-javadoc.jar!/" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/5ac222ac0e9b3d4488b1ad300c23e2271e8a5e0d/circleindicator-1.2.2-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/739ce17f5368373ddbce9d5ec0fd3aa82eecf4b/circleindicator-1.2.2-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/739ce17f5368373ddbce9d5ec0fd3aa82eecf4b/circleindicator-1.2.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/739ce17f5368373ddbce9d5ec0fd3aa82eecf4b/circleindicator-1.2.2-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/739ce17f5368373ddbce9d5ec0fd3aa82eecf4b/circleindicator-1.2.2-sources.jar!/" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/me.relex/circleindicator/1.2.2/739ce17f5368373ddbce9d5ec0fd3aa82eecf4b/circleindicator-1.2.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

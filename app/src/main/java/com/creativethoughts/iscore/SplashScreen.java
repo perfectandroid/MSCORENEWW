@@ -433,6 +433,9 @@ public class SplashScreen extends AppCompatActivity {
                             JSONObject jObject = new JSONObject(response.body());
                             String statuscode = jObject.getString("StatusCode");
 
+                            SharedPreferences versnSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0);
+                            SharedPreferences.Editor versnEditer = versnSP.edit();
+
                             if(statuscode.equals("0")){
 
                                 JSONObject jobjt = jObject.getJSONObject("ResellerDetails");
@@ -513,6 +516,10 @@ public class SplashScreen extends AppCompatActivity {
 
                                 if(strloginmobile == null || strloginmobile.isEmpty()) {
 
+                                    versnEditer.putString("version", "false");
+                                    versnEditer.commit();
+                                    Log.i("empty","FALSE");
+
                                     SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                                     SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
                                     baseurlEditer.putString("baseurl", BASE_URL + "/");
@@ -553,6 +560,10 @@ public class SplashScreen extends AppCompatActivity {
                                         if (jobjt.getString("TestingURL").isEmpty() && jobjt.getString("TestingImageURL").isEmpty()
                                                 && jobjt.getString("BankKey").isEmpty() && jobjt.getString("BankHeader").isEmpty()) {
 
+                                            versnEditer.putString("version", "false");
+                                            versnEditer.commit();
+                                            Log.i("empty1","FALSE");
+
                                             SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                                             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
                                             baseurlEditer.putString("baseurl", BASE_URL + "/");
@@ -591,6 +602,10 @@ public class SplashScreen extends AppCompatActivity {
                                         }
                                         else {
 
+                                            Log.i("empty2","TRUE");
+                                            versnEditer.putString("version", "true");
+                                            versnEditer.commit();
+
                                             SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                                             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
                                             baseurlEditer.putString("baseurl", jobjt.getString("TestingURL") + "/");
@@ -628,6 +643,12 @@ public class SplashScreen extends AppCompatActivity {
                                         }
                                     }
                                     else {
+
+                                        Log.i("empty","FALSE");
+
+                                        versnEditer.putString("version", "false");
+                                        versnEditer.commit();
+
 
                                         SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                                         SharedPreferences.Editor baseurlEditer = baseurlSP.edit();

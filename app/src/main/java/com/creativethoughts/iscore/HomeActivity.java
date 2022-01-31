@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -78,8 +79,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        version = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0).getString("version", null);
-        Log.i("Version1",version);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
@@ -288,6 +287,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 }
             });
             tv_share.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("NewApi")
                 @Override
                 public void onClick(View view) {
 
@@ -319,40 +319,82 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     }
 
     private void versionCheck(){
-        if (NetworkUtil.isOnline()) {
-            int versionNumber = getCurrentVersionNumber(HomeActivity.this);
+        SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
+        String strloginmobile=pref1.getString("LoginMobileNo", null);
+
+        SharedPreferences TestMobileNoSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF15, 0);
+        String strTestmobile=TestMobileNoSP.getString("TestingMobileNo", null);
+
+        if(strloginmobile == null || strloginmobile.isEmpty()) {
+            SharedPreferences versnSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0);
+            SharedPreferences.Editor versnEditer = versnSP.edit();
+            versnEditer.putString("version", "false");
+            versnEditer.commit();
+        }
+        else {
+            if (strTestmobile.equals(strloginmobile)) {
+                SharedPreferences versnSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0);
+                SharedPreferences.Editor versnEditer = versnSP.edit();
+                versnEditer.putString("version", "true");
+                versnEditer.commit();
+            }
+            else if (!strTestmobile.equals(strloginmobile)) {
+                SharedPreferences versnSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0);
+                SharedPreferences.Editor versnEditer = versnSP.edit();
+                versnEditer.putString("version", "false");
+                versnEditer.commit();
+            }
+        }
+
+        version = getApplicationContext().getSharedPreferences(Config.SHARED_PREF25, 0).getString("version", null);
+
+        Log.i("Boolean", version);
+        if(version.equals("true"))
+        {
+
+        }
+        else  if(version.equals("false")) {
+
+
+            if (NetworkUtil.isOnline()) {
+                int versionNumber = getCurrentVersionNumber(HomeActivity.this);
 //            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
-            SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-            String BASE_URL=pref.getString("baseurl", null);
-            String url;
-            try{
-                url = BASE_URL +
-                        "/Checkstatus?versionNo="+
-                        IScoreApplication.encodedUrl(IScoreApplication.encryptStart(version +""));
-            }catch ( Exception e ){
-                url = "";
-            }
-            NetworkManager.getInstance().connector(url, new ResponseManager() {
-                @Override
-                public void onSuccess(String result) {
-                    result = result.trim();
-                    try{
-                        int res = Integer.parseInt( result );
-                        Log.e("TAG","res   332   "+res);
-                        if ( res == 10 )
-                            goToPlayStore();
-                    }catch ( Exception e ){
-                        //Do nothing
+             /*   SharedPreferences pref = getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL = pref.getString("baseurl", null);*/
+
+                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+
+                String url;
+                try {
+                    url = BASE_URL +
+                            "/Checkstatus?versionNo=" +
+                            IScoreApplication.encodedUrl(IScoreApplication.encryptStart(versionNumber + ""));
+                } catch (Exception e) {
+                    url = "";
+                }
+                NetworkManager.getInstance().connector(url, new ResponseManager() {
+                    @Override
+                    public void onSuccess(String result) {
+                        result = result.trim();
+                        try {
+                            int res = Integer.parseInt(result);
+                            Log.e("TAG", "res   332   " + res);
+                            if (res == 10)
+                                goToPlayStore();
+                        } catch (Exception e) {
+                            //Do nothing
+                        }
+
                     }
 
-                }
-
-                @Override
-                public void onError(String error) {
-                    //Do nothing
-                }
-            }, null,   null);
+                    @Override
+                    public void onError(String error) {
+                        //Do nothing
+                    }
+                }, null, null);
+            }
         }
     }
 
@@ -398,37 +440,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     }
 
 
-//    public static String getBankkey() {
-//        try {
-//            return bank_Key;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getBankheader() {
-//        try {
-//            return bank_Header;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getHostnameSubject() {
-//        try {
-//            return host_nameCommon;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getCertificateAssetName() {
-//        try {
-//            return asset_namecommon;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
+    public static String getBankkey() {
+        try {
+            return bank_Key; }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getBankheader() {
+       try {
+            return bank_Header;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getHostnameSubject() {
+        try {
+            return host_nameCommon;
+       }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI; }
+   }
+
+    public static String getCertificateAssetName() {
+       try {
+            return asset_namecommon;
+       }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+   }
 
 
 }

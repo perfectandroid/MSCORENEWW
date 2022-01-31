@@ -92,11 +92,11 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 //            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
 
-            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-            String BASE_URL=pref.getString("baseurl", null);
+        //    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+      //      String BASE_URL=pref.getString("baseurl", null);
 
-//            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-//            String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+            String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
 
             if (NetworkUtil.isOnline()) {

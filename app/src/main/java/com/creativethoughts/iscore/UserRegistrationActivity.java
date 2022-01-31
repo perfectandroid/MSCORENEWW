@@ -384,11 +384,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if (NetworkUtil.isOnline()) {
 
 
-//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-//                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
-
                     SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                    BASE_URL=pref.getString("baseurl", null);
+                   BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+
+                  /*  SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                    BASE_URL=pref.getString("baseurl", null);*/
 
 //                    bank_Key = "LL.136";
 //                    bank_Header ="Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
@@ -772,38 +772,36 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
+    public static String getBankkey() {
+        try {
+            return bank_Key;
+        }catch (Exception e){ return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
 
-//    public static String getBankkey() {
-//        try {
-//            return bank_Key;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getBankheader() {
-//        try {
-//            return bank_Header;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getHostnameSubject() {
-//        try {
-//            return host_nameCommon;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
-//
-//    public static String getCertificateAssetName() {
-//        try {
-//            return asset_namecommon;
-//        }catch (Exception e){
-//            return IScoreApplication.EXCEPTION_NOIEMI;
-//        }
-//    }
+   public static String getBankheader() {
+        try {
+            return bank_Header;
+        }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
+
+    public static String getHostnameSubject() {
+        try {
+            return host_nameCommon;
+       }catch (Exception e){
+            return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+   }
+
+    public static String getCertificateAssetName() {
+        try {
+            return asset_namecommon;
+        }catch (Exception e){
+           return IScoreApplication.EXCEPTION_NOIEMI;
+        }
+    }
 
 
     private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,

@@ -1,17 +1,21 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/res" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/res" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/f1044d2d3c90ca41ecddd468e4b5b0aa/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
+      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/010b8d911efe43de0aba5cea16f1aebf/legacy-support-core-ui-1.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.legacy/legacy-support-core-ui/1.0.0/f6044eaebe354c778f1f147ddb9e92a3f1e22fc7/legacy-support-core-ui-1.0.0-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/androidx.legacy/legacy-support-core-ui/1.0.0/f6044eaebe354c778f1f147ddb9e92a3f1e22fc7/legacy-support-core-ui-1.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.legacy/legacy-support-core-ui/1.0.0/f6044eaebe354c778f1f147ddb9e92a3f1e22fc7/legacy-support-core-ui-1.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/androidx.legacy/legacy-support-core-ui/1.0.0/f6044eaebe354c778f1f147ddb9e92a3f1e22fc7/legacy-support-core-ui-1.0.0-sources.jar!/" />
+      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.legacy/legacy-support-core-ui/1.0.0/f6044eaebe354c778f1f147ddb9e92a3f1e22fc7/legacy-support-core-ui-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
