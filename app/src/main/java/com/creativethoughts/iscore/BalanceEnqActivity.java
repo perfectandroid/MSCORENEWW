@@ -74,6 +74,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class BalanceEnqActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
+    public String TAG = "BalanceEnqActivity";
     Spinner spnAccountNum;
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist;
@@ -97,23 +98,25 @@ public class BalanceEnqActivity extends AppCompatActivity implements Spinner.OnI
 
         accountlist = new ArrayList<String>();
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
+//            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
+//
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(settingsModel.lastSyncTime);
+//
+//        }
+//        else {
+//        }
 
-        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
-            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(settingsModel.lastSyncTime);
-
-        }
-        else {
-        }
-
-
-        if (settingsModel == null || settingsModel.days <= 0) {
+        SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
+        String days = SelectedDaysSP.getString("SelectedDays",null);
+//        if (settingsModel == null || settingsModel.days <= 0) {
+        if (days == null || Integer.parseInt(days) <= 0) {
             noofdays = 30;
         } else {
-            noofdays = settingsModel.days;
+            noofdays = Integer.parseInt(days);
         }
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -241,19 +244,24 @@ public class BalanceEnqActivity extends AppCompatActivity implements Spinner.OnI
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("27"));
-                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
+
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("27"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1   264  "+requestObject1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -264,6 +272,7 @@ public class BalanceEnqActivity extends AppCompatActivity implements Spinner.OnI
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
                             JSONObject jsonObj = new JSONObject(response.body());
+                            Log.e(TAG,"response   2642  "+response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("PassBookAccountDetails");
@@ -286,8 +295,11 @@ public class BalanceEnqActivity extends AppCompatActivity implements Spinner.OnI
                                 spnAccountNum.setAdapter(new ArrayAdapter<String>(BalanceEnqActivity.this, android.R.layout.simple_spinner_dropdown_item, accountlist));
 
 
-                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                spnAccountNum.setSelection(getIndex(spnAccountNum, settingsModel.customerId));
+//                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//                                spnAccountNum.setSelection(getIndex(spnAccountNum, settingsModel.customerId));
+
+//                                SharedPreferences SelectedAccountSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF40, 0);
+//                                spnAccountNum.setSelection(getIndex(spnAccountNum, SelectedAccountSP.getString("SelectedAccount","")));
 
 
                             }

@@ -164,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 fragment = ChangePinFragment.newInstance();
                 break;
             case 9:
-               // fragment = SettingsFragment.newInstance();
+//                fragment = SettingsFragment.newInstance();
 
                 Intent setIntent=new Intent(this,SettingsActivity.class);
                 startActivity(setIntent);

@@ -2,7 +2,6 @@ package com.creativethoughts.iscore;
 
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,15 +42,7 @@ import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.Account;
 import com.creativethoughts.iscore.money_transfer.FundTransferActivity;
 import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
@@ -59,7 +50,6 @@ import com.creativethoughts.iscore.neftrtgs.OtherBankFundTransferServiceChooserF
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
-import com.creativethoughts.iscore.utility.SyncAll;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -103,6 +93,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 
+    public String TAG ="FragmentMenuCard";
     LinearLayout llnotification,llrecharge,llfundtransfer;
     private static boolean isFirstLaunch = true;
     String AccountNumber, maskAccountNumber;
@@ -223,13 +214,28 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             }
         });
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        cusno = userDetails.userCustomerNo;
-        tvName.setText(userDetails.userCustomerName);
+//        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//        cusid = userDetails.customerId;
+//        cusno = userDetails.userCustomerNo;
+//        tvName.setText(userDetails.userCustomerName);
+//        tvCustId.setText("( Customer Id : " + cusno + " )");
+//        tvAddress.setText(userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2);
+//        tvPhone.setText(userDetails.userMobileNo);
+
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        SharedPreferences customerAddress2SP = getActivity().getSharedPreferences(Config.SHARED_PREF30, 0);
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        cusid = customerIdSP.getString("customerId","");
+        cusno = customerNoSP.getString("customerNo","");
+        tvName.setText(customerNameSP.getString("customerName",""));
         tvCustId.setText("( Customer Id : " + cusno + " )");
-        tvAddress.setText(userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2);
-        tvPhone.setText(userDetails.userMobileNo);
+        tvAddress.setText(customerAddress1SP.getString("customerAddress1","")+","+customerAddress2SP.getString("customerAddress2",""));
+        tvPhone.setText(mobileNoSP.getString("mobileNo",""));
+
+
         SharedPreferences pref = getContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         tvLoginDate.setText("Last Login : "+pref.getString("logintime", null));
         imgv_customerimg = (ImageView) view.findViewById(R.id.imgv_customerimg);
@@ -384,39 +390,38 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 
             }
         });
-//
-//        try {
-//            dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
-//            if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") &&  IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0")){
-//                tvRecharge.setText("Profile");
-//                imRecharge.setImageResource(R.drawable.usersprofile);
-//            }
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
         activeProgressDialog();
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-        String acChange = settingsModel.customerId;
-        if (settingsModel != null && acChange.length()!=12){
+//        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//        String acChange = settingsModel.customerId;
+
+        SharedPreferences SelectedAccountSP = getActivity().getSharedPreferences(Config.SHARED_PREF40, 0);
+        String acChange = SelectedAccountSP.getString("SelectedAccount",null);
+
+
+        Log.e(TAG,"settingsModel  402   "+acChange+"   "+acChange);
+//        if (settingsModel != null && acChange.length()!=12){
+        if (acChange != null && acChange.length()!=12){
 //            List<String> accountNos = PBAccountInfoDAO.getInstance().getAccountNos();
 //            String account = accountNos.get(0);
 
-            acChange = acChange.replace(acChange.substring(acChange.indexOf(" (")+1, acChange.indexOf(")")+1), "");
-            acChange = acChange.replace(" ","");
-            AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acChange);
+//            acChange = acChange.replace(acChange.substring(acChange.indexOf(" (")+1, acChange.indexOf(")")+1), "");
+//            acChange = acChange.replace(" ","");
 
-            Balance = accountInfo.availableBal;
-            String availableBal = accountInfo.availableBal;
+//            AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acChange);
+//            Balance = accountInfo.availableBal;
+//            String availableBal = accountInfo.availableBal;
 
 
-            AccountNumber =settingsModel.customerId;
-            maskAccountNumber = settingsModel.customerId.replaceAll("\\w(?=\\w{4})", "*");
+          //  AccountNumber =settingsModel.customerId;
+            AccountNumber =SelectedAccountSP.getString("SelectedAccount",null);
+            maskAccountNumber =SelectedAccountSP.getString("SelectedAccount",null).replaceAll("\\w(?=\\w{4})", "*");
 
             tv_vwBalance.setText("View Balance");
             llacc_details.setVisibility(View.VISIBLE);
 
             tv_acc.setText(maskAccountNumber);
+            showDepositList("1");
 
         }
         else {
@@ -452,11 +457,19 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    cusid = userDetails.customerId;
+
+
+                    SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid = customerIdSP.getString("customerId","");
                     String types = loantype;
+
+                    SharedPreferences bankkeypref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
 
                     requestObject1.put("ReqMode",reqmode);
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
@@ -464,12 +477,11 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
                     requestObject1.put("LoanType",IScoreApplication.encryptStart(types));
                     // requestObject1.put("IsShareAc", IScoreApplication.encryptStart("0"));
-                    SharedPreferences bankkeypref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-                    String BankKey=bankkeypref.getString("bankkey", null);
-                    SharedPreferences bankheaderpref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1  474   "+requestObject1);
 
 
                 } catch (Exception e) {
@@ -484,50 +496,64 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                     public void onResponse(Call<String> call, Response<String> response) {
                         try{
                             JSONObject jsonObj = new JSONObject(response.body());
+                            Log.e(TAG,"response  4742   "+response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("CustomerLoanAndDepositDetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                 JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
+
                                 if(Jarray.length()!=0) {
-                                    JSONObject jsonobject= (JSONObject) Jarray.get(0);
-                                     AccountNumber =jsonobject.optString("AccountNumber");
-                                     maskAccountNumber = jsonobject.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
+                                    for (int i=0;i<Jarray.length();i++){
+                                        JSONObject jsonobject= (JSONObject) Jarray.get(i);
+                                        SharedPreferences SelectedAccountSP = getActivity().getSharedPreferences(Config.SHARED_PREF40, 0);
+                                        String acChange = SelectedAccountSP.getString("SelectedAccount",null);
 
-                                    Balance =jsonobject.optString("Balance");
+                                        if (acChange == null){
+
+                                            JSONObject jsonobject1= (JSONObject) Jarray.get(0);
+                                            AccountNumber =jsonobject1.optString("AccountNumber");
+                                            maskAccountNumber = jsonobject1.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
+
+                                            Balance =jsonobject1.optString("Balance");
 //                                    tvAccno.setText("Acc No : "+ AccountNumber);
-                                    tv_vwBalance.setText("View Balance");
-                                    llacc_details.setVisibility(View.VISIBLE);
+                                            tv_vwBalance.setText("View Balance");
+                                            llacc_details.setVisibility(View.VISIBLE);
 
-                                    tv_acc.setText(maskAccountNumber);
-                                    AccountDetails = new ArrayList<>();
-                                    for (int k = 0; k < Jarray.length(); k++) {
-                                        JSONObject kjsonObject = Jarray.getJSONObject(k);
-                                        String mask = kjsonObject.getString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
+                                            tv_acc.setText(maskAccountNumber);
+                                            AccountDetails = new ArrayList<>();
+                                            for (int k = 0; k < Jarray.length(); k++) {
+                                                JSONObject kjsonObject = Jarray.getJSONObject(k);
+                                                String mask = kjsonObject.getString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
 
 //                                        AccountDetails.add(new Account(mask, kjsonObject.getString("Balance")));
-                                        AccountDetails.add(new Account(kjsonObject.getString("AccountNumber"), kjsonObject.getString("Balance")));
+                                                AccountDetails.add(new Account(kjsonObject.getString("AccountNumber"), kjsonObject.getString("Balance")));
 
+                                            }
+                                        }
+                                        else  if (acChange.equals(jsonobject.optString("AccountNumber"))){
+                                            AccountNumber =jsonobject.optString("AccountNumber");
+                                            maskAccountNumber = jsonobject.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
+
+                                            Balance =jsonobject.optString("Balance");
+//                                    tvAccno.setText("Acc No : "+ AccountNumber);
+                                            tv_vwBalance.setText("View Balance");
+                                            llacc_details.setVisibility(View.VISIBLE);
+
+                                            tv_acc.setText(maskAccountNumber);
+                                            AccountDetails = new ArrayList<>();
+                                            for (int k = 0; k < Jarray.length(); k++) {
+                                                JSONObject kjsonObject = Jarray.getJSONObject(k);
+                                                String mask = kjsonObject.getString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
+
+//                                        AccountDetails.add(new Account(mask, kjsonObject.getString("Balance")));
+                                                AccountDetails.add(new Account(kjsonObject.getString("AccountNumber"), kjsonObject.getString("Balance")));
+
+                                            }
+                                        }
                                     }
 
 
-//                                    AccountAdapter = new ArrayAdapter<Account>(getContext(),  R.layout.spinner_text_color, AccountDetails);
-//                                    AccountAdapter.setDropDownViewResource( android.R.layout.select_dialog_item);
-//                                    AccSpinner.setAdapter(AccountAdapter);
-//                                    AccSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                        @Override
-//                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                                            Balance = AccountAdapter.getItem(position).getAcc_amount();
-//
-//                                            tv_hdBalance.setVisibility(View.GONE);
-//                                            tv_vwBalance.setText("View Balance");
-//                                        }
-//
-//                                        @Override
-//                                        public void onNothingSelected(AdapterView<?> parent) {
-//                                            //Do nothing
-//                                        }
-//                                    });
+
                                 }
                                 else {
                                     llacc_details.setVisibility(View.GONE);
