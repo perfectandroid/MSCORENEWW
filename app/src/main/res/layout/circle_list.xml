@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/DarkGray">
+            android:background="@color/listcolor">
 
             <ImageView
                 android:id="@+id/img_circle"

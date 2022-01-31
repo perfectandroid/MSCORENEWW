@@ -448,8 +448,11 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
          SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm a");
          String formattedDate = df.format(date);
 
-        UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
-        String strMobileNo =userCredential.mobileNumber;
+//        UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
+//        String strMobileNo =userCredential.mobileNumber;
+
+        SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+        String strMobileNo =mobileNoSP.getString("mobileNo","");
 
         SharedPreferences TestingMobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
         SharedPreferences.Editor TestingMobileNoEditer = TestingMobileNoSP.edit();

@@ -1297,7 +1297,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 //                ID_RechargeCircle = jsonObject.getString("ID_RechargeCircle");
                 BranchName = jsonObject.getString("BranchName");
                 typeShort = jsonObject.getString("typeShort");
-                SubModule = jsonObject.getString("SubModule");
+               // SubModule = jsonObject.getString("SubModule");
+                SubModule = jsonObject.getString("typeShort");
 
                 tv_accountno.setText(""+jsonObject.getString("AccountNumber"));
             }catch (Exception e){
@@ -1885,7 +1886,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
 
                     Log.e(TAG,"Prepaid requestObject1     18711   "+requestObject1);
-                    Log.e(TAG,"Prepaid mAmount     18712   "+mAmount+"   "+AccountNumber);
+                    Log.e(TAG,"Prepaid mAmount     18712   "+mAmount+"   "+AccountNumber+"  "+SubModule);
 
 
 

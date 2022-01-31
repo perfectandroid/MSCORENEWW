@@ -46,5 +46,11 @@ public class Config {
     public static final String SHARED_PREF35 = "Token";
     public static final String SHARED_PREF36 = "pinlog";
 
+    public static final String SHARED_PREF37 = "SelectedDays";
+    public static final String SHARED_PREF38 = "SelectedHours";
+    public static final String SHARED_PREF39 = "SelectedMinute";
+    public static final String SHARED_PREF40 = "SelectedAccount";
+    public static final String SHARED_PREF41 = "syncintervaltimems";
+
 
 }

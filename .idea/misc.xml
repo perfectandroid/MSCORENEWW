@@ -29,16 +29,21 @@
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/fragment_recharge.xml" value="0.3123076923076923" />
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/other_acc_fund_transferfragment.xml" value="0.303125" />
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/quick_pay_success_popup.xml" value="0.3171875" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable-xxhdpi/arrow_down.xml" value="0.3067708333333333" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/arrow_down.xml" value="0.3067708333333333" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/acclist.xml" value="0.3416666666666667" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_balance_enq.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_home.xml" value="0.2994791666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_kseb.xml" value="0.33" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_kseb_section_selection.xml" value="0.3098958333333333" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_loanslab.xml" value="0.26927083333333335" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_ministatement.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_neft_rtgs_otp.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_otherfund.xml" value="0.271875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_pin_login.xml" value="0.25833333333333336" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_reacharge.xml" value="0.2994791666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_register_user.xml" value="0.3229166666666667" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_settings.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_splash_screen.xml" value="0.3229166666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_splitlist.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_statement_download_view.xml" value="0.303125" />
@@ -56,6 +61,7 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_message_alert_new2.xml" value="0.32760416666666664" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_neft_rtgs.xml" value="0.271875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_recharge.xml" value="0.20520833333333333" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_settings.xml" value="0.20925925925925926" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/list_content_spin.xml" value="0.303125" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/logout_popup.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/moneytransfer_popup.xml" value="0.2994791666666667" />
