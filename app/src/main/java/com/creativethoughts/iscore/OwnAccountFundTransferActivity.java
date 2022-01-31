@@ -8,16 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -39,22 +36,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.custom_alert_dialogs.SuccessAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -65,7 +51,6 @@ import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
-import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.NumberToWord;
 import com.creativethoughts.iscore.utility.network.NetworkManager;
@@ -73,7 +58,7 @@ import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-
+import com.creativethoughts.iscore.model.FundTransferResult1;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +77,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -109,7 +93,13 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -144,6 +134,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     ListView list_view;
     TextView tv_popuptitle,txt_amtinword;
     private ArrayList<BarcodeAgainstCustomerAccountList> CustomerList = new ArrayList<>();
+    private ArrayList<FundTransferResult1> fundtransfrlist = new ArrayList<FundTransferResult1>();
     TextView tv_dueamount,tv_availbal,tv_balance,tv_account_no;
     private RecyclerView mRecyclerView;
     private static final String KEY_VALUE = "keyvalue";
@@ -161,6 +152,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     LinearLayout ll_remittance,ll_needTochange, ll_needToPayAdvance;
     TextView tvAdvance,tvInstallment,tv_branch_name,tv_as_on_date;
     String reference;
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -283,9 +275,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         cusid = userDetails.customerId;
         try {
-            Log.e(TAG,"token   251   "+IScoreApplication.encryptStart(token));
-            Log.e(TAG,"token   252   "+IScoreApplication.encryptStart(cusid));
-            Log.e(TAG,"token   253   "+IScoreApplication.encryptStart("13"));
+            Log.e(TAG,"token   251   "+ IScoreApplication.encryptStart(token));
+            Log.e(TAG,"token   252   "+ IScoreApplication.encryptStart(cusid));
+            Log.e(TAG,"token   253   "+ IScoreApplication.encryptStart("13"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -369,7 +361,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         }
 
                         double num =Double.parseDouble(""+originalString);
-                        button.setText( "PAY  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+                        button.setText( "PAY  "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num));
                     }
                     else{
                         button.setText( "PAY");
@@ -478,18 +470,18 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("25") );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("SubModule",IScoreApplication.encryptStart(ToSubModule) );
-                    requestObject1.put("IsAdvance",IScoreApplication.encryptStart(IsAdvance) );
-                    requestObject1.put("FK_Account",IScoreApplication.encryptStart(ToFK_Account));
-                    requestObject1.put("InstalmentCount",IScoreApplication.encryptStart(remittanance));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("25") );
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("SubModule", IScoreApplication.encryptStart(ToSubModule) );
+                    requestObject1.put("IsAdvance", IScoreApplication.encryptStart(IsAdvance) );
+                    requestObject1.put("FK_Account", IScoreApplication.encryptStart(ToFK_Account));
+                    requestObject1.put("InstalmentCount", IScoreApplication.encryptStart(remittanance));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -590,16 +582,16 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     String cusid = userDetails.customerId;
 
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("13"));
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("2"));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("13"));
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("SubMode", IScoreApplication.encryptStart("2"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -633,7 +625,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                         AccountDetails.add(new ToAccountDetails( kjsonObject.getString("FK_Account"), kjsonObject.getString("AccountNumber"), kjsonObject.getString("SubModule"), kjsonObject.getString("Balance"), kjsonObject.getString("typeShort"), kjsonObject.getString("BranchName")));
                                     }
 
-                                    AccountAdapter = new ArrayAdapter<>(OwnAccountFundTransferActivity.this,  R.layout.list_content_spin,R.id.textview, AccountDetails);
+                                    AccountAdapter = new ArrayAdapter<>(OwnAccountFundTransferActivity.this,  R.layout.list_content_spin, R.id.textview, AccountDetails);
 //                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
                                     mAccountPayingToSpinner.setAdapter(AccountAdapter);
 
@@ -1071,7 +1063,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                 String finalAmount = amount;
                                 butOk.setOnClickListener(v -> {
                                     alertDialog.dismiss();
-                                    //startTransfer( accountNumber, type, accNumber, finalAmount,remark);
+                                 //   startTransfer( accountNumber, type, accNumber, finalAmount,remark);
                                     startTransfer1( accountNumber, type, accNumber, finalAmount,remark);
                                 });
 
@@ -1179,24 +1171,25 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                  //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(accountNo));
-                    requestObject1.put("Module",IScoreApplication.encryptStart(accountType) );
-                    requestObject1.put("ReceiverModule",IScoreApplication.encryptStart(type));
-                    requestObject1.put("amount",IScoreApplication.encryptStart(amount.trim()));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNo));
+                    requestObject1.put("Module", IScoreApplication.encryptStart(accountType) );
+                    requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
+                    requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(receiverAccNo));
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amount.trim()));
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
 
-                    requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
-                    requestObject1.put("QRCode",IScoreApplication.encryptStart(mScannedValue));
-                    requestObject1.put("Remark",IScoreApplication.encryptStart(remark));
+                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
+                    requestObject1.put("QRCode", IScoreApplication.encryptStart(mScannedValue));
+                    requestObject1.put("Remark", IScoreApplication.encryptStart(remark));
 
                    // requestObject1.put("IMEI",IScoreApplication.encryptStart(ToFK_Account));
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
 
-                    requestObject1.put("token",IScoreApplication.encryptStart(tokn));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
 
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
@@ -1204,8 +1197,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                     Log.e("requestObject1   344   ",""+requestObject1);
 
@@ -1219,11 +1212,69 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                         try {
                             Log.e(TAG,"Response ownaccount   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
-                            if(jObject.getString("StatusCode").equals("0")){
-                               // JSONObject jobj = jObject.getJSONObject("BalanceSplitUpDetails");
+                            JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
+                            String responsemsg = j1.getString("ResponseMessage");
+                            String statusmsg = j1.getString("StatusMessage");
+                            int statusCode=j1.getInt("StatusCode");
+                            if(statusCode==1){
+                                String refid;
+                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+                                for(int i = 0; i < jArray3 .length(); i++) {
+                                    JSONObject object3 = jArray3.getJSONObject(i);
+
+                                    FundTransferResult1 fundTransferResult1 = new FundTransferResult1();
+
+
+                                    fundTransferResult1.refId =object3.getString("RefID");
+                                    fundTransferResult1.mobileNumber = object3.getString("MobileNumber");
+                                    fundTransferResult1.amount=object3.getString("Amount");
+                                    fundTransferResult1.accNo=object3.getString("AccNumber");
+                                    fundtransfrlist.add(fundTransferResult1);
+                                    
+                                }
+
+                                FundTransferResult1 fundTransferResult= new FundTransferResult1();
+
+
+                                ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+                                KeyValuePair keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("Ref. No");
+                                keyValuePair.setValue( fundTransferResult.getrefId() );
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("Amount");
+                                keyValuePair.setValue(fundTransferResult.getAmount());
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("From Acc.No");
+                                keyValuePair.setValue( tempFromAccNo );
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("To Acc.No");
+                                keyValuePair.setValue( tempToAccNo );
+                                keyValuePairs.add( keyValuePair );
+
+                                alertMessage("", keyValuePairs, statusmsg, true, false);
                               //  JSONArray jarray = jobj.getJSONArray( "Data");
 
                             }
+                            else if ( statusCode == 2 ){
+                                alertMessage1("" ,statusmsg );
+                            }
+                            else if ( statusCode == 3 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else if ( statusCode == 4 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else  if ( statusCode == 5 ){
+                                alertMessage1("", statusmsg);
+                            }
+
                             else{
 
 
@@ -1231,7 +1282,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                   /*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
                                     String ResponseMessage = jobj.getString("ResponseMessage");*/
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
-                                    builder.setMessage("ResponseMessage")
+                                    builder.setMessage(responsemsg)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -1243,7 +1294,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     alert.show();
 
                                 }catch (Exception e){
-                                    String EXMessage = jObject.getString("EXMessage");
+                                    String EXMessage = j1.getString("EXMessage");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
@@ -1362,16 +1413,16 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("SubModule",IScoreApplication.encryptStart(ToSubModule) );
-                    requestObject1.put("FK_Account",IScoreApplication.encryptStart(ToFK_Account));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("24") );
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("SubModule", IScoreApplication.encryptStart(ToSubModule) );
+                    requestObject1.put("FK_Account", IScoreApplication.encryptStart(ToFK_Account));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1623,18 +1674,18 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                 //String sourceAccount = mAccountSpinner.getSelectedItem().toString();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("10") );
-                    requestObject1.put("CustomerNoumber",IScoreApplication.encryptStart(value) );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("SubModule",IScoreApplication.encryptStart(type) );
-                    requestObject1.put("ModuleCode",IScoreApplication.encryptStart(submodule) );
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("10") );
+                    requestObject1.put("CustomerNoumber", IScoreApplication.encryptStart(value) );
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("SubModule", IScoreApplication.encryptStart(type) );
+                    requestObject1.put("ModuleCode", IScoreApplication.encryptStart(submodule) );
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                     Log.e(TAG,"requestObject1    761  "+requestObject1);
                 } catch (JSONException e) {
@@ -1653,7 +1704,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                 if(jarray.length()!=0){
                                     for (int k = 0; k < jarray.length(); k++) {
                                         JSONObject jsonObject = jarray.getJSONObject(k);
-                                        CustomerList.add(new BarcodeAgainstCustomerAccountList (jsonObject.getString("FK_Customer"),jsonObject.getString("CustomerName"),jsonObject.getString("AccountName"),jsonObject.getString("AccountNumber")));
+                                        CustomerList.add(new BarcodeAgainstCustomerAccountList(jsonObject.getString("FK_Customer"),jsonObject.getString("CustomerName"),jsonObject.getString("AccountName"),jsonObject.getString("AccountNumber")));
                                     }
                                     if(jarray.length()==1){
                                         dataItem = CustomerList.get(0).getAccountNumber();
@@ -1810,12 +1861,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
         Log.e(TAG,"receiverAccNo  1273   "+receiverAccNo+"   "+accountNo+"   "+type+"    "+accountType);
 
-//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//        String BASE_URL=pref.getString("oldbaseurl", null);
+ /*       SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+        String BASE_URL=pref.getString("oldbaseurl", null);*/
 
-        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null);
 
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
         try{
             String url =
                     BASE_URL + "/FundTransferIntraBank?AccountNo="
@@ -2142,7 +2193,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        tv_amount_words.setText(""+amountInWordPop);
 
        double num =Double.parseDouble(""+amnt);
-       Log.e(TAG,"CommonUtilities  945   "+CommonUtilities.getDecimelFormate(num));
+       Log.e(TAG,"CommonUtilities  945   "+ CommonUtilities.getDecimelFormate(num));
        String stramnt = CommonUtilities.getDecimelFormate(num);
 
 
@@ -2161,7 +2212,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        txtvAcntnoto.setText("A/C : "+ mAccountPayingToSpinner.getSelectedItem().toString());
        txtvbranchto.setText("Branch :"+result);
 
-       dialogView.findViewById( R.id.rltv_footer ).setOnClickListener( view1 -> {
+       dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
            try{
 //                getFragmentManager().beginTransaction().replace( R.id.container, FragmentMenuCard.newInstance("EMPTY","EMPTY") )
 //                        .commit();
