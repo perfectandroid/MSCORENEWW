@@ -5,7 +5,8 @@
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/327030c879e994e76f1c27cc5e7b68a1/swiperefreshlayout-1.0.0/jars/classes.jar!/" />
@@ -20,9 +21,12 @@
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/res" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/AndroidManifest.xml" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/res" />
-      <root url="file://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/AndroidManifest.xml" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/1a9f80db4516fc824e77d1df79e0ee9a/swiperefreshlayout-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
@@ -30,7 +34,8 @@
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
-      <root url="jar://D:/Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/androidx.swiperefreshlayout/swiperefreshlayout/1.0.0/ab92d86c004eb1d48e45f311b02ca53d6c86b607/swiperefreshlayout-1.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

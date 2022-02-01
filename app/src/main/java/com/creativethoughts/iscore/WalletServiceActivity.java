@@ -26,10 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.WalletMintransAdapter;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.ToAccountDetails;
@@ -291,10 +289,14 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                     public void onNothingSelected(AdapterView<?> parent) {
 
                                     }
-                                })
-                                ;
-                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
+                                });
+
+//                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
+
+                                SharedPreferences SelectedAccountSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF40, 0);
+                                String SelectedAccount = SelectedAccountSP.getString("SelectedAccount","");
+                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, SelectedAccount));
 
 
                             }
