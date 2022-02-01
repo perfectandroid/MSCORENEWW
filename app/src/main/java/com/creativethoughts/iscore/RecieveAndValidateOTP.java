@@ -289,6 +289,11 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                         pinIdSPEditer.putString("pinlog", object3.getString("pin"));
                         pinIdSPEditer.commit();
 
+                        SharedPreferences customerAddress3SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF42, 0);
+                        SharedPreferences.Editor customerAddress3Editer = customerAddress3SP.edit();
+                        customerAddress3Editer.putString("customerAddress3", object3.getString("customerAddress3"));
+                        customerAddress3Editer.commit();
+
 
 //                        SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
 //                        SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();

@@ -51,6 +51,7 @@ public class Config {
     public static final String SHARED_PREF39 = "SelectedMinute";
     public static final String SHARED_PREF40 = "SelectedAccount";
     public static final String SHARED_PREF41 = "syncintervaltimems";
+    public static final String SHARED_PREF42 = "customerAddress3";
 
 
 }
