@@ -1297,7 +1297,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 //                ID_RechargeCircle = jsonObject.getString("ID_RechargeCircle");
                 BranchName = jsonObject.getString("BranchName");
                 typeShort = jsonObject.getString("typeShort");
-                SubModule = jsonObject.getString("SubModule");
+               // SubModule = jsonObject.getString("SubModule");
+                SubModule = jsonObject.getString("typeShort");
 
                 tv_accountno.setText(""+jsonObject.getString("AccountNumber"));
             }catch (Exception e){
@@ -1479,16 +1480,22 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onClick(View view) {
                     alertDialog.dismiss();
+
+                    Log.e(TAG,"mAccountNumber   1483   "+mAccountNumber);
+
+                    String AccountNumber = mAccountNumber.replace(mAccountNumber.substring(mAccountNumber.indexOf(" (")+1, mAccountNumber.indexOf(')')+1), "");
+                    AccountNumber = AccountNumber.replace(" ","");
+
                     if (mSelectedType.equals("0")){
-                        rechargePrepaid( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                        rechargePrepaid( AccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName,ProvidersCode);
                     }
 
                     if (mSelectedType.equals("1") || mSelectedType.equals("2")){
-                        rechargePostLand( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                        rechargePostLand( AccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName,ProvidersCode);
                     }
 
                     if (mSelectedType.equals("3") || mSelectedType.equals("4")){
-                        rechargeDthDatacard( mAccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName);
+                        rechargeDthDatacard( AccountNumber, mSelectedType, mMobileNumber, mCircleId, mOperatorId, mAmount, mCircleAccNo ,operatorName,ProvidersCode);
                     }
 
 
@@ -1501,8 +1508,10 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void rechargeDthDatacard(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
-                                     String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
+    private void rechargeDthDatacard(String AccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+                                     String mOperatorId, String mAmount, String mCircleAccNo, String operatorName,String ProvidersCode) {
+
+
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -1551,11 +1560,11 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     String BankVerifier =BankVerifierSP.getString("BankVerifier","");
 
                     requestObject1.put("SUBSCRIBER_ID",IScoreApplication.encryptStart(mMobileNumber));
-                    requestObject1.put("Operator",IScoreApplication.encryptStart(mOperatorId));
+                    requestObject1.put("Operator",IScoreApplication.encryptStart(ProvidersCode));
                     requestObject1.put("Circle",IScoreApplication.encryptStart(mCircleId));
                   //  requestObject1.put("Circleaccount",IScoreApplication.encryptStart(mCircleAccNo));
                     requestObject1.put("amount",IScoreApplication.encryptStart(mAmount));
-                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(mAccountNumber));
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(AccountNumber));
                     requestObject1.put("Module",IScoreApplication.encryptStart(SubModule));
                     requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
                     requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
@@ -1655,8 +1664,10 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void rechargePostLand(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
-                                  String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
+    private void rechargePostLand(String AccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+                                  String mOperatorId, String mAmount, String mCircleAccNo, String operatorName,String ProvidersCode) {
+
+
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -1705,11 +1716,11 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     String BankVerifier =BankVerifierSP.getString("BankVerifier","");
 
                     requestObject1.put("MobileNumer",IScoreApplication.encryptStart(mMobileNumber));
-                    requestObject1.put("Operator",IScoreApplication.encryptStart(mOperatorId));
+                    requestObject1.put("Operator",IScoreApplication.encryptStart(ProvidersCode));
                     requestObject1.put("Circle",IScoreApplication.encryptStart(mCircleId));
                     requestObject1.put("Circleaccount",IScoreApplication.encryptStart(mCircleAccNo));
                     requestObject1.put("amount",IScoreApplication.encryptStart(mAmount));
-                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(mAccountNumber));
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(AccountNumber));
                     requestObject1.put("Module",IScoreApplication.encryptStart(SubModule));
                     requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
                     requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
@@ -1807,8 +1818,10 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void rechargePrepaid(String mAccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
-                          String mOperatorId, String mAmount, String mCircleAccNo, String operatorName) {
+    private void rechargePrepaid(String AccountNumber, String mSelectedType, String mMobileNumber, String mCircleId,
+                          String mOperatorId, String mAmount, String mCircleAccNo, String operatorName,String ProvidersCode) {
+
+
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -1843,6 +1856,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     String iemi =   IScoreApplication.getIEMI();
                     Log.e("imei","         1488     "+iemi);
 
+
                     SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String token=tokenIdSP.getString("Token", "");
                     SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
@@ -1857,10 +1871,10 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     String BankVerifier =BankVerifierSP.getString("BankVerifier","");
 
                     requestObject1.put("MobileNumer",IScoreApplication.encryptStart(mMobileNumber));
-                    requestObject1.put("Operator",IScoreApplication.encryptStart(mOperatorId));
+                    requestObject1.put("Operator",IScoreApplication.encryptStart(ProvidersCode));
                     requestObject1.put("Circle",IScoreApplication.encryptStart(mCircleId));
                     requestObject1.put("Amount",IScoreApplication.encryptStart(mAmount));
-                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(mAccountNumber));
+                    requestObject1.put("AccountNo",IScoreApplication.encryptStart(AccountNumber));
                     requestObject1.put("Module",IScoreApplication.encryptStart(SubModule));
                     requestObject1.put("Pin",IScoreApplication.encryptStart(pin));
                     requestObject1.put("Type",IScoreApplication.encryptStart(mSelectedType));
@@ -1872,7 +1886,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
 
                     Log.e(TAG,"Prepaid requestObject1     18711   "+requestObject1);
-                    Log.e(TAG,"Prepaid mAmount     18712   "+mAmount);
+                    Log.e(TAG,"Prepaid mAmount     18712   "+mAmount+"   "+AccountNumber+"  "+SubModule+"   "+ProvidersCode+"  "+CircleMode);
 
 
 

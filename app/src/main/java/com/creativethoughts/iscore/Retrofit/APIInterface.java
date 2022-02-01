@@ -149,6 +149,9 @@ public interface APIInterface {
     @POST("api/Recharge/KSEBPaymentRequest")
     Call<String>getKSEBPaymentRequest(@Body RequestBody body);
 
+    @POST("api/Customer/LoginVerification")
+    Call<String>getPassBookAuthenticateNew(@Body RequestBody body);
+
 
 
 

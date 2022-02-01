@@ -57,6 +57,15 @@
                 android:resource="@xml/provider_paths" />
         </provider>-->
 
+        <activity android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
         <activity

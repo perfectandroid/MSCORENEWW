@@ -3,6 +3,7 @@ package com.creativethoughts.iscore;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -314,6 +315,7 @@ try {
 
             @Override
             public void onNext(Integer result) {
+                Log.e("TAG","result  318   "+result);
                 if ( result == 1 )
                     openHomeSceen();
                 else {
@@ -337,10 +339,17 @@ try {
         };
     }
     private int getAuthenticate( String pin ){
-        UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
+       // UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
 
-        if (loginCredential != null && loginCredential.flag == 1 && pin
-                .equalsIgnoreCase(loginCredential.pin)) {
+        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+        String mPin = pinIdSP.getString("pinlog","");
+        SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+        String login = loginSP.getString("login","");
+
+        Log.e("TAG","349    "+mPin+"    "+login);
+
+//        if (loginCredential != null && loginCredential.flag == 1 && pin.equalsIgnoreCase(loginCredential.pin)) {
+        if (login.equals("0") && pin.equalsIgnoreCase(mPin)) {
             return 1;
         }
 

@@ -95,10 +95,15 @@ public class DuedateActivity extends AppCompatActivity implements View.OnClickLi
         rv_standinginst = findViewById(R.id.rv_standinginst);
         tvTitle = findViewById(R.id.tvTitle);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+//        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//        cusid = userDetails.customerId;
+//        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//        token = loginCredential.token;
+
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
 
         tvDeposit = findViewById(R.id.tvDeposit);
         tvDeposit.setOnClickListener(this);
