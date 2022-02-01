@@ -92,18 +92,24 @@ public class PassbookTranscationDetailsActivity extends AppCompatActivity {
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("29"));
-                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
-                    requestObject1.put("TransactionID",   IScoreApplication.encryptStart(transactionID));
-                    requestObject1.put("SubModule",   IScoreApplication.encryptStart(subModule));
+//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//                    String token = loginCredential.token;
+//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                    String cusid = userDetails.customerId;
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    String cusid = customerIdSP.getString("customerId","");
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("29"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("TransactionID",   IScoreApplication.encryptStart(transactionID));
+                    requestObject1.put("SubModule",   IScoreApplication.encryptStart(subModule));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                 } catch (Exception e) {

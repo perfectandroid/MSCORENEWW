@@ -20,7 +20,6 @@ import com.creativethoughts.iscore.db.dao.DbSync;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
@@ -384,7 +383,7 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                 PBAccountInfoDAO.getInstance().deleteAllRows();
                 NewTransactionDAO.getInstance().deleteAllRow();
                 PBMessagesDAO.getInstance().deleteAllRows();
-                SettingsDAO.getInstance().deleteAllRows();
+             //   SettingsDAO.getInstance().deleteAllRows();
 
                 SyncParent syncParent = new Gson().fromJson( response, SyncParent.class );
 

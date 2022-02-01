@@ -2,10 +2,7 @@
 package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,39 +10,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.AccountListAdapter;
-import com.creativethoughts.iscore.adapters.AccountSummaryListAdapter;
 import com.creativethoughts.iscore.adapters.PassbookTranscationListAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.model.AccountToTransfer;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
-import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -91,6 +68,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PassbookTranscationActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener{
 
+    String TAG = "PassbookTranscationActivity";
     private ArrayList<String> accountlist;
     Spinner spnAccountNum;
     private JSONArray jresult, jstatement;
@@ -122,25 +100,27 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
 
         accountlist = new ArrayList<String>();
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+        Log.e(TAG,"START   126   ");
+      //  SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
-            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
+//        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
+//            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
+//
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(settingsModel.lastSyncTime);
+//
+//            txtLastUpdatedAt.setText(formatter.format(calendar.getTime()));
+//        }
+//        else {
+//            txtLastUpdatedAt.setText("");
+//        }
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(settingsModel.lastSyncTime);
-
-            txtLastUpdatedAt.setText(formatter.format(calendar.getTime()));
-        }
-        else {
-            txtLastUpdatedAt.setText("");
-        }
-
-
-        if (settingsModel == null || settingsModel.days <= 0) {
+        SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
+        String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
+        if (SelectedDays == null || Integer.parseInt(SelectedDays) <= 0) {
             noofdays = 30;
         } else {
-            noofdays = settingsModel.days;
+            noofdays = Integer.parseInt(SelectedDays);
         }
         tv_list_days.setText("**Listing Data For Past "+noofdays+" Days.\nYou Can Change It From Settings.");
         if (getSupportActionBar() != null) {
@@ -178,21 +158,31 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
+//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//                    String token = loginCredential.token;
+//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                    String cusid = userDetails.customerId;
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    String cusid = customerIdSP.getString("customerId","");
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+
                     requestObject1.put("ReqMode",       IScoreApplication.encryptStart("28"));
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Account",   IScoreApplication.encryptStart(fkaccount));
                     requestObject1.put("SubModule",   IScoreApplication.encryptStart(SubModule));
                     requestObject1.put("NoOfDays",   IScoreApplication.encryptStart(""+NoOfDays));
-                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-                    String BankKey=bankkeypref.getString("bankkey", null);
-                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-                    String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -275,19 +265,29 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("27"));
-                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//                    String token = loginCredential.token;
+//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                    String cusid = userDetails.customerId;
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    String cusid = customerIdSP.getString("customerId","");
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("27"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1  305   "+requestObject1);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -297,6 +297,8 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
+
+                            Log.e(TAG,"response  3052   "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
@@ -317,8 +319,11 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
                                 spnAccountNum.setAdapter(new ArrayAdapter<String>(PassbookTranscationActivity.this, android.R.layout.simple_spinner_dropdown_item, accountlist));
 
 
-                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                spnAccountNum.setSelection(getIndex(spnAccountNum, settingsModel.customerId));
+//                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//                                spnAccountNum.setSelection(getIndex(spnAccountNum, settingsModel.customerId));
+
+                                SharedPreferences SelectedAccountSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF40, 0);
+                                spnAccountNum.setSelection(getIndex(spnAccountNum, SelectedAccountSP.getString("SelectedAccount","")));
 
 
                             }
@@ -472,6 +477,7 @@ public class PassbookTranscationActivity extends AppCompatActivity implements Sp
             }
             Account.setText(json.getString("AccountType"));
 
+            Log.e(TAG,"FK_Account   503      "+json.getString("FK_Account")+"   "+json.getString("SubModule")+"   "+noofdays);
             getPassBookAccountStatement(json.getString("FK_Account"),json.getString("SubModule"),noofdays);
 
         } catch (JSONException e) {

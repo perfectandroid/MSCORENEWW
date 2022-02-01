@@ -16,10 +16,8 @@ import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -299,10 +297,18 @@ public final class CommonUtilities {
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
+//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//                    String token = loginCredential.token;
+//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                    String cusid = userDetails.customerId;
+                    SharedPreferences customerIdSP = context.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences tokenIdSP = context.getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    String cusid = customerIdSP.getString("customerId","");
+                    SharedPreferences bankkeypref =activity.getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =activity.getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
 
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token",IScoreApplication.encryptStart(token));
@@ -310,10 +316,6 @@ public final class CommonUtilities {
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
 //                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
 //                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
-                    SharedPreferences bankkeypref =activity.getSharedPreferences(Config.SHARED_PREF9, 0);
-                    String BankKey=bankkeypref.getString("bankkey", null);
-                    SharedPreferences bankheaderpref =activity.getSharedPreferences(Config.SHARED_PREF11, 0);
-                    String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
@@ -382,8 +384,11 @@ public final class CommonUtilities {
                                             if (TextUtils.isEmpty(account)) {
                                                 continue;
                                             }
-                                            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                            if (account.equalsIgnoreCase(settingsModel.customerId)) {
+                                          //  SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+                                            SharedPreferences customerIdSP = context.getSharedPreferences(Config.SHARED_PREF26, 0);
+                                            String customerId = customerIdSP.getString("customerId","");
+                                           // if (account.equalsIgnoreCase(settingsModel.customerId)) {
+                                            if (account.equalsIgnoreCase(customerId)) {
                                                 spinner.setSelection(i);
 
 

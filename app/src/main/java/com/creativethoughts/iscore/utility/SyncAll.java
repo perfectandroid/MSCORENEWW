@@ -17,7 +17,6 @@ import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.db.dao.RechargeDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.gsonmodel.SyncParent;
@@ -191,7 +190,7 @@ public class SyncAll{
 
 
                 // May be some TIME_IN_MILLISECOND no transactions.
-                SettingsDAO.getInstance().updateSyncTime();
+             //   SettingsDAO.getInstance().updateSyncTime();
 
                 String s2 = "{\"acInfo\":null}";
 
@@ -205,7 +204,7 @@ public class SyncAll{
                     PBMessagesDAO.getInstance().deleteAllRows();
                     RechargeDAO.getInstance().deleteAllRows();
                     NewTransactionDAO.getInstance().deleteAllRow();
-                    SettingsDAO.getInstance().deleteAllRows();
+                  //  SettingsDAO.getInstance().deleteAllRows();
                     BankVerifier.getInstance().deleteAllRows();
                     DynamicMenuDao.getInstance().deleteAll();
                     KsebBillDAO.getInstance().deleteAll();
