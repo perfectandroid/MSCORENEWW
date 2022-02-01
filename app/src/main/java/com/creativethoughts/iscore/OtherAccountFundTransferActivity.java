@@ -59,6 +59,7 @@ import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
+import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -133,7 +134,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     private EditText edtTxtAccountNoFirstBlock;
     private EditText edtTxtAccountNoSecondBlock;
     private EditText edtTxtAccountNoThirdBlock;
-
+    private ArrayList<FundTransferResult1> fundtransfrlist = new ArrayList<FundTransferResult1>();
     private EditText edtTxtConfirmAccountNoFirstBlock;
     private EditText edtTxtConfirmAccountNoSecondBlock;
     private EditText edtTxtConfirmAccountNoThirdBlock;
@@ -925,7 +926,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                         type[0] = "GD";
                     }
                     String Finalamount = amount.replace(",","");
-                    startTransfer( accountNumber, type[0], accNumber, Finalamount,remark);
+                   // startTransfer( accountNumber, type[0], accNumber, Finalamount,remark);
+                    startTransfer1( accountNumber, type[0], accNumber, Finalamount,remark);
                 });
 
                 butCan.setOnClickListener(new View.OnClickListener() {
@@ -944,6 +946,209 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             }
         }
     }
+
+    private void startTransfer1(String accountNumber, String type, String recvaccNumber, String finalamount, String remark) {
+
+        if (TextUtils.isEmpty(mScannedValue)) {
+            mScannedValue = "novalue";
+        }
+        mScannedValue = mScannedValue.replaceAll(" ", "%20");
+
+        /*Extract account number*/
+        accountNumber = accountNumber.replace(accountNumber.substring(accountNumber.indexOf(" (") + 1, accountNumber.indexOf(")") + 1), "");
+        accountNumber = accountNumber.replace(" ", "");
+
+        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNumber);
+        String accountType = accountInfo.accountTypeShort;
+        final String tempFromAccNo = accountNumber +"("+ accountType +")";
+        final String tempToAccNo = recvaccNumber +"("+ type +")";
+
+        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try {
+
+
+                SharedPreferences bankkeypref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                String BankKey = bankkeypref.getString("bankkey", null);
+                SharedPreferences bankheaderpref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                String BankHeader = bankheaderpref.getString("bankheader", null);
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+
+                try {
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
+                    requestObject1.put("Module", IScoreApplication.encryptStart(accountType) );
+                    requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
+                    requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(recvaccNumber.trim()));
+                    requestObject1.put("amount", IScoreApplication.encryptStart(finalamount.trim()));
+
+                    SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                    String pin =prefpin.getString("pinlog", "");
+
+                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
+                    requestObject1.put("QRCode", IScoreApplication.encryptStart(mScannedValue));
+                    requestObject1.put("Remark", IScoreApplication.encryptStart(remark));
+
+                    // requestObject1.put("IMEI",IScoreApplication.encryptStart(ToFK_Account));
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("requestObject1 0",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getfundtransfrintrabnk(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e(TAG,"Response otheraccount   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
+                            String responsemsg = j1.getString("ResponseMessage");
+                            String statusmsg = j1.getString("StatusMessage");
+                            int statusCode=j1.getInt("StatusCode");
+                            if(statusCode==1){
+                                String refid;
+                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+                                for(int i = 0; i < jArray3 .length(); i++) {
+                                    JSONObject object3 = jArray3.getJSONObject(i);
+
+                                    FundTransferResult1 fundTransferResult1 = new FundTransferResult1();
+
+
+                                    fundTransferResult1.refId =object3.getString("RefID");
+                                    fundTransferResult1.mobileNumber = object3.getString("MobileNumber");
+                                    fundTransferResult1.amount=object3.getString("Amount");
+                                    fundTransferResult1.accNo=object3.getString("AccNumber");
+                                    fundtransfrlist.add(fundTransferResult1);
+
+                                }
+
+                                FundTransferResult1 fundTransferResult= new FundTransferResult1();
+
+
+                                ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+                                KeyValuePair keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("Ref. No");
+                                keyValuePair.setValue( fundTransferResult.getrefId() );
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("Amount");
+                                keyValuePair.setValue(fundTransferResult.getAmount());
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("From Acc.No");
+                                keyValuePair.setValue( tempFromAccNo );
+                                keyValuePairs.add( keyValuePair );
+
+                                keyValuePair = new KeyValuePair();
+                                keyValuePair.setKey("To Acc.No");
+                                keyValuePair.setValue( tempToAccNo );
+                                keyValuePairs.add( keyValuePair );
+
+                                alertMessage("", keyValuePairs, statusmsg, true, false);
+                                //  JSONArray jarray = jobj.getJSONArray( "Data");
+
+                            }
+                            else if ( statusCode == 2 ){
+                                alertMessage1("" ,statusmsg );
+                            }
+                            else if ( statusCode == 3 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else if ( statusCode == 4 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else  if ( statusCode == 5 ){
+                                alertMessage1("", statusmsg);
+                            }
+
+                            else{
+
+
+                                try{
+                                 JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                                    builder.setMessage(responsemsg)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (Exception e){
+                                    String EXMessage = j1.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            } catch (Exception e) {
+                //Do nothing
+            }
+        }
+        else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
 
