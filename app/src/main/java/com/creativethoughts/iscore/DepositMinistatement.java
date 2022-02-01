@@ -46,7 +46,6 @@ import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
 import com.creativethoughts.iscore.adapters.MinistatementAdapter;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
@@ -121,6 +120,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DepositMinistatement extends AppCompatActivity implements View.OnClickListener {
 
+    String TAG = "DepositMinistatement";
     RecyclerView rv_passbook;
     LinearLayout ll_download,ll_view;
     MinistatementAdapter adapter;
@@ -166,6 +166,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
         amt = getIntent().getStringExtra("amt");
         submodule = getIntent().getStringExtra("submodule");
+
         accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
 
@@ -176,6 +177,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         tv_accno.setText(acChange);
         tv_bal.setText(amt);
 
+        Log.e(TAG,"START    180");
 
       //  prepareListData();
         if (getSupportActionBar() != null) {
@@ -189,13 +191,15 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
             llstatement.setVisibility(View.GONE);
         }
 
-
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-        if (settingsModel == null || settingsModel.days <= 0) {
+        SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
+        String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
+        //SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+        if (SelectedDays == null || Integer.parseInt(SelectedDays) <= 0) {
             noofdays = 30;
         } else {
-            noofdays = settingsModel.days;
+            noofdays = Integer.parseInt(SelectedDays);
         }
+
         getPassBookAccountStatement(fkaccount,submodule, noofdays);
     }
 
@@ -237,49 +241,49 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void prepareListData() {
-
-        ArrayList<Transaction> transactions =
-                NewTransactionDAO.getInstance().getTransactions2(accNewChange);
-
-        if (transactions.size() == 0) {
-
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-            final int days;
-
-            if (settingsModel == null || settingsModel.days <= 0) {
-                days = 30;
-            } else {
-                days = settingsModel.days;
-            }
-
-
-            rv_passbook.setVisibility(View.GONE);
-            cv_transaction.setVisibility(View.GONE);
-
-            return;
-        }
-        rv_passbook.setVisibility(View.VISIBLE);
-        cv_transaction.setVisibility(View.VISIBLE);
-
-
-        sortAccordingToTime(transactions);
-        JSONArray jsonArray = new JSONArray();
-        for (int i = 0; i < transactions.size(); i++) {
-            jsonArray.put(transactions.get(i).getJSONObject());
-        }
-        System.out.println(jsonArray);
-        columnChartView.setColumnChartData(generateColumnChartData(jsonArray));
-        columnChartView.setZoomType(ZoomType.VERTICAL);
-
-
-       /* adapter = new MinistatementAdapter(DepositMinistatement.this, R.layout.ministatement_list_row, transactions);
-        lv_passbook.setAdapter(adapter);*/
-
-
-
-    }
+//    private void prepareListData() {
+//
+//        ArrayList<Transaction> transactions =
+//                NewTransactionDAO.getInstance().getTransactions2(accNewChange);
+//
+//        if (transactions.size() == 0) {
+//
+//            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//            final int days;
+//
+//            if (settingsModel == null || settingsModel.days <= 0) {
+//                days = 30;
+//            } else {
+//                days = settingsModel.days;
+//            }
+//
+//
+//            rv_passbook.setVisibility(View.GONE);
+//            cv_transaction.setVisibility(View.GONE);
+//
+//            return;
+//        }
+//        rv_passbook.setVisibility(View.VISIBLE);
+//        cv_transaction.setVisibility(View.VISIBLE);
+//
+//
+//        sortAccordingToTime(transactions);
+//        JSONArray jsonArray = new JSONArray();
+//        for (int i = 0; i < transactions.size(); i++) {
+//            jsonArray.put(transactions.get(i).getJSONObject());
+//        }
+//        System.out.println(jsonArray);
+//        columnChartView.setColumnChartData(generateColumnChartData(jsonArray));
+//        columnChartView.setZoomType(ZoomType.VERTICAL);
+//
+//
+//       /* adapter = new MinistatementAdapter(DepositMinistatement.this, R.layout.ministatement_list_row, transactions);
+//        lv_passbook.setAdapter(adapter);*/
+//
+//
+//
+//    }
 
     private ColumnChartData generateColumnChartData(JSONArray jsonArray) {
         try {
@@ -332,11 +336,11 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
 
 
 
-    public static void sortAccordingToTime(ArrayList<Transaction> sortlist) {
-        CountryComparator comparator = new CountryComparator();
-
-        Collections.sort(sortlist, comparator);
-    }
+//    public static void sortAccordingToTime(ArrayList<Transaction> sortlist) {
+//        CountryComparator comparator = new CountryComparator();
+//
+//        Collections.sort(sortlist, comparator);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -422,27 +426,27 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     }
 
 
-    private static class CountryComparator implements Comparator<Transaction> {
-        public int compare(Transaction left, Transaction right) {
-
-            String leftEffectiveDate = left.effectDate;
-            String rightEffectiveDate = right.effectDate;
-
-            if (TextUtils.isEmpty(leftEffectiveDate) || TextUtils.isEmpty(rightEffectiveDate)) {
-                return 0;
-            }
-
-            Date leftDate = getDate(leftEffectiveDate);
-            Date rightDate = getDate(rightEffectiveDate);
-
-            if (leftDate == null || rightDate == null) {
-                return 0;
-            }
-
-            return (int) ((rightDate.getTime() / 100000) - (leftDate.getTime() / 100000));
-
-        }
-    }
+//    private static class CountryComparator implements Comparator<Transaction> {
+//        public int compare(Transaction left, Transaction right) {
+//
+//            String leftEffectiveDate = left.effectDate;
+//            String rightEffectiveDate = right.effectDate;
+//
+//            if (TextUtils.isEmpty(leftEffectiveDate) || TextUtils.isEmpty(rightEffectiveDate)) {
+//                return 0;
+//            }
+//
+//            Date leftDate = getDate(leftEffectiveDate);
+//            Date rightDate = getDate(rightEffectiveDate);
+//
+//            if (leftDate == null || rightDate == null) {
+//                return 0;
+//            }
+//
+//            return (int) ((rightDate.getTime() / 100000) - (leftDate.getTime() / 100000));
+//
+//        }
+//    }
 
     private static Date getDate(String value) {
         SimpleDateFormat formatter = new SimpleDateFormat(
