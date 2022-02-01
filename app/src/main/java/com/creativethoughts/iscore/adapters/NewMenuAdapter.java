@@ -1,20 +1,20 @@
 package com.creativethoughts.iscore.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.MenuItem;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
+
 
 import java.util.ArrayList;
 
@@ -120,13 +120,16 @@ public class NewMenuAdapter extends BaseExpandableListAdapter {
         txtMesssageCount.setVisibility(View.INVISIBLE);
 
         if ("Messages".equalsIgnoreCase(menuItem.getMenuLabel())) {
-            UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+         //   UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+            SharedPreferences customerIdSP = mContext.getSharedPreferences(Config.SHARED_PREF26, 0);
+            String customerId = customerIdSP.getString("customerId","");
 
             int messageCount = 0;
 
-            if (TextUtils.isEmpty(userDetails.customerId) == false) {
-                messageCount =
-                        PBMessagesDAO.getInstance().getMessageUnReadCount(userDetails.customerId);
+          //  if (TextUtils.isEmpty(userDetails.customerId) == false) {
+            if (TextUtils.isEmpty(customerId) == false) {
+             //   messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(userDetails.customerId);
+                messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(customerId);
             }
 
             if (messageCount > 0) {
@@ -135,13 +138,16 @@ public class NewMenuAdapter extends BaseExpandableListAdapter {
                 txtMesssageCount.setVisibility(View.VISIBLE);
             }
         } else if ("Offers".equalsIgnoreCase(menuItem.getMenuLabel())) {
-            UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+          //  UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+            SharedPreferences customerIdSP = mContext.getSharedPreferences(Config.SHARED_PREF26, 0);
+            String customerId = customerIdSP.getString("customerId","");
 
             int offerCount = 0;
 
-            if (TextUtils.isEmpty(userDetails.customerId) == false) {
-                offerCount =
-                        PBMessagesDAO.getInstance().getOffersUnReadCount(userDetails.customerId);
+          //  if (TextUtils.isEmpty(userDetails.customerId) == false) {
+            if (TextUtils.isEmpty(customerId) == false) {
+               // offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(userDetails.customerId);
+                offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(customerId);
             }
 
             if (offerCount > 0) {

@@ -20,9 +20,6 @@ import com.creativethoughts.iscore.db.dao.RechargeDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.gsonmodel.SyncParent;
 import com.google.gson.Gson;
 
@@ -115,27 +112,44 @@ public class SyncAll{
 
         try {
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
-
-            UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
-
-            String pin1 = userCred.pin;
+         //   UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
+         //   String custId = user.customerId;
+            SharedPreferences customerIdSP = mContex.getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
 
 
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+            //   UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
+           // String pin1 = userCred.pin;
+            SharedPreferences pinIdSP = mContex.getSharedPreferences(Config.SHARED_PREF36, 0);
+            String pin1 =  pinIdSP.getString("pinlog","");
 
-            if (settingsModel == null) {
+
+       //     SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+
+//            if (settingsModel == null) {
+//                return -1;
+//            }
+//
+//            final int days;
+//
+//            if (settingsModel.days <= 0) {
+//                days = 30;
+//            } else {
+//                days = settingsModel.days;
+//            }
+
+            SharedPreferences SelectedDaysSP = mContex.getSharedPreferences(Config.SHARED_PREF37, 0);
+            String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
+            if (SelectedDays == null) {
                 return -1;
             }
 
             final int days;
 
-            if (settingsModel.days <= 0) {
+            if (Integer.parseInt(SelectedDays) <= 0) {
                 days = 30;
             } else {
-                days = settingsModel.days;
+                days = Integer.parseInt(SelectedDays);
             }
 
             final String url;

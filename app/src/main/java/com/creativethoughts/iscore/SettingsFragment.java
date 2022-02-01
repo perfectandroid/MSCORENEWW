@@ -125,7 +125,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                     if (NetworkUtil.isOnline()) {
                         String days = mDaySpinner.getSelectedItem().toString();
 
-                        String accountNumber = mDefaultAccountSpinner.getSelectedItem().toString();
+                      //  String accountNumber = mDefaultAccountSpinner.getSelectedItem().toString();
+                        String accountNumber = "001001001055";
                         SettingsDAO.getInstance()
                                 .insertValues(days, mSelectedHours, mSelectedMinute, accountNumber);
 
@@ -138,7 +139,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void onCompleted() {
                                 Toast.makeText(getActivity(),
-                                        "Application will update data in every " + mSelectedHours + ":" + mSelectedMinute + " hours",
+                                        "Application will update data in every12 " + mSelectedHours + ":" + mSelectedMinute + " hours",
                                         Toast.LENGTH_SHORT).show();
 
                                 pDialog.dismiss();
@@ -147,7 +148,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void onFailed() {
                                 Toast.makeText(getActivity(),
-                                        "Application will update data in every " + mSelectedHours + ":" + mSelectedMinute + " hours",
+                                        "Application will update data in every23 " + mSelectedHours + ":" + mSelectedMinute + " hours",
                                         Toast.LENGTH_SHORT).show();
 
                                 pDialog.dismiss();
