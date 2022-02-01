@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.MessageAdapter;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
@@ -75,10 +77,13 @@ public class MessagesFragment extends Fragment {
 
     private void prepareMessagesData() {
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+      //  UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        String customerId = customerIdSP.getString("customerId","");
 
-        ArrayList<Message> messages =
-                PBMessagesDAO.getInstance().getAllMessages(userDetails.customerId);
+
+      //  ArrayList<Message> messages = PBMessagesDAO.getInstance().getAllMessages(userDetails.customerId);
+        ArrayList<Message> messages = PBMessagesDAO.getInstance().getAllMessages(customerId);
 
         if (messages != null && messages.size() > 0) {
             mMessageAdapter.setMessages(messages);

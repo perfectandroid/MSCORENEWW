@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
     static String bank_Key, bank_Header,version;
     static String host_nameCommon, asset_namecommon;
+    String customerId ="";
 
 
     /**
@@ -79,7 +80,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        customerId = customerIdSP.getString("customerId","");
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
 
@@ -125,16 +127,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 break;
             case 2:
                 if(mNavigationDrawerFragment != null) {
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
+                  //  UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+                  //  PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
+                    PBMessagesDAO.getInstance().markMessageAsRead(customerId);
                     mNavigationDrawerFragment.refreshMenu();
                 }
                 fragment = MessagesFragment.newInstance();
                 break;
             case 3:
                 if(mNavigationDrawerFragment != null) {
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
+                   // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+
+                  //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
+                    PBMessagesDAO.getInstance().markOffersAsRead(customerId);
                     mNavigationDrawerFragment.refreshMenu();
                 }
                 fragment = OffersFragment.newInstance();
