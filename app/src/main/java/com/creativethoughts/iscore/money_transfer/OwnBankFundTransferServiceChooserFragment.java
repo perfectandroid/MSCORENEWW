@@ -150,10 +150,18 @@ public class OwnBankFundTransferServiceChooserFragment extends Fragment implemen
                 String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+                  /*  UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
                     String token = loginCredential.token;
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
+                    String cusid = userDetails.customerId;*/
+                    SharedPreferences toknpref =getContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=toknpref.getString("Token", null);
+
+                    SharedPreferences cusidpref =getContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=cusidpref.getString("customerId", null);
+
+
+
                     String types = loantype;
 
                     requestObject1.put("ReqMode",IScoreApplication.encryptStart("13"));
@@ -250,10 +258,19 @@ public class OwnBankFundTransferServiceChooserFragment extends Fragment implemen
                 String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+                   /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
                     String token = loginCredential.token;
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
                     String cusid = userDetails.customerId;
+                    String types = loantype;*/
+
+
+                    SharedPreferences toknpref =getContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=toknpref.getString("Token", null);
+
+                    SharedPreferences cusidpref =getContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=cusidpref.getString("customerId", null);
+
                     String types = loantype;
 
 
