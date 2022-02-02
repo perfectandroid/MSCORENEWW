@@ -31,15 +31,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSummaryAdapter;
 import com.creativethoughts.iscore.adapters.CustomerModulesAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.CustomerModulesModel;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -210,18 +205,31 @@ public class AccountInfoFragment extends Fragment implements View.OnClickListene
 
         TextView mMobileNumber = rootView.findViewById(R.id.mobile_number);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-       // token = userDetails.userToken;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
 
-        mCustomerId.setText(userDetails.userCustomerNo);
-        mCustomerName.setText(userDetails.userCustomerName);
-        String tempAddress1 = userDetails.userCustomerAddress1 + ", " + userDetails.userCustomerAddress2;
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+        String customerNo = customerNoSP.getString("customerNo","");
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        String customerName = customerNameSP.getString("customerName","");
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        String customerAddress1 = customerAddress1SP.getString("customerAddress1","");
+        SharedPreferences customerAddress2SP = getActivity().getSharedPreferences(Config.SHARED_PREF30, 0);
+        String customerAddress2 = customerAddress2SP.getString("customerAddress2","");
+        SharedPreferences customerAddress3SP = getActivity().getSharedPreferences(Config.SHARED_PREF42, 0);
+        String customerAddress3 = customerAddress3SP.getString("customerAddress3","");
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        String mobileNo = mobileNoSP.getString("mobileNo","");
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
+
+        mCustomerId.setText(customerNo);
+        mCustomerName.setText(customerName);
+        String tempAddress1 = customerAddress1 + ", " + customerAddress2;
         mAddress1.setText( tempAddress1 );
-        mAddress2.setText(userDetails.userCustomerAddress3);
-        mMobileNumber.setText(userDetails.userMobileNo);
+        mAddress2.setText(customerAddress3);
+        mMobileNumber.setText(mobileNo);
+
 
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
