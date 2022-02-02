@@ -53,5 +53,8 @@ public class Config {
     public static final String SHARED_PREF41 = "syncintervaltimems";
     public static final String SHARED_PREF42 = "customerAddress3";
 
+    public static final String SHARED_PREF43 = "accountNoarray";
+
+
 
 }

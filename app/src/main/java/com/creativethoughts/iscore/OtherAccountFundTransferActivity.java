@@ -157,6 +157,11 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     String reference;
     String receiveraccno;
 
+    JSONArray array;
+    JSONObject obj1;
+    String accno,typeshrt;
+    List<String> accountSpinnerItems = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,7 +271,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         scan.setOnClickListener(this);
 
 
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+       /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
         token =  loginCredential.token;
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         cusid = userDetails.customerId;
@@ -276,8 +281,13 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             Log.e(TAG,"token   253   "+IScoreApplication.encryptStart("13"));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
+        SharedPreferences toknpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
+         token=toknpref.getString("Token", null);
+
+        SharedPreferences cusidpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+         cusid=cusidpref.getString("customerId", null);
 
         setAccountNumber();
         setAccountType();
@@ -669,22 +679,40 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     }
 
     private void setAccountNumber() {
+        settingAccountNumber(cusid);
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+        /*SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
         if (settingsModel == null) {
             settingAccountNumber(null);
         } else {
             settingAccountNumber(settingsModel.customerId);
-        }
+        }*/
     }
-    private void settingAccountNumber(String customerId){
+    private void settingAccountNumber(String cusid){
         //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
 
-        if (customerId.isEmpty())
+        if (cusid.isEmpty())
             return;
-        List<String> accountSpinnerItems  ;
-        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+
+        SharedPreferences acntpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF43, 0);
+        String acntnos=acntpref.getString("accountNoarray", null);
+
+        try {
+            array = new JSONArray(acntnos);
+
+            for (int i=0; i<array.length(); i++) {
+                obj1 = array.getJSONObject(i);
+                accno = obj1.getString("acno");
+                typeshrt = obj1.getString("typeShort");
+                accountSpinnerItems.add(accno+" ("+typeshrt+")");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+      //  List<String> accountSpinnerItems  ;
+        //accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
         ArrayList<String> itemTemp =  new ArrayList<>();
 
         if (accountSpinnerItems.isEmpty())
@@ -959,6 +987,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         accountNumber = accountNumber.replace(" ", "");
 
         AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNumber);
+
         String accountType = accountInfo.accountTypeShort;
         final String tempFromAccNo = accountNumber +"("+ accountType +")";
         final String tempToAccNo = recvaccNumber +"("+ type +")";
