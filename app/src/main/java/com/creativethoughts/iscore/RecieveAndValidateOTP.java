@@ -232,6 +232,7 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                     // JSONObject jobjt = jObject.getJSONObject("acInfo");
 
                     JSONArray jArray3 = jObject.getJSONArray("acInfo");
+
                     for(int i = 0; i < jArray3 .length(); i++)
                     {
                         JSONObject object3 = jArray3.getJSONObject(i);
@@ -307,8 +308,30 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 
 
 
+                        JSONObject jOBJ = jArray3.getJSONObject(i);
+                        JSONArray jArray4 = jOBJ.getJSONArray("accounts");
+
+                        SharedPreferences accntIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF43, 0);
+                        SharedPreferences.Editor accntSPEditer = accntIdSP.edit();
+                        accntSPEditer.putString("accountNoarray", String.valueOf(jArray4));
+                        accntSPEditer.commit();
+
+                      /*  for (int j = 0; j < jArray4.length(); j++)
+                        {
+                            JSONObject obj2 = jArray4.getJSONObject(j);
 
 
+                            SharedPreferences accntIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF43, 0);
+                            SharedPreferences.Editor accntSPEditer = accntIdSP.edit();
+                            accntSPEditer.putString("accountNo",  obj2 .getString("acno"));
+                            accntSPEditer.commit();
+
+                            SharedPreferences typeshrtSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+                            SharedPreferences.Editor typeshrtSPEditer = typeshrtSP.edit();
+                            typeshrtSPEditer.putString("typeShort",  obj2 .getString("typeShort"));
+                            typeshrtSPEditer.commit();
+
+                        }*/
                     }
 
 

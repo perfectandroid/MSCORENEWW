@@ -152,7 +152,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     LinearLayout ll_remittance,ll_needTochange, ll_needToPayAdvance;
     TextView tvAdvance,tvInstallment,tv_branch_name,tv_as_on_date;
     String reference;
-  
+    JSONArray array;
+    JSONObject obj1;
+    String accno,typeshrt;
+    List<String> accountSpinnerItems = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -270,7 +273,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         scan.setOnClickListener(this);
 
 
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+     /*   UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
         token = loginCredential.token;
         UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
         cusid = userDetails.customerId;
@@ -280,7 +283,13 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
             Log.e(TAG,"token   253   "+ IScoreApplication.encryptStart("13"));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+
+        SharedPreferences toknpref =OwnAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
+         token=toknpref.getString("Token", null);
+
+        SharedPreferences cusidpref =OwnAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+         cusid=cusidpref.getString("customerId", null);
 
         setAccountNumber();
         showOwnAccToList();
@@ -577,10 +586,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+                   /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
                     String token = loginCredential.token;
                     UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
+                    String cusid = userDetails.customerId;*/
 
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token", IScoreApplication.encryptStart(token));
@@ -919,23 +928,44 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     }
 
     private void setAccountNumber() {
-
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+        settingAccountNumber(cusid);
+      /*  SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
         if (settingsModel == null) {
             settingAccountNumber(null);
         } else {
             settingAccountNumber(settingsModel.customerId);
-        }
+        }*/
     }
 
-    private void settingAccountNumber(String customerId){
+    private void settingAccountNumber(String cusid){
         //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
 
-        if (customerId.isEmpty())
+        if (cusid.isEmpty())
             return;
-        List<String> accountSpinnerItems  ;
-        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+
+
+        SharedPreferences acntpref =OwnAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF43, 0);
+        String acntnos=acntpref.getString("accountNoarray", null);
+
+
+   //    accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+      //  accountSpinnerItems = acntnos;
+        try {
+            array = new JSONArray(acntnos);
+
+            for (int i=0; i<array.length(); i++) {
+                obj1 = array.getJSONObject(i);
+                accno = obj1.getString("acno");
+                typeshrt = obj1.getString("typeShort");
+                accountSpinnerItems.add(accno+" ("+typeshrt+")");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
         ArrayList<String> itemTemp =  new ArrayList<>();
 
         if (accountSpinnerItems.isEmpty())
@@ -963,8 +993,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
             if (TextUtils.isEmpty(account)) {
                 continue;
             }
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-            if (account.equalsIgnoreCase(settingsModel.customerId)) {
+         //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+            if (account.equalsIgnoreCase(cusid)) {
                 mAccountSpinner.setSelection(i);
 
                 break;
