@@ -19,20 +19,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.model.BarCodeModel;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,22 +82,32 @@ public class BarcodeFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_barcode, container, false);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+//        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//        cusid = userDetails.customerId;
+//        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//        token = loginCredential.token;
+
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
 
         getVritualcardCombination();
-        String username = userDetails.userCustomerName;
-        String useraddress=userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2;
-        String customerid = userDetails.userCustomerNo;
-        String phone =userDetails.userMobileNo;
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        String username = customerNameSP.getString("customerName","");
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        SharedPreferences customerAddress2SP = getActivity().getSharedPreferences(Config.SHARED_PREF30, 0);
+        String useraddress=customerAddress1SP.getString("customerAddress1","")+","+customerAddress2SP.getString("customerAddress2","");
+        SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+        String customerid = customerNoSP.getString("customerNo","");
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        String phone =mobileNoSP.getString("mobileNo","");
 
         customeridwithcode = vritualcardCombination;
        // customeridwithcode = customerid+"15";
         customeridwithcode1 = customerid;
       //  Toast.makeText(getActivity(),cusid,Toast.LENGTH_LONG).show();
-        Log.i("Userdetails",userDetails.userCustomerName+"\n"+ userDetails.userCustomerAddress1 + ", " + userDetails.userCustomerAddress2);
+        Log.i("Userdetails",customerNameSP.getString("customerName","")+"\n"+ customerAddress1SP.getString("customerAddress1","") + ", " + customerAddress2SP.getString("customerAddress2",""));
 
 
         TextView txtv_userdetails = (TextView) rootView.findViewById(R.id.txt_userdetails);
