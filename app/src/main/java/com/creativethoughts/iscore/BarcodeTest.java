@@ -21,13 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -85,7 +80,7 @@ public class BarcodeTest extends Fragment {
     private ImageView imgv_qrcode,imgv_barcode,imgv_customerimg;
     public final static int QRcodeWidth = 500 ;
     public String  customerid,customeridwithcode;
-    UserDetails userDetails;
+   // UserDetails userDetails;
     String customeridwithcode1;
     ProgressDialog progressDialog;
     String useraddress,cusid, token,  vritualcardCombination;
@@ -102,16 +97,21 @@ public class BarcodeTest extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_barcode_test, container, false);
 
-        userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
 
 
         getVirtualCard();
         //customeridwithcode = vritualcardCombination;
-        String phone =userDetails.userMobileNo;
-        Log.i("Userdetails",userDetails.userCustomerName+"\n"+ userDetails.userCustomerAddress1 + ", " + userDetails.userCustomerAddress2);
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        SharedPreferences customerAddress2SP = getActivity().getSharedPreferences(Config.SHARED_PREF30, 0);
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        String phone =mobileNoSP.getString("mobileNo","");
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        Log.i("Userdetails",customerNameSP.getString("customerName","")+"\n"+ customerAddress1SP.getString("","") + ", " + customerAddress2SP.getString("",""));
 
         TextView txt_customerid = (TextView) view.findViewById(R.id.txt_customerid);
         TextView txtv_address = (TextView) view.findViewById(R.id.txtv_addrs);

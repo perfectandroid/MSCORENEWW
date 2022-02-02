@@ -14,10 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -76,10 +72,12 @@ public class ContactusActivity extends AppCompatActivity {
         txtv_land = findViewById(R.id.txtv_land);
         txtv_mob = findViewById(R.id.txtv_mob);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        tokenn = loginCredential.token;
+
+
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+        tokenn = tokenIdSP.getString("Token","");
 
         showBankDetails();
       //  showBankDetails1();
