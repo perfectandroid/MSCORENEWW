@@ -986,10 +986,10 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         accountNumber = accountNumber.replace(accountNumber.substring(accountNumber.indexOf(" (") + 1, accountNumber.indexOf(")") + 1), "");
         accountNumber = accountNumber.replace(" ", "");
 
-        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNumber);
+      //  AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNumber);
 
-        String accountType = accountInfo.accountTypeShort;
-        final String tempFromAccNo = accountNumber +"("+ accountType +")";
+     //   String accountType = accountInfo.accountTypeShort;
+        final String tempFromAccNo = accountNumber +"("+ type +")";
         final String tempToAccNo = recvaccNumber +"("+ type +")";
 
         SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
@@ -1022,7 +1022,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 try {
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
                     requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
-                    requestObject1.put("Module", IScoreApplication.encryptStart(accountType) );
+                    requestObject1.put("Module", IScoreApplication.encryptStart(type) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
                     requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(recvaccNumber.trim()));
                     requestObject1.put("amount", IScoreApplication.encryptStart(finalamount.trim()));
