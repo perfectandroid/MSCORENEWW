@@ -66,6 +66,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DepositAccountSummaryDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public String TAG = "DepositAccountSummaryDetailsActivity";
     private ProgressDialog progressDialog;
     RecyclerView rv_accountSummary;
     String cusid, subModule, token,account,accno,amount,status,type,type1,fund,ifsc,loantypemode,IsShareAc,EnableDownloadStatement;
@@ -92,7 +93,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
 
         setRegViews();
-
+        Log.e(TAG,"START    180");
         tv_fund.setText(fund);
         tv_ifsc.setText(ifsc);
 
@@ -211,6 +212,14 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                 UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
                 token = loginCredential.token;
 
+                SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                String token1 = tokenIdSP.getString("Token","");
+                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                String cusid1 = customerIdSP.getString("customerId","");
+
+                Log.e(TAG,"token1   2201   "+token1+"   "+token);
+                Log.e(TAG,"cusid1   2202   "+cusid1+"   "+cusid);
+
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
@@ -228,6 +237,8 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e("requestObject1","   2321   "+requestObject1);
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -240,7 +251,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try{
-                            Log.e("Accountsummary Details","   231   "+response.body());
+                            Log.e(TAG,"Accountsummary Details    2332   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")){
                                 JSONObject jobj = jObject.getJSONObject("AccountModuleDetailsListInfo");

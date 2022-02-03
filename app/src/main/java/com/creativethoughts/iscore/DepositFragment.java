@@ -17,12 +17,7 @@ import android.widget.TextView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.DepositListInfoAdapter;
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -188,11 +183,14 @@ public class DepositFragment extends Fragment implements View.OnClickListener{
                 String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    cusid = userDetails.customerId;
+
+                    SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    token = tokenIdSP.getString("Token","");
+                    SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid = customerIdSP.getString("customerId","");
+
                     String types = loantype;
+
 
 
 
@@ -218,9 +216,12 @@ public class DepositFragment extends Fragment implements View.OnClickListener{
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
 
+                    Log.e(TAG,"requestObject1   2221     "+requestObject1);
+                    Log.e(TAG,"token  2222   "+token+"   "+cusid);
+
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    Log.e(TAG,"Exception  2223   "+e.toString());
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getCustomerLoanandDeposit(body);
@@ -230,7 +231,7 @@ public class DepositFragment extends Fragment implements View.OnClickListener{
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try{
-                            Log.e(TAG,"DepositDetails 222     "+response.body());
+                            Log.e(TAG,"DepositDetails 2222     "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
                                 tv_nodata.setVisibility(View.GONE);

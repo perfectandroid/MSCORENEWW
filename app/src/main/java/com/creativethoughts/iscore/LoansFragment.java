@@ -183,10 +183,10 @@ public class LoansFragment extends Fragment implements View.OnClickListener{
                 String reqmode = IScoreApplication.encryptStart("14");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    cusid = userDetails.customerId;
+                    SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    token = tokenIdSP.getString("Token","");
+                    SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid = customerIdSP.getString("customerId","");
 
                     String types = loantype;
 

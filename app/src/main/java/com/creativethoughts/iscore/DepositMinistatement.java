@@ -46,13 +46,8 @@ import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
 import com.creativethoughts.iscore.adapters.MinistatementAdapter;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -1713,10 +1708,11 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid = customerIdSP.getString("customerId","");
+
                     requestObject1.put("ReqMode",       IScoreApplication.encryptStart("28"));
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Account",   IScoreApplication.encryptStart(fkaccount));
