@@ -15,18 +15,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.dao.DbSync;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -103,22 +97,24 @@ import io.reactivex.schedulers.Schedulers;
         btnKeyPadClearAll   = findViewById(R.id.btn_keypad_clear_all);
         btnKeyPadBack       = findViewById(R.id.btn_keypad_back);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+
+        SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+        String customerName = customerNameSP.getString("customerName","");
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 try {
     if (timeOfDay >= 0 && timeOfDay < 12) {
-        txt_user.setText("Good Morning " + userDetails.userCustomerName);
+        txt_user.setText("Good Morning " + customerName);
 
     } else if (timeOfDay >= 12 && timeOfDay < 16) {
-        txt_user.setText("Good Afternoon " + userDetails.userCustomerName);
+        txt_user.setText("Good Afternoon " + customerName);
 
     } else if (timeOfDay >= 16 && timeOfDay < 21) {
-        txt_user.setText("Good Evening " + userDetails.userCustomerName);
+        txt_user.setText("Good Evening " + customerName);
 
     } else if (timeOfDay >= 21 && timeOfDay < 24) {
-        txt_user.setText("Good Night " + userDetails.userCustomerName);
+        txt_user.setText("Good Night " + customerName);
     }
 }catch (Exception e){e.printStackTrace();}
 //        txt_user.setText("Welcome "+userDetails.userCustomerName);

@@ -18,10 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -83,11 +79,13 @@ public class ProfileActivity extends AppCompatActivity {
         profileImg = findViewById(R.id.profileImg);
         ll_email = findViewById(R.id.ll_email);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        cusno=userDetails.userCustomerNo;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        tokenn = loginCredential.token;
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+        tokenn = tokenIdSP.getString("Token","");
+        SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+        cusno=customerNoSP.getString("customerNo","");
+
 
         showProfile();
         SharedPreferences sperf = getApplicationContext().getSharedPreferences(Config.SHARED_PREF1, 0);
