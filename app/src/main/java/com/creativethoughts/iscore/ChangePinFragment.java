@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 
 import com.creativethoughts.iscore.utility.ProgressBarUtil;
@@ -38,6 +36,7 @@ import static com.creativethoughts.iscore.IScoreApplication.FLAG_NETWORK_EXCEPTI
  */
 public class ChangePinFragment extends Fragment implements View.OnClickListener {
 
+    public  String TAG = "ChangePinFragment";
     private EditText edtOldPin;
     private EditText edtConfrmPin;
     private EditText edtNewPin;
@@ -72,6 +71,7 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_change_pin, container, false);
 
+        Log.e(TAG,"START   76");
         edtConfrmPin = rootView.findViewById(R.id.edtCnfrmPin);
         edtOldPin = rootView.findViewById(R.id.edtOldPin);
 
@@ -266,9 +266,8 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
 
         @Override
         protected Integer doInBackground(String... params) {
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
 
 //            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);

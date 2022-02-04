@@ -34,11 +34,9 @@ import com.creativethoughts.iscore.adapters.PassbookListAdapter;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -602,8 +600,11 @@ public class HomeFragment extends Fragment {
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(userDetails.customerId));
+
+                    SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid = customerIdSP.getString("customerId","");
+                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+
 
                     SharedPreferences bankkeypref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);

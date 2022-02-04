@@ -31,10 +31,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.DuedateAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -112,10 +108,13 @@ public class DuedatesFragment extends Fragment implements View.OnClickListener{
         ll_standnginstr = rootView.findViewById(R.id.ll_standnginstr);
         rv_standinginst = rootView.findViewById(R.id.rv_standinginst);
         tvTitle = rootView.findViewById(R.id.tvTitle);
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+
+
+
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
 
         llreminder = rootView.findViewById(R.id.llreminder);
         tvDeposit = rootView.findViewById(R.id.tvDeposit);
