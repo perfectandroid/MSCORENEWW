@@ -99,6 +99,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class LoanMinistatement extends AppCompatActivity implements View.OnClickListener {
+
+    public String TAG = "LoanMinistatement";
     TextView tv_accno,tv_bal,tvtxn,tvGraph;
     CardView cv_transaction,cv_graph;
     LinearLayout llgraph,lltxn,llstatement;
@@ -127,6 +129,7 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_loan_ministatement);
         acChange = getIntent().getStringExtra("accno");
 
+        Log.e(TAG,"START   132");
         mDownloadManager = new DownloadManager();
 
        /* accNewChange = acChange;
