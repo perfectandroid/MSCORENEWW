@@ -3,6 +3,7 @@ package com.creativethoughts.iscore;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -17,6 +18,8 @@ import androidx.viewpager.widget.ViewPager;
 
 
 public class AccountsummaryActivity extends AppCompatActivity implements View.OnClickListener{
+
+    public String TAG = "AccountsummaryActivity";
     ProgressDialog progressDialog;
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -28,6 +31,7 @@ public class AccountsummaryActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_accsummary);
 
+        Log.e(TAG,"START  341   ");
 /*
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);*/

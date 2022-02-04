@@ -10,15 +10,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.IntimationAdapter;
 import com.creativethoughts.iscore.adapters.IntimationAdapter1;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -59,6 +53,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class NotificationPostingActivity extends AppCompatActivity {
+
+    public String TAG = "NotificationPostingActivity";
+
     RecyclerView rv_intimation;
     String cusid, token;
     ProgressDialog progressDialog;
@@ -68,13 +65,17 @@ public class NotificationPostingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_notification_posting1);
 
+        Log.e(TAG,"START  74  ");
         ll_intimation = (LinearLayout)findViewById(R.id.ll_intimation);
         rv_intimation = (RecyclerView) findViewById(R.id.rv_intimation);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
+
+
         getNotice();
     }
     public void getNotice(){
@@ -106,15 +107,22 @@ public class NotificationPostingActivity extends AppCompatActivity {
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("5") );
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token) );
+
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("5") );
+                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("Token",IScoreApplication.encryptStart(token) );
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1   125   "+requestObject1);
+                    Log.e(TAG,"requestObject1   125   "+cusid+"   "+token+"   "+BankKey+"   "+BankHeader);
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
