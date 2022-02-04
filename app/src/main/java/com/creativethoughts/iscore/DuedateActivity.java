@@ -28,10 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.DuedateAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,6 +73,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DuedateActivity extends AppCompatActivity implements View.OnClickListener{
+    public String TAG = "DuedateActivity";
     RecyclerView rv_standinginst;
     String cusid, token,acctype;
     ProgressDialog progressDialog;
@@ -95,10 +92,6 @@ public class DuedateActivity extends AppCompatActivity implements View.OnClickLi
         rv_standinginst = findViewById(R.id.rv_standinginst);
         tvTitle = findViewById(R.id.tvTitle);
 
-//        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-//        cusid = userDetails.customerId;
-//        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-//        token = loginCredential.token;
 
         SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
         cusid = customerIdSP.getString("customerId","");
@@ -160,16 +153,22 @@ public class DuedateActivity extends AppCompatActivity implements View.OnClickLi
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("8") );
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token) );
-                    requestObject1.put("AccountType",IScoreApplication.encryptStart(acctype));
+
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("8") );
+                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("Token",IScoreApplication.encryptStart(token) );
+                    requestObject1.put("AccountType",IScoreApplication.encryptStart(acctype));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1    1751    "+requestObject1);
+                    Log.e(TAG,"cusidtoken    1751    "+cusid+"   "+token);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -181,6 +180,8 @@ public class DuedateActivity extends AppCompatActivity implements View.OnClickLi
                             progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
                             Log.i("Duedatelist",response.body());
+                            Log.e(TAG,"requestObject1    1752    "+response.body());
+
                             if(jObject.getString("StatusCode").equals("0")) {
                                 ll_standnginstr.setVisibility(View.VISIBLE);
                                 llreminder.setVisibility(View.VISIBLE);

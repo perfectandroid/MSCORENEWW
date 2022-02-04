@@ -15,18 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSummaryListAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
-import com.creativethoughts.iscore.utility.SyncAll;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
@@ -206,19 +200,14 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 String reqmode = IScoreApplication.encryptStart("3");
 
-                UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                cusid = userDetails.customerId;
-
-                UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                token = loginCredential.token;
 
                 SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
-                String token1 = tokenIdSP.getString("Token","");
+                token = tokenIdSP.getString("Token","");
                 SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
-                String cusid1 = customerIdSP.getString("customerId","");
+                cusid = customerIdSP.getString("customerId","");
 
-                Log.e(TAG,"token1   2201   "+token1+"   "+token);
-                Log.e(TAG,"cusid1   2202   "+cusid1+"   "+cusid);
+                Log.e(TAG,"token1   2201   "+token+"   "+token);
+                Log.e(TAG,"cusid1   2202   "+cusid+"   "+cusid);
 
                 final JSONObject requestObject1 = new JSONObject();
                 try {
@@ -499,8 +488,9 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
             final AlertDialog alertDialog = builder.create();
 
 
-            UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-            tvp_name.setText("Beneficiary Name : "+userDetails.userCustomerName+"");
+
+            SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+            tvp_name.setText("Beneficiary Name : "+customerNameSP.getString("customerName","")+"");
 
             tvp_accNum.setText("Account Type : "+type1 +"\nBeneficiary Account : "+fund +"\nIFSC Code : "+ifsc);
 
