@@ -22,11 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AssetAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -110,10 +105,10 @@ public class LiabilityFragment extends Fragment {
         lay_nodata = v.findViewById(R.id.lay_nodata);
         tv_nodata = v.findViewById(R.id.tv_nodata);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
         getcolumnChartData();
 
         return v;

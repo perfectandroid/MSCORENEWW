@@ -15,15 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoanListInfoAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -68,6 +62,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class LoansFragment extends Fragment implements View.OnClickListener{
+
+    public String TAG = "LoansFragment";
     private ProgressDialog progressDialog;
     RecyclerView rv_banklist;
     String token,cusid,type,formattedDate;
@@ -83,6 +79,7 @@ public class LoansFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_deposit, null, false);
         rv_banklist = view.findViewById(R.id.rv_accountSummaryDetails);
 
+        Log.e(TAG,"STARt   82");
 
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");

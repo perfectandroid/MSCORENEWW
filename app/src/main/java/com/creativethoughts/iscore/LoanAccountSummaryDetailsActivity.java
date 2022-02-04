@@ -9,18 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSummaryListAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.SyncAll;
@@ -42,8 +35,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -67,6 +58,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class LoanAccountSummaryDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public  String TAG = "LoanAccountSummaryDetailsActivity";
     private ProgressDialog progressDialog;
     RecyclerView rv_accountSummary;
     String cusid, subModule, token,account,accno,amount,status,type,type1,fund,ifsc, loantypemode,IsShareAc, EnableDownloadStatement;
@@ -79,6 +72,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accsummarydetails1);
 
+        Log.e(TAG,"START  84  ");
         subModule = getIntent().getStringExtra("Submodule");
         account = getIntent().getStringExtra("FK_Account");
         accno = getIntent().getStringExtra("Accno");
@@ -203,11 +197,11 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 String reqmode = IScoreApplication.encryptStart("3");
 
-                UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                cusid = userDetails.customerId;
+                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                cusid = customerIdSP.getString("customerId","");
+                SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                token = tokenIdSP.getString("Token","");
 
-                UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                token = loginCredential.token;
 
                 final JSONObject requestObject1 = new JSONObject();
                 try {
@@ -485,8 +479,9 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
             final AlertDialog alertDialog = builder.create();
 
 
-            UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-            tvp_name.setText("Beneficiary Name : "+userDetails.userCustomerName+"");
+
+            SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+            tvp_name.setText("Beneficiary Name : "+customerNameSP.getString("customerName","")+"");
 
             tvp_accNum.setText("Account Type : "+type1 +"\nBeneficiary Account : "+fund +"\nIFSC Code : "+ifsc);
 
