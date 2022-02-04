@@ -35,15 +35,10 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.NewAccountExpandableListAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.gsonmodel.SyncParent;
 import com.creativethoughts.iscore.ui.widget.ZaarkDialog;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.PreferenceUtil;
@@ -61,6 +56,7 @@ import java.util.Locale;
 
 
 public class SearchResultActivity extends AppCompatActivity {
+    public String TAG = "SearchResultActivity";
     private static final String BASE_URL_KEY = "iscore_base_url_key";
     private static final int REQUEST_CODE = 54565;
 
@@ -82,6 +78,7 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         mDownloadManager = new DownloadManager();
+        Log.e(TAG,"START   81  ");
 
         Intent searchinfo = getIntent();
         String fromDate_Search = searchinfo.getStringExtra("fromDate");
@@ -274,13 +271,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
             if (!TextUtils.isEmpty(mAccountNo) || !TextUtils.isEmpty(mFromDate) || !TextUtils
                     .isEmpty(mToDate)) {
-                UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
+                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                //  String custId = user.customerId;
+                String custId =customerIdSP.getString("customerId","");
 
-                String custId = user.customerId;
 
-                UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
 
-                String pin1 = userCred.pin;
+                SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                //String pin1 = userCred.pin;
+                String pin1 = pinIdSP.getString("pinlog","");
 
                 AccountInfo accountInformation =
                         PBAccountInfoDAO.getInstance().getAccountInfo(mAccountNo);
@@ -468,13 +467,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
             try {
 
-                UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
 
-                String custId = user.customerId;
+                SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+              //  String custId = user.customerId;
+                String custId =customerIdSP.getString("customerId","");
 
-                UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
+                SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                //String pin1 = userCred.pin;
+                String pin1 = pinIdSP.getString("pinlog","");
 
-                String pin1 = userCred.pin;
 
                 AccountInfo accountInformation =
                         PBAccountInfoDAO.getInstance().getAccountInfo(mAccountNo);
@@ -520,7 +521,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                     if (s3.equals(s2)) {
 
-                        //                        UserCredentialDAO.getInstance().deleteAllUserData();
+                        //
 
                         return -1;
 
@@ -541,26 +542,26 @@ public class SearchResultActivity extends AppCompatActivity {
                             return -1;
                         }
 
-                        UserDetails userDetails = new UserDetails();
+                       // UserDetails userDetails = new UserDetails();
                         int user_customerId = jsonFirstAcInfo.optInt("customerId");
                         if (user_customerId <= 0) {
                             return -1;
                         }
 
-                        userDetails.customerId = String.valueOf(user_customerId);
-
-                        userDetails.userCustomerNo = jsonFirstAcInfo.optString("customerNo");
-                        userDetails.userCustomerName = jsonFirstAcInfo.optString("customerName");
-                        userDetails.userCustomerAddress1 =
-                                jsonFirstAcInfo.optString("customerAddress1");
-                        userDetails.userCustomerAddress2 =
-                                jsonFirstAcInfo.optString("customerAddress2");
-                        userDetails.userCustomerAddress3 =
-                                jsonFirstAcInfo.optString("customerAddress3");
-                        userDetails.userMobileNo = jsonFirstAcInfo.optString("mobileNo");
-                        userDetails.userPin = jsonFirstAcInfo.optString("pin");
-                        userDetails.userDefault1 = "default1";
-                        userDetails.userLogin = "1";
+//                        userDetails.customerId = String.valueOf(user_customerId);
+//
+//                        userDetails.userCustomerNo = jsonFirstAcInfo.optString("customerNo");
+//                        userDetails.userCustomerName = jsonFirstAcInfo.optString("customerName");
+//                        userDetails.userCustomerAddress1 =
+//                                jsonFirstAcInfo.optString("customerAddress1");
+//                        userDetails.userCustomerAddress2 =
+//                                jsonFirstAcInfo.optString("customerAddress2");
+//                        userDetails.userCustomerAddress3 =
+//                                jsonFirstAcInfo.optString("customerAddress3");
+//                        userDetails.userMobileNo = jsonFirstAcInfo.optString("mobileNo");
+//                        userDetails.userPin = jsonFirstAcInfo.optString("pin");
+//                        userDetails.userDefault1 = "default1";
+//                        userDetails.userLogin = "1";
 
                         JSONArray jsonAccountsArr = jsonFirstAcInfo.optJSONArray("accounts");
 
