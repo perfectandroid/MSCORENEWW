@@ -1,39 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.bumptech.glide:glide:4.9.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/res" />
-      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/res" />
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/55d59bab6c67cc30347f37f9ac15a951/jetified-glide-4.9.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/55d59bab6c67cc30347f37f9ac15a951/jetified-glide-4.9.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/55d59bab6c67cc30347f37f9ac15a951/jetified-glide-4.9.0/res" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/res" />
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/AndroidManifest.xml" />
       <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/res" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/res" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/d955980b1f6510fbc13139b223c109ce/jetified-glide-4.9.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/3919c096094510988ef514db0aaa346c/jetified-glide-4.9.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/b53be1dd9e86c008d96d319510846282f95c49f/glide-4.9.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/4.9.0/5f95e3cc34b116a8024f2af42f66e257d2e28ccb/glide-4.9.0-sources.jar!/" />
     </SOURCES>
   </library>

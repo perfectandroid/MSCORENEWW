@@ -534,52 +534,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
         }
     }
 
-   /* private void showData(String data) {
 
-        try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            LayoutInflater inflater1 = (LayoutInflater) getApplicationContext().getSystemService(this.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater1.inflate(R.layout.share_popup2, null);
-            EditText tv_msg =  layout.findViewById(R.id.etxt_msg);
-            TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
-            TextView tv_share =  layout.findViewById(R.id.tv_share);
-
-
-
-
-
-            builder.setView(layout);
-            final AlertDialog alertDialog = builder.create();
-
-
-
-
-            tv_cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
-            tv_share.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT,data);
-                    sendIntent.setType("text/plain");
-                    startActivity(sendIntent);
-
-
-                    alertDialog.dismiss();
-                }
-            });
-            alertDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
 }
