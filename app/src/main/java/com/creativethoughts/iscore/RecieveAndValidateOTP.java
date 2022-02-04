@@ -15,18 +15,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.dao.BankVerifier;
 import com.creativethoughts.iscore.db.dao.DbSync;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.gsonmodel.SyncParent;
 import com.creativethoughts.iscore.receiver.MySMSBroadcastReceiver;
 import com.creativethoughts.iscore.receiver.SMSReceiver;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.SyncUtils;
@@ -34,17 +26,13 @@ import com.creativethoughts.iscore.utility.network.NetworkManager;
 import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -402,16 +390,16 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                 /////////////
 
 
-                UserCredentialDAO.getInstance().
-                        updateNewPin(otp);
-
-                UserCredentialDAO.getInstance().updateUserLogin();
-                BankVerifier.getInstance().insertValue("1");
-                //Remove all the cached data in DB
-                UserDetailsDAO.getInstance().deleteAllRows();
-                PBAccountInfoDAO.getInstance().deleteAllRows();
-                NewTransactionDAO.getInstance().deleteAllRow();
-                PBMessagesDAO.getInstance().deleteAllRows();
+//                UserCredentialDAO.getInstance().
+//                        updateNewPin(otp);
+//
+//                UserCredentialDAO.getInstance().updateUserLogin();
+//                BankVerifier.getInstance().insertValue("1");
+//                //Remove all the cached data in DB
+//                UserDetailsDAO.getInstance().deleteAllRows();
+//                PBAccountInfoDAO.getInstance().deleteAllRows();
+//                NewTransactionDAO.getInstance().deleteAllRow();
+//                PBMessagesDAO.getInstance().deleteAllRows();
              //   SettingsDAO.getInstance().deleteAllRows();
 
                 SyncParent syncParent = new Gson().fromJson( response, SyncParent.class );
@@ -497,7 +485,7 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                                       imageEditer.putString("custimage", "");
                                       imageEditer.commit();
                                                                                                                                  
-        UserCredentialDAO.getInstance().updateUserLogin();
+     //   UserCredentialDAO.getInstance().updateUserLogin();
         Intent passBookAccount = new Intent(RecieveAndValidateOTP.this, HomeActivity.class);
         startActivity(passBookAccount);
         finish();
