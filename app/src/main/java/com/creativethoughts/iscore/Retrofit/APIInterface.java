@@ -152,6 +152,9 @@ public interface APIInterface {
     @POST("api/Customer/LoginVerification")
     Call<String>getPassBookAuthenticateNew(@Body RequestBody body);
 
+    @POST("api/Customer/MessageDetails")
+    Call<String>getMessageDetails(@Body RequestBody body);
+
 
 
 

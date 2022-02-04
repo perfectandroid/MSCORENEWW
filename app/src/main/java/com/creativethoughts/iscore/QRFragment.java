@@ -18,27 +18,18 @@ import android.widget.Toast;
 import android.app.AlertDialog;
 
 import androidx.fragment.app.Fragment;
-
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.model.BarCodeModel;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
+
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.oned.Code128Writer;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.json.JSONException;
@@ -54,7 +45,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.Hashtable;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -80,7 +70,7 @@ public class QRFragment extends Fragment {
     private ImageView imgv_qrcode,imgv_barcode,imgv_customerimg;
     public final static int QRcodeWidth = 500 ;
     public String  customerid,customeridwithcode;
-    UserDetails userDetails;
+   // UserDetails userDetails;
     String customeridwithcode1;
     ProgressDialog progressDialog;
     String useraddress,cusid, token,  vritualcardCombination;
@@ -94,38 +84,47 @@ public class QRFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_qr, container, false);
 
-        userDetails = UserDetailsDAO.getInstance().getUserDetail();
 
-        cusid = userDetails.customerId;
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
 
-        String username = userDetails.userCustomerName;
-        if (userDetails.userCustomerAddress1!=null)
+        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+        cusid = customerIdSP.getString("customerId","");
+        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+        token = tokenIdSP.getString("Token","");
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        String username = customerNameSP.getString("customerName","");
+
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        SharedPreferences customerAddress2SP = getActivity().getSharedPreferences(Config.SHARED_PREF30, 0);
+        SharedPreferences customerAddress3SP = getActivity().getSharedPreferences(Config.SHARED_PREF42, 0);
+        SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+
+        if (customerAddress1SP.getString("customerAddress1",null)!=null)
         {
-            useraddress=userDetails.userCustomerAddress1;
+            useraddress=customerAddress1SP.getString("customerAddress1","");
         }
-        else if (userDetails.userCustomerAddress1!=null && userDetails.userCustomerAddress2!=null)
+        else if (customerAddress1SP.getString("customerAddress1",null)!=null && customerAddress2SP.getString("customerAddress2",null)!=null)
         {
-            useraddress=userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2;
+            useraddress=customerAddress1SP.getString("customerAddress1","")+","+customerAddress2SP.getString("customerAddress2","");
         }
-        else if(userDetails.userCustomerAddress1!=null && userDetails.userCustomerAddress2!=null  && userDetails.userCustomerAddress3!=null)
+        else if(customerAddress1SP.getString("customerAddress1",null)!=null && customerAddress2SP.getString("customerAddress2",null)!=null  && customerAddress3SP.getString("",null)!=null)
         {
-            useraddress=userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2+","+userDetails.userCustomerAddress3;
+            useraddress=customerAddress1SP.getString("customerAddress1","")+","+customerAddress2SP.getString("customerAddress2","")+","+customerAddress3SP.getString("","");
         }
 
-        else if(userDetails.userCustomerAddress1!=null && userDetails.userCustomerAddress2!=null  && userDetails.userCustomerAddress3!=null  && userDetails.userPin!=null)
+        else if(customerAddress1SP.getString("customerAddress1",null)!=null && customerAddress2SP.getString("customerAddress2",null)!=null  && customerAddress3SP.getString("",null)!=null  && pinIdSP.getString("pinlog",null)!=null)
         {
-            useraddress=userDetails.userCustomerAddress1+","+userDetails.userCustomerAddress2+","+userDetails.userCustomerAddress3+","+userDetails.userPin;
+            useraddress=customerAddress1SP.getString("customerAddress1","")+","+customerAddress2SP.getString("customerAddress2","")+","+customerAddress3SP.getString("","")+","+pinIdSP.getString("pinlog",null);
         }
 
-        customerid = userDetails.userCustomerNo;
+        //customerid = userDetails.userCustomerNo;
+        SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+        customerid = customerNoSP.getString("customerNo","");
         getVritualcardCombination();
-        //customeridwithcode = vritualcardCombination;
 
-       // customeridwithcode = customerid+"15";
-        String phone =userDetails.userMobileNo;
-        Log.i("Userdetails",userDetails.userCustomerName+"\n"+ userDetails.userCustomerAddress1 + ", " + userDetails.userCustomerAddress2);
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        //String phone =userDetails.userMobileNo;
+        String phone =mobileNoSP.getString("mobileNo","");
+        Log.i("Userdetails",customerNameSP.getString("customerName","")+"\n"+ customerAddress1SP.getString("customerAddress1","") + ", " + customerAddress2SP.getString("customerAddress2",""));
 
         TextView txt_customerid = (TextView) rootView.findViewById(R.id.txt_customerid);
         TextView txtv_address = (TextView) rootView.findViewById(R.id.txtv_addrs);
