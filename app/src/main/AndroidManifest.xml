@@ -144,6 +144,24 @@
                 android:value="com.creativethoughts.iscore.HomeActivity" />
         </activity>
         <activity
+            android:name=".ListSavedBeneficiaryActivity"
+            android:label="Fund Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".NeftRtgsActivity"
+            android:label="Fund Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
             android:name=".OtherAccountFundTransferActivity"
             android:label="Other Account Fund Transfer"
             android:parentActivityName=".money_transfer.FundTransferActivity"

@@ -155,7 +155,11 @@ public interface APIInterface {
     @POST("api/Customer/MessageDetails")
     Call<String>getMessageDetails(@Body RequestBody body);
 
+    @POST("api/AccountSummary/NEFTRTGSGetReceiver")
+    Call<String>getNeftReeceiverList(@Body RequestBody body);
 
+    @POST("api/AccountSummary/NEFTRTGSDeleteReceiver")
+    Call<String>getNeftdlterecvr(@Body RequestBody body);
 
 
 }
