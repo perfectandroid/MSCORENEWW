@@ -398,6 +398,7 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
                 break;
             case R.id.lnr_add_new_beneficiary:
                 Intent i = new Intent(ListSavedBeneficiaryActivity.this, NeftRtgsActivity.class);
+                i.putExtra("mode",mMode);
                 startActivity(i);
                 break;
         }

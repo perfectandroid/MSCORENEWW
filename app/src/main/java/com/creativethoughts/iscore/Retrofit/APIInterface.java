@@ -161,5 +161,9 @@ public interface APIInterface {
     @POST("api/AccountSummary/NEFTRTGSDeleteReceiver")
     Call<String>getNeftdlterecvr(@Body RequestBody body);
 
+    @POST("api/AccountSummary/NEFTRTGSPayment")
+    Call<String>getNeftPaymnt(@Body RequestBody body);
+
+
 
 }
