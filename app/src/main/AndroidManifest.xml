@@ -153,6 +153,34 @@
                 android:value="com.creativethoughts.iscore.HomeActivity" />
         </activity>
         <activity
+            android:name=".QuickPayMoneyTransferActivity"
+            android:label="Fund Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme"
+            tools:ignore="MissingClass">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".AddSenderActivity"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme"
+            tools:ignore="MissingClass">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".AddReceiverActivity"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme"
+            tools:ignore="MissingClass">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
             android:name=".NeftRtgsActivity"
             android:label="Fund Transfer"
             android:parentActivityName=".HomeActivity"

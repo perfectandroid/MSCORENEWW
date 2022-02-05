@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.creativethoughts.iscore.ListSavedBeneficiaryActivity;
+import com.creativethoughts.iscore.QuickPayMoneyTransferActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.neftrtgs.ListSavedBeneficiaryFragment;
 
@@ -37,9 +38,11 @@ public class OtherbankFundTransferActivity extends AppCompatActivity {
             startActivity(i);
         }
         if (mMode.equals("QKPY")){
-            getSupportFragmentManager().beginTransaction()
+            /*getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, QuickPayMoneyTransferFragment.newInstance())
-                    .commit();
+                    .commit();*/
+            Intent i = new Intent(OtherbankFundTransferActivity.this, QuickPayMoneyTransferActivity.class);
+            startActivity(i);
         }
 
 
