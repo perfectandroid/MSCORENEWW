@@ -174,4 +174,7 @@ public interface APIInterface {
     @POST("api/AccountSummary/GenerateSenderReceiverList")
     Call<String>getSenderList(@Body RequestBody body);
 
+    @POST("api/MV3/Checkstatus")
+    Call<String>getVersioncode(@Body RequestBody body);
+
 }

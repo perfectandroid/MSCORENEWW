@@ -20,17 +20,49 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.receiver.ConnectivityReceiver;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.network.NetworkManager;
 import com.creativethoughts.iscore.utility.network.ResponseManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HomeActivity extends AppCompatActivity implements NavigationDrawerCallbacks, ConnectivityReceiver.ConnectivityReceiverListener {
 
@@ -347,14 +379,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
         }
         else  if(version.equals("false")) {
+               getVersioncode();
 
-
-            if (NetworkUtil.isOnline()) {
+           /* if (NetworkUtil.isOnline()) {
                 int versionNumber = getCurrentVersionNumber(HomeActivity.this);
 //            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
-             /*   SharedPreferences pref = getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                String BASE_URL = pref.getString("baseurl", null);*/
+             *//*   SharedPreferences pref = getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL = pref.getString("baseurl", null);*//*
 
                 SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
                 String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
@@ -387,8 +419,148 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                         //Do nothing
                     }
                 }, null, null);
-            }
+            }*/
         }
+    }
+
+    private void getVersioncode() {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+
+        int versionNumber = getCurrentVersionNumber(HomeActivity.this);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("versionNo", IScoreApplication.encryptStart(String.valueOf(versionNumber)));
+
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("requestObject1 vrsn",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getVersioncode(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response versn   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                    /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
+                            String responsemsg = j1.getString("ResponseMessage");
+                            String statusmsg = j1.getString("StatusMessage");
+                            int statusCode=j1.getInt("StatusCode");*/
+                        /*    if(statusCode==1){
+                                String refid;
+                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+
+
+                                alertMessage("", keyValuePairs, statusmsg, true, false);
+                                //  JSONArray jarray = jobj.getJSONArray( "Data");
+
+                            }
+                            else if ( statusCode == 2 ){
+                                alertMessage1("" ,statusmsg );
+                            }
+                            else if ( statusCode == 3 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else if ( statusCode == 4 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else  if ( statusCode == 5 ){
+                                alertMessage1("", statusmsg);
+                            }
+
+                            else{
+
+
+                                try{
+                                  *//*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");*//*
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(responsemsg)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (Exception e){
+                                    String EXMessage = j1.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+*/
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
     }
 
     private void goToPlayStore( ){
@@ -463,5 +635,103 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         }
    }
 
+    private SSLSocketFactory getSSLSocketFactory()
+            throws CertificateException, KeyStoreException, IOException,
+            NoSuchAlgorithmException,
+            KeyManagementException {
+        SharedPreferences sslnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+        String asset_Name=sslnamepref.getString("certificateassetname", null);
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        //  InputStream caInput = getResources().openRawResource(Common.getCertificateAssetName());
+        // File path: app\src\main\res\raw\your_cert.cer
+        InputStream caInput =  IScoreApplication.getAppContext().
+                getAssets().open(asset_Name);
+        Certificate ca = cf.generateCertificate(caInput);
+        caInput.close();
+        KeyStore keyStore = KeyStore.getInstance("BKS");
+        keyStore.load(null, null);
+        keyStore.setCertificateEntry("ca", ca);
+        String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+        tmf.init(keyStore);
+        TrustManager[] wrappedTrustManagers = getWrappedTrustManagers(tmf.getTrustManagers());
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, wrappedTrustManagers, null);
+        return sslContext.getSocketFactory();
+    }
+    private TrustManager[] getWrappedTrustManagers(TrustManager[] trustManagers) {
+        final X509TrustManager originalTrustManager = (X509TrustManager) trustManagers[0];
+        return new TrustManager[]{
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return originalTrustManager.getAcceptedIssuers();
+                    }
+
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkClientTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkClientTrusted", e.toString());
+                        }
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                        try {
+                            if (certs != null && certs.length > 0) {
+                                certs[0].checkValidity();
+                            } else {
+                                originalTrustManager.checkServerTrusted(certs, authType);
+                            }
+                        } catch (CertificateException e) {
+                            Log.w("checkServerTrusted", e.toString());
+                        }
+                    }
+                }
+        };
+    }
+
+    private void alertMessage1(String s, String s1) {
+        android.app.AlertDialog.Builder dialogBuilder = new android.app.AlertDialog.Builder(HomeActivity.this);
+
+        LayoutInflater inflater = HomeActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_layout, null);
+        dialogBuilder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = dialogBuilder.create();
+        TextView tv_share =  dialogView.findViewById(R.id.tv_share);
+        TextView tv_msg =  dialogView.findViewById(R.id.txt1);
+        TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+
+        tv_msg.setText(s);
+        tv_msg2.setText(s1);
+        TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //  finishAffinity();
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+    private HostnameVerifier getHostnameVerifier() {
+        return new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+    }
 
 }
