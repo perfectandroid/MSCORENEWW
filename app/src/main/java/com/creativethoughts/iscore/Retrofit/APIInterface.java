@@ -167,4 +167,11 @@ public interface APIInterface {
     @POST("api/AccountSummary/MTAddnewsender")
     Call<String>getAddsender(@Body RequestBody body);
 
+    @POST("api/AccountSummary/MTAddnewreceiver")
+    Call<String>getAddReceiver(@Body RequestBody body);
+
+
+    @POST("api/AccountSummary/GenerateSenderReceiverList")
+    Call<String>getSenderList(@Body RequestBody body);
+
 }

@@ -38,7 +38,7 @@ public class OtherbankFundTransferActivity extends AppCompatActivity {
             startActivity(i);
         }
         if (mMode.equals("QKPY")){
-            /*getSupportFragmentManager().beginTransaction()
+        /*    getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, QuickPayMoneyTransferFragment.newInstance())
                     .commit();*/
             Intent i = new Intent(OtherbankFundTransferActivity.this, QuickPayMoneyTransferActivity.class);
