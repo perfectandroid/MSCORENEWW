@@ -11,7 +11,6 @@ import android.util.Log;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.NotificationMgr;
-import com.creativethoughts.iscore.db.dao.DbSync;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
@@ -20,8 +19,6 @@ import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.gsonmodel.SyncParent;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.google.gson.Gson;
 
@@ -123,8 +120,8 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
                         return -1;
 
                     } else {
-                        SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
-                        transactions = DbSync.getInstance().sync( syncParent, false );
+//                        SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
+//                        transactions = DbSync.getInstance().sync( syncParent, false );
 
                     }
                 }
