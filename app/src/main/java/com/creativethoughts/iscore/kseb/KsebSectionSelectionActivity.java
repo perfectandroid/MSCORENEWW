@@ -90,11 +90,11 @@ public class KsebSectionSelectionActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence keyWord, int i, int i1, int i2) {
-                 getObservable( keyWord.toString() )
-                         .subscribeOn( Schedulers.io() )
-                         .observeOn( AndroidSchedulers.mainThread() )
-                         .subscribe(  getObserver() );
-             //   getSection(keyWord.toString());
+//                 getObservable( keyWord.toString() )
+//                         .subscribeOn( Schedulers.io() )
+//                         .observeOn( AndroidSchedulers.mainThread() )
+//                         .subscribe(  getObserver() );
+                getSection(keyWord.toString());
             }
 
             @Override
