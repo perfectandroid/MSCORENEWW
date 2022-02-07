@@ -154,7 +154,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
 
-        branchcode = accountInfo.accountBranchCode;
+      //  branchcode = accountInfo.accountBranchCode;
 
         progressDialog = new ProgressDialog(DepositMinistatement.this);
         setRegViews();
@@ -1504,6 +1504,9 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1   1507    "+requestObject1);
+                    Log.e(TAG,"branchcode   1507    "+branchcode);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1517,6 +1520,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try {
+                            Log.e(TAG,"response   1507    "+response.body());
                             String res = response.toString();
                             StringTokenizer tokenss = new StringTokenizer(res, ",");
                             String s = tokenss.nextToken();
