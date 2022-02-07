@@ -143,13 +143,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
                 break;
             case 2:
-                if(mNavigationDrawerFragment != null) {
-                  //  UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                  //  PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
-                    PBMessagesDAO.getInstance().markMessageAsRead(customerId);
-                    mNavigationDrawerFragment.refreshMenu();
-                }
-                fragment = MessagesFragment.newInstance();
+//                if(mNavigationDrawerFragment != null) {
+//                  //  UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                  //  PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
+//                    PBMessagesDAO.getInstance().markMessageAsRead(customerId);
+//                    mNavigationDrawerFragment.refreshMenu();
+//                }
+//                fragment = MessagesFragment.newInstance();
+
+                Intent im = new Intent(HomeActivity.this,MessageActivity.class);
+                startActivity(im);
                 break;
             case 3:
                 if(mNavigationDrawerFragment != null) {
@@ -379,7 +382,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
         }
         else  if(version.equals("false")) {
-               getVersioncode();
+            //   getVersioncode();
 
            /* if (NetworkUtil.isOnline()) {
                 int versionNumber = getCurrentVersionNumber(HomeActivity.this);
