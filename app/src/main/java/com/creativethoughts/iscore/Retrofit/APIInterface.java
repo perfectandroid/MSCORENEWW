@@ -155,7 +155,26 @@ public interface APIInterface {
     @POST("api/Customer/MessageDetails")
     Call<String>getMessageDetails(@Body RequestBody body);
 
+    @POST("api/AccountSummary/NEFTRTGSGetReceiver")
+    Call<String>getNeftReeceiverList(@Body RequestBody body);
+
+    @POST("api/AccountSummary/NEFTRTGSDeleteReceiver")
+    Call<String>getNeftdlterecvr(@Body RequestBody body);
+
+    @POST("api/AccountSummary/NEFTRTGSPayment")
+    Call<String>getNeftPaymnt(@Body RequestBody body);
+
+    @POST("api/AccountSummary/MTAddnewsender")
+    Call<String>getAddsender(@Body RequestBody body);
+
+    @POST("api/AccountSummary/MTAddnewreceiver")
+    Call<String>getAddReceiver(@Body RequestBody body);
 
 
+    @POST("api/AccountSummary/GenerateSenderReceiverList")
+    Call<String>getSenderList(@Body RequestBody body);
+
+    @POST("api/MV3/Checkstatus")
+    Call<String>getVersioncode(@Body RequestBody body);
 
 }

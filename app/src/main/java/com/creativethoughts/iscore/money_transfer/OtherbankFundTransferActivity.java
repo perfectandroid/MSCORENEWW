@@ -1,14 +1,15 @@
 package com.creativethoughts.iscore.money_transfer;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.creativethoughts.iscore.ListSavedBeneficiaryActivity;
+import com.creativethoughts.iscore.QuickPayMoneyTransferActivity;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
 import com.creativethoughts.iscore.neftrtgs.ListSavedBeneficiaryFragment;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class OtherbankFundTransferActivity extends AppCompatActivity {
@@ -28,14 +29,20 @@ public class OtherbankFundTransferActivity extends AppCompatActivity {
 
 
         if (mMode.equals("NEFT") || mMode.equals("RTGS") || mMode.equals("IMPS")){
-            getSupportFragmentManager().beginTransaction()
+            /*getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container,ListSavedBeneficiaryFragment.newInstance(mMode))
-                    .commit();
+                    .commit();*/
+
+            Intent i = new Intent(OtherbankFundTransferActivity.this, ListSavedBeneficiaryActivity.class);
+            i.putExtra("mode",mMode);
+            startActivity(i);
         }
         if (mMode.equals("QKPY")){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container,QuickPayMoneyTransferFragment.newInstance())
-                    .commit();
+        /*    getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, QuickPayMoneyTransferFragment.newInstance())
+                    .commit();*/
+            Intent i = new Intent(OtherbankFundTransferActivity.this, QuickPayMoneyTransferActivity.class);
+            startActivity(i);
         }
 
 

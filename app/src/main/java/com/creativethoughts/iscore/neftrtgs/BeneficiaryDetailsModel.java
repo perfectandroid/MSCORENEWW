@@ -18,6 +18,12 @@ public class BeneficiaryDetailsModel implements Parcelable {
     @SerializedName( "BeneIFSC" )
     private String beneficiaryIfsc;
 
+    public BeneficiaryDetailsModel(String benefname, String beneIFSC, String beneAccNo) {
+        this.beneficiaryName = benefname;
+        this.beneficiaryIfsc = beneIFSC;
+        this.beneficiaryAccNo = beneAccNo;
+    }
+
     public String getBeneficiaryName() {
         return beneficiaryName;
     }
@@ -66,7 +72,7 @@ public class BeneficiaryDetailsModel implements Parcelable {
         this.beneficiaryIfsc = in.readString();
     }
 
-    public static final Parcelable.Creator<BeneficiaryDetailsModel> CREATOR = new Parcelable.Creator<BeneficiaryDetailsModel>() {
+    public static final Creator<BeneficiaryDetailsModel> CREATOR = new Creator<BeneficiaryDetailsModel>() {
         @Override
         public BeneficiaryDetailsModel createFromParcel(Parcel source) {
             return new BeneficiaryDetailsModel(source);

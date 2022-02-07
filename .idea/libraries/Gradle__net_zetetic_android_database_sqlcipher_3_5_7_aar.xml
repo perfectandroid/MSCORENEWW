@@ -4,12 +4,17 @@
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/res" />
       <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/res" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-2/files-2.1/e8c5f4645a6d3b73d665510ce63668f3/jetified-android-database-sqlcipher-3.5.7/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/net.zetetic/android-database-sqlcipher/3.5.7/7ad8b6b469c96a929243f1899da6228c32ef3849/android-database-sqlcipher-3.5.7-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/net.zetetic/android-database-sqlcipher/3.5.7/7ad8b6b469c96a929243f1899da6228c32ef3849/android-database-sqlcipher-3.5.7-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/modules-2/files-2.1/net.zetetic/android-database-sqlcipher/3.5.7/b2957e8329384e3a42e33ced2b0729c52f1b0685/android-database-sqlcipher-3.5.7-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/modules-2/files-2.1/net.zetetic/android-database-sqlcipher/3.5.7/b2957e8329384e3a42e33ced2b0729c52f1b0685/android-database-sqlcipher-3.5.7-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
