@@ -409,27 +409,37 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
         {
             case R.id.tv_ministatmnt:
                 if (NetworkUtil.isOnline()) {
-                    final ProgressDialog pDialog = ProgressDialog.show(LoanAccountSummaryDetailsActivity.this, "", "Loading Details...");
-                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
-                        @Override
-                        public void onCompleted() {
 
-                            Intent i = new Intent(LoanAccountSummaryDetailsActivity.this, LoanMinistatement.class);
-                            i.putExtra("accno", tv_accno.getText().toString());
-                            i.putExtra("amt", tv_bal.getText().toString());
-                            i.putExtra("submodule", subModule);
-                            i.putExtra("account", account);
-                            i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
-                            startActivity(i);
-                            pDialog.dismiss();
-                            return;
-                        }
-                        @Override
-                        public void onFailed() {
-                            //                        updateTopView();
-                            pDialog.dismiss();
-                        }
-                    }, true,LoanAccountSummaryDetailsActivity.this);
+//                    final ProgressDialog pDialog = ProgressDialog.show(LoanAccountSummaryDetailsActivity.this, "", "Loading Details...");
+//                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
+//                        @Override
+//                        public void onCompleted() {
+//
+//                            Intent i = new Intent(LoanAccountSummaryDetailsActivity.this, LoanMinistatement.class);
+//                            i.putExtra("accno", tv_accno.getText().toString());
+//                            i.putExtra("amt", tv_bal.getText().toString());
+//                            i.putExtra("submodule", subModule);
+//                            i.putExtra("account", account);
+//                            i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+//                            startActivity(i);
+//                            pDialog.dismiss();
+//                            return;
+//                        }
+//                        @Override
+//                        public void onFailed() {
+//                            //                        updateTopView();
+//                            pDialog.dismiss();
+//                        }
+//                    }, true,LoanAccountSummaryDetailsActivity.this);
+
+                    Intent i = new Intent(LoanAccountSummaryDetailsActivity.this, LoanMinistatement.class);
+                    i.putExtra("accno", tv_accno.getText().toString());
+                    i.putExtra("amt", tv_bal.getText().toString());
+                    i.putExtra("submodule", subModule);
+                    i.putExtra("account", account);
+                    i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+                    startActivity(i);
+
 
                 }
                 else {
