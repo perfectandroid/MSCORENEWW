@@ -359,7 +359,7 @@ public class HomeFragment extends Fragment {
             txtLastUpdatedAt.setText("");
         }
 
-        prepareListData();
+      //  prepareListData();
     }
 
 

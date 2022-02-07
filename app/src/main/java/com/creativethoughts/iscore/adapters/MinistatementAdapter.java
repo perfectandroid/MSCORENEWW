@@ -1,7 +1,6 @@
 package com.creativethoughts.iscore.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.TransactionDetailActivity;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
 
 import java.text.NumberFormat;
@@ -29,7 +26,6 @@ public class MinistatementAdapter  extends ArrayAdapter<Transaction> {
     int listLayoutRes;
     List<Transaction> transactionList;
 
-    NewTransactionDAO newTransactionDAO;
 
     public MinistatementAdapter(Context mCtx, int listLayoutRes,List<Transaction>transactionList) {
         super(mCtx, listLayoutRes,transactionList);

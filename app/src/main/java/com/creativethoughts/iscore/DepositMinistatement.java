@@ -5,24 +5,19 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,11 +38,8 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
-import com.creativethoughts.iscore.adapters.MinistatementAdapter;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.Transaction;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -71,8 +63,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -87,11 +77,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -118,7 +106,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     String TAG = "DepositMinistatement";
     RecyclerView rv_passbook;
     LinearLayout ll_download,ll_view;
-    MinistatementAdapter adapter;
+   // MinistatementAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
     ColumnChartView columnChartView;
     ColumnChartData data;
@@ -357,7 +345,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                 llgraph.setBackgroundDrawable(null);
                 tvtxn.setTextColor(getResources().getColor(R.color.blue_variant1));
                 tvGraph.setTextColor(getResources().getColor(R.color.black));
-                ArrayList<Transaction> transactions = NewTransactionDAO.getInstance().getTransactions2(accNewChange);
+//                ArrayList<Transaction> transactions = NewTransactionDAO.getInstance().getTransactions2(accNewChange);
 //                cv_transaction.setVisibility(View.VISIBLE);
 //                cv_graph.setVisibility(View.GONE);
                 try{
@@ -377,14 +365,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
                     cv_transaction.setVisibility(View.GONE);
 
                 }
-               /* if (transactions.size() == 0) {
-                    cv_transaction.setVisibility(View.GONE);
-                     Toast.makeText(getApplicationContext(),"No Data To Display.",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    cv_transaction.setVisibility(View.VISIBLE);
-                }
-                cv_graph.setVisibility(View.GONE);*/
+
                 break;
             case  R.id.tvGraph:
                 llgraph.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.under_line));
