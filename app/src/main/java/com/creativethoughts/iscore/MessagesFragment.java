@@ -15,13 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.MessageAdapter;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.Message;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-
-import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,20 +76,20 @@ public class MessagesFragment extends Fragment {
 
 
       //  ArrayList<Message> messages = PBMessagesDAO.getInstance().getAllMessages(userDetails.customerId);
-        ArrayList<Message> messages = PBMessagesDAO.getInstance().getAllMessages(customerId);
-
-        if (messages != null && messages.size() > 0) {
-            mMessageAdapter.setMessages(messages);
-
-            //            PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
-        }else{
-            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-            alertDialog.setCancelable(true);
-            //alertDialog.setTitle("No Access");
-            alertDialog.setMessage("No data found!");
-            alertDialog.setIcon(R.drawable.ic_warning);
-            alertDialog.show();
-        }
+//        ArrayList<Message> messages = PBMessagesDAO.getInstance().getAllMessages(customerId);
+//
+//        if (messages != null && messages.size() > 0) {
+//            mMessageAdapter.setMessages(messages);
+//
+//            //            PBMessagesDAO.getInstance().markMessageAsRead(userDetails.customerId);
+//        }else{
+//            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+//            alertDialog.setCancelable(true);
+//            //alertDialog.setTitle("No Access");
+//            alertDialog.setMessage("No data found!");
+//            alertDialog.setIcon(R.drawable.ic_warning);
+//            alertDialog.show();
+//        }
     }
 
 

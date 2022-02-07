@@ -33,9 +33,7 @@ import com.creativethoughts.iscore.adapters.NewAccountExpandableListAdapter;
 import com.creativethoughts.iscore.adapters.PassbookListAdapter;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -195,27 +193,27 @@ public class HomeFragment extends Fragment {
 
         Spinner defaulTtrans =   rootView.findViewById(R.id.spnAccountNum);
 
-        try {
-            if (PBAccountInfoDAO.getInstance().isAccountInfoExits()) {
-                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                if (settingsModel == null) {
-                    CommonUtilities.setAccountNumber(null, defaulTtrans, getActivity());
-                } else {
-                    CommonUtilities.setAccountNumberPassbook(settingsModel.customerId, defaulTtrans, getActivity());
-                }
-                defaulTtrans.setOnItemSelectedListener(new OnItemSelectListener());
-            } else {
-
-                Toast toast = Toast.makeText(getActivity(), "No Accounts Matched With respect to particular customer", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            }
-        } catch (Exception e) {
-            if ( IScoreApplication.DEBUG ){
-                Log.e( TAG, e.toString() );
-            }
-
-        }
+//        try {
+//            if (PBAccountInfoDAO.getInstance().isAccountInfoExits()) {
+//                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//                if (settingsModel == null) {
+//                    CommonUtilities.setAccountNumber(null, defaulTtrans, getActivity());
+//                } else {
+//                    CommonUtilities.setAccountNumberPassbook(settingsModel.customerId, defaulTtrans, getActivity());
+//                }
+//                defaulTtrans.setOnItemSelectedListener(new OnItemSelectListener());
+//            } else {
+//
+//                Toast toast = Toast.makeText(getActivity(), "No Accounts Matched With respect to particular customer", Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.CENTER, 0, 0);
+//                toast.show();
+//            }
+//        } catch (Exception e) {
+//            if ( IScoreApplication.DEBUG ){
+//                Log.e( TAG, e.toString() );
+//            }
+//
+//        }
 
       /*  ExpandableListView expListView =   rootView.findViewById(R.id.listViewDateAccountDetails);
 
@@ -345,19 +343,19 @@ public class HomeFragment extends Fragment {
       //  adapter.clearAll();
 //        mAccountExpandableListAdapter.clearAll();
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+     //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
-            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(settingsModel.lastSyncTime);
-
-            txtLastUpdatedAt.setText(formatter.format(calendar.getTime()));
-        }
-        else {
-            txtLastUpdatedAt.setText("");
-        }
+//        if (settingsModel != null && settingsModel.lastSyncTime > 0) {
+//            SimpleDateFormat formatter = new SimpleDateFormat("d MMM yy hh:mma z", Locale.ENGLISH);
+//
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(settingsModel.lastSyncTime);
+//
+//            txtLastUpdatedAt.setText(formatter.format(calendar.getTime()));
+//        }
+//        else {
+//            txtLastUpdatedAt.setText("");
+//        }
 
       //  prepareListData();
     }
@@ -385,12 +383,14 @@ public class HomeFragment extends Fragment {
         ArrayList<Transaction> transactions = NewTransactionDAO.getInstance().getTransactions1(acChange);
 
         if(transactions.size() == 0) {
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+         //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+            SharedPreferences SelectedDaysSP = getActivity().getSharedPreferences(Config.SHARED_PREF37, 0);
+            String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
             final int days;
-            if (settingsModel == null || settingsModel.days <= 0) {
+            if (SelectedDays == null || Integer.parseInt(SelectedDays) <= 0) {
                 days = 30;
             } else {
-                days = settingsModel.days;
+                days = Integer.parseInt(SelectedDays);
             }
             mEmptyText.setVisibility(View.VISIBLE);
             lv_passbook.setVisibility(View.INVISIBLE);

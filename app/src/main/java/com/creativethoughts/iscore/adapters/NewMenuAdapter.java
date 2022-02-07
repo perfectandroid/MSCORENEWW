@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.adapters;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,11 +128,12 @@ public class NewMenuAdapter extends BaseExpandableListAdapter {
             int messageCount = 0;
 
           //  if (TextUtils.isEmpty(userDetails.customerId) == false) {
-            if (TextUtils.isEmpty(customerId) == false) {
-             //   messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(userDetails.customerId);
-                messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(customerId);
-            }
+//            if (TextUtils.isEmpty(customerId) == false) {
+//             //   messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(userDetails.customerId);
+//                messageCount = PBMessagesDAO.getInstance().getMessageUnReadCount(customerId);
+//            }
 
+            Log.e("TAG","messageCount  136   "+messageCount);
             if (messageCount > 0) {
                 txtMesssageCount.setText(String.valueOf(messageCount));
 
@@ -145,10 +147,10 @@ public class NewMenuAdapter extends BaseExpandableListAdapter {
             int offerCount = 0;
 
           //  if (TextUtils.isEmpty(userDetails.customerId) == false) {
-            if (TextUtils.isEmpty(customerId) == false) {
-               // offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(userDetails.customerId);
-                offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(customerId);
-            }
+//            if (TextUtils.isEmpty(customerId) == false) {
+//               // offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(userDetails.customerId);
+//                offerCount = PBMessagesDAO.getInstance().getOffersUnReadCount(customerId);
+//            }
 
             if (offerCount > 0) {
                 txtMesssageCount.setText(String.valueOf(offerCount));
