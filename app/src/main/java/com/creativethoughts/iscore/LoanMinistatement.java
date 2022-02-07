@@ -220,8 +220,10 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 String reqmode = IScoreApplication.encryptStart("16");
 
-                UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                token = loginCredential.token;
+                SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                token = tokenIdSP.getString("Token","");
+
+
 
                 final JSONObject requestObject1 = new JSONObject();
                 try {
