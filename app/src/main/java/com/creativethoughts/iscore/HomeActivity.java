@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -480,40 +481,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                         try {
                             Log.e("TAG","Response versn   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
-                    /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
-                            String responsemsg = j1.getString("ResponseMessage");
-                            String statusmsg = j1.getString("StatusMessage");
-                            int statusCode=j1.getInt("StatusCode");*/
-                        /*    if(statusCode==1){
-                                String refid;
-                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+                          //  JSONObject j1 = jObject.getJSONObject("CheckVersionCode");
+                            String statuscode = jObject.getString("StatusCode");
+                            if(statuscode.equals("0"))
+                            {
+                                String result = jObject.getJSONObject("CheckVersionCode").getString("ChkStatusOutput");
+                                result = result.trim();
+                                try {
+                                    int res = Integer.parseInt(result);
+                                    Log.e("TAG", "res   332   " + res);
+                                    if (res == 10)
+                                        goToPlayStore();
+                                } catch (Exception e) {
+                                    //Do nothing
+                                }
 
-
-                                alertMessage("", keyValuePairs, statusmsg, true, false);
-                                //  JSONArray jarray = jobj.getJSONArray( "Data");
-
                             }
-                            else if ( statusCode == 2 ){
-                                alertMessage1("" ,statusmsg );
-                            }
-                            else if ( statusCode == 3 ){
-                                alertMessage1("", statusmsg);
-                            }
-                            else if ( statusCode == 4 ){
-                                alertMessage1("", statusmsg);
-                            }
-                            else  if ( statusCode == 5 ){
-                                alertMessage1("", statusmsg);
-                            }
-
                             else{
 
 
                                 try{
-                                  *//*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");*//*
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
-                                    builder.setMessage(responsemsg)
+                                    JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                                    builder.setMessage(ResponseMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -525,8 +516,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                                     alert.show();
 
                                 }catch (Exception e){
-                                    String EXMessage = j1.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    String EXMessage = jObject.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -540,7 +531,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
                                 }
                             }
-*/
+
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

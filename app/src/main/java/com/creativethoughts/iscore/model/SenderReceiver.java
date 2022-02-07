@@ -11,4 +11,53 @@ public class SenderReceiver {
     public String receiverAccountno;
     public int mode;
     public int checkError;
+
+
+    public long getUserID() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        userId = userId;
+    }
+
+    public long getFkSenderId() {
+        return fkSenderId;
+    }
+
+    public void setFkSenderId(String fkSenderId) {
+        fkSenderId = fkSenderId;
+    }
+
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        senderName = senderName;
+    }
+
+    public String getSenderMobile() {
+        return senderMobile;
+    }
+
+    public void setSenderMobile(String senderMobile) {
+        senderMobile = senderMobile;
+    }
+
+    public String getReceiverAccountno() {
+        return receiverAccountno;
+    }
+
+    public void setReceiverAccountno(String receiverAccountno) {
+        receiverAccountno = receiverAccountno;
+    }
+    public int getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        mode = mode;
+    }
 }
