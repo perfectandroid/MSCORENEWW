@@ -428,7 +428,7 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("Imagedetails   344   ",response.body());
+                            Log.e("getResellerData","   344   "+response.body());
                             // Toast.makeText(getActivity(),response.body(),Toast.LENGTH_LONG).show();
                             JSONObject jObject = new JSONObject(response.body());
                             String statuscode = jObject.getString("StatusCode");

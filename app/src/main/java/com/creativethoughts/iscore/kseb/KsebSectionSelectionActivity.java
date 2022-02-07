@@ -17,7 +17,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.utility.ConnectionUtilitySectionList;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -262,11 +261,13 @@ public class KsebSectionSelectionActivity extends Activity {
 //        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //        String BASE_URL=pref.getString("oldbaseurl", null);
 
-        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null);
+//        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//        String BASE_URL=pref.getString("baseurl", null);
+//
+//        String url = BASE_URL+"/KSEBSectionList?Sectionname="+ keyWord;
+      //  return ConnectionUtilitySectionList.getResponse( url );
 
-        String url = BASE_URL+"/KSEBSectionList?Sectionname="+ keyWord;
-        return ConnectionUtilitySectionList.getResponse( url );
+        return "";
     }
     private void processResult( String result ){
         Gson gson = new Gson();
