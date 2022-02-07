@@ -153,6 +153,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_ministatement);
         mDownloadManager = new DownloadManager();
 
+        Log.e(TAG,"START   156  ");
         fkaccount = getIntent().getStringExtra("account");
         acChange = getIntent().getStringExtra("accno");
         accNewChange = acChange;
