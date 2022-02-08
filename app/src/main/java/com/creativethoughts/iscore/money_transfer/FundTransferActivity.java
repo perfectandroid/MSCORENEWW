@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.money_transfer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,10 +16,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.creativethoughts.iscore.IScoreApplication;
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
 import com.creativethoughts.iscore.neftrtgs.OtherBankFundTransferServiceChooserFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -63,21 +62,28 @@ public class FundTransferActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        DynamicMenuDetails dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
         try {
             FundTransferActivity.ViewPagerAdapter adapter = new FundTransferActivity.ViewPagerAdapter(getSupportFragmentManager());
-            String tempRtgsNeft = IScoreApplication.decryptStart(dynamicMenuDetails.getRtgs() );
-            if(tempRtgsNeft.equals("000")){
-                if ( IScoreApplication.decryptStart(dynamicMenuDetails.getImps()).equals("0") ){
+            SharedPreferences ImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF45, 0);
+            SharedPreferences RtgsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF46, 0);
+            SharedPreferences NeftSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF48, 0);
+
+            if (NeftSP.getString("Neft","").equals("true") &&
+                    RtgsSP.getString("Rtgs","").equals("true") && ImpsSP.getString("Imps","").equals("true")){
+
+                if (!ImpsSP.getString("Imps","").equals("true")){
                     adapter.addFragment(new OwnBankFundTransferServiceChooserFragment(), "OWN BANK");
                 }else {
                     adapter.addFragment(new OwnBankFundTransferServiceChooserFragment(), "OWN BANK");
                     adapter.addFragment(new OtherBankFundTransferServiceChooserFragment(), "OTHER BANK");
                 }
+
             }else {
                 adapter.addFragment(new OwnBankFundTransferServiceChooserFragment(), "OWN BANK");
                 adapter.addFragment(new OtherBankFundTransferServiceChooserFragment(), "OTHER BANK");
             }
+
             viewPager.setAdapter(adapter);
 
         } catch (Exception e) {

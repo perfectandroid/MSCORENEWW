@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore.neftrtgs;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.TransitionManager;
@@ -18,12 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OtherfundTransferHistory;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
 import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
 import com.creativethoughts.iscore.money_transfer.OtherbankFundTransferActivity;
 import com.creativethoughts.iscore.money_transfer.OtherfundTransferType;
@@ -106,26 +106,30 @@ public class OtherBankFundTransferServiceChooserFragment extends Fragment implem
         rltv_quickpay.setVisibility( View.GONE );
 
         RelativeLayout rltvProceed = view.findViewById( R.id.rltv_proceed );
-        DynamicMenuDetails dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
         try{
-            String tempRtgsImpsNeft = IScoreApplication.decryptStart(dynamicMenuDetails.getRtgs() );
-            String[] dmenu = tempRtgsImpsNeft.split("(?!^)");
-            if ( dmenu.length == 3 ){
-                if ( dmenu[0].equals("1") ){
-                    mBtnNeft.setVisibility( View.VISIBLE );
-                    rltv_neft.setVisibility( View.VISIBLE );
-                }
-                if ( dmenu[1].equals("1") ){
-                    mBtnRtgs.setVisibility( View.VISIBLE );
-                    rltv_rtgs.setVisibility( View.VISIBLE );
-                }
-                if ( dmenu[2].equals("1") ){
-                    mBtnImps.setVisibility( View.VISIBLE );
-                    rltv_imps.setVisibility( View.VISIBLE );
-                }
+
+            SharedPreferences ImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF45, 0);
+            SharedPreferences RtgsSP = getActivity().getSharedPreferences(Config.SHARED_PREF46, 0);
+            SharedPreferences NeftSP = getActivity().getSharedPreferences(Config.SHARED_PREF48, 0);
+
+            if (NeftSP.getString("Neft","").equals("true") ){
+                mBtnNeft.setVisibility( View.VISIBLE );
+                rltv_neft.setVisibility( View.VISIBLE );
             }
-            String quickPay = IScoreApplication.decryptStart( dynamicMenuDetails.getImps() );
-            if ( quickPay.equals("1") ){
+
+            if (RtgsSP.getString("Rtgs","").equals("true") ){
+                mBtnRtgs.setVisibility( View.VISIBLE );
+                rltv_rtgs.setVisibility( View.VISIBLE );
+            }
+
+            if (ImpsSP.getString("Imps","").equals("true")){
+                mBtnImps.setVisibility( View.VISIBLE );
+                rltv_imps.setVisibility( View.VISIBLE );
+            }
+
+         //   String quickPay = IScoreApplication.decryptStart( dynamicMenuDetails.getImps() );
+            if ( ImpsSP.getString("Imps","").equals("true") ){
                 mBtnQckPay.setVisibility( View.VISIBLE);
                 rltv_quickpay.setVisibility( View.VISIBLE );
             }

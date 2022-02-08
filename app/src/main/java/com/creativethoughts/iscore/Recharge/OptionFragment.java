@@ -2,6 +2,8 @@ package com.creativethoughts.iscore.Recharge;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +15,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.RechargeFragment;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
 
 public class OptionFragment extends Fragment implements View.OnClickListener {
 
@@ -28,9 +29,12 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
     RelativeLayout rltv_postpaid;
     RelativeLayout rltv_datacard;
 
-    private DynamicMenuDetails dynamicMenuDetails;
     AlertDialog alertDialog2=null;
     private AlertDialog.Builder builder;
+
+    SharedPreferences RechargeSP = null;
+    SharedPreferences KsebSP = null;
+
     public OptionFragment() {
 
     }
@@ -65,6 +69,14 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         rltv_postpaid.setOnClickListener(this);
         rltv_datacard.setOnClickListener(this);
 
+        RechargeSP = getActivity().getSharedPreferences(Config.SHARED_PREF44, 0);
+        //ImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF45, 0);
+        // RtgsSP = getActivity().getSharedPreferences(Config.SHARED_PREF46, 0);
+        KsebSP = getActivity().getSharedPreferences(Config.SHARED_PREF47, 0);
+        //  NeftSP = getActivity().getSharedPreferences(Config.SHARED_PREF48, 0);
+        //  OwnImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF49, 0);
+
+
 
         return view;
     }
@@ -76,10 +88,9 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.rltv_prepaid:
 //                fragment = RechargeFragment.newInstance(0);
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -97,10 +108,9 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             case R.id.rltv_dth:
                 //DO something
 //                fragment = RechargeFragment.newInstance(0);
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -118,10 +128,9 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             case R.id.rltv_landline:
                 //DO something
                 Log.e(TAG, "CLICK   75");
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -143,11 +152,11 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
             case R.id.rltv_postpaid:
                 //DO something
                 Log.e(TAG, "CLICK   82");
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
                 builder = new AlertDialog.Builder(getContext());
                 try {
 
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -169,10 +178,9 @@ public class OptionFragment extends Fragment implements View.OnClickListener {
                 //DO something
                 Log.e(TAG, "CLICK   89");
 //                fragment = RechargeFragment.newInstance(0);
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");

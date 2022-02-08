@@ -22,10 +22,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.NewMenuAdapter;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +65,6 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mUserLearnedDrawer;
 
     private NewMenuAdapter adapter;
-    private DynamicMenuDetails dynamicMenuDetails;
 
 
     public NavigationDrawerFragment() {
@@ -168,7 +165,6 @@ public class NavigationDrawerFragment extends Fragment {
         menuItem11.setMenuIcon(R.drawable.ic_nav_close);
         menuItem11.setMenuLabel(getString(R.string.title_section8));
 
-        dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
 
 
         menuItems.add(menuItem0);
@@ -176,9 +172,10 @@ public class NavigationDrawerFragment extends Fragment {
         menuItems.add(menuItem2);
         menuItems.add(menuItem3);
 
-
+        SharedPreferences KsebSP = getActivity().getSharedPreferences(Config.SHARED_PREF47, 0);
         try {
-            if ( IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0") ){
+            if (!KsebSP.getString("Kseb","").equals("true")){
+
             }else {
                 menuItems.add(menuItem4);
             }
