@@ -64,10 +64,15 @@ public class ConnectionUtil {
 
        if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
             bankKey      = HomeActivity.getBankkey();
-            bankHeader   = HomeActivity.getBankheader();AssetName   = HomeActivity.getCertificateAssetName();
+            bankHeader   = HomeActivity.getBankheader();
+            AssetName   = HomeActivity.getCertificateAssetName();
             Hostname   = HomeActivity.getHostnameSubject();
         }
 
+        bankKey      = "d.22333";
+        bankHeader   = "PERFECT SCORE BANK HEAD OFFICE";
+        AssetName   = "staticvm.pem";
+        Hostname   = "STATIC-VM";
 
 //        bankKey      = SplashScreen.BankKey;
 //        bankHeader   = SplashScreen.BankHeader;

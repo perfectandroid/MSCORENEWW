@@ -305,6 +305,23 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                         accntSPEditer.putString("accountNoarray", String.valueOf(jArray4));
                         accntSPEditer.commit();
 
+//                        String strDMenu =object3.getString("DMenu");
+//                        JSONObject jobjDMenu = object3.getString("DMenu"));
+
+                        try{
+                            Log.e(TAG,"object3  3111   "+object3.getString("DMenu"));
+                            JSONObject jobjDMenu = new JSONObject(object3.getString("DMenu"));
+                            Log.e(TAG,"jobjDMenu  3112   "+jobjDMenu);
+                            Log.e(TAG,"Recharge  3113   "+jobjDMenu.getString("Recharge"));
+                        }
+                        catch (Exception e){
+
+                            Log.e(TAG,"Exception  3114   "+e.toString());
+                        }
+
+
+
+
                       /*  for (int j = 0; j < jArray4.length(); j++)
                         {
                             JSONObject obj2 = jArray4.getJSONObject(j);

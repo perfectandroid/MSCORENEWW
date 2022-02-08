@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.db.dao;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.UserRegistrationActivity;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by vishnu on 7/23/2018 - 3:12 PM.
  */
 public class DbSync {
+    public String TAG = "DbSync";
     private static volatile DbSync mdbsync;
     public static synchronized DbSync getInstance(){
         if ( mdbsync == null )
@@ -32,18 +34,18 @@ public class DbSync {
             if ( syncParent.getAcInfo() == null || syncParent.getAcInfo().isEmpty() ){
                 return -1;
             }
-//            List<SyncMain> syncMainList = syncParent.getAcInfo();
-//            SyncMain syncMain = syncMainList.get(0);
-//            SyncDMenu dMenu = new Gson().fromJson( syncMain.getdMenuString(), SyncDMenu.class);
-//            syncMain.setdMenu( dMenu );
-//            syncMain.setUserLogin("1");
+            List<SyncMain> syncMainList = syncParent.getAcInfo();
+            SyncMain syncMain = syncMainList.get(0);
+            SyncDMenu dMenu = new Gson().fromJson( syncMain.getdMenuString(), SyncDMenu.class);
+            syncMain.setdMenu( dMenu );
+            syncMain.setUserLogin("1");
 
-//            int customerId = Integer.parseInt(syncMain.getCustomerId());
-//
-//            if ( customerId <= 0 )
-//                return -1;
-//            List<SyncAccount> syncAccountList = syncMain.getAccountList();
-//            List<SyncMessage> messages = syncMain.getMessages();
+            int customerId = Integer.parseInt(syncMain.getCustomerId());
+
+            if ( customerId <= 0 )
+                return -1;
+            List<SyncAccount> syncAccountList = syncMain.getAccountList();
+            List<SyncMessage> messages = syncMain.getMessages();
 //
 //            if ( syncAccountList == null || syncAccountList.isEmpty() ){
 //                return  -2;
@@ -67,11 +69,16 @@ public class DbSync {
 //                    NewTransactionDAO.getInstance().insertGsonTransaction( syncTransaction, syncAccount.getAccNo() );
 //                }
 //            }
-//            for ( SyncMessage syncMessage : messages ){
+            for ( SyncMessage syncMessage : messages ){
 //                PBMessagesDAO.getInstance().insertMessage( syncMain.getCustomerId(), syncMessage.getMessageId(),
 //                        syncMessage.getMessageHead(), syncMessage.getMessageDetail(), syncMessage.getMessageDate(), syncMessage.getMessageType(),
 //                        syncMessage.getMessageMode() );
-//            }
+
+                Log.e(TAG,"SyncMessage   777   "+"\n"+"getCustomerId : "+syncMain.getCustomerId()+" #  getMessageId : "+syncMessage.getMessageId()+
+                        " #  getMessageHead : "+syncMessage.getMessageHead()+" #  getMessageDetail : "+syncMessage.getMessageDetail()
+                        +" #  getMessageDate : "+syncMessage.getMessageDate()+" #  getMessageType : "+syncMessage.getMessageType()+
+                        " #  getMessageMode : "+syncMessage.getMessageMode());
+            }
             return 1;
         }catch ( Exception e ){
             return -1;
