@@ -9,7 +9,6 @@ import android.view.View;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.rechargeHistoryAdapter;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.Share;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -57,7 +56,6 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
     JSONObject jsonObject = null;
     public List<Share> shareArrayList ;
     rechargeHistoryAdapter adapter;
-    AccountInfo accountInfo;
     String branchcode;
 
     @Override
