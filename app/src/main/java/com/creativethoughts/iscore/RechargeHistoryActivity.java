@@ -49,6 +49,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RechargeHistoryActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public String TAG = "RechargeHistoryActivity";
     private ProgressDialog progressDialog;
     RecyclerView rv_recarge_history;
     String token,cusid,name;
@@ -63,6 +65,7 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge_history);
 
+        Log.e(TAG,"START   68");
         setRegViews();
         showActiveList();
     }
