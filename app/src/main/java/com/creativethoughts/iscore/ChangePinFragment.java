@@ -20,10 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 
 import com.creativethoughts.iscore.utility.ProgressBarUtil;
@@ -266,9 +263,10 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
 
         @Override
         protected Integer doInBackground(String... params) {
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
 
-            String custId = user.customerId;
+
+           // String custId = user.customerId;
+            String custId = "";
 
 //            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);

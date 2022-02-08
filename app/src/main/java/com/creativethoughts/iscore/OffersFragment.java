@@ -16,22 +16,14 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.DepositListInfoAdapter;
 import com.creativethoughts.iscore.adapters.MessageAdapter;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.Message;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
+
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,21 +108,21 @@ public class OffersFragment extends Fragment {
 
 
     private void prepareMessagesData() {
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-
-        ArrayList<Message> messages =
-                PBMessagesDAO.getInstance().getAllOffers(userDetails.customerId);
-
-        if (messages != null && !messages.isEmpty() ) {
-            mMessageAdapter.setMessages(messages);
-        }else{
-            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
-            alertDialog.setCancelable(true);
-            //alertDialog.setTitle("No Access");
-            alertDialog.setMessage("No data found!");
-            alertDialog.setIcon(R.drawable.ic_warning);
-            alertDialog.show();
-        }
+//        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//
+//        ArrayList<Message> messages =
+//                PBMessagesDAO.getInstance().getAllOffers(userDetails.customerId);
+//
+//        if (messages != null && !messages.isEmpty() ) {
+//            mMessageAdapter.setMessages(messages);
+//        }else{
+//            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+//            alertDialog.setCancelable(true);
+//            //alertDialog.setTitle("No Access");
+//            alertDialog.setMessage("No data found!");
+//            alertDialog.setIcon(R.drawable.ic_warning);
+//            alertDialog.show();
+//        }
 
       //  getMessage();
 
