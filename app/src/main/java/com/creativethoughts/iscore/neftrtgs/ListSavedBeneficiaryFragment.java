@@ -23,18 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.network.NetworkManager;
 import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 /**
@@ -105,9 +100,9 @@ public class ListSavedBeneficiaryFragment extends Fragment implements View.OnCli
             SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null);
 
-            UserDetails user = UserDetailsDAO.getInstance( ).getUserDetail( );
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
             String url = BASE_URL;
-            url += "/NEFTRTGSGetReceiver?ID_Customer="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart( user.customerId  ) );
+            url += "/NEFTRTGSGetReceiver?ID_Customer="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(customerIdSP.getString("customerId","")) );
             hideAnim( false );
             NetworkManager.getInstance().connector(url, new ResponseManager() {
                 @Override

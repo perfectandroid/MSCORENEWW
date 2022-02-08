@@ -37,27 +37,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.cardview.widget.CardView;
+
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.AddSenderReceiverActivity;
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.TransactionOTPFragment;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
@@ -877,12 +871,8 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         @Override
         protected ArrayList<SenderReceiver> doInBackground(String... params) {
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
-
-//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//            String BASE_URL=pref.getString("oldbaseurl", null);
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
 
             SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null);

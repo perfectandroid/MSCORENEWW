@@ -26,10 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.WalletMintransAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -116,9 +112,10 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         btn_submit = findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(this);
 
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        txt_userid.setText( "Customer Id : "+userDetails.customerId);
-        txt_userdetails.setText( userDetails.userCustomerName);
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+        txt_userid.setText( "Customer Id : "+customerIdSP.getString("customerId",""));
+        SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+        txt_userdetails.setText( customerNameSP.getString("customerName",""));
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         tvwalletbal.setText( "WALLET BALANCE ON "+currentDate);
@@ -228,18 +225,21 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
-                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid = customerIdSP.getString("customerId","");
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                 } catch (Exception e) {
@@ -395,10 +395,17 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(stracccode) );
                     requestObject1.put("SubModule",IScoreApplication.encryptStart(strsubmodule) );
 
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
-                    requestObject1.put("MobNo",IScoreApplication.encryptStart(userDetails.userMobileNo));
-                    requestObject1.put("CustId",IScoreApplication.encryptStart(userDetails.userCustomerNo));
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String customerId = customerIdSP.getString("customerId","");
+                    SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                    String mobileNo = mobileNoSP.getString("mobileNo","");
+                    SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+                    String customerNo = customerNoSP.getString("customerNo","");
+
+                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(customerId));
+                    requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
+                    requestObject1.put("CustId",IScoreApplication.encryptStart(customerNo));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
 
 
@@ -506,6 +513,14 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String customerId = customerIdSP.getString("customerId","");
+                    SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                    String mobileNo = mobileNoSP.getString("mobileNo","");
+                    SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+                    String customerName = customerNameSP.getString("customerName","");
+
+
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
@@ -515,10 +530,10 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("SubTranType",IScoreApplication.encryptStart("P") );
                     requestObject1.put("Amount",IScoreApplication.encryptStart(stramount) );
 
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
-                    requestObject1.put("MobNo",IScoreApplication.encryptStart(userDetails.userMobileNo));
-                    requestObject1.put("CustId",IScoreApplication.encryptStart(userDetails.userCustomerNo));
+
+                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(customerId));
+                    requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
+                    requestObject1.put("CustId",IScoreApplication.encryptStart(customerName));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
 
 
@@ -633,8 +648,11 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(userDetails.customerId));
+
+                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String customerId = customerIdSP.getString("customerId","");
+
+                    requestObject1.put("ID_Customer",IScoreApplication.encryptStart(customerId));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey));
                    /* requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));*/
