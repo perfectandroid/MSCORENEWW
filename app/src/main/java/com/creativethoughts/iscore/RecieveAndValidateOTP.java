@@ -313,6 +313,37 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                             JSONObject jobjDMenu = new JSONObject(object3.getString("DMenu"));
                             Log.e(TAG,"jobjDMenu  3112   "+jobjDMenu);
                             Log.e(TAG,"Recharge  3113   "+jobjDMenu.getString("Recharge"));
+
+                            SharedPreferences RechargeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+                            SharedPreferences.Editor RechargeEditer = RechargeSP.edit();
+                            RechargeEditer.putString("Recharge",jobjDMenu.getString("Recharge") );
+                            RechargeEditer.commit();
+
+                            SharedPreferences ImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF45, 0);
+                            SharedPreferences.Editor ImpsEditer = ImpsSP.edit();
+                            ImpsEditer.putString("Imps",jobjDMenu.getString("Imps") );
+                            ImpsEditer.commit();
+
+                            SharedPreferences RtgsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF46, 0);
+                            SharedPreferences.Editor RtgsEditer = RtgsSP.edit();
+                            RtgsEditer.putString("Rtgs",jobjDMenu.getString("Rtgs") );
+                            RtgsEditer.commit();
+
+                            SharedPreferences KsebSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF47, 0);
+                            SharedPreferences.Editor KsebEditer = KsebSP.edit();
+                            KsebEditer.putString("Kseb",jobjDMenu.getString("Kseb") );
+                            KsebEditer.commit();
+
+                            SharedPreferences NeftSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF48, 0);
+                            SharedPreferences.Editor NeftEditer = NeftSP.edit();
+                            NeftEditer.putString("Neft",jobjDMenu.getString("Neft") );
+                            NeftEditer.commit();
+
+                            SharedPreferences OwnImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF49, 0);
+                            SharedPreferences.Editor OwnImpsEditer = OwnImpsSP.edit();
+                            OwnImpsEditer.putString("OwnImps",jobjDMenu.getString("OwnImps") );
+                            OwnImpsEditer.commit();
+
                         }
                         catch (Exception e){
 

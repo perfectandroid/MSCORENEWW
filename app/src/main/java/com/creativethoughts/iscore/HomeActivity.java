@@ -99,6 +99,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        checkPref();
+
         SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
         customerId = customerIdSP.getString("customerId","");
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
@@ -120,6 +122,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
 
 
+    }
+
+    private void checkPref() {
+
+//        SharedPreferences RechargeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+//        SharedPreferences ImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF45, 0);
+//        SharedPreferences RtgsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF46, 0);
+//        SharedPreferences KsebSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF47, 0);
+//        SharedPreferences NeftSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF48, 0);
+//        SharedPreferences OwnImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF49, 0);
+//
+//
+//        Log.e("TAG","PREFERENCE CONDITIONS   137"
+//                +"\n"+"Recharge      "+RechargeSP.getString("Recharge",null)
+//                +"\n"+"Imps          "+ImpsSP.getString("Imps",null)
+//                +"\n"+"Rtgs          "+RtgsSP.getString("Rtgs",null)
+//                +"\n"+"Kseb          "+KsebSP.getString("Kseb",null)
+//                +"\n"+"Neft          "+NeftSP.getString("Neft",null)
+//                +"\n"+"OwnImps       "+OwnImpsSP.getString("OwnImps",null));
     }
 
     @Override

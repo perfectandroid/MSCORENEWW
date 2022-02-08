@@ -55,6 +55,13 @@ public class Config {
 
     public static final String SHARED_PREF43 = "accountNoarray";
 
+    public static final String SHARED_PREF44 = "Recharge";
+    public static final String SHARED_PREF45 = "Imps";
+    public static final String SHARED_PREF46 = "Rtgs";
+    public static final String SHARED_PREF47 = "Kseb";
+    public static final String SHARED_PREF48 = "Neft";
+    public static final String SHARED_PREF49 = "OwnImps";
+
 
 
 }
