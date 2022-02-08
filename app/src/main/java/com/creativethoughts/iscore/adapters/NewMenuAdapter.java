@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.MenuItem;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 
 
 import java.util.ArrayList;

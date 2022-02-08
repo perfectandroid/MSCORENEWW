@@ -200,6 +200,8 @@ public class LoansFragment extends Fragment implements View.OnClickListener{
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1   2031   "+requestObject1);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -213,6 +215,7 @@ public class LoansFragment extends Fragment implements View.OnClickListener{
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try{
+                            Log.e(TAG,"response   2032   "+response.body());
                             Log.i("Locationdetails",response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {

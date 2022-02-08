@@ -155,6 +155,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
 
       //  branchcode = accountInfo.accountBranchCode;
+        Log.e(TAG,"branchcode   158   "+branchcode);
 
         progressDialog = new ProgressDialog(DepositMinistatement.this);
         setRegViews();

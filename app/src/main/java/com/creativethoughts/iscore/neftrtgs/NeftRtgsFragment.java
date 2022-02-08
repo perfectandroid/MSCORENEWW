@@ -36,9 +36,7 @@ import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.otp.OtpFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -59,6 +57,7 @@ import java.util.Locale;
 public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 
 
+    public String TAG = "NeftRtgsFragment";
     private EditText mEdtTxtBeneficiaryName;
     private EditText  mEdtTxtBeneficiaryAccNo;
     private EditText  mEdtTxtBeneficiaryConfirmAccNo;
@@ -655,10 +654,15 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 
     }
     private void setAccountNo(  ){
-        SettingsModel settingsModel = SettingsDAO.getInstance( ).getDetails( );
-        if (settingsModel.customerId.isEmpty( ) )
-            return;
-        CommonUtilities.transactionActivitySetAccountNumber( settingsModel.customerId, mSpinnerAccountNo, getActivity() );
+
+        SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+        String customerNo = customerNoSP.getString("customerNo","");
+        Log.e(TAG,"customerNo  659  "+customerNo);
+
+//        SettingsModel settingsModel = SettingsDAO.getInstance( ).getDetails( );
+//        if (settingsModel.customerId.isEmpty( ) )
+//            return;
+//        CommonUtilities.transactionActivitySetAccountNumber( settingsModel.customerId, mSpinnerAccountNo, getActivity() );
     }
 
 

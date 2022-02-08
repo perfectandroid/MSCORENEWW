@@ -22,11 +22,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.receiver.ConnectivityReceiver;
 import com.creativethoughts.iscore.utility.NetworkUtil;
-import com.creativethoughts.iscore.utility.network.NetworkManager;
-import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -160,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                    // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
 
                   //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
-                    PBMessagesDAO.getInstance().markOffersAsRead(customerId);
+                   // PBMessagesDAO.getInstance().markOffersAsRead(customerId);
                     mNavigationDrawerFragment.refreshMenu();
                 }
                 fragment = OffersFragment.newInstance();
