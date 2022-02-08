@@ -41,8 +41,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.model.DynamicMenuDetails;
 import com.creativethoughts.iscore.model.Account;
 import com.creativethoughts.iscore.money_transfer.FundTransferActivity;
 import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
@@ -106,7 +104,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
     private TextView txtNeftRtgs,tvRecharge;
     private android.app.AlertDialog.Builder builder;
     LinearLayout llaccsummry,llquickView;
-    private DynamicMenuDetails dynamicMenuDetails;
+   // private DynamicMenuDetails dynamicMenuDetails;
     CircleImageView profileIma, profileImag,profileImg, profileIm, profileImage, profileImga;
     RelativeLayout rltv_prepaid,rltv_dth,rltv_landline,rltv_postpaid,rltv_datacard,rltv_kseb,rltv_recharge_history;
     public FragmentMenuCard() {}
@@ -125,6 +123,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
     private Spinner AccSpinner;
     ArrayList<Account> AccountDetails = new ArrayList<>();
     ArrayAdapter<Account> AccountAdapter = null;
+    SharedPreferences RechargeSP = null;
+    SharedPreferences KsebSP = null;
+//    SharedPreferences ImpsSP = null;
+//    SharedPreferences RtgsSP = null;
+//    SharedPreferences NeftSP = null;
+//    SharedPreferences OwnImpsSP = null;
+
 
     // TODO: Rename and change types and number of parameters
     public  static Fragment newInstance(String hideRecharge, String hideMoneyTransfer ) {
@@ -183,13 +188,21 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         llquickView.setOnClickListener(this);
 
 
-        dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+         RechargeSP = getActivity().getSharedPreferences(Config.SHARED_PREF44, 0);
+         //ImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF45, 0);
+        // RtgsSP = getActivity().getSharedPreferences(Config.SHARED_PREF46, 0);
+         KsebSP = getActivity().getSharedPreferences(Config.SHARED_PREF47, 0);
+       //  NeftSP = getActivity().getSharedPreferences(Config.SHARED_PREF48, 0);
+       //  OwnImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF49, 0);
+
         try {
-            if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") &&  IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0")){
-                llrecharge.setVisibility(View.GONE);
-            }else {
+           // llrecharge.setVisibility(View.GONE);
+            if (RechargeSP.getString("Recharge","").equals("true") && KsebSP.getString("Kseb","").equals("true")){
                 llrecharge.setVisibility(View.VISIBLE);
+            }else {
+                llrecharge.setVisibility(View.GONE);
             }
+//
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -653,26 +666,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 Intent iDue=new Intent(getContext(),DuedateActivity.class);
                 startActivity(iDue);
                 break;
-          /*  case R.id.llRecharge:
-                try {
-                    dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
-                    if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") &&  IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0")){
-                        fragment = new ProfileFragment();
-                        assert actionBar != null;
-                        actionBar.setTitle( "Profile" );
-                    }else {
-                        rechargePopupnew();
-                    }
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;*/
             case R.id.rltv_prepaid:
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -697,10 +694,11 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             case R.id.rltv_dth:
                 //DO something
 //                fragment = RechargeFragment.newInstance(0);
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
+
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
 
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
@@ -726,10 +724,9 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 break;
             case R.id.rltv_landline:
                 //DO something
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -752,10 +749,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 break;
             case R.id.rltv_postpaid:
                 //DO something
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -779,10 +776,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             case R.id.rltv_datacard:
                 //DO something
 //                fragment = RechargeFragment.newInstance(0);
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if (IScoreApplication.decryptStart(dynamicMenuDetails.getRecharge()).equals("0")) {
+                    if (!RechargeSP.getString("Recharge","").equals("true")) {
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -806,10 +803,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 break;
             case R.id.rltv_kseb:
                 //noinspection AccessStaticViaInstance
-                dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
+
                 builder = new android.app.AlertDialog.Builder(getContext());
                 try {
-                    if ( IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0") ){
+                    if (!KsebSP.getString("Kseb","").equals("true")){
                         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
                         alertDialog.setCancelable(true);
                         alertDialog.setTitle("No Access");
@@ -1198,20 +1195,20 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             alertDialogmoney_transfer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialogmoney_transfer.show();
 
-            dynamicMenuDetails = DynamicMenuDao.getInstance().getMenuDetails();
 
-            String tempRtgsNeft = IScoreApplication.decryptStart(dynamicMenuDetails.getRtgs() );
-            if(tempRtgsNeft.equals("000")){
-                if ( IScoreApplication.decryptStart(dynamicMenuDetails.getImps()).equals("0") ){
-                    rltv_otherbank.setVisibility(View.GONE);
-                    profileImg.setVisibility(View.GONE);
-                }else
-                    rltv_otherbank.setVisibility(View.VISIBLE);
-                profileImg.setVisibility(View.VISIBLE);
-            }else {
-                rltv_otherbank.setVisibility(View.VISIBLE);
-                profileImg.setVisibility(View.VISIBLE);
-            }
+
+//            String tempRtgsNeft = IScoreApplication.decryptStart(dynamicMenuDetails.getRtgs() );
+//            if(tempRtgsNeft.equals("000")){
+//                if ( IScoreApplication.decryptStart(dynamicMenuDetails.getImps()).equals("0") ){
+//                    rltv_otherbank.setVisibility(View.GONE);
+//                    profileImg.setVisibility(View.GONE);
+//                }else
+//                    rltv_otherbank.setVisibility(View.VISIBLE);
+//                profileImg.setVisibility(View.VISIBLE);
+//            }else {
+//                rltv_otherbank.setVisibility(View.VISIBLE);
+//                profileImg.setVisibility(View.VISIBLE);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1243,7 +1240,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             alertDialogrecharge.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialogrecharge.show();
             try {
-                if ( IScoreApplication.decryptStart( dynamicMenuDetails.getRecharge()).equals("0") ){
+                if (!RechargeSP.getString("Recharge","").equals("true")){
                     rltv_prepaid.setVisibility(View.GONE);
                     rltv_dth.setVisibility(View.GONE);
                     rltv_landline .setVisibility(View.GONE);
@@ -1256,7 +1253,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                     rltv_postpaid .setVisibility(View.VISIBLE);
                     rltv_datacard.setVisibility(View.VISIBLE);
                 }
-                if ( IScoreApplication.decryptStart( dynamicMenuDetails.getKseb()).equals("0") ){
+                if (!KsebSP.getString("Kseb","").equals("true")){
                     rltv_kseb.setVisibility(View.GONE);
                 }else {
                     rltv_kseb.setVisibility(View.VISIBLE);

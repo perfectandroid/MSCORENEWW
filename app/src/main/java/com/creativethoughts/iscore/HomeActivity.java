@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        checkPref();
+     //   checkPref();
 
         SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
         customerId = customerIdSP.getString("customerId","");
