@@ -52,7 +52,6 @@ import com.creativethoughts.iscore.custom_alert_dialogs.SuccessAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
@@ -243,10 +242,13 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
         scan.setOnClickListener(this);
 
 
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token =  loginCredential.token;
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
+//        SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+//        cusid = customerIdSP.getString("customerId","");
+//
+//        SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+//        token = tokenIdSP.getString("Token","");
+
+
         try {
             Log.e(TAG,"token   251   "+IScoreApplication.encryptStart(token));
             Log.e(TAG,"token   252   "+IScoreApplication.encryptStart(cusid));

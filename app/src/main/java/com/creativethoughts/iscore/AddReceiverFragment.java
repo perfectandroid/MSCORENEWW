@@ -24,11 +24,8 @@ import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -227,9 +224,8 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
         try {
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
 
 //            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
@@ -372,12 +368,8 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
         @Override
         protected ArrayList<SenderReceiver> doInBackground(String... params) {
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
-
-//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//            String BASE_URL=pref.getString("oldbaseurl", null);
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
 
             SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null);
