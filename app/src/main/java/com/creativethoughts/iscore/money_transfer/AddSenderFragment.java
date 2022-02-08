@@ -22,9 +22,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.TransactionOTPFragment;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -202,10 +199,12 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
     }
 
     private void loadSenderDetails(){
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        mFirstNameEt.setText( userDetails.userCustomerName );
-        mLastNameEt.setText( userDetails.userCustomerAddress1 );
-        mMobileNumberEt.setText( userDetails.userMobileNo );
+        SharedPreferences customerNameSP = getActivity().getSharedPreferences(Config.SHARED_PREF28, 0);
+        mFirstNameEt.setText( customerNameSP.getString("customerName","") );
+        SharedPreferences customerAddress1SP = getActivity().getSharedPreferences(Config.SHARED_PREF29, 0);
+        mLastNameEt.setText( customerAddress1SP.getString("customerAddress1","") );
+        SharedPreferences mobileNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF31, 0);
+        mMobileNumberEt.setText( mobileNoSP.getString("mobileNo","") );
     }
     private Observable<AddSenderReceiverResponseModel> getObservable( String firstName, String lastName, String mobileNumber, String dob ){
         if ( getActivity()!= null ){
@@ -291,9 +290,9 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
 
         try {
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
 
-            String custId = user.customerId;
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId =customerIdSP.getString("customerId","");
             custId = custId.trim();
             firstName = firstName.trim();
             lastName = lastName.trim();

@@ -469,20 +469,23 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
-                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+
+                    SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid = customerIdSP.getString("customerId","");
+                    SharedPreferences tokenIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token = tokenIdSP.getString("Token","");
                     SharedPreferences bankkeypref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -810,11 +813,12 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
 
 
-            UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
+          //  UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
 
-            UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
-
-            String custId = user.customerId;
+            SharedPreferences customerIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF26, 0);
+            String custId = customerIdSP.getString("customerId","");
+            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+            String pin = pinIdSP.getString("pinlog","");
 
 
             /*Extract account number*/
@@ -839,7 +843,7 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                             + "&Messages=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(message.trim()))
                             + "&AccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
                             + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType ))
-                    + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+                    + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin))
                     +"&MPIN="+ IScoreApplication.encodedUrl(mPinString);
             mOtpResendLink = url;
             Log.e(TAG, "url : " + url);
