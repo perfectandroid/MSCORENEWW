@@ -853,11 +853,6 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 assert actionBar != null;
                 actionBar.setTitle( getString(R.string.title_section1) );
                 break;
-//            case R.id.pass_book:
-//                fragment = new HomeFragment();
-//                assert actionBar != null;
-//                actionBar.setTitle( "Passbook" );
-//                break;
             case R.id.searc_h:
                 fragment = new SearchFragment();
                 assert actionBar != null;
@@ -898,70 +893,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
             case R.id.rltv_passbook:
                 Intent intnt = new Intent(getContext(),PassbookTranscationActivity.class);
                 startActivity(intnt);
-               /* if (NetworkUtil.isOnline()) {
-                    final ProgressDialog pDialog =
-                            ProgressDialog.show(getActivity(), "", "Loading Details...");
-                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
-                        @Override
-                        public void onCompleted() {
-              *//*  home(new HomeFragment(),actionBar,alertDialog1);
-                pDialog.dismiss();*//*
-
-                            Intent i2 = new Intent(getContext(),PassbookTranscationActivity.class);
-                            startActivity(i2);
-                            return;
-                        }
-                        @Override
-                        public void onFailed() {
-                            //                        updateTopView();
-                            pDialog.dismiss();
-                        }
-                    }, true,getActivity());
-
-                }
-                else{
-
-      *//*  fragment = new HomeFragment();
-        assert actionBar != null;
-        actionBar.setTitle( "Passbook" );
-        alertDialog1.dismiss();*//*
-
-                    Intent intnt = new Intent(getContext(),PassbookTranscationActivity.class);
-                    startActivity(intnt);
-                }*/
                 break;
-//            case R.id. rltv_passbook:
-//                if (NetworkUtil.isOnline()) {
-//                    final ProgressDialog pDialog =
-//                            ProgressDialog.show(getActivity(), "", "Loading Details...");
-//                    SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
-//                        @Override
-//                        public void onCompleted() {
-//                            home(new HomeFragment(),actionBar,alertDialog1);
-////                            fragment = new HomeFragment();
-////                            assert actionBar != null;
-////                            actionBar.setTitle( "Passbook" );
-////                            alertDialog1.dismiss();
-//                            pDialog.dismiss();
-//                            return;
-//                        }
-//                        @Override
-//                        public void onFailed() {
-//                            //                        updateTopView();
-//                            pDialog.dismiss();
-//                        }
-//                    }, true,getActivity());
-//
-//                }
-//                else{
-//
-//                    fragment = new HomeFragment();
-//                    assert actionBar != null;
-//                    actionBar.setTitle( "Passbook" );
-//                    alertDialog1.dismiss();
-//                }
-//                break;
-
             case R.id.imps_neft:
                 fragment = new QuickPayMoneyTransferFragment();
                 assert actionBar != null;
@@ -1015,20 +947,20 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void home(Fragment passfragment, ActionBar actionBar, android.app.AlertDialog alertDialog1){
-        passfragment = new HomeFragment();
-        assert actionBar != null;
-        actionBar.setTitle( "Passbook" );
-        alertDialog1.dismiss();
-        if (passfragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, passfragment).commit();
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }
-    }
+//    private void home(Fragment passfragment, ActionBar actionBar, android.app.AlertDialog alertDialog1){
+//        passfragment = new HomeFragment();
+//        assert actionBar != null;
+//        actionBar.setTitle( "Passbook" );
+//        alertDialog1.dismiss();
+//        if (passfragment != null) {
+//            FragmentManager fragmentManager = getFragmentManager();
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.container, passfragment).commit();
+//        } else {
+//            // error in creating fragment
+//            Log.e("MainActivity", "Error in creating fragment");
+//        }
+//    }
 
     private void horizontalViewFocus(View view){
         int id = view.getId();
