@@ -21,23 +21,14 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.neftrtgs.PaymentModel;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.NumberToWord;
-import com.creativethoughts.iscore.utility.network.NetworkManager;
-import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -278,10 +269,6 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-//                    String token = loginCredential.token;
-//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-//                    String cusid = userDetails.customerId;
                     customerIdSP = this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     SharedPreferences tokenIdSP = this.getSharedPreferences(Config.SHARED_PREF35, 0);
                     String token = tokenIdSP.getString("Token","");
@@ -764,7 +751,6 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     "Network is currently unavailable. Please try again later." );*/
             return;
         }
-       // UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
         if (isValid( ) ){
             String tempAccNo = mSpinnerAccountNo.getSelectedItem( ).toString( );
             tempAccNo = tempAccNo.replace(tempAccNo.substring(tempAccNo.indexOf(" (" )+1, tempAccNo.indexOf( ')' )+1 ), "" );

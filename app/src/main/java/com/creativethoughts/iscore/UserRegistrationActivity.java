@@ -26,14 +26,10 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoginBannerAdapter;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
-import com.creativethoughts.iscore.utility.network.NetworkManager;
-import com.creativethoughts.iscore.utility.network.ResponseManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
 import com.google.android.gms.auth.api.credentials.HintRequest;
@@ -141,7 +137,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
             if (IScoreApplication.DEBUG)Log.e("Iemi", IScoreApplication.getIEMI()+"");
             SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
             if (loginSP.getString("login","").equals("0")){
-//            if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
                 Intent pinLoginActivity =
                         new Intent(UserRegistrationActivity.this, PinLoginActivity.class);
                 startActivity(pinLoginActivity);
@@ -731,12 +726,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
     private void processNetworkResponse( int result, String mobileNumber, String countryCode ){
         try {
-            UserCredentialDAO.getInstance().deleteAllUserData();
+
             if (IScoreApplication.checkPermissionIemi(result,UserRegistrationActivity.this)) {
 
                 if (result == 1) {
-                    UserCredentialDAO.getInstance()
-                            .insertUserDetails(mobileNumber, countryCode);
+
 
                     Intent passBookAccount =
                             new Intent(UserRegistrationActivity.this, RecieveAndValidateOTP.class);
@@ -746,7 +740,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     finish();
 
                 } else if (result == 0) {
-                    UserCredentialDAO.getInstance().deleteAllUserData();
                     DialogUtil.showAlert(UserRegistrationActivity.this,
                             "We are experiencing some technical issues, Please try again after some time.");
 
@@ -766,7 +759,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     showAlert( IScoreApplication.SERVICE_NOT_AVAILABLE )   ;
                 }else if (result == FLAG_NETWORK_EXCEPTION) {
                     try {
-                        UserCredentialDAO.getInstance().deleteAllUserData();
+
                         showToastMessage();
                     }catch ( IllegalStateException e ){
                         Toast.makeText(getApplicationContext(),"Something went wrong 2",Toast.LENGTH_LONG).show();
@@ -790,7 +783,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     }
     private void showAlert( String message ){
-        UserCredentialDAO.getInstance().deleteAllUserData();
+
 
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(UserRegistrationActivity.this);
         alertDialogBuilder.setMessage(message);

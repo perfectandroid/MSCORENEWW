@@ -47,11 +47,9 @@ import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.RechargeDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.RechargeModel;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.neftrtgs.PaymentModel;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -1046,7 +1044,11 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
             SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null);
 
-            UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
+
+
+            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+            String pin = pinIdSP.getString("pin","");
+
             String url = BASE_URL;
             mAccountNumber = mAccountNumber.replace(mAccountNumber.substring(mAccountNumber.indexOf(" (")+1, mAccountNumber.indexOf(')')+1), "");
             mAccountNumber = mAccountNumber.replace(" ","");
@@ -1080,7 +1082,7 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
                                     amountString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mAmount))  +
                                     accountNoString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mAccountNumber))  +
                                     moduleString +IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))  +
-                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin)) +
+                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin)) +
                                     "&Type=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart(String.valueOf(type))) +
                                     "&OperatorName=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(operatorName));
                     break;
@@ -1095,7 +1097,7 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
                                     amountString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mAmount)) +
                                     accountNoString+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mAccountNumber)) +
                                     moduleString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType)) +
-                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin)) +
+                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin)) +
                                     "&Type=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart(String.valueOf(type))) +
                                     "&OperatorName=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(operatorName));
                     break;
@@ -1109,7 +1111,7 @@ public class RechargeFragment extends Fragment implements View.OnClickListener {
                                     amountString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mAmount)) +
                                     accountNoString+ IScoreApplication.encodedUrl (IScoreApplication.encryptStart(mAccountNumber)) +
                                     moduleString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType)) +
-                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin)) +
+                                    pinString + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin)) +
                                     "&Type=" +  IScoreApplication.encodedUrl(IScoreApplication.encryptStart(String.valueOf(type))) +
                                     "&OperatorName=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(operatorName));
 

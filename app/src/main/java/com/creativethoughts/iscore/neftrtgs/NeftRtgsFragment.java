@@ -552,7 +552,8 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
                     "Network is currently unavailable. Please try again later." );*/
             return;
         }
-        UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+        SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+        String pin = pinIdSP.getString("pin","");
         if (isValid( ) ){
             String tempAccNo = mSpinnerAccountNo.getSelectedItem( ).toString( );
             tempAccNo = tempAccNo.replace(tempAccNo.substring(tempAccNo.indexOf(" (" )+1, tempAccNo.indexOf( ')' )+1 ), "" );
@@ -580,7 +581,7 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
             paymentModel.setBranch( reslts  );
             paymentModel.setBalance( balnce  );
             paymentModel.setMode(Integer.toString(mModeNeftRtgs ) );
-            paymentModel.setPin( loginCredential.pin  );
+            paymentModel.setPin( pin  );
             if ( mCheckSaveBeneficiary.isChecked() ){
                 paymentModel.setBeneficiaryAdd("1" );
             }else

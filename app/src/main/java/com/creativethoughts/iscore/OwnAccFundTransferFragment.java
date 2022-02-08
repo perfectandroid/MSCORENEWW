@@ -51,10 +51,8 @@ import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.custom_alert_dialogs.SuccessAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -1387,9 +1385,6 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
     private void startTransfer( String accountNo, String type, String receiverAccNo, String amount, String remark) {
 
 
-        UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
-
-
         if (TextUtils.isEmpty(mScannedValue)) {
             mScannedValue = "novalue";
         }
@@ -1414,6 +1409,8 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
 
             SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             String BASE_URL=pref.getString("baseurl", null);
+            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+            String pin = pinIdSP.getString("pin","");
 
 
             String url =
@@ -1423,7 +1420,7 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
                             + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
                             + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
                             + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin))
                             + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
             Log.e(TAG,"startTransfer   954     "+url);
             NetworkManager.getInstance().connector(url, new ResponseManager() {
