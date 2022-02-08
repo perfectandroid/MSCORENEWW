@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.TransactionDetailActivity;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 
@@ -30,7 +29,6 @@ public class PassbookListAdapter extends ArrayAdapter<Transaction> {
     Context mCtx;
     int listLayoutRes;
     List<Transaction> transactionList;
-    NewTransactionDAO newTransactionDAO;
 
     public PassbookListAdapter(Context mCtx, int listLayoutRes,List<Transaction>transactionList) {
         super(mCtx, listLayoutRes,transactionList);

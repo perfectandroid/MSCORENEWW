@@ -14,10 +14,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
-import com.creativethoughts.iscore.db.dao.model.Transaction;
 
-import java.util.List;
 
 import io.reactivex.annotations.NonNull;
 
@@ -65,16 +62,16 @@ public class PassBookFragment extends Fragment {
         return view;
     }
     private void initExpandableView( String accNo ){
-        List<Transaction> transactionList = NewTransactionDAO.getInstance().getTransactions( accNo );
-        if ( !transactionList.isEmpty() ){
-//            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-//            final int days;
-//            if ( settingsModel == null || settingsModel.days <= 0 ){
-//                days = 0;
-//            }else
-//                days = settingsModel.days;
-        }else {
-            Toast.makeText( getContext(), "No Transactions found...", Toast.LENGTH_SHORT ).show();
-        }
+//        List<Transaction> transactionList = NewTransactionDAO.getInstance().getTransactions( accNo );
+//        if ( !transactionList.isEmpty() ){
+////            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+////            final int days;
+////            if ( settingsModel == null || settingsModel.days <= 0 ){
+////                days = 0;
+////            }else
+////                days = settingsModel.days;
+//        }else {
+//            Toast.makeText( getContext(), "No Transactions found...", Toast.LENGTH_SHORT ).show();
+//        }
     }
 }

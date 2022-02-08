@@ -31,7 +31,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.NewAccountExpandableListAdapter;
 import com.creativethoughts.iscore.adapters.PassbookListAdapter;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
@@ -380,90 +379,34 @@ public class HomeFragment extends Fragment {
 
     private void prepareListData() {
 
-        ArrayList<Transaction> transactions = NewTransactionDAO.getInstance().getTransactions1(acChange);
-
-        if(transactions.size() == 0) {
-         //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-            SharedPreferences SelectedDaysSP = getActivity().getSharedPreferences(Config.SHARED_PREF37, 0);
-            String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
-            final int days;
-            if (SelectedDays == null || Integer.parseInt(SelectedDays) <= 0) {
-                days = 30;
-            } else {
-                days = Integer.parseInt(SelectedDays);
-            }
-            mEmptyText.setVisibility(View.VISIBLE);
-            lv_passbook.setVisibility(View.INVISIBLE);
-            mEmptyText.setText("There are no transactions to display for the last " + days + " days");
-         //   mAccountExpandableListAdapter.clearAll();
-            return;
-        }
+//        ArrayList<Transaction> transactions = NewTransactionDAO.getInstance().getTransactions1(acChange);
+//
+//        if(transactions.size() == 0) {
+//         //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//            SharedPreferences SelectedDaysSP = getActivity().getSharedPreferences(Config.SHARED_PREF37, 0);
+//            String SelectedDays = SelectedDaysSP.getString("SelectedDays",null);
+//            final int days;
+//            if (SelectedDays == null || Integer.parseInt(SelectedDays) <= 0) {
+//                days = 30;
+//            } else {
+//                days = Integer.parseInt(SelectedDays);
+//            }
+//            mEmptyText.setVisibility(View.VISIBLE);
+//            lv_passbook.setVisibility(View.INVISIBLE);
+//            mEmptyText.setText("There are no transactions to display for the last " + days + " days");
+//         //   mAccountExpandableListAdapter.clearAll();
+//            return;
+//        }
 
         lv_passbook.setVisibility(View.VISIBLE);
         mEmptyText.setVisibility(View.GONE);
 
 
-        sortAccordingToTime(transactions);
-        adapter = new PassbookListAdapter(getActivity(), R.layout.passbook_list_row, transactions);
-        lv_passbook.setAdapter(adapter);
-
-       /* lv_passbook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Toast.makeText(getActivity(),"Test",Toast.LENGTH_LONG).show();
-           //     TransactionDetailActivity.openTransactionDetails(getActivity(), transactionList);
-            }
-        });*/
-
-        //adding the adapter to listview
-
-     //   transactionList = new ArrayList<>();
-/*
+//        sortAccordingToTime(transactions);
+//        adapter = new PassbookListAdapter(getActivity(), R.layout.passbook_list_row, transactions);
+//        lv_passbook.setAdapter(adapter);
 
 
-        String date = "";
-
-        ArrayList<Transaction> sortedList = new ArrayList<>();
-
-        for (int i = 0; i < transactions.size(); i++) {
-            final Transaction transaction = transactions.get(i);
-
-            if (transaction == null) {
-                continue;
-            }
-
-            String effectiveDate = transaction.effectDate;
-
-            if (TextUtils.isEmpty(effectiveDate)) {
-                continue;
-            }
-
-            String itemEffectiveDate = getHeaderString(effectiveDate);
-
-            if (i > 0 && (!date.equalsIgnoreCase(itemEffectiveDate))) {
-
-                if (sortedList.size() > 0) {
-                    mAccountExpandableListAdapter.addItem(date, sortedList);
-
-                    sortedList = new ArrayList<>();
-                }
-
-                date = itemEffectiveDate;
-            } else if (i == 0) {
-                date = itemEffectiveDate;
-            }
-
-            sortedList.add(transaction);
-        }
-
-        if ((!TextUtils.isEmpty(date)) && sortedList.size() > 0) {
-            mAccountExpandableListAdapter.addItem(date, sortedList);
-        }
-
-        if (!TextUtils.isEmpty(acChange)) {
-            NewTransactionDAO.getInstance().markAllTransactionAsRead(acChange);
-        }*/
     }
 
     @Override
