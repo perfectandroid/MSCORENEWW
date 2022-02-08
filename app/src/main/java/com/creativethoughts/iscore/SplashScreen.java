@@ -12,10 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -160,7 +158,6 @@ public class SplashScreen extends AppCompatActivity {
     private void startUserregistrationActivity() {
         SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
         if (loginSP.getString("login","").equals("0")){
-//        if (UserCredentialDAO.getInstance().isUserAlreadyLogin()) {
             Intent pinLoginActivity =
                     new Intent(SplashScreen.this, PinLoginActivity.class);
             startActivity(pinLoginActivity);
