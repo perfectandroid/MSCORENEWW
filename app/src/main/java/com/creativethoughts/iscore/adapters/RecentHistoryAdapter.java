@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Recharge.OnItemClickListener;
-import com.creativethoughts.iscore.RechargeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;

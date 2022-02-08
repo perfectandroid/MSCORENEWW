@@ -9,18 +9,9 @@ import android.text.TextUtils;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.UserRegistrationActivity;
-import com.creativethoughts.iscore.db.dao.BankVerifier;
-import com.creativethoughts.iscore.db.dao.DbSync;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.KsebBillDAO;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.RechargeDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.gsonmodel.SyncParent;
-import com.google.gson.Gson;
+
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -182,10 +173,10 @@ public class SyncAll{
                 //Remove all the cached data in DB
                 if( !mIsRefresh ) {
                     //As per 13-Dec-2015 discussion, we should not delete while manual refresh
-                    UserDetailsDAO.getInstance().deleteAllRows();
-                    PBAccountInfoDAO.getInstance().deleteAllRows();
-                    NewTransactionDAO.getInstance().deleteAllRow();
-                    PBMessagesDAO.getInstance().deleteAllRows();
+//                    UserDetailsDAO.getInstance().deleteAllRows();
+//                    PBAccountInfoDAO.getInstance().deleteAllRows();
+//                    NewTransactionDAO.getInstance().deleteAllRow();
+//                    PBMessagesDAO.getInstance().deleteAllRows();
                 }
 
 
@@ -198,24 +189,24 @@ public class SyncAll{
 
                 if (s3.equals(s2)) {
 
-                    UserCredentialDAO.getInstance().deleteAllUserData();
-                    UserDetailsDAO.getInstance().deleteAllRows();
-                    PBAccountInfoDAO.getInstance().deleteAllRows();
-                    PBMessagesDAO.getInstance().deleteAllRows();
-                    RechargeDAO.getInstance().deleteAllRows();
-                    NewTransactionDAO.getInstance().deleteAllRow();
-                  //  SettingsDAO.getInstance().deleteAllRows();
-                    BankVerifier.getInstance().deleteAllRows();
-                    DynamicMenuDao.getInstance().deleteAll();
-                    KsebBillDAO.getInstance().deleteAll();
+//                    UserCredentialDAO.getInstance().deleteAllUserData();
+//                    UserDetailsDAO.getInstance().deleteAllRows();
+//                    PBAccountInfoDAO.getInstance().deleteAllRows();
+//                    PBMessagesDAO.getInstance().deleteAllRows();
+//                    RechargeDAO.getInstance().deleteAllRows();
+//                    NewTransactionDAO.getInstance().deleteAllRow();
+//                  //  SettingsDAO.getInstance().deleteAllRows();
+//                    BankVerifier.getInstance().deleteAllRows();
+//                    DynamicMenuDao.getInstance().deleteAll();
+//                    KsebBillDAO.getInstance().deleteAll();
 
                     Intent intent = new Intent(mContex,UserRegistrationActivity.class);
                     mContex.startActivity(intent);
                     ((Activity)mContex).finish();
                 }
                 else {
-                    SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
-                    transactions = DbSync.getInstance().sync( syncParent, false );
+//                    SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
+//                    transactions = DbSync.getInstance().sync( syncParent, false );
 
                 }
             } else {

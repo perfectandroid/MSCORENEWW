@@ -13,14 +13,6 @@ import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.NotificationMgr;
 import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
-import com.creativethoughts.iscore.utility.ConnectionUtil;
-import com.google.gson.Gson;
 
 /**
  * Created by muthukrishnan on 09/10/15.
@@ -68,63 +60,63 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
 
             try {
 
-                UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
+            //    UserDetails user = UserDetailsDAO.getInstance().getUserDetail();
 
-                String custId = user.customerId;
+              //  String custId = user.customerId;
 
-                UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
+             //   UserCredential userCred = UserCredentialDAO.getInstance().getLoginCredential();
 
-                String pin1 = userCred.pin;
+             //   String pin1 = userCred.pin;
 
 
-                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-                if (settingsModel == null) {
-                    return -1;
-                }
-
-                final int days;
-
-                if(settingsModel.days <= 0) {
-                    days = 30;
-                } else {
-                    days = settingsModel.days;
-                }
+//                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//                if (settingsModel == null) {
+//                    return -1;
+//                }
+//
+//                final int days;
+//
+//                if(settingsModel.days <= 0) {
+//                    days = 30;
+//                } else {
+//                    days = settingsModel.days;
+//                }
 
 //                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //                String BASE_URL=pref.getString("oldbaseurl", null);
 
-                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                String BASE_URL=pref.getString("baseurl", null);
-
-                final String url =
-                        BASE_URL +
-                                "/SyncNormal?All="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart("false"))+
-                                "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId)) +
-                                "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin1)) +
-                                "&NoOfDays=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(days+""));
-
-
-                String text1 = ConnectionUtil.getResponse(url);
-
-                if (!TextUtils.isEmpty(text1)) {
-                    // May be some TIME_IN_MILLISECOND no transactions.
-                    SettingsDAO.getInstance().updateSyncTime();
-
-                    String s2 = "{\"acInfo\":null}";
-
-                    String s3 = text1.trim();
-
-                    if (s3.equals(s2)) {
-
-                        return -1;
-
-                    } else {
-//                        SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
-//                        transactions = DbSync.getInstance().sync( syncParent, false );
-
-                    }
-                }
+//                SharedPreferences pref =mContex.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//                String BASE_URL=pref.getString("baseurl", null);
+//
+//                final String url =
+//                        BASE_URL +
+//                                "/SyncNormal?All="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart("false"))+
+//                                "&IDCustomer=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(custId)) +
+//                                "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin1)) +
+//                                "&NoOfDays=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(days+""));
+//
+//
+//                String text1 = ConnectionUtil.getResponse(url);
+//
+//                if (!TextUtils.isEmpty(text1)) {
+//                    // May be some TIME_IN_MILLISECOND no transactions.
+//                    SettingsDAO.getInstance().updateSyncTime();
+//
+//                    String s2 = "{\"acInfo\":null}";
+//
+//                    String s3 = text1.trim();
+//
+//                    if (s3.equals(s2)) {
+//
+//                        return -1;
+//
+//                    } else {
+////                        SyncParent syncParent = new Gson().fromJson( text1, SyncParent.class );
+////                        transactions = DbSync.getInstance().sync( syncParent, false );
+//
+//                    }
+//                }
             } catch (Exception js) {
                 if ( IScoreApplication.DEBUG )
                     Log.e("ex", js.toString() );
