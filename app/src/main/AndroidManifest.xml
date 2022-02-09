@@ -658,6 +658,9 @@
         </activity>
 
         <activity
+            android:name=".LoginOTPActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>

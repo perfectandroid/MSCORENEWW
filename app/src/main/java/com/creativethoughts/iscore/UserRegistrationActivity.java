@@ -537,9 +537,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                 mobileNoEditer.putString("mobileNo",  mobileNumber);
                                 mobileNoEditer.commit();
 
-                                Intent passBookAccount =
-                                        new Intent(UserRegistrationActivity.this, RecieveAndValidateOTP.class);
+                                /*Intent passBookAccount = new Intent(UserRegistrationActivity.this, RecieveAndValidateOTP.class);
                                 passBookAccount.putExtra("changePin", "false");
+                                startActivity(passBookAccount);*/
+
+                                Intent passBookAccount = new Intent(UserRegistrationActivity.this, LoginOTPActivity.class);
                                 startActivity(passBookAccount);
 
                                 finish();
@@ -732,9 +734,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if (result == 1) {
 
 
-                    Intent passBookAccount =
+                   /* Intent passBookAccount =
                             new Intent(UserRegistrationActivity.this, RecieveAndValidateOTP.class);
                     passBookAccount.putExtra("changePin", "false");
+                    startActivity(passBookAccount);*/
+
+                    Intent passBookAccount =
+                            new Intent(UserRegistrationActivity.this, LoginOTPActivity.class);
                     startActivity(passBookAccount);
 
                     finish();

@@ -177,4 +177,7 @@ public interface APIInterface {
     @POST("api/Customer/CheckVersionCode")
     Call<String>getVersioncode(@Body RequestBody body);
 
+    @POST("api/Customer/VerifyOTP")
+    Call<String>getVerifyOTP(@Body RequestBody body);
+
 }
