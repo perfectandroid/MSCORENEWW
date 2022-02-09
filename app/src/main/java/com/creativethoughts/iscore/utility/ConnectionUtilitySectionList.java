@@ -9,13 +9,7 @@ import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
-import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.SplashScreen;
-import com.creativethoughts.iscore.UserRegistrationActivity;
-import com.creativethoughts.iscore.db.dao.BankVerifier;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -77,7 +71,8 @@ public class ConnectionUtilitySectionList {
 //        }
 
 
-        String bankVerified = BankVerifier.getInstance().getVerifyStatus();
+      //  String bankVerified = BankVerifier.getInstance().getVerifyStatus();
+        String bankVerified = "1";
 
         if (ContextCompat.checkSelfPermission(IScoreApplication.getAppContext(),
                 Manifest.permission.READ_PHONE_STATE)

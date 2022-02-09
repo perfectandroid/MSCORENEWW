@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.db.dao.BankVerifier;
 
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
@@ -43,7 +42,7 @@ public class IScoreDatabase {
 //            db.execSQL( KsebBillDAO.getCreateTableString() );
 //            db.execSQL( RechargeDAO.getCreateTableString() );
           //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
-            db.execSQL( BankVerifier.QUERY_CREATE_BANK_VERIFY );
+          //  db.execSQL( BankVerifier.QUERY_CREATE_BANK_VERIFY );
         }
 
         @Override
@@ -52,7 +51,7 @@ public class IScoreDatabase {
 //            db.execSQL( RechargeDAO.getCreateTableString() );
            // db.execSQL( UserDetailsDAO.alterTableQuery );
           //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
-           db.execSQL(BankVerifier.QUERY_CREATE_BANK_VERIFY);
+         //  db.execSQL(BankVerifier.QUERY_CREATE_BANK_VERIFY);
 
             for (int i = oldVersion+1;i <= newVersion; i++){
 
