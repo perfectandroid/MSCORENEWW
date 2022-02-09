@@ -275,57 +275,7 @@ public class PBMessagesDAO {
         return messages;
     }
 
-    public void removeOldMessages() {
-        Cursor cursor = IScoreDatabase.getInstance().getDatabase()
-                .query(true, MESSAGE_TABLE, null, null, null, null, null, null, "");
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-        final int days;
-
-        if (settingsModel == null || settingsModel.days <= 0) {
-            days = 30;
-        } else {
-            days = settingsModel.days;
-        }
-
-        ArrayList<Message> messages = new ArrayList<Message>();
-
-        if (cursor != null && cursor.getCount() > 0) {
-
-            for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToPosition(i);
-
-                Message transaction = new Message();
-                transaction.messageId = cursor.getLong(cursor.getColumnIndex(FIELD_MSG_ID));
-                transaction.date = cursor.getString(cursor.getColumnIndex(FIELD_MESSAGE_DATE));
-
-                long diffMillis = CommonUtilities.getTimeDifferenceFromNow(transaction.date);
-
-                int daysDiff = (int) (diffMillis / (1000 * 60 * 60 * 24));
-
-
-                if (daysDiff > days) {
-                    messages.add(transaction);
-                }
-            }
-        }
-
-        if(cursor != null) {
-            cursor.close();
-            cursor = null;
-        }
-
-        for (int i = 0; i < messages.size(); i++) {
-            Message transaction = messages.get(i);
-
-            if (transaction == null) {
-                continue;
-            }
-
-            deleteMessage(transaction.messageId);
-        }
-    }
 
     public void deleteMessage(long messageId) {
         String where = FIELD_MSG_ID + " = ?";

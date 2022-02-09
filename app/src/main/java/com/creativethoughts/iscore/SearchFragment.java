@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,11 +22,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.adapters.SpinnerAdapter;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 
@@ -327,10 +326,11 @@ public class SearchFragment extends Fragment {
         spinnerAdapter.addItem("Debit");
 
         spnTransitionStatus.setAdapter(spinnerAdapter);
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+   //     SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
         List<String> accountNos = PBAccountInfoDAO.getInstance().getAccountNos();
         try{
-            String accNo = settingsModel.customerId;
+            SharedPreferences customerNoSP = getActivity().getSharedPreferences(Config.SHARED_PREF27, 0);
+            String accNo = customerNoSP.getString("customerNo","");
             int index = accountNos.indexOf( accNo );
             accountNos.remove( index );
             accountNos.add( 0, accNo );

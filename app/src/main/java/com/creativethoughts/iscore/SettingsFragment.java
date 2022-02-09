@@ -16,9 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.SyncAll;
@@ -71,7 +68,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+       // SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
         mDaySpinner =   rootView.findViewById(R.id.spnUpdateDays);
 
@@ -81,24 +78,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         mDefaultAccountSpinner =   rootView.findViewById(R.id.spnDefAcc);
 
-        if (settingsModel == null) {
-            CommonUtilities.setAccountNumber(null, mDefaultAccountSpinner, getActivity());
-
-            setDaysForDropDown(null);
-            updateIntervalHours(0);
-            updateIntervalMinutes(1);
-        } else {
-            mSelectedHours = settingsModel.hours;
-            mSelectedMinute = settingsModel.minutes;
-
-            CommonUtilities.setAccountNumber(settingsModel.customerId, mDefaultAccountSpinner,
-                    getActivity());
-
-            setDaysForDropDown(String.valueOf(settingsModel.days));
-            updateIntervalHours(mSelectedHours);
-            updateIntervalMinutes(mSelectedMinute);
-
-        }
+//        if (settingsModel == null) {
+//            CommonUtilities.setAccountNumber(null, mDefaultAccountSpinner, getActivity());
+//
+//            setDaysForDropDown(null);
+//            updateIntervalHours(0);
+//            updateIntervalMinutes(1);
+//        } else {
+//            mSelectedHours = settingsModel.hours;
+//            mSelectedMinute = settingsModel.minutes;
+//
+//            CommonUtilities.setAccountNumber(settingsModel.customerId, mDefaultAccountSpinner,
+//                    getActivity());
+//
+//            setDaysForDropDown(String.valueOf(settingsModel.days));
+//            updateIntervalHours(mSelectedHours);
+//            updateIntervalMinutes(mSelectedMinute);
+//
+//        }
 
         mApplyBtn =   rootView.findViewById(R.id.btnApply);
         mApplyBtn.setOnClickListener(this);
@@ -127,8 +124,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
                       //  String accountNumber = mDefaultAccountSpinner.getSelectedItem().toString();
                         String accountNumber = "001001001055";
-                        SettingsDAO.getInstance()
-                                .insertValues(days, mSelectedHours, mSelectedMinute, accountNumber);
+                      //  SettingsDAO.getInstance().insertValues(days, mSelectedHours, mSelectedMinute, accountNumber);
 
                         SyncUtils.startAlarmManage(getActivity());
 

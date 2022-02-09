@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.receiver.KeepUpdateBroadcastReceiver;
 
 /**
@@ -27,15 +26,15 @@ public class SyncUtils {
         PendingIntent pendingIntent = PendingIntent
                 .getBroadcast(context, 90190, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        long intervalTime = SettingsDAO.getInstance().getIntervalTime();
-
-        if (intervalTime < 1000) {
-            return;
-        }
-
-        alarmManager
-                .setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + intervalTime,
-                        intervalTime, pendingIntent);
+      //  long intervalTime = SettingsDAO.getInstance().getIntervalTime();
+//
+//        if (intervalTime < 1000) {
+//            return;
+//        }
+//
+//        alarmManager
+//                .setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + intervalTime,
+//                        intervalTime, pendingIntent);
     }
 
     /**
