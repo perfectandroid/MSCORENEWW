@@ -41,8 +41,6 @@ import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -1842,7 +1840,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     private void startTransfer( String accountNo, String type, String receiverAccNo, String amount, String remark) {
 
 
-        UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
+        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+        String pin  = pinIdSP.getString("pinlog","");
 
 
         if (TextUtils.isEmpty(mScannedValue)) {
@@ -1884,7 +1883,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                             + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
                             + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
                             + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
+                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin))
                             + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue))
                             + "&Remark=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(remark));
             Log.e(TAG,"startTransfer   954     "+url);
