@@ -1,9 +1,7 @@
 package com.creativethoughts.iscore.utility;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
@@ -11,10 +9,7 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 
 import com.creativethoughts.iscore.Helper.Common;
-import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.UserRegistrationActivity;
 
 
 import java.io.BufferedInputStream;

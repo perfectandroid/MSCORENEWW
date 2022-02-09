@@ -2,7 +2,6 @@ package com.creativethoughts.iscore.utility;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
