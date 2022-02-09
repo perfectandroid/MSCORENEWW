@@ -13,11 +13,8 @@ import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
-import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.SplashScreen;
 import com.creativethoughts.iscore.UserRegistrationActivity;
-import com.creativethoughts.iscore.db.dao.BankVerifier;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
+
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -56,18 +53,18 @@ public class ConnectionUtil {
     }
     public static String getResponse(String url) {
 
-        Log.e("ConnectionUtil 571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
-         bankKey      = UserRegistrationActivity.getBankkey();
-         bankHeader   = UserRegistrationActivity.getBankheader();
-         AssetName   = UserRegistrationActivity.getCertificateAssetName();
-         Hostname   = UserRegistrationActivity.getHostnameSubject();
-
-       if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
-            bankKey      = HomeActivity.getBankkey();
-            bankHeader   = HomeActivity.getBankheader();
-            AssetName   = HomeActivity.getCertificateAssetName();
-            Hostname   = HomeActivity.getHostnameSubject();
-        }
+//        Log.e("ConnectionUtil 571   ","bankKey   "+UserRegistrationActivity.getBankkey()+"  "+UserRegistrationActivity.getBankheader());
+//         bankKey      = UserRegistrationActivity.getBankkey();
+//         bankHeader   = UserRegistrationActivity.getBankheader();
+//         AssetName   = UserRegistrationActivity.getCertificateAssetName();
+//         Hostname   = UserRegistrationActivity.getHostnameSubject();
+//
+//       if (bankKey == null || bankHeader == null || AssetName == null || Hostname == null ){
+//            bankKey      = HomeActivity.getBankkey();
+//            bankHeader   = HomeActivity.getBankheader();
+//            AssetName   = HomeActivity.getCertificateAssetName();
+//            Hostname   = HomeActivity.getHostnameSubject();
+//        }
 
         bankKey      = "d.22333";
         bankHeader   = "PERFECT SCORE BANK HEAD OFFICE";
@@ -81,7 +78,7 @@ public class ConnectionUtil {
 
         Log.e("ConnectionUtil 5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname);
 
-        String bankVerified = BankVerifier.getInstance().getVerifyStatus();
+        String bankVerified = "1";
 
         if ( ContextCompat.checkSelfPermission(IScoreApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return IScoreApplication.EXCEPTION_NOPHONE_PERMISSION;
@@ -96,8 +93,24 @@ public class ConnectionUtil {
         }
         Log.e("TEST","         15     "+iemi);
         url = url+"&imei="+iemi;
-        if ( UserCredentialDAO.getInstance().isUserAlreadyLogin() ) {
-            String token = UserCredentialDAO.getInstance().getLoginCredential().token;
+//        if ( UserCredentialDAO.getInstance().isUserAlreadyLogin() ) {
+//            String token = UserCredentialDAO.getInstance().getLoginCredential().token;
+//            Log.e("TEST","         1     "+iemi);
+//            try {
+//                url = url+"&token="+token;
+//                Log.e("TEST","         12     "+iemi);
+//            } catch (Exception e) {
+//                Log.e("exception",e.toString()+"");
+//                if (IScoreApplication.DEBUG)
+//                url = url +"&token=exceptiontoken";
+//            }
+//        }
+        SharedPreferences loginSP = context.getSharedPreferences(Config.SHARED_PREF33, 0);
+        String login = loginSP.getString("login","");
+        if ( login.equals("0")) {
+           // String token = UserCredentialDAO.getInstance().getLoginCredential().token;
+            SharedPreferences tokenIdSP = context.getSharedPreferences(Config.SHARED_PREF35, 0);
+            String token = tokenIdSP.getString("Token","");
             Log.e("TEST","         1     "+iemi);
             try {
                 url = url+"&token="+token;
@@ -105,9 +118,11 @@ public class ConnectionUtil {
             } catch (Exception e) {
                 Log.e("exception",e.toString()+"");
                 if (IScoreApplication.DEBUG)
-                url = url +"&token=exceptiontoken";
+                    url = url +"&token=exceptiontoken";
             }
         }
+
+
         Log.e("TEST","         16     "+iemi);
 
         if (!bankHeader.trim().isEmpty() && !bankKey.trim().isEmpty() ){

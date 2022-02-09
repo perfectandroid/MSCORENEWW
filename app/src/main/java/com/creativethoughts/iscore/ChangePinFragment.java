@@ -19,8 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 
 import com.creativethoughts.iscore.utility.ProgressBarUtil;
@@ -86,11 +84,11 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s)) {
                     if (s.length() >= 6) {
-                        UserCredential userCredential =
-                                UserCredentialDAO.getInstance().getLoginCredential();
+//
+                        SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
 
                         if (!s.toString().trim()
-                                .equalsIgnoreCase(userCredential.pin)) {
+                                .equalsIgnoreCase(pinIdSP.getString("pinlog",""))) {
                             edtOldPin.setError("Please enter your valid Pin No");
                         } else {
                             edtOldPin.setError(null);
@@ -127,11 +125,9 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
                     } else {
 
                         if (oldPin.length() >= 6) {
-                            UserCredential userCredential =
-                                    UserCredentialDAO.getInstance().getLoginCredential();
-
+                            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
                             if (!oldPin.trim()
-                                    .equalsIgnoreCase(userCredential.pin)) {
+                                    .equalsIgnoreCase(pinIdSP.getString("pinlog",""))) {
                                 edtOldPin.setError("Please enter your valid Pin No");
                             } else {
                                 edtOldPin.setError(null);
@@ -208,7 +204,8 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
             strConfrmPin = edtConfrmPin.getText().toString();
             strNewPin = edtNewPin.getText().toString();
 
-            UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
+          //  UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
+            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
 
 
             if (strOldPin.length() == 0) {
@@ -216,7 +213,7 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
 
                 return;
             } else if ((!strOldPin.trim()
-                    .equalsIgnoreCase(userCredential.pin)) || (strOldPin.length() < 4)) {
+                    .equalsIgnoreCase(pinIdSP.getString("pinlog",""))) || (strOldPin.length() < 4)) {
                 edtOldPin.setError("Please enter your valid Pin No");
 
                 return;
@@ -290,7 +287,11 @@ public class ChangePinFragment extends Fragment implements View.OnClickListener 
                 }
               else   if (!TextUtils.isEmpty(text1)) {
                     if (text1.trim().equalsIgnoreCase("true")) {
-                        UserCredentialDAO.getInstance().updateNewPin(mNewPin);
+                      //  UserCredentialDAO.getInstance().updateNewPin(mNewPin);
+                        SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+                        SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+                        pinIdSPEditer.putString("pinlog", mNewPin);
+                        pinIdSPEditer.commit();
 
                         return 1;
                     } else if (text1.trim().equalsIgnoreCase("false")) {

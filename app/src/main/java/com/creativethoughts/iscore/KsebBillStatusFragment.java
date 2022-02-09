@@ -22,9 +22,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
 
 
@@ -101,8 +98,8 @@ public class KsebBillStatusFragment extends Fragment implements View.OnClickList
             String url;
             String response;
             String pin;
-            UserCredential userCredential = UserCredentialDAO.getInstance().getLoginCredential();
-            pin = userCredential.pin;
+            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
+            pin = pinIdSP.getString("pinlog","");
 
 //            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //            String BASE_URL=pref.getString("oldbaseurl", null);
