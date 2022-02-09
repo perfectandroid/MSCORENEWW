@@ -12,11 +12,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -36,22 +34,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
+import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -81,7 +71,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,7 +87,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -263,10 +257,23 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         Button scan = findViewById(R.id.scan);
         scan.setOnClickListener(this);
 
-        SharedPreferences toknpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
+
+       /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+        token =  loginCredential.token;
+        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+        cusid = userDetails.customerId;
+        try {
+            Log.e(TAG,"token   251   "+IScoreApplication.encryptStart(token));
+            Log.e(TAG,"token   252   "+IScoreApplication.encryptStart(cusid));
+            Log.e(TAG,"token   253   "+IScoreApplication.encryptStart("13"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        SharedPreferences toknpref = OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
          token=toknpref.getString("Token", null);
 
-        SharedPreferences cusidpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+        SharedPreferences cusidpref = OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
          cusid=cusidpref.getString("customerId", null);
 
         setAccountNumber();
@@ -341,7 +348,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                         }
 
                         double num =Double.parseDouble(""+originalString);
-                        button.setText( "PAY  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+                        button.setText( "PAY  "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num));
                     }
                     else{
                         button.setText( "PAY");
@@ -390,14 +397,14 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
                 //String sourceAccount = mAccountSpinner.getSelectedItem().toString();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("18") );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("18") );
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                     Log.e(TAG,"requestObject1    761  "+requestObject1);
                 } catch (JSONException e) {
@@ -675,7 +682,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         if (cusid.isEmpty())
             return;
 
-        SharedPreferences acntpref =OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF43, 0);
+        SharedPreferences acntpref = OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF43, 0);
         String acntnos=acntpref.getString("accountNoarray", null);
 
         try {
@@ -719,8 +726,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             if (TextUtils.isEmpty(account)) {
                 continue;
             }
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-            if (account.equalsIgnoreCase(settingsModel.customerId)) {
+        //    SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+            if (account.equalsIgnoreCase(cusid)) {
                 mAccountSpinner.setSelection(i);
 
                 break;
@@ -729,46 +736,11 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     }
 
     private void setAccountType() {
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        String customerId = null;
-        if (settingsModel == null) {
-            customerId = null;
-        } else {
-            customerId = settingsModel.customerId;
-        }
         ArrayList<String> items = new ArrayList<>();
         items.add(getString(R.string.savings_bank));
         items.add(getString(R.string.current_account));
         items.add(getString(R.string.cash_credit));
-//        items.add(getString(R.string.member_loan));
-//        items.add(getString(R.string.recurring_deposit));
-//        items.add(getString(R.string.jewell_loan));
-//        items.add(getString(R.string.gds));
-
-        if (customerId.isEmpty())
-            return;
-        List<String> accountSpinnerItems  ;
-        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
-        ArrayList<String> itemTemp =  new ArrayList<>();
-
-        if (accountSpinnerItems.isEmpty())
-            return;
-
-        for (int i = 0; i< accountSpinnerItems.size(); i++){
-
-            if (!accountSpinnerItems.get(i).contains("SB") && !accountSpinnerItems.get(i).contains("CA") && !accountSpinnerItems.get(i).contains("OD"))
-                itemTemp.add(accountSpinnerItems.get(i));
-
-        }
-        for ( String item: itemTemp ) {
-            accountSpinnerItems.remove(item);
-        }
-
-//        ArrayAdapter<String> spinnerAdapter =
-//                new ArrayAdapter< >(getActivity(), R.layout.simple_spinner_item_dark, accountSpinnerItems);
-//        mAccountSpinner.setAdapter(spinnerAdapter);
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         if ( this == null )
             return;
@@ -1293,18 +1265,18 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
                 //String sourceAccount = mAccountSpinner.getSelectedItem().toString();
                 try {
-                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("10") );
-                    requestObject1.put("CustomerNoumber",IScoreApplication.encryptStart(value) );
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("SubModule",IScoreApplication.encryptStart(type) );
-                    requestObject1.put("ModuleCode",IScoreApplication.encryptStart(submodule) );
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("ReqMode", IScoreApplication.encryptStart("10") );
+                    requestObject1.put("CustomerNoumber", IScoreApplication.encryptStart(value) );
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("SubModule", IScoreApplication.encryptStart(type) );
+                    requestObject1.put("ModuleCode", IScoreApplication.encryptStart(submodule) );
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                     Log.e(TAG,"requestObject1    761  "+requestObject1);
                 } catch (JSONException e) {
@@ -1323,7 +1295,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                                 if(jarray.length()!=0){
                                     for (int k = 0; k < jarray.length(); k++) {
                                         JSONObject jsonObject = jarray.getJSONObject(k);
-                                        CustomerList.add(new BarcodeAgainstCustomerAccountList (jsonObject.getString("FK_Customer"),jsonObject.getString("CustomerName"),jsonObject.getString("AccountName"),jsonObject.getString("AccountNumber")));
+                                        CustomerList.add(new BarcodeAgainstCustomerAccountList(jsonObject.getString("FK_Customer"),jsonObject.getString("CustomerName"),jsonObject.getString("AccountName"),jsonObject.getString("AccountNumber")));
                                     }
                                     if(jarray.length()==1){
                                         dataItem = CustomerList.get(0).getAccountNumber();
@@ -1472,8 +1444,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     private void startTransfer( String accountNo, String type, String receiverAccNo, String amount, String remark) {
 
 
-        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
-        String pin = pinIdSP.getString("pinlog","");
+     //   UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
         if (TextUtils.isEmpty(mScannedValue)) {
             mScannedValue = "novalue";
         }
@@ -1483,8 +1454,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (") + 1, accountNo.indexOf(")") + 1), "");
         accountNo = accountNo.replace(" ", "");
 
-        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
-        String accountType = accountInfo.accountTypeShort;
+       // AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
+        String accountType = type;
         final String tempFromAccNo = accountNo +"("+ accountType +")";
         final String tempToAccNo = receiverAccNo +"("+ type +")";
 
@@ -1533,7 +1504,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
                     + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
                     + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                    + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin))
+                  //  + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
                     + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
 
             Log.e(TAG,"startTransfer   954     "+url);
@@ -1886,7 +1857,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         tv_amount_words.setText(""+amountInWordPop);
 
         double num =Double.parseDouble(""+amnt);
-        Log.e(TAG,"CommonUtilities  945   "+CommonUtilities.getDecimelFormate(num));
+        Log.e(TAG,"CommonUtilities  945   "+ CommonUtilities.getDecimelFormate(num));
         String stramnt = CommonUtilities.getDecimelFormate(num);
 
 

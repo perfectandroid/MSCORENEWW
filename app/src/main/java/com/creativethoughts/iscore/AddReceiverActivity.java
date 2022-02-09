@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.model.SenderReceiver;
-import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -103,7 +102,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                 try {
 
 
-                    SharedPreferences cusidpref =AddReceiverActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences cusidpref = AddReceiverActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
 
@@ -239,7 +238,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                 try {
 
 
-                    SharedPreferences cusidpref =AddReceiverActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences cusidpref = AddReceiverActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
 

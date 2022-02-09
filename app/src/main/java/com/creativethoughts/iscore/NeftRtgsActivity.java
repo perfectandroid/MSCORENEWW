@@ -2,7 +2,6 @@ package com.creativethoughts.iscore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -82,9 +81,11 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
     private ScrollView mScrollView;
     public static String result ="";
     public static String balnce ="";
+    String amot;
     String from="NEFT";
     SharedPreferences customerIdSP;
     String reslts;
+    String amt;
     private int mModeNeftRtgs;
     private PaymentModel mPaymentModel;
     private static final String BENEFICIARY_DETAILS = "beneficiary details";
@@ -94,6 +95,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
     String mode;
     public static String bal="";
     String type = "";
+    PaymentModel paymentModel = new PaymentModel( );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,7 +225,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                         }
 
                         double num =Double.parseDouble(""+originalString);
-                        btnSubmit.setText( "PAY  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+                        btnSubmit.setText( "PAY  "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num));
                         //  txt_amtinword.setText(CommonUtilities.getDecimelFormate(num));
 
 
@@ -269,6 +271,10 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
+//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+//                    String token = loginCredential.token;
+//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                    String cusid = userDetails.customerId;
                     customerIdSP = this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     SharedPreferences tokenIdSP = this.getSharedPreferences(Config.SHARED_PREF35, 0);
                     String token = tokenIdSP.getString("Token","");
@@ -279,13 +285,13 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("13"));
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("SubMode", IScoreApplication.encryptStart("1"));
 //                    requestObject1.put("BankKey",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankKey)));
 //                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(Resources.getSystem().getString(R.string.BankHeader)));
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
                     Log.e("requestObject1 ","requestObject1  302   "+requestObject1);
 
@@ -337,7 +343,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 */
                                         //  AccountAdapter = new ArrayAdapter<>(OwnAccountFundTransferActivity.this,  R.layout.simple_spinner_item_dark,R.id.text1, AccountDetails);
 
-                                        AccountAdapter = new ArrayAdapter<>(NeftRtgsActivity.this,  R.layout.simple_spinner_item_dark,R.id.textview, AccountDetails);
+                                        AccountAdapter = new ArrayAdapter<>(NeftRtgsActivity.this,  R.layout.simple_spinner_item_dark, R.id.textview, AccountDetails);
                                         //                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
                                         mSpinnerAccountNo.setAdapter(AccountAdapter);
 
@@ -751,6 +757,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     "Network is currently unavailable. Please try again later." );*/
             return;
         }
+       // UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
         if (isValid( ) ){
             String tempAccNo = mSpinnerAccountNo.getSelectedItem( ).toString( );
             tempAccNo = tempAccNo.replace(tempAccNo.substring(tempAccNo.indexOf(" (" )+1, tempAccNo.indexOf( ')' )+1 ), "" );
@@ -792,10 +799,10 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
             String result1 =result;
 
-            SharedPreferences cusidpref =NeftRtgsActivity.this.getSharedPreferences(Config.SHARED_PREF36, 0);
+            SharedPreferences cusidpref = NeftRtgsActivity.this.getSharedPreferences(Config.SHARED_PREF36, 0);
             String pin=cusidpref.getString("pinlog", null);
 
-            PaymentModel paymentModel = new PaymentModel( );
+
             paymentModel.setAccNo( accNo  );
             paymentModel.setBeneficiaryAccNo( beneficiaryAccNo  );
             paymentModel.setBeneficiaryName( beneficiaryName  );
@@ -815,7 +822,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
         }
     }
 
-    private void startPayment(PaymentModel paymentModel) {
+    private void startPayment(final PaymentModel paymentModel) {
 
         SharedPreferences pref =this.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -842,14 +849,14 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
                     requestObject1.put("AccountNo", IScoreApplication.encryptStart(paymentModel.getAccNo( )));
                     requestObject1.put("Module", IScoreApplication.encryptStart(paymentModel.getModule( )) );
-                    requestObject1.put("BeneName", IScoreApplication.encryptStart(type));
+                    requestObject1.put("BeneName", IScoreApplication.encryptStart(paymentModel.getBeneficiaryName( )));
                     requestObject1.put("BeneIFSC", IScoreApplication.encryptStart(paymentModel.getIfsc( )));
                     requestObject1.put("BeneAccountNumber", IScoreApplication.encryptStart(paymentModel.getBeneficiaryAccNo( )));
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
-                    String amt =paymentModel.getAmount();
-                    String amot = amt.replace(",","");
+                      amt=paymentModel.getAmount();
+                     amot = amt.replace(",","");
                     requestObject1.put("amount", IScoreApplication.encryptStart(amot));
                     requestObject1.put("EftType", IScoreApplication.encryptStart(Integer.toString( mModeNeftRtgs)));
                     requestObject1.put("BeneAdd", IScoreApplication.encryptStart(paymentModel.getBeneficiaryAdd( ) ));
@@ -884,7 +891,40 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
                             Log.e("TAG","Response neft   "+response.body());
+
                             JSONObject jObject = new JSONObject(response.body());
+                            int statusCode=jObject.getInt("HttpStatusCode");
+                            String statsmsg=jObject.getString("Message");
+
+                            if(statusCode==1)
+                            {
+                                Log.i("Values",paymentModel.getAccNo( )+"\n"+paymentModel.getModule( )
+                                +type+"\n"+paymentModel.getIfsc()+"\n"+paymentModel.getAccNo()+"\n"+paymentModel.getPin()+amot+"\n"+mModeNeftRtgs);
+                                Intent i = new Intent(NeftRtgsActivity.this,OTPActivity.class);
+                                i.putExtra("AccountNo",paymentModel.getAccNo( ));
+                                i.putExtra("Module",paymentModel.getModule( ));
+                                i.putExtra("BeneName",paymentModel.getBeneficiaryName());
+                                i.putExtra("BeneIFSC",paymentModel.getIfsc());
+                                i.putExtra("BeneAccountNumber",paymentModel.getAccNo());
+                                i.putExtra("Pin",paymentModel.getPin());
+                                i.putExtra("Amount",amot);
+                                i.putExtra("EftType",mModeNeftRtgs);
+
+
+                                startActivity(i);
+                            }
+                            else if ( statusCode< 0  ){
+
+                                alertMessage1( "Oops...!",  statsmsg);
+
+
+                            }else if (statusCode== 3  ){
+                                alertMessage1( "Oops...!",  statsmsg);
+                            }else{
+
+
+                                alertMessage1( "Oops...!", statsmsg);
+                            }
                /*             JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
                             String statusmsg = j1.getString("StatusMessage");

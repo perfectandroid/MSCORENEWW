@@ -2,7 +2,6 @@ package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,13 +13,10 @@ import android.widget.TextView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +33,6 @@ import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -50,7 +45,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import okhttp3.OkHttpClient;
@@ -133,7 +127,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                 try {
 
 
-                    SharedPreferences cusidpref =AddSenderActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences cusidpref = AddSenderActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
 

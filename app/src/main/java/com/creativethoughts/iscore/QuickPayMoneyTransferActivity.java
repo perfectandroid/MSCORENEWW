@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,10 +137,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         mAddNewReceiver.setOnClickListener(this);
 
 
-        SharedPreferences toknpref =QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
+        SharedPreferences toknpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
         token=toknpref.getString("Token", null);
 
-        SharedPreferences cusidpref =QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+        SharedPreferences cusidpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
         cusid=cusidpref.getString("customerId", null);
 
 
@@ -217,7 +218,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                         }
 
                         double num =Double.parseDouble(""+originalString);
-                        mBtnSubmit.setText( "MAKE PAYMENT OF  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+                        mBtnSubmit.setText( "MAKE PAYMENT OF  "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num));
                     }
                     else{
                         mBtnSubmit.setText( "MAKE PAYMENT");
@@ -265,7 +266,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 try {
 
 
-                    SharedPreferences cusidpref =QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences cusidpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
 
@@ -497,13 +498,13 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                     requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+                    requestObject1.put("SubMode", IScoreApplication.encryptStart("1"));
                     SharedPreferences bankkeypref =this.getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =this.getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
-                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -631,8 +632,304 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 Intent in = new Intent(QuickPayMoneyTransferActivity.this, AddReceiverActivity.class);
                 startActivity(in);
                 break;
+
+            case R.id.btn_submit:
+                QuickConfirmation();
+                break;
         }
     }
+
+    private void QuickConfirmation() {
+
+        if (isValid()) {
+            if (NetworkUtil.isOnline()) {
+
+
+                try {
+
+                    final String amount = mAmountEt.getText().toString().replaceAll(",","");
+                    final SenderReceiver receiverObj = ((SenderReceiver) mReceiverSpinner.getSelectedItem());
+                    final String accountNumber = mAccountSpinner.getSelectedItem().toString();
+
+
+                    String message = mMessageEt.getText().toString();
+
+                    SenderReceiver senderObj = ((SenderReceiver) mSenderSpinner.getSelectedItem());
+
+
+                    String sender = String.valueOf(senderObj.userId);
+                    String senderName = String.valueOf(senderObj.senderName);
+                    String senderAccountno = String.valueOf(senderObj.receiverAccountno);
+                    String senderMobile = String.valueOf(senderObj.senderMobile);
+
+
+                    String recievererName = String.valueOf(receiverObj.senderName);
+                    String receiverAccountno = String.valueOf(receiverObj.receiverAccountno);
+                    String recieverMobile = String.valueOf(receiverObj.senderMobile);
+
+                    String receiver = String.valueOf(receiverObj.userId);
+
+                    String mPinString = mPin.getText().toString().trim();
+                    String branch = BranchName;
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(QuickPayMoneyTransferActivity.this);
+                    LayoutInflater inflater1 = this.getLayoutInflater();
+                    View layout = inflater1.inflate(R.layout.quick_pay_confirmation_popup, null);
+                    TextView tvbranch =  layout.findViewById(R.id.tvbranch);
+                    TextView tv_sender_name =  layout.findViewById(R.id.tv_sender_name);
+                    TextView tv_sender_acc_no =  layout.findViewById(R.id.tv_sender_acc_no);
+                    TextView tv_sender_mob_no =  layout.findViewById(R.id.tv_sender_mob_no);
+                    TextView tv_reciever_name =  layout.findViewById(R.id.tv_reciever_name);
+                    TextView tv_reciever_acc_no =  layout.findViewById(R.id.tv_reciever_acc_no);
+                    TextView tv_reciever_mob_no =  layout.findViewById(R.id.tv_reciever_mob_no);
+
+
+                    TextView tv_amount =  layout.findViewById(R.id.tv_amount);
+                    TextView tv_amount_words =  layout.findViewById(R.id.tv_amount_words);
+                    TextView text_confirmationmsg =  layout.findViewById(R.id.text_confirmationmsg);
+                    TextView bt_ok =  layout.findViewById(R.id.bt_ok);
+                    TextView bt_cancel =  layout.findViewById(R.id.bt_cancel);
+                    builder.setView(layout);
+                    final AlertDialog alertDialog = builder.create();
+
+                    tvbranch.setText(BranchName);
+                    tv_sender_name.setText(senderName);
+                    tv_sender_acc_no.setText(accountNumber);
+                    tv_sender_mob_no.setText(senderMobile);
+                    tv_reciever_name.setText(recievererName);
+                    tv_reciever_acc_no.setText(receiverAccountno);
+                    tv_reciever_mob_no.setText(recieverMobile);
+
+                    double num =Double.parseDouble(""+amount);
+                    String stramnt = CommonUtilities.getDecimelFormate(num);
+                    text_confirmationmsg.setText("Proceed Payment With Above Amount"+ "..?");
+                    String[] netAmountArr = amount.split("\\.");
+                    String amountInWordPop = "";
+                    if ( netAmountArr.length > 0 ){
+                        int integerValue = Integer.parseInt( netAmountArr[0] );
+                        amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+                        if ( netAmountArr.length > 1 ){
+                            int decimalValue = Integer.parseInt( netAmountArr[1] );
+                            if ( decimalValue != 0 ){
+                                amountInWordPop += " And " + NumberToWord.convertNumberToWords( decimalValue ) + " Paise" ;
+                            }
+                        }
+                        amountInWordPop += " Only";
+                    }
+                    tv_amount_words.setText(""+amountInWordPop);
+                    tv_amount.setText("₹ " + stramnt );
+                    bt_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    bt_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+
+
+                             QuickPayTransfer(accountNumber, sender, receiver, amount, message, mPinString,senderName,senderAccountno,senderMobile,recievererName,receiverAccountno,recieverMobile,branch);
+                            alertDialog.dismiss();
+                        }
+                    });
+                    alertDialog.show();
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                DialogUtil.showAlert(this,
+                        "Network is currently unavailable. Please try again later.");
+            }
+        }
+    }
+
+    private void QuickPayTransfer(String accountNumber, String sender, String receiver, String amount, String message, String mPinString, String senderName, String senderAccountno, String senderMobile, String recievererName, String receiverAccountno, String recieverMobile, String branch) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    SharedPreferences cusidpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
+
+
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart(cusid) );
+                 /*   requestObject1.put("IDCustomer", IScoreApplication.encryptStart(lastName));
+                    requestObject1.put("amount", IScoreApplication.encryptStart(dob));
+                    requestObject1.put("Messages", IScoreApplication.encryptStart(mobileNumber));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(mobileNumber));
+                    requestObject1.put("Module", IScoreApplication.encryptStart(mobileNumber));
+                    requestObject1.put("Pin", IScoreApplication.encryptStart(mobileNumber));
+                    requestObject1.put("MPIN", IScoreApplication.encryptStart(mobileNumber));
+*/
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("requestObject1 addsndr",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getAddsender(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response ownaccount   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                    /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
+                            String responsemsg = j1.getString("ResponseMessage");
+                            String statusmsg = j1.getString("StatusMessage");
+                            int statusCode=j1.getInt("StatusCode");*/
+                        /*    if(statusCode==1){
+                                String refid;
+                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+
+
+                                alertMessage("", keyValuePairs, statusmsg, true, false);
+                                //  JSONArray jarray = jobj.getJSONArray( "Data");
+
+                            }
+                            else if ( statusCode == 2 ){
+                                alertMessage1("" ,statusmsg );
+                            }
+                            else if ( statusCode == 3 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else if ( statusCode == 4 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else  if ( statusCode == 5 ){
+                                alertMessage1("", statusmsg);
+                            }
+
+                            else{
+
+
+                                try{
+                                  *//*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");*//*
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(responsemsg)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (Exception e){
+                                    String EXMessage = j1.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+*/
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+    }
+
+    private boolean isValid() {
+
+        String amount = mAmountEt.getText().toString();
+
+
+        if (TextUtils.isEmpty(amount)) {
+            mAmountEt.setError("Please enter the amount");
+            return false;
+        }
+        double amt;
+        try{
+            amt = Double.parseDouble(amount.replaceAll(",",""));
+        }catch (Exception e){
+            mAmountEt.setError("Invalid format");
+            return false;
+        }
+
+        if(amt < 1) {
+            mAmountEt.setError("Please enter the amount");
+            return false;
+        }
+
+        mAmountEt.setError(null);
+
+        String mPinString = mPin.getText().toString();
+        if ( mPinString.trim().length() == 0 ){
+            mPin.setError("Please enter the M-PIN");
+            return false;
+        }
+        return true;
+    }
+
     private HostnameVerifier getHostnameVerifier() {
         return new HostnameVerifier() {
             @Override

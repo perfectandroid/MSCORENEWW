@@ -636,6 +636,15 @@
             android:name=".AddSenderReceiverActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".OTPActivity"
+            android:label="Fund Transfer"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+        <activity
             android:name=".TransactionOTPActivity"
             android:label="@string/title_activity_transaction_otp"
             android:theme="@style/AppTheme.NoActionBar" />
