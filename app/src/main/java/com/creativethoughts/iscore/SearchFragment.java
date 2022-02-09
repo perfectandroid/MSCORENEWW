@@ -43,6 +43,7 @@ import java.util.Locale;
  */
 public class SearchFragment extends Fragment {
 
+    public String TAG = "SearchFragment";
     private Spinner spnOrderBy;
     private Spinner spnAccountNumber;
     private Spinner spnTransitionStatus;
@@ -78,6 +79,7 @@ public class SearchFragment extends Fragment {
         EditText minAmount;
         RadioGroup group;
 
+        Log.e(TAG,"START FRAG  82");
 
        /* ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         ImageButton im_back = rootView.findViewById(R.id.im_back);
