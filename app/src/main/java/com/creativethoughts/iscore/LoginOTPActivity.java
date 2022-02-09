@@ -139,10 +139,10 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
 
                             if(jObject.getString("StatusCode").equals("0")) {
 
-                                JSONArray jarray = jObject.getJSONArray("acInfo");
-                                JSONObject jobj=jarray.getJSONObject(0);
+                               // JSONArray jarray = jObject.getJSONArray("acInfo");
+                               // JSONObject jobj=jarray.getJSONObject(0);
 
-                                String customerId=   jobj.getString("customerId");
+                               /* String customerId=   jobj.getString("customerId");
                                 String customerNo=   jobj.getString("customerNo");
                                 String customerName=   jobj.getString("customerName");
 
@@ -176,7 +176,163 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
                                 imageEditer.commit();
                                 Intent passBookAccount = new Intent(LoginOTPActivity.this, HomeActivity.class);
                                 startActivity(passBookAccount);
-                                finish();
+                                finish();*/
+
+                                JSONArray jArray3 = jObject.getJSONArray("acInfo");
+
+                                for(int i = 0; i < jArray3 .length(); i++)
+                                {
+                                    JSONObject object3 = jArray3.getJSONObject(i);
+
+
+                                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                                    SharedPreferences.Editor customerIdEditer = customerIdSP.edit();
+                                    customerIdEditer.putString("customerId",  object3.getString("customerId"));
+                                    customerIdEditer.commit();
+
+                                    SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+                                    SharedPreferences.Editor customerNoEditer = customerNoSP.edit();
+                                    customerNoEditer.putString("customerNo",  object3.getString("customerNo"));
+                                    customerNoEditer.commit();
+
+                                    SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
+                                    SharedPreferences.Editor customerNameEditer = customerNameSP.edit();
+                                    customerNameEditer.putString("customerName", object3.getString("customerName"));
+                                    customerNameEditer.commit();
+
+                                    SharedPreferences customerAddress1SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF29, 0);
+                                    SharedPreferences.Editor customerAddress1Editer = customerAddress1SP.edit();
+                                    customerAddress1Editer.putString("customerAddress1", object3.getString("customerAddress1"));
+                                    customerAddress1Editer.commit();
+
+                                    SharedPreferences customerAddress2SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF30, 0);
+                                    SharedPreferences.Editor customerAddress2Editer = customerAddress2SP.edit();
+                                    customerAddress2Editer.putString("customerAddress2", object3.getString("customerAddress2"));
+                                    customerAddress2Editer.commit();
+
+                                    SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
+                                    SharedPreferences.Editor mobileNoEditer = mobileNoSP.edit();
+                                    mobileNoEditer.putString("mobileNo",  object3.getString("mobileNo"));
+                                    mobileNoEditer.commit();
+
+                                    SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                                    SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
+                                    BankVerifierEditer.putString("BankVerifier",  "1");
+                                    BankVerifierEditer.commit();
+
+                                    SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
+                                    SharedPreferences.Editor loginEditer = loginSP.edit();
+                                    loginEditer.putString("login", "0");
+                                    loginEditer.commit();
+
+                                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                                    SharedPreferences.Editor tokenIdSPEditer = tokenIdSP.edit();
+                                    tokenIdSPEditer.putString("Token", object3.getString("TokenNo"));
+                                    tokenIdSPEditer.commit();
+
+
+
+                                    SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                                    SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+                                    pinIdSPEditer.putString("pinlog", object3.getString("pin"));
+                                    pinIdSPEditer.commit();
+
+                                    SharedPreferences customerAddress3SP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF42, 0);
+                                    SharedPreferences.Editor customerAddress3Editer = customerAddress3SP.edit();
+                                    customerAddress3Editer.putString("customerAddress3", object3.getString("customerAddress3"));
+                                    customerAddress3Editer.commit();
+
+
+                                    JSONObject jOBJ = jArray3.getJSONObject(i);
+                                    JSONArray jArray4 = jOBJ.getJSONArray("accounts");
+
+                                    SharedPreferences accntIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF43, 0);
+                                    SharedPreferences.Editor accntSPEditer = accntIdSP.edit();
+                                    accntSPEditer.putString("accountNoarray", String.valueOf(jArray4));
+                                    accntSPEditer.commit();
+
+//                        String strDMenu =object3.getString("DMenu");
+//                        JSONObject jobjDMenu = object3.getString("DMenu"));
+
+                                    try{
+                                        JSONObject jobjDMenu = new JSONObject(object3.getString("DMenu"));
+
+                                        SharedPreferences RechargeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+                                        SharedPreferences.Editor RechargeEditer = RechargeSP.edit();
+                                        RechargeEditer.putString("Recharge",jobjDMenu.getString("Recharge") );
+                                        RechargeEditer.commit();
+
+                                        SharedPreferences ImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF45, 0);
+                                        SharedPreferences.Editor ImpsEditer = ImpsSP.edit();
+                                        ImpsEditer.putString("Imps",jobjDMenu.getString("Imps") );
+                                        ImpsEditer.commit();
+
+                                        SharedPreferences RtgsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF46, 0);
+                                        SharedPreferences.Editor RtgsEditer = RtgsSP.edit();
+                                        RtgsEditer.putString("Rtgs",jobjDMenu.getString("Rtgs") );
+                                        RtgsEditer.commit();
+
+                                        SharedPreferences KsebSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF47, 0);
+                                        SharedPreferences.Editor KsebEditer = KsebSP.edit();
+                                        KsebEditer.putString("Kseb",jobjDMenu.getString("Kseb") );
+                                        KsebEditer.commit();
+
+                                        SharedPreferences NeftSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF48, 0);
+                                        SharedPreferences.Editor NeftEditer = NeftSP.edit();
+                                        NeftEditer.putString("Neft",jobjDMenu.getString("Neft") );
+                                        NeftEditer.commit();
+
+                                        SharedPreferences OwnImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF49, 0);
+                                        SharedPreferences.Editor OwnImpsEditer = OwnImpsSP.edit();
+                                        OwnImpsEditer.putString("OwnImps",jobjDMenu.getString("OwnImps") );
+                                        OwnImpsEditer.commit();
+
+                                    }
+                                    catch (Exception e){
+
+                                    }
+
+                                    Date date = Calendar.getInstance().getTime();
+                                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm a");
+                                    String formattedDate = df.format(date);
+
+
+                                    SharedPreferences TestingMobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
+                                    SharedPreferences.Editor TestingMobileNoEditer = TestingMobileNoSP.edit();
+                                    TestingMobileNoEditer.putString("LoginMobileNo", object3.getString("mobileNo"));
+                                    TestingMobileNoEditer.commit();
+
+                                    SharedPreferences logintimeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+                                    SharedPreferences.Editor logintimeEditer = logintimeSP.edit();
+                                    logintimeEditer.putString("logintime", formattedDate);
+                                    logintimeEditer.commit();
+
+                                    SharedPreferences ImageSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF1, 0);
+                                    SharedPreferences.Editor imageEditer = ImageSP.edit();
+                                    imageEditer.putString("custimage", "");
+                                    imageEditer.commit();
+                                    Intent passBookAccount = new Intent(LoginOTPActivity.this, HomeActivity.class);
+                                    startActivity(passBookAccount);
+                                    finish();
+
+
+                      /*  for (int j = 0; j < jArray4.length(); j++)
+                        {
+                            JSONObject obj2 = jArray4.getJSONObject(j);
+
+
+                            SharedPreferences accntIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF43, 0);
+                            SharedPreferences.Editor accntSPEditer = accntIdSP.edit();
+                            accntSPEditer.putString("accountNo",  obj2 .getString("acno"));
+                            accntSPEditer.commit();
+
+                            SharedPreferences typeshrtSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+                            SharedPreferences.Editor typeshrtSPEditer = typeshrtSP.edit();
+                            typeshrtSPEditer.putString("typeShort",  obj2 .getString("typeShort"));
+                            typeshrtSPEditer.commit();
+
+                        }*/
+                                }
                             }
                             else{
                                 try{

@@ -542,6 +542,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                 startActivity(passBookAccount);*/
 
                                 Intent passBookAccount = new Intent(UserRegistrationActivity.this, LoginOTPActivity.class);
+                                passBookAccount.putExtra("changePin", "false");
                                 startActivity(passBookAccount);
 
                                 finish();
@@ -741,6 +742,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                     Intent passBookAccount =
                             new Intent(UserRegistrationActivity.this, LoginOTPActivity.class);
+                    passBookAccount.putExtra("changePin", "false");
                     startActivity(passBookAccount);
 
                     finish();
