@@ -7,12 +7,6 @@ import android.util.Log;
 
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
-import com.creativethoughts.iscore.db.dao.RechargeDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
-import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
 
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
@@ -40,14 +34,14 @@ public class IScoreDatabase {
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL( UserCredentialDAO.getCreateTableString() );
-            db.execSQL( SettingsDAO.getCreateTableString() );
+           // db.execSQL( UserCredentialDAO.getCreateTableString() );
+//            db.execSQL( SettingsDAO.getCreateTableString() );
 //            db.execSQL( NewTransactionDAO.getCreateTableString() );
-            db.execSQL( UserDetailsDAO.getCreateTableString() );
-            db.execSQL( PBAccountInfoDAO.getCreateTableString() );
-            db.execSQL( PBMessagesDAO.getCreateTableString() );
+//            db.execSQL( UserDetailsDAO.getCreateTableString() );
+//            db.execSQL( PBAccountInfoDAO.getCreateTableString() );
+//            db.execSQL( PBMessagesDAO.getCreateTableString() );
 //            db.execSQL( KsebBillDAO.getCreateTableString() );
-            db.execSQL( RechargeDAO.getCreateTableString() );
+//            db.execSQL( RechargeDAO.getCreateTableString() );
           //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
             db.execSQL( BankVerifier.QUERY_CREATE_BANK_VERIFY );
         }
@@ -55,7 +49,7 @@ public class IScoreDatabase {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //            db.execSQL( KsebBillDAO.getCreateTableString() );
-            db.execSQL( RechargeDAO.getCreateTableString() );
+//            db.execSQL( RechargeDAO.getCreateTableString() );
            // db.execSQL( UserDetailsDAO.alterTableQuery );
           //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
            db.execSQL(BankVerifier.QUERY_CREATE_BANK_VERIFY);
@@ -64,7 +58,7 @@ public class IScoreDatabase {
 
                 switch (i){
                     case 2:
-                        db.execSQL(UserCredentialDAO.getUpgradeCredentialTable());
+                     //   db.execSQL(UserCredentialDAO.getUpgradeCredentialTable());
                         break;
                     /*case 8:
                         db.execSQL( DynamicMenuDao.ADD_OWN_IMPS );*/
