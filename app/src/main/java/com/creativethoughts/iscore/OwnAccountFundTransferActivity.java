@@ -41,13 +41,8 @@ import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
-import com.creativethoughts.iscore.db.dao.UserDetailsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -272,18 +267,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         Button scan = findViewById(R.id.scan);
         scan.setOnClickListener(this);
 
-
-     /*   UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token = loginCredential.token;
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        try {
-            Log.e(TAG,"token   251   "+ IScoreApplication.encryptStart(token));
-            Log.e(TAG,"token   252   "+ IScoreApplication.encryptStart(cusid));
-            Log.e(TAG,"token   253   "+ IScoreApplication.encryptStart("13"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
         SharedPreferences toknpref =OwnAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
          token=toknpref.getString("Token", null);
@@ -586,10 +569,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                   /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;*/
 
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token", IScoreApplication.encryptStart(token));
