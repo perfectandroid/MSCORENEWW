@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore.utility;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -42,6 +43,7 @@ import javax.net.ssl.TrustManagerFactory;
  */ 
 
 public class ConnectionUtil {
+    public String TAG = "ConnectionUtil";
     private static Context context;
     private static String bankKey =""    ;
     private static String bankHeader=""   ;
@@ -75,10 +77,17 @@ public class ConnectionUtil {
 //        bankHeader   = SplashScreen.BankHeader;
 
 
-
-        Log.e("ConnectionUtil 5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname);
+        Log.e("ConnectionUtil 571   ","bankKey   "+bankKey+"  "+bankHeader);
 
         String bankVerified = "1";
+//        SharedPreferences BankVerifierSP = context.getSharedPreferences(Config.SHARED_PREF32, 0);
+//        String BankVerifier = BankVerifierSP.getString("BankVerifier","");
+//        if (BankVerifier.equals("")){
+//            bankVerified = "0";
+//        }else {
+//            bankVerified = "1";
+//        }
+        Log.e("ConnectionUtil 5712   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname+"  "+bankVerified);
 
         if ( ContextCompat.checkSelfPermission(IScoreApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return IScoreApplication.EXCEPTION_NOPHONE_PERMISSION;
@@ -105,12 +114,12 @@ public class ConnectionUtil {
 //                url = url +"&token=exceptiontoken";
 //            }
 //        }
-        SharedPreferences loginSP = context.getSharedPreferences(Config.SHARED_PREF33, 0);
-        String login = loginSP.getString("login","");
+      //  SharedPreferences loginSP = context.getSharedPreferences(Config.SHARED_PREF33, 0);
+        String login = "0";
         if ( login.equals("0")) {
            // String token = UserCredentialDAO.getInstance().getLoginCredential().token;
-            SharedPreferences tokenIdSP = context.getSharedPreferences(Config.SHARED_PREF35, 0);
-            String token = tokenIdSP.getString("Token","");
+//            SharedPreferences tokenIdSP = .getSharedPreferences(Config.SHARED_PREF35, 0);
+            String token = "";
             Log.e("TEST","         1     "+iemi);
             try {
                 url = url+"&token="+token;
@@ -124,14 +133,14 @@ public class ConnectionUtil {
 
 
         Log.e("TEST","         16     "+iemi);
-
+        Log.e("ConnectionUtil 57122   ","bankKey   "+bankKey+"  "+bankHeader+"  "+AssetName+"  "+Hostname+"  "+bankVerified);
         if (!bankHeader.trim().isEmpty() && !bankKey.trim().isEmpty() ){
             try {
                 Log.e("TEST","         13     "+iemi);
                 url=url+"&BankKey="+ IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankKey))+"&BankHeader="+
                         IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankHeader))+
                         "&BankVerified="+IScoreApplication.encodedUrl(IScoreApplication.encryptStart(bankVerified));
-                Log.e("url971   ",url+"");
+                Log.e("TAG  ","url971    "+url+"");
             } catch (Exception e) {
                 Log.e("Exception 97   ",""+e.toString());
                 return IScoreApplication.EXCEPTION_ENCRIPTION_IEMI;
