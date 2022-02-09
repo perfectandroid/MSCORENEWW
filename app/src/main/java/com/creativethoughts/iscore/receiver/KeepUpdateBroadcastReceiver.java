@@ -8,11 +8,8 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.NotificationMgr;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 
 /**
  * Created by muthukrishnan on 09/10/15.
@@ -51,8 +48,8 @@ public class KeepUpdateBroadcastReceiver extends BroadcastReceiver {
             }
 
             //Try to remove old entries
-            NewTransactionDAO.getInstance().removeOldTransaction();
-            PBMessagesDAO.getInstance().removeOldMessages();
+//            NewTransactionDAO.getInstance().removeOldTransaction();
+//            PBMessagesDAO.getInstance().removeOldMessages();
         }
 
         private int getSearching( ) {

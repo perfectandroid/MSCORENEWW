@@ -7,11 +7,8 @@ import android.util.Log;
 
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.db.dao.BankVerifier;
-import com.creativethoughts.iscore.db.dao.DynamicMenuDao;
-import com.creativethoughts.iscore.db.dao.KsebBillDAO;
 import com.creativethoughts.iscore.db.dao.RechargeDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
 import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 import com.creativethoughts.iscore.db.dao.UserCredentialDAO;
@@ -45,22 +42,22 @@ public class IScoreDatabase {
 
             db.execSQL( UserCredentialDAO.getCreateTableString() );
             db.execSQL( SettingsDAO.getCreateTableString() );
-            db.execSQL( NewTransactionDAO.getCreateTableString() );
+//            db.execSQL( NewTransactionDAO.getCreateTableString() );
             db.execSQL( UserDetailsDAO.getCreateTableString() );
             db.execSQL( PBAccountInfoDAO.getCreateTableString() );
             db.execSQL( PBMessagesDAO.getCreateTableString() );
-            db.execSQL( KsebBillDAO.getCreateTableString() );
+//            db.execSQL( KsebBillDAO.getCreateTableString() );
             db.execSQL( RechargeDAO.getCreateTableString() );
-            db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
+          //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
             db.execSQL( BankVerifier.QUERY_CREATE_BANK_VERIFY );
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL( KsebBillDAO.getCreateTableString() );
+//            db.execSQL( KsebBillDAO.getCreateTableString() );
             db.execSQL( RechargeDAO.getCreateTableString() );
            // db.execSQL( UserDetailsDAO.alterTableQuery );
-            db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
+          //  db.execSQL( DynamicMenuDao.QUERY_CREATE_DYANAMIC_MENU_TABLE );
            db.execSQL(BankVerifier.QUERY_CREATE_BANK_VERIFY);
 
             for (int i = oldVersion+1;i <= newVersion; i++){

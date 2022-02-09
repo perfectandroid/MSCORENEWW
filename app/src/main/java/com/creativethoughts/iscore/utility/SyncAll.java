@@ -9,8 +9,6 @@ import android.text.TextUtils;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.UserRegistrationActivity;
-import com.creativethoughts.iscore.db.dao.NewTransactionDAO;
-import com.creativethoughts.iscore.db.dao.PBMessagesDAO;
 
 
 import io.reactivex.Observable;
@@ -74,8 +72,8 @@ public class SyncAll{
             public void onNext(Integer result ) {
                 if(mIsRefresh) {
                     //Try to remove old entries
-                    NewTransactionDAO.getInstance().removeOldTransaction();
-                    PBMessagesDAO.getInstance().removeOldMessages();
+//                    NewTransactionDAO.getInstance().removeOldTransaction();
+//                    PBMessagesDAO.getInstance().removeOldMessages();
                 }
 
                 if (result > 0) {
