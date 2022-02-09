@@ -63,7 +63,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import com.creativethoughts.iscore.Helper.Common;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;

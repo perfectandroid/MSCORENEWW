@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 
