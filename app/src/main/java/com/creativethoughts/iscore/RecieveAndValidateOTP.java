@@ -285,18 +285,6 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
                         customerAddress3Editer.commit();
 
 
-//                        SharedPreferences TokenNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF34, 0);
-//                        SharedPreferences.Editor TokenNoEditer = TokenNoSP.edit();
-//                        TokenNoEditer.putString("TokenNo", "");
-//                        TokenNoEditer.commit();
-
-//                        SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
-//                        SharedPreferences.Editor BankVerifierEditer = BankVerifierSP.edit();
-//                        BankVerifierEditer.putString("BankVerifier", "1");
-//                        BankVerifierEditer.commit();
-
-
-
                         JSONObject jOBJ = jArray3.getJSONObject(i);
                         JSONArray jArray4 = jOBJ.getJSONArray("accounts");
 

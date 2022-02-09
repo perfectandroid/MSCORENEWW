@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -486,7 +489,48 @@ try {
             pinIdSPEditer.putString("pinlog", "");
             pinIdSPEditer.commit();
 
-            Intent intent = new Intent( this, UserRegistrationActivity.class );
+//            Intent intent = new Intent( this, UserRegistrationActivity.class );
+//            intent.putExtra("from","true");
+//            startActivity( intent );
+//            finish();
+
+
+            SharedPreferences accntIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF43, 0);
+            SharedPreferences.Editor accntSPEditer = accntIdSP.edit();
+            accntSPEditer.putString("accountNoarray", "");
+            accntSPEditer.commit();
+
+            SharedPreferences RechargeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF44, 0);
+            SharedPreferences.Editor RechargeEditer = RechargeSP.edit();
+            RechargeEditer.putString("Recharge","");
+            RechargeEditer.commit();
+
+            SharedPreferences ImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF45, 0);
+            SharedPreferences.Editor ImpsEditer = ImpsSP.edit();
+            ImpsEditer.putString("Imps","");
+            ImpsEditer.commit();
+
+            SharedPreferences RtgsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF46, 0);
+            SharedPreferences.Editor RtgsEditer = RtgsSP.edit();
+            RtgsEditer.putString("Rtgs","");
+            RtgsEditer.commit();
+
+            SharedPreferences KsebSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF47, 0);
+            SharedPreferences.Editor KsebEditer = KsebSP.edit();
+            KsebEditer.putString("Kseb","");
+            KsebEditer.commit();
+
+            SharedPreferences NeftSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF48, 0);
+            SharedPreferences.Editor NeftEditer = NeftSP.edit();
+            NeftEditer.putString("Neft","");
+            NeftEditer.commit();
+
+            SharedPreferences OwnImpsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF49, 0);
+            SharedPreferences.Editor OwnImpsEditer = OwnImpsSP.edit();
+            OwnImpsEditer.putString("OwnImps","");
+            OwnImpsEditer.commit();
+
+            Intent intent = new Intent( this, SplashScreen.class );
             intent.putExtra("from","true");
             startActivity( intent );
             finish();
