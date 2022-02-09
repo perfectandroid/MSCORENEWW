@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.creativethoughts.iscore.DepositAccountSummaryDetailsActivity;
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.OtherAccountFundTransferActivity;
 import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
 import com.creativethoughts.iscore.R;
