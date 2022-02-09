@@ -3,7 +3,6 @@ package com.creativethoughts.iscore.utility;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,9 +33,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import com.creativethoughts.iscore.Helper.Common;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
-import com.creativethoughts.iscore.db.dao.model.UserDetails;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -181,45 +176,45 @@ public final class CommonUtilities {
 
 
 
-    public static void setAccountNumber(String accountNo, Spinner spinner, Activity activity) {
-        setAccountNumber(accountNo, spinner, activity, R.layout.simple_spinner_item_dark);
-    }
-    public static void setAccountNumberPassbook(String accountNo, Spinner spinner, Activity activity) {
-        setAccountNumber(accountNo, spinner, activity, R.layout.simple_spinner_item );
-    }
+//    public static void setAccountNumber(String accountNo, Spinner spinner, Activity activity) {
+//        setAccountNumber(accountNo, spinner, activity, R.layout.simple_spinner_item_dark);
+//    }
+//    public static void setAccountNumberPassbook(String accountNo, Spinner spinner, Activity activity) {
+//        setAccountNumber(accountNo, spinner, activity, R.layout.simple_spinner_item );
+//    }
 
-    private static void setAccountNumber(String accountNo, Spinner spinner, Activity activity, int layout) {
-        List<String> accountNos = PBAccountInfoDAO.getInstance().getAccountNos();
-
-        if (accountNos.isEmpty()) {
-            return;
-        }
-
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter<>(activity, layout, accountNos);
-
-        spinner.setAdapter(spinnerAdapter);
-
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        if (accountNo == null) {
-            return;
-        }
-
-        for (int i = 0; i < accountNos.size(); i++) {
-            String account = accountNos.get(i);
-
-            if (TextUtils.isEmpty(account)) {
-                continue;
-            }
-
-            if (account.equalsIgnoreCase(accountNo)) {
-                spinner.setSelection(i);
-
-                break;
-            }
-        }
-    }
+//    private static void setAccountNumber(String accountNo, Spinner spinner, Activity activity, int layout) {
+//        List<String> accountNos = PBAccountInfoDAO.getInstance().getAccountNos();
+//
+//        if (accountNos.isEmpty()) {
+//            return;
+//        }
+//
+//        ArrayAdapter<String> spinnerAdapter =
+//                new ArrayAdapter<>(activity, layout, accountNos);
+//
+//        spinner.setAdapter(spinnerAdapter);
+//
+//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        if (accountNo == null) {
+//            return;
+//        }
+//
+//        for (int i = 0; i < accountNos.size(); i++) {
+//            String account = accountNos.get(i);
+//
+//            if (TextUtils.isEmpty(account)) {
+//                continue;
+//            }
+//
+//            if (account.equalsIgnoreCase(accountNo)) {
+//                spinner.setSelection(i);
+//
+//                break;
+//            }
+//        }
+//    }
     public static void transactionActivitySetAccountNumber(String accNo, Spinner spinner, Activity activity){
 //        if (accNo.isEmpty())
 //            return;

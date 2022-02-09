@@ -43,16 +43,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
 import com.creativethoughts.iscore.custom_alert_dialogs.SuccessAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -256,7 +251,7 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
 
 
         setAccountNumber();
-        setAccountType();
+//        setAccountType();
 
         getminTransAmount();
         return view;
@@ -585,107 +580,107 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
 
     private void setAccountNumber() {
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+  //      SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        if (settingsModel == null) {
-            settingAccountNumber(null);
-        } else {
-            settingAccountNumber(settingsModel.customerId);
-        }
+//        if (settingsModel == null) {
+//            settingAccountNumber(null);
+//        } else {
+//            settingAccountNumber(settingsModel.customerId);
+//        }
     }
-    private void settingAccountNumber(String customerId){
-      //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
-
-        if (customerId.isEmpty())
-            return;
-        List<String> accountSpinnerItems  ;
-        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
-        ArrayList<String> itemTemp =  new ArrayList<>();
-
-        if (accountSpinnerItems.isEmpty())
-            return;
-
-        for (int i = 0; i< accountSpinnerItems.size(); i++){
-
-            if (!accountSpinnerItems.get(i).contains("SB") && !accountSpinnerItems.get(i).contains("CA") && !accountSpinnerItems.get(i).contains("OD"))
-                itemTemp.add(accountSpinnerItems.get(i));
-
-        }
-        for ( String item: itemTemp ) {
-            accountSpinnerItems.remove(item);
-        }
-
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter< >(getActivity(), R.layout.simple_spinner_item_dark, accountSpinnerItems);
-        mAccountSpinner.setAdapter(spinnerAdapter);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        for (int i = 0; i < accountSpinnerItems.size(); i++) {
-            String account = accountSpinnerItems.get(i);
-
-            if (TextUtils.isEmpty(account)) {
-                continue;
-            }
-            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-            if (account.equalsIgnoreCase(settingsModel.customerId)) {
-                mAccountSpinner.setSelection(i);
-
-                break;
-            }
-        }
-    }
-
-    private void setAccountType() {
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-        String customerId = null;
-        if (settingsModel == null) {
-            customerId = null;
-        } else {
-            customerId = settingsModel.customerId;
-        }
-        ArrayList<String> items = new ArrayList<>();
-        items.add(getString(R.string.savings_bank));
-        items.add(getString(R.string.current_account));
-        items.add(getString(R.string.cash_credit));
-        items.add(getString(R.string.member_loan));
-        items.add(getString(R.string.recurring_deposit));
-        items.add(getString(R.string.jewell_loan));
-        items.add(getString(R.string.gds));
-
-        if (customerId.isEmpty())
-            return;
-        List<String> accountSpinnerItems  ;
-        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
-        ArrayList<String> itemTemp =  new ArrayList<>();
-
-        if (accountSpinnerItems.isEmpty())
-            return;
-
-        for (int i = 0; i< accountSpinnerItems.size(); i++){
-
-            if (!accountSpinnerItems.get(i).contains("SB") && !accountSpinnerItems.get(i).contains("CA") && !accountSpinnerItems.get(i).contains("OD"))
-                itemTemp.add(accountSpinnerItems.get(i));
-
-        }
-        for ( String item: itemTemp ) {
-            accountSpinnerItems.remove(item);
-        }
-
+//    private void settingAccountNumber(String customerId){
+//      //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
+//
+//        if (customerId.isEmpty())
+//            return;
+//        List<String> accountSpinnerItems  ;
+//        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+//        ArrayList<String> itemTemp =  new ArrayList<>();
+//
+//        if (accountSpinnerItems.isEmpty())
+//            return;
+//
+//        for (int i = 0; i< accountSpinnerItems.size(); i++){
+//
+//            if (!accountSpinnerItems.get(i).contains("SB") && !accountSpinnerItems.get(i).contains("CA") && !accountSpinnerItems.get(i).contains("OD"))
+//                itemTemp.add(accountSpinnerItems.get(i));
+//
+//        }
+//        for ( String item: itemTemp ) {
+//            accountSpinnerItems.remove(item);
+//        }
+//
 //        ArrayAdapter<String> spinnerAdapter =
 //                new ArrayAdapter< >(getActivity(), R.layout.simple_spinner_item_dark, accountSpinnerItems);
 //        mAccountSpinner.setAdapter(spinnerAdapter);
 //        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        for (int i = 0; i < accountSpinnerItems.size(); i++) {
+//            String account = accountSpinnerItems.get(i);
+//
+//            if (TextUtils.isEmpty(account)) {
+//                continue;
+//            }
+//            SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//            if (account.equalsIgnoreCase(settingsModel.customerId)) {
+//                mAccountSpinner.setSelection(i);
+//
+//                break;
+//            }
+//        }
+//    }
 
-        if ( getActivity() == null )
-            return;
-
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter<>(getActivity(), R.layout.simple_spinner_item_dark, items);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAccountTypeSpinner.setAdapter(spinnerAdapter);
-        mAccountTypeSpinner.setOnItemSelectedListener(this);
-    }
+//    private void setAccountType() {
+//        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//        String customerId = null;
+//        if (settingsModel == null) {
+//            customerId = null;
+//        } else {
+//            customerId = settingsModel.customerId;
+//        }
+//        ArrayList<String> items = new ArrayList<>();
+//        items.add(getString(R.string.savings_bank));
+//        items.add(getString(R.string.current_account));
+//        items.add(getString(R.string.cash_credit));
+//        items.add(getString(R.string.member_loan));
+//        items.add(getString(R.string.recurring_deposit));
+//        items.add(getString(R.string.jewell_loan));
+//        items.add(getString(R.string.gds));
+//
+//        if (customerId.isEmpty())
+//            return;
+//        List<String> accountSpinnerItems  ;
+//        accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+//        ArrayList<String> itemTemp =  new ArrayList<>();
+//
+//        if (accountSpinnerItems.isEmpty())
+//            return;
+//
+//        for (int i = 0; i< accountSpinnerItems.size(); i++){
+//
+//            if (!accountSpinnerItems.get(i).contains("SB") && !accountSpinnerItems.get(i).contains("CA") && !accountSpinnerItems.get(i).contains("OD"))
+//                itemTemp.add(accountSpinnerItems.get(i));
+//
+//        }
+//        for ( String item: itemTemp ) {
+//            accountSpinnerItems.remove(item);
+//        }
+//
+////        ArrayAdapter<String> spinnerAdapter =
+////                new ArrayAdapter< >(getActivity(), R.layout.simple_spinner_item_dark, accountSpinnerItems);
+////        mAccountSpinner.setAdapter(spinnerAdapter);
+////        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        if ( getActivity() == null )
+//            return;
+//
+//        ArrayAdapter<String> spinnerAdapter =
+//                new ArrayAdapter<>(getActivity(), R.layout.simple_spinner_item_dark, items);
+//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        mAccountTypeSpinner.setAdapter(spinnerAdapter);
+//        mAccountTypeSpinner.setOnItemSelectedListener(this);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -710,7 +705,7 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
                 edt_txt_remark.setText("");
                 tv_maxamount.setText("");
                 setAccountNumber();
-                setAccountType();
+//                setAccountType();
 
                 getminTransAmount();
 
@@ -1263,8 +1258,9 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
         accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (") + 1, accountNo.indexOf(")") + 1), "");
         accountNo = accountNo.replace(" ", "");
 
-        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
-        String accountType = accountInfo.accountTypeShort;
+//        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
+//        String accountType = accountInfo.accountTypeShort;
+        String accountType = "";
         final String tempFromAccNo = accountNo +"("+ accountType +")";
         final String tempToAccNo = receiverAccNo +"("+ type +")";
         /*End of Extract account number*/

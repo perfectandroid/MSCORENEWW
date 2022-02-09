@@ -35,8 +35,6 @@ import com.creativethoughts.iscore.OtherfundTransferHistoryRTGS;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.custom_alert_dialogs.AlertMessageFragment;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.otp.OtpFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -555,8 +553,9 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
             tempAccNo = tempAccNo.replace(tempAccNo.substring(tempAccNo.indexOf(" (" )+1, tempAccNo.indexOf( ')' )+1 ), "" );
             tempAccNo = tempAccNo.replace(" ","" );
 
-            AccountInfo accountInfo = PBAccountInfoDAO.getInstance( ).getAccountInfo(tempAccNo );
-            final String module = accountInfo.accountTypeShort;
+            //AccountInfo accountInfo = PBAccountInfoDAO.getInstance( ).getAccountInfo(tempAccNo );
+            //final String module = accountInfo.accountTypeShort;
+            final String module = "";
 
             final String accNo = tempAccNo;
 

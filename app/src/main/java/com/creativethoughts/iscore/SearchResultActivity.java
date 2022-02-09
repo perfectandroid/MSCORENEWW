@@ -281,12 +281,13 @@ public class SearchResultActivity extends AppCompatActivity {
                 //String pin1 = userCred.pin;
                 String pin1 = pinIdSP.getString("pinlog","");
 
-                AccountInfo accountInformation =
-                        PBAccountInfoDAO.getInstance().getAccountInfo(mAccountNo);
+//                AccountInfo accountInformation =
+//                        PBAccountInfoDAO.getInstance().getAccountInfo(mAccountNo);
 
-                String accountType = accountInformation.accountTypeShort;
-
-                String IDDemandDeposit = accountInformation.fkDemandDepositID;
+//                String accountType = accountInformation.accountTypeShort;
+//                String IDDemandDeposit = accountInformation.fkDemandDepositID;
+                String accountType = "";
+                String IDDemandDeposit = "";
                 String url;
                 try {
                     url = BASE_URL + "/GenerateStatementOfAccount?" +

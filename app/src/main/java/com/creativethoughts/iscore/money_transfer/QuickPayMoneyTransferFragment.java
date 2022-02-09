@@ -48,9 +48,7 @@ import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.TransactionOTPFragment;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -818,8 +816,9 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
             /*Extract account number*/
             accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (")+1, accountNo.indexOf(")")+1), "");
             accountNo = accountNo.replace(" ","");
-            AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
-            String accountType = accountInfo.accountTypeShort;
+           // AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
+           // String accountType = accountInfo.accountTypeShort;
+            String accountType = "";
             /*End of Extract account number*/
 
 //            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
