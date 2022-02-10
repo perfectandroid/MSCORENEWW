@@ -120,8 +120,6 @@ try {
         txt_user.setText("Good Night " + customerName);
     }
 }catch (Exception e){e.printStackTrace();}
-//        txt_user.setText("Welcome "+userDetails.userCustomerName);
-        // getCustomerImage(userDetails.customerId);
         btnArray    =  new Button[]{btnKeyPadOne, btnKeyPadTwo, btnKeyPadThree,
                 btnKeyPadFour, btnKeyPadFive, btnKeyPadSix,
                 btnKeyPadSeven, btnKeyPadEight, btnKeyPadNine, btnKeyPadZero};
@@ -185,22 +183,6 @@ try {
                 case 4:
                     btnShwPassFourth.setBackgroundResource(R.drawable.show_pwd_btn);
                     fourthLetter = btn.getText().toString();
-
-                    /*  if(firstLetter.isEmpty() || secondLetter.isEmpty() || thirdLetter.isEmpty() || fourthLetter.isEmpty()*//*||fifthLetter.isEmpty()||sixthLetter.isEmpty()*//*)
-                        return;
-                    Date date = Calendar.getInstance().getTime();
-                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
-                    String formattedDate = df.format(date);
-                    SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-                    SharedPreferences.Editor loginEditer = loginSP.edit();
-                    loginEditer.putString("logintime", formattedDate);
-                    loginEditer.commit();
-
-                    getObservable( firstLetter + secondLetter + thirdLetter + fourthLetter *//*+ fifthLetter + sixthLetter*//* )
-                            .subscribeOn( Schedulers.io() )
-                            .observeOn( AndroidSchedulers.mainThread() )
-                            .subscribe( getObserver() );*/
-
                     break;
                 case 5:
                     btnShwPassFifth.setBackgroundResource(R.drawable.show_pwd_btn);
@@ -338,16 +320,12 @@ try {
         };
     }
     private int getAuthenticate( String pin ){
-       // UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
-
         SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
         String mPin = pinIdSP.getString("pinlog","");
         SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF33, 0);
         String login = loginSP.getString("login","");
 
         Log.e("TAG","349    "+mPin+"    "+login);
-
-//        if (loginCredential != null && loginCredential.flag == 1 && pin.equalsIgnoreCase(loginCredential.pin)) {
         if (login.equals("0") && pin.equalsIgnoreCase(mPin)) {
             return 1;
         }
@@ -409,11 +387,6 @@ try {
             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
             baseurlEditer.putString("baseurl", SplashScreen.BASE_URL + "/");
             baseurlEditer.commit();
-
-//            SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//            SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
-//            oldbaseurlEditer.putString("oldbaseurl", SplashScreen.BASE_URL + "/" + SplashScreen.API_NAME);
-//            oldbaseurlEditer.commit();
 
             SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
             SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
