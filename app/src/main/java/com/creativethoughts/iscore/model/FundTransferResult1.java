@@ -11,6 +11,7 @@ public class FundTransferResult1 {
 
 
 
+
     public FundTransferResult1(String refId, String mobileNumber, String amount, String accNo) {
         this.refId = refId;
         this.mobileNumber = mobileNumber;
