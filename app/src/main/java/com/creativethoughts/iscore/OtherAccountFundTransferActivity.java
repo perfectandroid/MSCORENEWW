@@ -973,7 +973,9 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     requestObject1.put("Module", IScoreApplication.encryptStart(type) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
                     requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(recvaccNumber.trim()));
-                    requestObject1.put("amount", IScoreApplication.encryptStart(finalamount.trim()));
+
+                    String amot = finalamount.replace(",","");
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amot));
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
