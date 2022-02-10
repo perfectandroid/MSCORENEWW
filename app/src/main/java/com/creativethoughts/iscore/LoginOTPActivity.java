@@ -57,6 +57,7 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
     ProgressDialog progressDialog;
     Button btnVerify;
     private EditText mEtVerificationCode;
+    public String TAG = "LoginOTPActivity";
 
 
     @Override
@@ -64,9 +65,12 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_verification);
 
+        Log.e(TAG,"START  68  ");
         btnVerify = findViewById(R.id.btnVerify);
         mEtVerificationCode =   findViewById(R.id.verificationCode);
         btnVerify.setOnClickListener(this);
+
+
 
 
     }

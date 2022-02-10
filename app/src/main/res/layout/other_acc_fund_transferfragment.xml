@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grey"
-    android:orientation="vertical"
-    tools:context="com.creativethoughts.iscore.SearchFragment">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -642,8 +641,7 @@
 <!--    android:layout_height="match_parent"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--    android:background="@color/white"-->
-<!--    android:orientation="vertical"-->
-<!--    tools:context="com.creativethoughts.iscore.SearchFragment">-->
+<!--    android:orientation="vertical">-->
 
 <!--    <RelativeLayout-->
 <!--        android:layout_width="match_parent"-->
