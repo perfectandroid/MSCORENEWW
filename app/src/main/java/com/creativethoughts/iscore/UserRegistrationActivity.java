@@ -92,8 +92,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
 
-    static String bank_Key, bank_Header;
-    static String host_nameCommon, asset_namecommon;
+//    static String bank_Key, bank_Header;
+//    static String host_nameCommon, asset_namecommon;
 //
 //
 //    private static final String HOSTNAME_SUBJECT="TEST16";
@@ -901,37 +901,37 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
 
-    public static String getBankkey() {
-        try {
-            return bank_Key;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getBankheader() {
-        try {
-            return bank_Header;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getHostnameSubject() {
-        try {
-            return host_nameCommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getCertificateAssetName() {
-        try {
-            return asset_namecommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
+//    public static String getBankkey() {
+//        try {
+//            return bank_Key;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getBankheader() {
+//        try {
+//            return bank_Header;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getHostnameSubject() {
+//        try {
+//            return host_nameCommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getCertificateAssetName() {
+//        try {
+//            return asset_namecommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
 
 
     private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,

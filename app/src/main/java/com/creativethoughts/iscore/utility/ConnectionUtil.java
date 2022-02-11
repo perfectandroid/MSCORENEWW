@@ -68,10 +68,10 @@ public class ConnectionUtil {
 //            Hostname   = HomeActivity.getHostnameSubject();
 //        }
 
-        bankKey      = "d.22333";
-        bankHeader   = "PERFECT SCORE BANK HEAD OFFICE";
-        AssetName   = "staticvm.pem";
-        Hostname   = "STATIC-VM";
+//        bankKey      = "d.22333";
+//        bankHeader   = "PERFECT SCORE BANK HEAD OFFICE";
+//        AssetName   = "staticvm.pem";
+//        Hostname   = "STATIC-VM";
 
 //        bankKey      = SplashScreen.BankKey;
 //        bankHeader   = SplashScreen.BankHeader;
