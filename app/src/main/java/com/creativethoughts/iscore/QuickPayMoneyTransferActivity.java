@@ -27,6 +27,7 @@ import com.creativethoughts.iscore.db.dao.SettingsDAO;
 import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.model.Receivers;
 import com.creativethoughts.iscore.model.SenderReceiver;
+import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -99,9 +100,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     String BranchName ;
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist = new ArrayList<String>();
-    ArrayAdapter senderReceiverArrayAdapter = null;
     long userId,fkSenderId;
-
+    ArrayAdapter senderReceiverArrayAdapter = null;
     int mode;
     String senderName,senderMobile,receiveraccno;
     @Override
@@ -337,16 +337,17 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                                 }
-                               // senderReceiverArrayAdapter = new ArrayAdapter<SenderReceiver>(QuickPayMoneyTransferActivity.this,R.layout.list_content_spin, R.id.textview, senders);
-                                //mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
+                         /*      senderReceiverArrayAdapter = new ArrayAdapter<>(QuickPayMoneyTransferActivity.this, R.layout.list_content_spin, senders);
+                                mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
+*/
 
                                 mSenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                                         SenderReceiver senderRec = (SenderReceiver) arrayList2.get(pos);
-                                         userId = senderRec.getUserID();
-                                         fkSenderId = senderRec.getFkSenderId();
-                                         senderName = senderRec.getSenderName();
-                                         senderMobile = senderRec.getSenderMobile();
+                                        userId = senderRec.getUserID();
+                                        fkSenderId = senderRec.getFkSenderId();
+                                        senderName = senderRec.getSenderName();
+                                        senderMobile = senderRec.getSenderMobile();
                                         receiveraccno = senderRec.getReceiverAccountno();
                                         mode=senderRec.getMode();
                                         for (int i = 0; i < arrayList3.size(); i++) {
@@ -358,8 +359,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
                                             if (userId==fkuser)
                                             {
-                                              //  receivers1.senderName=senderRec1.getSenderName();
-                                               // receivers1.receiverAccountno=senderRec1.getReceiverAccountno();
+                                                //  receivers1.senderName=senderRec1.getSenderName();
+                                                // receivers1.receiverAccountno=senderRec1.getReceiverAccountno();
 
 
 
@@ -370,6 +371,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                     public void onNothingSelected(AdapterView<?> parent) {
                                     }
                                 });
+
+
                             }
 
 
@@ -813,6 +816,46 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                         try {
                             Log.e("TAG","Response ownaccount   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+                            String statusCode=jObject.getString("StatusCode");
+                            String statusmsg = jObject.getString("StatusMessage");
+
+                            if ( statusCode!= null && statusCode.equals("200") ){
+
+                                Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
+
+                                 //   !moneyTransferResponseModel.getOtpRefNo().equals("0")){
+                               /* TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
+                                        moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
+                                        moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
+                           //     Log.e(TAG,"1091   "+moneyTransferResponseModel.getMessage());
+                            }
+                            else if ( statusCode!= null && statusCode.equals("200")){
+                                 //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
+
+                               /* QuickSuccess(mAccNo,moneyTransferResponseModel.getStatus(),moneyTransferResponseModel.getMessage(),"",
+                                        moneyTransferResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch,mAmount);*/
+
+                              //  Log.e(TAG,"10912   "+moneyTransferResponseModel.getMessage());
+
+                            }
+                            else if (  statusCode.equals("500")){
+                                Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
+                 /*   TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
+                            moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
+                            moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
+
+                                alertMessage1(statusmsg, statusmsg);
+                            }
+                            else {
+//                    QuickSuccess(mAccNo,"Oops....","Something went wrong",moneyTransferResponseModel.getStatusCode(),
+//                            moneyTransfer
+//                            ResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch, mAmount);
+                            //    Log.e(TAG,"10914   "+moneyTransferResponseModel.getMessage());
+                                alertMessage1("Oops....!", "Something went wrong");
+                            }
+
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
                             String statusmsg = j1.getString("StatusMessage");
@@ -998,10 +1041,12 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         sslContext.init(null, wrappedTrustManagers, null);
         return sslContext.getSocketFactory();
     }
-    private void alertMessage1(String s, String s1) {
+
+    private void alertMessage1(String msg1, String msg2) {
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(QuickPayMoneyTransferActivity.this);
 
-        LayoutInflater inflater = QuickPayMoneyTransferActivity.this.getLayoutInflater();
+        LayoutInflater inflater =this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_layout, null);
         dialogBuilder.setView(dialogView);
 
@@ -1010,8 +1055,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
         TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
 
-        tv_msg.setText(s);
-        tv_msg2.setText(s1);
+        tv_msg.setText(msg1);
+        tv_msg2.setText(msg2);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1029,5 +1074,4 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         });
         alertDialog.show();
     }
-
 }
