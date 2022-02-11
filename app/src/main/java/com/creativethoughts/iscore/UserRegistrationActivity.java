@@ -358,11 +358,41 @@ public class UserRegistrationActivity extends AppCompatActivity {
 //                BASE_URL=pref1.getString("oldbaseurl", null);
 
             }
-//            else{
+            else{
+
+                SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+                SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
+                baseurlEditer.putString("baseurl", SplashScreen.BASE_URL+ "/");
+                baseurlEditer.commit();
+//                SharedPreferences oldbaseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//                SharedPreferences.Editor oldbaseurlEditer = oldbaseurlSP.edit();
+//                oldbaseurlEditer.putString("oldbaseurl", base_url);
+//                oldbaseurlEditer.commit();
+                SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                SharedPreferences.Editor imageurlEditer = imageurlSP.edit();
+                imageurlEditer.putString("imageurl", SplashScreen.IMAGE_URL);
+                imageurlEditer.commit();
+                SharedPreferences bankkeySP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                SharedPreferences.Editor bankkeyEditer = bankkeySP.edit();
+                bankkeyEditer.putString("bankkey", SplashScreen.BankKey);
+                bankkeyEditer.commit();
+                SharedPreferences bankheaderSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                SharedPreferences.Editor bankheaderEditer = bankheaderSP.edit();
+                bankheaderEditer.putString("bankheader", SplashScreen.BankHeader);
+                bankheaderEditer.commit();
+                SharedPreferences host_nameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF23, 0);
+                SharedPreferences.Editor host_nameEditer = host_nameSP.edit();
+                host_nameEditer.putString("hostname", SplashScreen.HOSTNAME_SUBJECT);
+                host_nameEditer.commit();
+                SharedPreferences asset_nameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
+                SharedPreferences.Editor asset_nameEditer = asset_nameSP.edit();
+                asset_nameEditer.putString("certificateassetname", SplashScreen.CERTIFICATE_ASSET_NAME);
+                asset_nameEditer.commit();
 //
-////                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-////                BASE_URL=pref.getString("oldbaseurl", null);
-//            }
+
+//                SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
+//                BASE_URL=pref.getString("oldbaseurl", null);
+            }
 
             if(mobileNumber.equalsIgnoreCase("124567")) {
 
@@ -451,6 +481,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
+        Log.e(TAG,"BASE_URL  454   "+BASE_URL);
         if (NetworkUtil.isOnline()) {
             progressDialog = new ProgressDialog(UserRegistrationActivity.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);

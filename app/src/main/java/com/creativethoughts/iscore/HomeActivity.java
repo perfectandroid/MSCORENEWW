@@ -182,6 +182,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                     mNavigationDrawerFragment.refreshMenu();
                 }
                 fragment = OffersFragment.newInstance();
+
+//                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
+//                startActivity(ioa);
                 break;
             case 4:
                 fragment = KsebBillStatusFragment.newInstance();

@@ -1568,6 +1568,16 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     Log.e(TAG,"DthDatacard requestObject1     15382   "+requestObject1);
                     Log.e(TAG,"DthDatacard mAmount     15383   "+mAmount);
 
+                    Log.e(TAG,"RECHARGE rechargeDthDatacard   18888"
+                            +"\n"+"MobileNumer      "+mMobileNumber
+                            +"\n"+"Operator         "+ProvidersCode
+                            +"\n"+"Circle           "+mCircleId
+                            +"\n"+"Amount           "+mAmount
+                            +"\n"+"AccountNo        "+AccountNumber
+                            +"\n"+"Module           "+SubModule
+                            +"\n"+"Pin              "+pin
+                            +"\n"+"Type             "+mSelectedType
+                            +"\n"+"OperatorName     "+operatorName);
 
 
 
@@ -1724,6 +1734,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     Log.e(TAG,"PostLand requestObject1     16902   "+requestObject1);
                     Log.e(TAG,"PostLand mAmount     16903   "+mAmount);
 
+                    Log.e(TAG,"RECHARGE rechargePostLand   18888"
+                            +"\n"+"MobileNumer      "+mMobileNumber
+                            +"\n"+"Operator         "+ProvidersCode
+                            +"\n"+"Circle           "+mCircleId
+                            +"\n"+"Circleaccount    "+mCircleAccNo
+                            +"\n"+"Amount           "+mAmount
+                            +"\n"+"AccountNo        "+AccountNumber
+                            +"\n"+"Module           "+SubModule
+                            +"\n"+"Pin              "+pin
+                            +"\n"+"Type             "+mSelectedType
+                            +"\n"+"OperatorName     "+operatorName);
+
 
 
 
@@ -1875,7 +1897,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
 
-                    Log.e(TAG,"RECHARGE   18888"
+                    Log.e(TAG,"RECHARGE rechargePrepaid   18888"
                             +"\n"+"MobileNumer      "+mMobileNumber
                             +"\n"+"Operator         "+ProvidersCode
                             +"\n"+"Circle           "+mCircleId

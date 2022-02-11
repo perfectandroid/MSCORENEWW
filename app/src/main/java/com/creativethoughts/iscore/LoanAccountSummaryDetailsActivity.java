@@ -68,6 +68,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
     String shareData = "";
     CardView cv_accSummaryLone;
     LinearLayout ll_mini_slab,ll_fund_ifsc,ll_share;
+    String BranchCode = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accsummarydetails1);
@@ -86,6 +87,8 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
         loantypemode = getIntent().getStringExtra("loantypemode");
         IsShareAc = getIntent().getStringExtra("IsShareAc");
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
+        BranchCode = getIntent().getStringExtra("BranchCode");
+
 
         setRegViews();
 
@@ -438,6 +441,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
                     i.putExtra("submodule", subModule);
                     i.putExtra("account", account);
                     i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+                    i.putExtra("BranchCode", BranchCode);
                     startActivity(i);
 
 
@@ -449,6 +453,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
                     i.putExtra("submodule", subModule);
                     i.putExtra("account", account);
                     i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+                    i.putExtra("BranchCode", BranchCode);
                     startActivity(i);
                 }
                 break;

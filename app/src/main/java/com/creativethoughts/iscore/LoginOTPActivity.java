@@ -128,6 +128,7 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1  1311  "+requestObject1);
 
 
                 } catch (JSONException e) {
@@ -140,7 +141,7 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
                         try {
                             progressDialog.dismiss();
                             JSONObject jObject = new JSONObject(response.body());
-
+                            Log.e(TAG,"response  1312  "+response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                // JSONArray jarray = jObject.getJSONArray("acInfo");

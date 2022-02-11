@@ -38,8 +38,6 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -123,7 +121,6 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     "September","October","November","December"};
     private ProgressDialog progressDialog;
     Date newDate, datecurrent;
-    AccountInfo accountInfo;
     private ProgressDialog pd;
     JSONArray Jarray = new JSONArray();
     RadioButton rb1,rb2;
@@ -134,6 +131,7 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
     public static final int RequestManagePermissionCode = 5;
 
     private  String[] PERMISSIONS;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,8 +149,8 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         amt = getIntent().getStringExtra("amt");
         submodule = getIntent().getStringExtra("submodule");
 
-        accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
+        branchcode = getIntent().getStringExtra("BranchCode");
 
       //  branchcode = accountInfo.accountBranchCode;
         Log.e(TAG,"branchcode   158   "+branchcode);

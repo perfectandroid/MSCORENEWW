@@ -651,6 +651,8 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 assert actionBar != null;
                 actionBar.setTitle("Offer" );
 
+//                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
+//                startActivity(ioa);
 
 
 
