@@ -303,6 +303,15 @@
         </activity>
 
         <activity
+            android:name=".OffersActivity"
+            android:label="Offers"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+        <activity
             android:name=".Recharge.KsebActivity"
             android:label="Kseb"
             android:parentActivityName=".HomeActivity"
