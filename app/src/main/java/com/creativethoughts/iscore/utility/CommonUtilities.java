@@ -531,7 +531,7 @@ public final class CommonUtilities {
         }
         return amt;
     }
-    public static String getDecimelFormateForEditText(double amount) {
+   public static String getDecimelFormateForEditText(double amount) {
         DecimalFormat fmt = new DecimalFormat("#,##,##,##,###");
         String amt = fmt.format(amount);
         if (amt.substring(0,1).equals(".")){

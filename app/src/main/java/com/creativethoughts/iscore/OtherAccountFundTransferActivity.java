@@ -38,10 +38,6 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
-import com.creativethoughts.iscore.db.dao.model.UserCredential;
 import com.creativethoughts.iscore.model.BarcodeAgainstCustomerAccountList;
 import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -906,7 +902,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                         type[0] = "GD";
                     }
                     String Finalamount = amount.replace(",","");
-                   // startTransfer( accountNumber, type[0], accNumber, Finalamount,remark);
+
                     startTransfer1( accountNumber, type[0], accNumber, Finalamount,remark);
                 });
 
@@ -977,7 +973,9 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     requestObject1.put("Module", IScoreApplication.encryptStart(type) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
                     requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(recvaccNumber.trim()));
-                    requestObject1.put("amount", IScoreApplication.encryptStart(finalamount.trim()));
+
+                    String amot = finalamount.replace(",","");
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amot));
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
@@ -1033,29 +1031,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                                 FundTransferResult1 fundTransferResult= new FundTransferResult1();
 
 
-                                ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
 
-                                KeyValuePair keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("Ref. No");
-                                keyValuePair.setValue( fundTransferResult.getrefId() );
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("Amount");
-                                keyValuePair.setValue(fundTransferResult.getAmount());
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("From Acc.No");
-                                keyValuePair.setValue( tempFromAccNo );
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("To Acc.No");
-                                keyValuePair.setValue( tempToAccNo );
-                                keyValuePairs.add( keyValuePair );
-
-                                alertMessage("", keyValuePairs, statusmsg, true, false);
+                                alertMessage("", fundTransferResult, statusmsg, true, false);
                                 //  JSONArray jarray = jobj.getJSONArray( "Data");
 
                             }
@@ -1441,146 +1418,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     }
 
 
-    private void startTransfer( String accountNo, String type, String receiverAccNo, String amount, String remark) {
 
-
-     //   UserCredential loginCredential = UserCredentialDAO.getInstance().getLoginCredential();
-        if (TextUtils.isEmpty(mScannedValue)) {
-            mScannedValue = "novalue";
-        }
-        mScannedValue = mScannedValue.replaceAll(" ", "%20");
-
-        /*Extract account number*/
-        accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (") + 1, accountNo.indexOf(")") + 1), "");
-        accountNo = accountNo.replace(" ", "");
-
-       // AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
-        String accountType = type;
-        final String tempFromAccNo = accountNo +"("+ accountType +")";
-        final String tempToAccNo = receiverAccNo +"("+ type +")";
-
-//        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//        String BASE_URL=pref.getString("oldbaseurl", null);
-
-        SharedPreferences pref =getApplicationContext().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null);
-
-        try{
-//            String url =
-//                    BASE_URL + "/FundTransferIntraBank?AccountNo="
-//                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
-//                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
-//                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
-//                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
-//                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-//                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
-//                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue))
-//                            + "&Remark=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(remark));
-
-
-            SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
-            String BankKey=bankkeypref.getString("bankkey", null);
-            SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
-            String BankHeader=bankheaderpref.getString("bankheader", null);
-
-
-//            String url =   BASE_URL + "/FundTransferIntraBank?AccountNo="
-//                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
-//                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
-//                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
-//                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
-//                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-//                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
-//                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
-//                            + "&IMEI=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(""))
-//                            + "&Token=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.token));
-//                            + "&BankKey=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(BankKey))
-//                            + "&BankHeader=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(BankHeader))
-//                            + "&BankVerified=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart("1"));
-
-            String url =   BASE_URL + "/FundTransferIntraBank?AccountNo="
-                    + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
-                    + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
-                    + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
-                    + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
-                    + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                  //  + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(loginCredential.pin))
-                    + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue));
-
-            Log.e(TAG,"startTransfer   954     "+url);
-
-            NetworkManager.getInstance().connector(url, new ResponseManager() {
-                @Override
-                public void onSuccess(String result) {
-                    try{
-                        Log.e(TAG,"result  12971   "+result+"  "+result);
-                        Gson gson = new Gson();
-                        OtherAccFundTransferFragment.FundTransferResult fundTransferResult = gson.fromJson( result, OtherAccFundTransferFragment.FundTransferResult.class );
-                        int statusCode = fundTransferResult.getStatusCode();
-                        reference = fundTransferResult.getRefId();
-                        statusmessage= fundTransferResult.getStatusMessage();
-                        Log.e(TAG,"gson  12972   "+gson);
-                        Log.e(TAG,"statusmessage  12973   "+statusmessage+"  "+statusCode);
-                        if ( statusCode == 1 ){
-                            ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
-
-                            KeyValuePair keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("Ref. No");
-                            keyValuePair.setValue( fundTransferResult.getRefId() );
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("Amount");
-                            keyValuePair.setValue( fundTransferResult.getAmount() );
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("From Acc.No");
-                            keyValuePair.setValue( tempFromAccNo );
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("To Acc.No");
-                            keyValuePair.setValue( tempToAccNo );
-                            keyValuePairs.add( keyValuePair );
-
-                            alertMessage("", keyValuePairs, statusmessage, true, false);
-                        }
-                        else if ( statusCode == 2 ){
-                            alertMessage1("" ,statusmessage );
-                        }
-                        else if ( statusCode == 3 ){
-                            alertMessage1("", statusmessage);
-                        }
-                        else if ( statusCode == 4 ){
-                            alertMessage1("", statusmessage);
-                        }
-                        else if ( statusCode == 5 ){
-                            alertMessage1("", statusmessage);
-                        }
-                        else {
-                            alertMessage1("", statusmessage);
-                        }
-                    }catch ( Exception e ){
-
-                        alertMessage1("Transaction failed...!", "Please try again later");
-                        Log.e(TAG,"Exception  12974   "+e.toString());
-
-                    }
-                }
-
-                @Override
-                public void onError(String error) {
-                    alertMessage1("Transaction failed...!", "Please try again later");
-                    Log.e(TAG,"error  12975   "+error.toString());
-
-                }
-            }, this, "Talking to server. Please wait....");
-        }catch ( Exception e ){
-            //Do nothing
-        }
-
-    }
     private void alertMessage1(String msg1, String msg2) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
@@ -1614,14 +1452,10 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         alertDialog.show();
     }
 
-    private void alertMessage(String title, ArrayList<KeyValuePair> keyValueList, String message , boolean isHappy, boolean isBackButtonEnabled ){
-        Log.e(TAG,"alertMessage   954   "+title+"   "+keyValueList+"   "+message+"   "+isHappy+"    "+isBackButtonEnabled);
+    private void alertMessage(String title, FundTransferResult1 fundTransferResult1, String message , boolean isHappy, boolean isBackButtonEnabled ){
+        Log.e(TAG,"alertMessage   954   "+title+"   "+fundTransferResult1+"   "+message+"   "+isHappy+"    "+isBackButtonEnabled);
 
-//                getFragmentManager().beginTransaction().replace( R.id.container, AlertMessageFragment.getInstance( keyValueList  ,title, message,
-//                isHappy, isBackButtonEnabled ) ).commit();
-
-
-        alertPopup(title,keyValueList,message,isHappy,isBackButtonEnabled);
+        alertPopup(title,fundTransferResult1,message,isHappy,isBackButtonEnabled);
 
 
     }
@@ -1645,82 +1479,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     }
 
 
-    private class FundTransferResult{
-        @SerializedName("StatusCode")
-        private int statusCode;
-        @SerializedName("RefID")
-        private String refId;
-        @SerializedName("MobileNumber")
-        private String mobileNumber;
-        @SerializedName("Amount")
-        private String amount;
-        @SerializedName("AccNumber")
-        private String accNo;
 
-        public int getStatusCode() {
-            return statusCode;
-        }
 
-        public void setStatusCode(int statusCode) {
-            this.statusCode = statusCode;
-        }
-
-        public String getRefId() {
-            return refId;
-        }
-
-        public void setRefId(String refId) {
-            this.refId = refId;
-        }
-
-        public String getMobileNumber() {
-            return mobileNumber;
-        }
-
-        public void setMobileNumber(String mobileNumber) {
-            this.mobileNumber = mobileNumber;
-        }
-
-        public String getAmount() {
-            return amount;
-        }
-
-        public void setAmount(String amount) {
-            this.amount = amount;
-        }
-
-        public String getAccNo() {
-            return accNo;
-        }
-
-        public void setAccNo(String accNo) {
-            this.accNo = accNo;
-        }
-    }
-
-  /*  @Override
-    public void onResume() {
-        super.onResume();
-
-        getView().setFocusableInTouchMode(true);
-        getView().requestFocus();
-        getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button's click listener
-                    //  Toast.makeText(getActivity(), "Back press", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getActivity(),HomeActivity.class);
-                    startActivity(i);
-                    getActivity().finish();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-    }
-*/
     private HostnameVerifier getHostnameVerifier() {
         return new HostnameVerifier() {
             @Override
@@ -1790,12 +1550,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         return sslContext.getSocketFactory();
     }
 
-    private void alertPopup(String title, ArrayList<KeyValuePair> keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList( KEY_VALUE, keyValueList );
-        bundle.putString( TITLE, title );
-        bundle.putBoolean( HAPPY, isHappy );
-        bundle.putString( MESSAGE, message );
+    private void alertPopup(String title, FundTransferResult1 fundTransferResult1, String message, boolean isHappy, boolean isBackButtonEnabled) {
+
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 // ...Irrelevant code for customizing the buttons and title
@@ -1803,7 +1559,6 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         View dialogView = inflater.inflate(R.layout.fragment_message_alert, null);
         dialogBuilder.setView(dialogView);
 
-        // EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
         RelativeLayout rltv_share = dialogView.findViewById( R.id.rltv_share );
         RelativeLayout lay_share = dialogView.findViewById( R.id.lay_share );
         mRecyclerView = dialogView.findViewById( R.id.recycler_message );
@@ -1825,7 +1580,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
         TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
 
-        tvrefe.setText("Ref.No "+reference);
+        tvrefe.setText("Ref.No "+fundtransfrlist.get(0).getrefId());
 
         //current time
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -1870,7 +1625,6 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
-       // txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
         txtvbalnce.setVisibility(View.GONE);
 
         String rtype =mAccountTypeSpinner.getSelectedItem().toString();
@@ -1894,7 +1648,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 edtTxtConfirmAccountNoThirdBlock.getText().toString()+"("+type+")";
 
 
-        txtvAcntnoto.setText("A/C : "+receiveraccno);
+        txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
         txtvbranchto.setText("Branch :"+result);
         txtvbranchto.setVisibility(View.GONE);
 
@@ -1903,8 +1657,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
         dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
             try{
-//                getFragmentManager().beginTransaction().replace( R.id.container, FragmentMenuCard.newInstance("EMPTY","EMPTY") )
-//                        .commit();
+
                 Intent i=new Intent(this, HomeActivity.class);
                 startActivity(i);
                 finish();
@@ -1914,21 +1667,12 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         } );
 
         try{
-//            Bundle bundle = getArguments();
-//            boolean isHappy = bundle.getBoolean( HAPPY );
-//            String title = bundle.getString( TITLE );
-//            String message = bundle.getString( MESSAGE );
+
             txtMessage.setText( message );
             txtTitle.setText( title );
             if ( !isHappy ){
                 imgIcon.setImageResource( R.mipmap.ic_failed );
             }
-            //  ArrayList<KeyValuePair> keyValuePairs = bundle.getParcelableArrayList( KEY_VALUE );
-           /* ArrayList<KeyValuePair> keyValuePairs = keyValueList;
-            SuccessAdapter successAdapter = new SuccessAdapter( keyValuePairs );
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
-            mRecyclerView.setLayoutManager( layoutManager );
-            mRecyclerView.setAdapter( successAdapter );*/
 
             lay_share.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1960,114 +1704,12 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                         Log.e("Exception","Exception   117   "+e.toString());
                     }
 
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                        if (Environment.isExternalStorageManager()){
-//                            Log.e("img_share","img_share   1170   ");
-//                            Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                                    rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                            Canvas canvas = new Canvas(bitmap);
-//                            rltv_share.draw(canvas);
-//
-//                            try {
-//
-//                              //  File file = saveBitmap(bitmap, SourceAccountNumber+".png");
-//                              //  Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-//
-//                                File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
-//                                boolean isPresent = true;
-//                                Log.e("photoURI","StatementDownloadViewActivity   5682   ");
-//                                if (!docsFolder.exists()) {
-//                                    // isPresent = docsFolder.mkdir();
-//                                    docsFolder.mkdir();
-//                                    Log.e("photoURI","StatementDownloadViewActivity   5683   ");
-//                                }
-//
-//                                Uri bmpUri = Uri.fromFile(docsFolder);
-//                                //  Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                                Intent shareIntent = new Intent();
-//                                shareIntent.setAction(Intent.ACTION_SEND);
-//                                shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                                shareIntent.setType("image/*");
-//                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                                startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                                Log.e("Exception","Exception   117   "+e.toString());
-//                            }
-//
-//                        }
-//                        else {
-//                            final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-//                            final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-//                            intent.setData(uri);
-//                            startActivity(intent);
-//                        }
-//                    }
-//                    else{
-//                        Log.e("img_share","img_share   1170   ");
-//                        Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                                rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                        Canvas canvas = new Canvas(bitmap);
-//                        rltv_share.draw(canvas);
-//
-//                        try {
-//
-//                            File file = saveBitmap(bitmap, SourceAccountNumber+".png");
-//                            Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-//                            Uri bmpUri = Uri.fromFile(file);
-//                            //  Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                            Intent shareIntent = new Intent();
-//                            shareIntent.setAction(Intent.ACTION_SEND);
-//                            shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                            shareIntent.setType("image/*");
-//                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                            startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                            Log.e("Exception","Exception   117   "+e.toString());
-//                        }
-//
-//                    }
+
 
 
 
                 }
             });
-//            img_share.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Log.e("img_share","img_share   1170   ");
-//                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                    Canvas canvas = new Canvas(bitmap);
-//                    rltv_share.draw(canvas);
-//
-//                    try {
-//
-//
-//                        Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                        Intent shareIntent = new Intent();
-//                        shareIntent.setAction(Intent.ACTION_SEND);
-//                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                        shareIntent.setType("image/*");
-//                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                        startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Log.e("Exception","Exception   117   "+e.toString());
-//                    }
-//
-//                }
-//            });
-
-
 
 
         }catch ( Exception e){
@@ -2079,13 +1721,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     }
 
     private File saveBitmap(Bitmap bm, String fileName){
-//        String mess = getResources().getString(R.string.app_name);
-//        Log.e("Resources","Resources   117   "+mess);
-//        final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+mess;
-//        File dir = new File(path);
-//        if(!dir.exists())
-//            dir.mkdirs();
-//        File file = new File(dir, fileName);
+
         File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
         boolean isPresent = true;
         Log.e("photoURI","StatementDownloadViewActivity   5682   ");

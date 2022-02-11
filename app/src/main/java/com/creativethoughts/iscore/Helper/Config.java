@@ -2,6 +2,8 @@ package com.creativethoughts.iscore.Helper;
 
 import com.creativethoughts.iscore.R;
 
+import java.text.DecimalFormat;
+
 public class Config {
 
     public static final int RAW_TYPE = R.raw.cloud;
@@ -61,7 +63,6 @@ public class Config {
     public static final String SHARED_PREF47 = "Kseb";
     public static final String SHARED_PREF48 = "Neft";
     public static final String SHARED_PREF49 = "OwnImps";
-
 
 
 }

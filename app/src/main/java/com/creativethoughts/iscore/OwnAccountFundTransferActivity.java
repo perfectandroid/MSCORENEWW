@@ -906,17 +906,11 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
     private void setAccountNumber() {
         settingAccountNumber(cusid);
-      /*  SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        if (settingsModel == null) {
-            settingAccountNumber(null);
-        } else {
-            settingAccountNumber(settingsModel.customerId);
-        }*/
     }
 
     private void settingAccountNumber(String cusid){
-        //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
+
 
         if (cusid.isEmpty())
             return;
@@ -926,8 +920,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         String acntnos=acntpref.getString("accountNoarray", null);
 
 
-   //    accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
-      //  accountSpinnerItems = acntnos;
         try {
             array = new JSONArray(acntnos);
 
@@ -984,7 +976,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     private void submit(){
         if ( this == null )
             return;
-        // String recieverAccountNo = confirmAndSetRecieversAccountNo();
+
         String  accountPayingTo = mAccountPayingToSpinner.getSelectedItem().toString();
         try{
             if (accountPayingTo != "Select Account"){
@@ -993,7 +985,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                 if (isValid() && recieverAccountNo.length() == 12) {
                     if (NetworkUtil.isOnline()) {
-//                final String accountNumber = mAccountSpinner.getSelectedItem().toString();
                         final String accountNumber = SourceAccountNumber;
 
                         String amount = edtTxtAmount.getText().toString();
@@ -1046,7 +1037,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                                 text_confirmationmsg.setText("Proceed Transaction with above receipt amount"+ "..?");
 
-                                // text_confirmationmsg.setText("Proceed Transaction with above receipt amount to A/C no " + accNumber + " ..?");
+
                                 String[] netAmountArr = amnt.split("\\.");
                                 String amountInWordPop = "";
                                 if ( netAmountArr.length > 0 ){
@@ -1070,7 +1061,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                 String finalAmount = amount;
                                 butOk.setOnClickListener(v -> {
                                     alertDialog.dismiss();
-                                 //   startTransfer( accountNumber, type, accNumber, finalAmount,remark);
                                     startTransfer1( accountNumber, type, accNumber, finalAmount,remark);
                                 });
 
@@ -1102,8 +1092,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     } else {
                         alertMessage1("", "Network is currently unavailable. Please try again later.");
 
-                        // DialogUtil.showAlert(this,
-                        //  "Network is currently unavailable. Please try again later.");
+
                     }
                 }
             }
@@ -1182,7 +1171,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("Module", IScoreApplication.encryptStart(accountType) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
                     requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(receiverAccNo));
-                    requestObject1.put("amount", IScoreApplication.encryptStart(amount.trim()));
+                    String amot = amount.replace(",","");
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amot));
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
@@ -1242,31 +1232,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                                 FundTransferResult1 fundTransferResult= new FundTransferResult1();
 
+                                alertMessage("", fundTransferResult, statusmsg, true, false);
 
-                                ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
-
-                                KeyValuePair keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("Ref. No");
-                                keyValuePair.setValue( fundTransferResult.getrefId() );
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("Amount");
-                                keyValuePair.setValue(fundTransferResult.getAmount());
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("From Acc.No");
-                                keyValuePair.setValue( tempFromAccNo );
-                                keyValuePairs.add( keyValuePair );
-
-                                keyValuePair = new KeyValuePair();
-                                keyValuePair.setKey("To Acc.No");
-                                keyValuePair.setValue( tempToAccNo );
-                                keyValuePairs.add( keyValuePair );
-
-                                alertMessage("", keyValuePairs, statusmsg, true, false);
-                              //  JSONArray jarray = jobj.getJSONArray( "Data");
 
                             }
                             else if ( statusCode == 2 ){
@@ -1286,11 +1253,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
 
                                 try{
-                                  /*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");*/
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(responsemsg)
-//                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1304,7 +1268,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     String EXMessage = j1.getString("EXMessage");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1320,24 +1283,22 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-//                            progressDialog.dismiss();
+
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-//                        progressDialog.dismiss();
+
                     }
                 });
             }
             catch (Exception e) {
-//                progressDialog.dismiss();
+
                 e.printStackTrace();
             }
         } else {
             alertMessage1("", " Network is currently unavailable. Please try again later.");
 
-            // DialogUtil.showAlert(this,
-            //"Network is currently unavailable. Please try again later.");
         }
 
     }
@@ -1351,13 +1312,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
         if (amount.length() <1)
             return false;
-//        final double amt = Double.parseDouble(amount);
-
-//        if(amt < 1 || amt > 50000) {
-//
-//            edtTxtAmount.setError("Please enter amount between 0 and 50000");
-//            return false;
-//        }
 
 
         edtTxtAmount.setError(null);
@@ -1519,36 +1473,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                                 edtTxtAmount.setFocusable(false);
                                             }
                                         }
-//                                        else if (ToSubModule.equals("ODGD")) {
-//                                            JSONObject DetailsjsonObject=jsonObjectjarray.getJSONObject(0);
-//                                            Slimit =  DetailsjsonObject.getString("Value");
-//                                            int limit=Integer.parseInt(Slimit);
-//                                            if (limit > 0 ) {
-//                                                ll_needTochange.setVisibility(View.VISIBLE);
-//                                                edtTxtAmount.setKeyListener(null);
-//                                                edtTxtAmount.setEnabled(false);
-//                                                edtTxtAmount.setInputType(InputType.TYPE_NULL);
-//                                                edtTxtAmount.setFocusable(false);
-//                                                pendinginsa = new String[limit];
-//
-//
-//                                                IsAdvance = "0";
-//                                                int i;
-//                                                for ( i = 0; i < limit; i++ )
-//                                                {
-//                                                    pendinginsa[i] =String.valueOf( i+1);
-//                                                }
-//                                                getpendinginsa(ToSubModule,ToFK_Account,IsAdvance);
-//                                            }
-//                                            else {
-//                                                ll_needTochange.setVisibility(View.GONE);
-//
-//                                                edtTxtAmount.setKeyListener(null);
-//                                                edtTxtAmount.setEnabled(false);
-//                                                edtTxtAmount.setInputType(InputType.TYPE_NULL);
-//                                                edtTxtAmount.setFocusable(false);
-//                                            }
-//                                        }
+
                                         else {
                                             ll_needTochange.setVisibility(View.GONE);
                                             ll_needToPayAdvance.setVisibility(View.GONE);
@@ -1589,7 +1514,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     String EXMessage = jObject.getString("EXMessage");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1605,24 +1529,19 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-//                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-//                        progressDialog.dismiss();
                     }
                 });
             }
             catch (Exception e) {
-//                progressDialog.dismiss();
                 e.printStackTrace();
             }
         } else {
             alertMessage1("", " Network is currently unavailable. Please try again later.");
 
-           // DialogUtil.showAlert(this,
-                    //"Network is currently unavailable. Please try again later.");
         }
 
     }
@@ -1633,13 +1552,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
-//                progressDialog = new ProgressDialog(getActivity(), R.style.Progress);
-//                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
-//                progressDialog.setCancelable(false);
-//                progressDialog.setIndeterminate(true);
-//                progressDialog.setIndeterminateDrawable(this.getResources()
-//                        .getDrawable(R.drawable.progress));
-//                progressDialog.show();
+
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -1679,7 +1592,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     type = "GD";
                 }
 
-                //String sourceAccount = mAccountSpinner.getSelectedItem().toString();
                 try {
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("10") );
                     requestObject1.put("CustomerNoumber", IScoreApplication.encryptStart(value) );
@@ -1703,7 +1615,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-//                            progressDialog.dismiss();
+
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")){
                                 JSONObject jobj = jObject.getJSONObject("BarcodeAgainstCustomerAccountDets");
@@ -1744,7 +1656,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     String ResponseMessage = jobj.getString("ResponseMessage");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(ResponseMessage)
-//                                builder.setMessage("No data found.")
+
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1758,7 +1670,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     String EXMessage = jObject.getString("EXMessage");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
                                     builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
+
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
@@ -1773,12 +1685,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-//                            progressDialog.dismiss();
+
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-//                        progressDialog.dismiss();
+
                     }
                 });
             } catch (Exception e) {
@@ -1787,8 +1699,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         } else {
             alertMessage1("", "Network is currently unavailable. Please try again later.");
 
-            /*DialogUtil.showAlert(this,
-                    "Network is currently unavailable. Please try again later.");*/
+
         }
 
 
@@ -1831,126 +1742,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         if ( this == null )
             return;
         alertMessage1("Oops...", "Both account number and confirm account number are not matching");
-       /* new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Oops...")
-                .setContentText("Both account number and confirm account number are not matching")
-                .show();*/
-    }
-
-    private void startTransfer( String accountNo, String type, String receiverAccNo, String amount, String remark) {
-
-
-        SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
-        String pin  = pinIdSP.getString("pinlog","");
-
-
-        if (TextUtils.isEmpty(mScannedValue)) {
-            mScannedValue = "novalue";
-        }
-
-        mScannedValue = mScannedValue.replaceAll(" ", "%20");
-
-        Log.e(TAG,"accountNo  1455  "+accountNo);
-        String accountType = accountNo.substring(accountNo.indexOf("(")+1, accountNo.indexOf(")"));
-
-        /*Extract account number*/
-        accountNo = accountNo.replace(accountNo.substring(accountNo.indexOf(" (") + 1, accountNo.indexOf(")") + 1), "");
-        accountNo = accountNo.replace(" ", "");
-
-//        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNo);
-//        String accountType = accountInfo.accountTypeShort;
-        final String tempFromAccNo = accountNo +"("+ accountType +")";
-        final String tempToAccNo = receiverAccNo +"("+ type +")";
-
-        /*End of Extract account number*/
-
-
-        Log.e(TAG,"accountNo  1465  "+accountType+"  "+tempFromAccNo+"  "+tempToAccNo);
-
-        Log.e(TAG,"receiverAccNo  1273   "+receiverAccNo+"   "+accountNo+"   "+type+"    "+accountType);
-
- /*       SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-        String BASE_URL=pref.getString("oldbaseurl", null);*/
-
-
-        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-        String BASE_URL=pref.getString("baseurl", null)+"api/MV3";
-        try{
-            String url =
-                    BASE_URL + "/FundTransferIntraBank?AccountNo="
-                            + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountNo))
-                            + "&Module=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(accountType))
-                            + "&ReceiverModule=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(type))
-                            + "&ReceiverAccountNo=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(receiverAccNo.trim()))
-                            + "&amount=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(amount.trim()))
-                            + "&Pin=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(pin))
-                            + "&QRCode=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(mScannedValue))
-                            + "&Remark=" + IScoreApplication.encodedUrl(IScoreApplication.encryptStart(remark));
-            Log.e(TAG,"startTransfer   954     "+url);
-            NetworkManager.getInstance().connector(url, new ResponseManager() {
-                @Override
-                public void onSuccess(String result) {
-                    try{
-                        Gson gson = new Gson();
-                        OwnAccFundTransferFragment.FundTransferResult fundTransferResult = gson.fromJson( result, OwnAccFundTransferFragment.FundTransferResult.class );
-                        int statusCode = fundTransferResult.getStatusCode();
-                        reference = fundTransferResult.getRefId();
-                        statusmessage= fundTransferResult.getStatusMessage();
-                        if ( statusCode == 1 ){
-                            ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
-
-                            KeyValuePair keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("Ref. No");
-                            keyValuePair.setValue( fundTransferResult.getRefId() );
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("Amount");
-                            keyValuePair.setValue(fundTransferResult.getAmount());
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("From Acc.No");
-                            keyValuePair.setValue( tempFromAccNo );
-                            keyValuePairs.add( keyValuePair );
-
-                            keyValuePair = new KeyValuePair();
-                            keyValuePair.setKey("To Acc.No");
-                            keyValuePair.setValue( tempToAccNo );
-                            keyValuePairs.add( keyValuePair );
-
-                            alertMessage("", keyValuePairs, statusmessage, true, false);
-                        }
-                        else if ( statusCode == 2 ){
-                            alertMessage1("" ,statusmessage );
-                        }
-                        else if ( statusCode == 3 ){
-                            alertMessage1("", statusmessage);
-                        }
-                        else if ( statusCode == 4 ){
-                                alertMessage1("", statusmessage);
-                        }
-                        else if ( statusCode == 5 ){
-                              alertMessage1("", statusmessage);
-                        }
-                        else {
-                             alertMessage1("",  statusmessage);
-                        }
-                    }
-                    catch ( Exception e ){
-                        alertMessage1("", "Something Went Wrong. Please Try Again Later....");
-                    }
-                }
-                @Override
-                public void onError(String error) {
-                    alertMessage1("", "Something Went Wrong. Please Try Again Later....");
-                }
-            }, this, "Talking to server. Please wait....");
-        }catch ( Exception e ){
-            //Do nothing
-        }
 
     }
+
     private void alertMessage1(String msg1, String msg2) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
@@ -1983,11 +1777,11 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         });
         alertDialog.show();
     }
-    private void alertMessage(String title, ArrayList<KeyValuePair> keyValueList, String message , boolean isHappy, boolean isBackButtonEnabled ){
-        Log.e(TAG,"alertMessage   954   "+title+"   "+keyValueList+"   "+message+"   "+isHappy+"    "+isBackButtonEnabled);
+    private void alertMessage(String title, FundTransferResult1 fundTransferResult1, String message , boolean isHappy, boolean isBackButtonEnabled ){
+        Log.e(TAG,"alertMessage   954   "+title+"   "+fundTransferResult1+"   "+message+"   "+isHappy+"    "+isBackButtonEnabled);
 
 
-        alertPopup(title,keyValueList,message,isHappy,isBackButtonEnabled);
+        alertPopup(title,fundTransferResult1,message,isHappy,isBackButtonEnabled);
 
 
     }
@@ -2011,58 +1805,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     }
 
 
-    private class FundTransferResult{
-        @SerializedName("StatusCode")
-        private int statusCode;
-        @SerializedName("RefID")
-        private String refId;
-        @SerializedName("MobileNumber")
-        private String mobileNumber;
-        @SerializedName("Amount")
-        private String amount;
-        @SerializedName("AccNumber")
-        private String accNo;
 
-        public int getStatusCode() {
-            return statusCode;
-        }
-
-        public void setStatusCode(int statusCode) {
-            this.statusCode = statusCode;
-        }
-
-        public String getRefId() {
-            return refId;
-        }
-
-        public void setRefId(String refId) {
-            this.refId = refId;
-        }
-
-        public String getMobileNumber() {
-            return mobileNumber;
-        }
-
-        public void setMobileNumber(String mobileNumber) {
-            this.mobileNumber = mobileNumber;
-        }
-
-        public String getAmount() {
-            return amount;
-        }
-
-        public void setAmount(String amount) {
-            this.amount = amount;
-        }
-
-        public String getAccNo() {
-            return accNo;
-        }
-
-        public void setAccNo(String accNo) {
-            this.accNo = accNo;
-        }
-    }
 
 
     private HostnameVerifier getHostnameVerifier() {
@@ -2134,20 +1877,13 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         return sslContext.getSocketFactory();
     }
 
-   private void alertPopup(String title, ArrayList<KeyValuePair> keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
-       Bundle bundle = new Bundle();
-       bundle.putParcelableArrayList( KEY_VALUE, keyValueList );
-       bundle.putString( TITLE, title );
-       bundle.putBoolean( HAPPY, isHappy );
-       bundle.putString( MESSAGE, message );
+   private void alertPopup(String title, FundTransferResult1 keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
 
        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-// ...Irrelevant code for customizing the buttons and title
        LayoutInflater inflater = this.getLayoutInflater();
        View dialogView = inflater.inflate(R.layout.fragment_message_alert, null);
        dialogBuilder.setView(dialogView);
 
-       // EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
        RelativeLayout rltv_share = dialogView.findViewById( R.id.rltv_share );
        RelativeLayout lay_share = dialogView.findViewById( R.id.lay_share );
        mRecyclerView = dialogView.findViewById( R.id.recycler_message );
@@ -2169,7 +1905,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
        TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
-       tvrefe.setText("Ref.No "+reference);
+       tvrefe.setText("Ref.No "+fundtransfrlist.get(0).getrefId());
 
        //current time
        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -2212,18 +1948,16 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        txtvAcntno.setText("A/C :"+SourceAccountNumber);
        txtvbranch.setText("Branch :"+BranchName);
        double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
-      // double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt);
        DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
        txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
 
-       txtvAcntnoto.setText("A/C : "+ mAccountPayingToSpinner.getSelectedItem().toString());
+       txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getAccNo());
        txtvbranchto.setText("Branch :"+result);
 
        dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
            try{
-//                getFragmentManager().beginTransaction().replace( R.id.container, FragmentMenuCard.newInstance("EMPTY","EMPTY") )
-//                        .commit();
+
                Intent i=new Intent(this, HomeActivity.class);
                startActivity(i);
                finish();
@@ -2233,21 +1967,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        } );
 
        try{
-//            Bundle bundle = getArguments();
-//            boolean isHappy = bundle.getBoolean( HAPPY );
-//            String title = bundle.getString( TITLE );
-//            String message = bundle.getString( MESSAGE );
+
            txtMessage.setText( message );
            txtTitle.setText( title );
            if ( !isHappy ){
                imgIcon.setImageResource( R.mipmap.ic_failed );
            }
-           //  ArrayList<KeyValuePair> keyValuePairs = bundle.getParcelableArrayList( KEY_VALUE );
-     /*      ArrayList<KeyValuePair> keyValuePairs = keyValueList;
-           SuccessAdapter successAdapter = new SuccessAdapter( keyValuePairs );
-           RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
-           mRecyclerView.setLayoutManager( layoutManager );
-           mRecyclerView.setAdapter( successAdapter );*/
 
 
            lay_share.setOnClickListener(new View.OnClickListener() {
@@ -2282,119 +2007,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                        Log.e("Exception","Exception   117   "+e.toString());
                    }
 
-//                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                       if (Environment.isExternalStorageManager()){
-//
-//                           Log.e("img_share","img_share   1170   ");
-//                           Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                                   rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                           Canvas canvas = new Canvas(bitmap);
-//                           rltv_share.draw(canvas);
-//
-//                           try {
-//
-////                               File file = saveBitmap(bitmap, SourceAccountNumber+".png");
-////                               Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-//
-//                               File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
-//                               boolean isPresent = true;
-//                               Log.e("photoURI","StatementDownloadViewActivity   5682   ");
-//                               if (!docsFolder.exists()) {
-//                                   // isPresent = docsFolder.mkdir();
-//                                   docsFolder.mkdir();
-//                                   Log.e("photoURI","StatementDownloadViewActivity   5683   ");
-//                               }
-//
-//                               Uri bmpUri = Uri.fromFile(docsFolder);
-//
-//                               // Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                               Intent shareIntent = new Intent();
-//                               shareIntent.setAction(Intent.ACTION_SEND);
-//                               shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                               shareIntent.setType("image/*");
-//                               shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                               //   shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//                               startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//
-//                           } catch (Exception e) {
-//                               e.printStackTrace();
-//                               Log.e("Exception","Exception   117   "+e.toString());
-//                           }
-//
-//                       }else {
-//                           final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-//                           final Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-//                           intent.setData(uri);
-//                           startActivity(intent);
-//                       }
-//                   }
-//                   else{
-//                       Log.e("img_share","img_share   1170   ");
-//                       Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                               rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                       Canvas canvas = new Canvas(bitmap);
-//                       rltv_share.draw(canvas);
-//
-//                       try {
-//
-//                           File file = saveBitmap(bitmap, SourceAccountNumber+".png");
-//                           Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
-//                           Uri bmpUri = Uri.fromFile(file);
-//
-//                           // Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                           Intent shareIntent = new Intent();
-//                           shareIntent.setAction(Intent.ACTION_SEND);
-//                           shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                           shareIntent.setType("image/*");
-//                           shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                           //   shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//                           startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//                       } catch (Exception e) {
-//                           e.printStackTrace();
-//                           Log.e("Exception","Exception   117   "+e.toString());
-//                       }
-//
-//                   }
-
-
                }
            });
 
 
-
-//            img_share.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    Log.e("img_share","img_share   1170   ");
-//                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
-//                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
-//                    Canvas canvas = new Canvas(bitmap);
-//                    rltv_share.draw(canvas);
-//
-//                    try {
-//
-//
-//                        Uri bmpUri = getLocalBitmapUri(bitmap);
-//
-//                        Intent shareIntent = new Intent();
-//                        shareIntent.setAction(Intent.ACTION_SEND);
-//                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
-//                        shareIntent.setType("image/*");
-//                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                        startActivity(Intent.createChooser(shareIntent, "Share"));
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        Log.e("Exception","Exception   117   "+e.toString());
-//                    }
-//
-//                }
-//            });
 
 
        }catch ( Exception e){
@@ -2418,13 +2034,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
         File file = new File(docsFolder, fileName);
 
-//        String mess = getResources().getString(R.string.app_name);
-//        Log.e("Resources","Resources   117   "+mess);
-//        final String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+mess;
-//        File dir = new File(path);
-//        if(!dir.exists())
-//            dir.mkdirs();
-//        File file = new File(dir, fileName);
+
         try {
             FileOutputStream fOut = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);
