@@ -864,7 +864,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     requestObject1.put("OTPRef", IScoreApplication.encryptStart(""));
                     requestObject1.put("OTPCode", IScoreApplication.encryptStart(""));
 
-                    // requestObject1.put("IMEI",IScoreApplication.encryptStart(ToFK_Account));
+                    requestObject1.put("imei",IScoreApplication.encryptStart(""));
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
@@ -879,6 +879,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified",IScoreApplication.encryptStart(""));
 
                     Log.e("requestObject1   344   ",""+requestObject1);
 
@@ -895,8 +896,9 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                             JSONObject jObject = new JSONObject(response.body());
                             int statusCode=jObject.getInt("HttpStatusCode");
                             String statsmsg=jObject.getString("Message");
+                            String otpref=jObject.getString("StatusCode");
 
-                            if(statusCode==1)
+                            if(statusCode==1 && !otpref.isEmpty( ))
                             {
                                 Log.i("Values",paymentModel.getAccNo( )+"\n"+paymentModel.getModule( )
                                 +type+"\n"+paymentModel.getIfsc()+"\n"+paymentModel.getAccNo()+"\n"+paymentModel.getPin()+amot+"\n"+mModeNeftRtgs);

@@ -4,24 +4,35 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
+import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
+import com.creativethoughts.iscore.utility.NumberToWord;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -32,6 +43,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -193,7 +208,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                                 Intent i = new Intent(TraansactionOTPActivity.this,TraansactionOTPActivity.class);
                                 startActivity(i);
-
+                                QuickSuccess();
                                 //   !moneyTransferResponseModel.getOtpRefNo().equals("0")){
                                /* TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
                                         moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
@@ -311,6 +326,144 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
         }
     }
 
+    private void QuickSuccess() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater1 = this.getLayoutInflater();
+
+        View layout = inflater1.inflate(R.layout.quick_pay_success_popup, null);
+        TextView tvbranch =  layout.findViewById(R.id.tvbranch);
+        RelativeLayout rltv_share = layout.findViewById( R.id.rltv_share );
+        RelativeLayout lay_share = layout.findViewById( R.id.lay_share );
+        TextView tv_sender_name =  layout.findViewById(R.id.tv_sender_name);
+        TextView tv_sender_acc_no =  layout.findViewById(R.id.tv_sender_acc_no);
+        TextView tv_sender_mob_no =  layout.findViewById(R.id.tv_sender_mob_no);
+
+        TextView tv_reciever_name =  layout.findViewById(R.id.tv_reciever_name);
+        TextView tv_reciever_acc_no =  layout.findViewById(R.id.tv_reciever_acc_no);
+        TextView tv_reciever_mob_no =  layout.findViewById(R.id.tv_reciever_mob_no);
+        ImageView img_aapicon1=  layout.findViewById(R.id.img_aapicon);
+        TextView tv_msg =  layout.findViewById(R.id.txtv_msg);
+        // TextView tv_msg1 =  layout.findViewById(R.id.txtv_msg1);
+        // TextView tv_status =  layout.findViewById(R.id.txtv_status);
+        // CardView crdSuccess =  layout.findViewById(R.id.crdSuccess);
+
+        TextView tv_amount =  layout.findViewById(R.id.tv_amount);
+        TextView tv_amount_words =  layout.findViewById(R.id.tv_amount_words);
+        //  TextView text_confirmationmsg =  layout.findViewById(R.id.text_confirmationmsg);
+        TextView tvdate =  layout.findViewById(R.id.tvdate);
+        TextView tvtime =  layout.findViewById(R.id.tvtime);
+        //TextView bt_ok1 =  layout.findViewById(R.id.bt_ok1);
+        TextView txtv_typeamt =  layout.findViewById(R.id.txtv_typeamt);
+        TextView txtTo =  layout.findViewById(R.id.txtTo);
+        TextView txtpfrom =  layout.findViewById(R.id.txtpfrom);
+
+
+        //  crdSuccess.setVisibility(View.VISIBLE);
+
+        tv_msg.setText("status");
+        tv_sender_name.setText("msenderName");
+        tv_sender_mob_no.setText("msenderMobile");
+        tv_sender_acc_no.setText("mAccNo");
+        // tvbranch.setText(mbranch);
+        txtv_typeamt.setText("Paid Amount");
+        txtpfrom.setText("Sender Details");
+        txtTo.setText("Reciever Details");
+
+        tv_reciever_name.setText("mrecievererName");
+        tv_reciever_acc_no.setText("mreceiverAccountno");
+        tv_reciever_mob_no.setText("mrecieverMobile");
+
+        //current time
+        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        tvtime.setText("Time : "+currentTime);
+
+        //current date
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        tvdate.setText("Date : "+formattedDate);
+
+        double num =Double.parseDouble(""+"mAmount");
+        String stramnt = CommonUtilities.getDecimelFormate(num);
+        //  text_confirmationmsg.setText(message);
+        // text_confirmationmsg.setVisibility(View.VISIBLE);
+        String[] netAmountArr = "mAmount".split("\\.");
+        String amountInWordPop = "";
+        if ( netAmountArr.length > 0 ){
+            int integerValue = Integer.parseInt( netAmountArr[0] );
+            amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+            if ( netAmountArr.length > 1 ){
+                int decimalValue = Integer.parseInt( netAmountArr[1] );
+                if ( decimalValue != 0 ){
+                    amountInWordPop += " And " + NumberToWord.convertNumberToWords( decimalValue ) + " Paise" ;
+                }
+            }
+            amountInWordPop += " Only";
+        }
+        tv_amount_words.setText(""+amountInWordPop);
+        tv_amount.setText("₹ " + stramnt );
+
+
+
+        builder.setView(layout);
+        final AlertDialog alertDialog = builder.create();
+
+
+        layout.findViewById( R.id.rltv_footer ).setOnClickListener( view1 -> {
+            try{
+//                getFragmentManager().beginTransaction().replace( R.id.container, FragmentMenuCard.newInstance("EMPTY","EMPTY") )
+//                        .commit();
+                Intent i=new Intent(this, HomeActivity.class);
+                startActivity(i);
+                finish();
+            }catch ( NullPointerException e ){
+                //Do nothing
+            }
+        } );
+        lay_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.e("img_share","img_share   1170   ");
+                Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+                        rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                rltv_share.draw(canvas);
+
+                try {
+
+
+                    Uri bmpUri = getLocalBitmapUri(bitmap);
+
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(Intent.createChooser(shareIntent, "Share"));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("Exception","Exception   117   "+e.toString());
+                }
+
+            }
+        });
+
+
+    /*    bt_ok1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                alertDialog.dismiss();
+            }
+        });*/
+        alertDialog.show();
+    }
+
     private boolean isValid() {
         String otp = mOTPEt.getText().toString();
 
@@ -424,6 +577,27 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
         SSLContext sslContext = SSLContext.getInstance("TLS");
         sslContext.init(null, wrappedTrustManagers, null);
         return sslContext.getSocketFactory();
+    }
+
+    private Uri getLocalBitmapUri(Bitmap bmp) {
+        Uri bmpUri = null;
+        //  final String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screenshots";
+        File file = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES), System.currentTimeMillis() + ".png");
+        Log.e("File  ","File   142   "+file);
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bmpUri = Uri.fromFile(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
     }
 
 }

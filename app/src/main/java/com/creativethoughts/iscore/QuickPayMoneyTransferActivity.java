@@ -51,6 +51,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -103,6 +104,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     long userId,fkSenderId;
     ArrayAdapter senderReceiverArrayAdapter = null;
     int mode;
+
     String senderName,senderMobile,receiveraccno;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -337,9 +339,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                                 }
-                         /*      senderReceiverArrayAdapter = new ArrayAdapter<>(QuickPayMoneyTransferActivity.this, R.layout.list_content_spin, senders);
+                                ArrayAdapter<SenderReceiver> dataAdapter = new ArrayAdapter<SenderReceiver>(getApplicationContext(), android.R.layout.simple_spinner_item, (List<SenderReceiver>) senders);
+                             //   senderReceiverArrayAdapter = new ArrayAdapter<>(getApplicationContext(),  R.layout.list_content_spin, R.id.textview, senders);
                                 mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
-*/
+
 
                                 mSenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

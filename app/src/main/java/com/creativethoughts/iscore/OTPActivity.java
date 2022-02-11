@@ -205,7 +205,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response neft   "+response.body());
+                            Log.e("TAG","Response neftotp   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
                             int statusCode=jObject.getInt("StatusCode");
