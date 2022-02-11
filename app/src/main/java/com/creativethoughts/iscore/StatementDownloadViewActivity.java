@@ -35,7 +35,6 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountListAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.model.AccountToTransfer;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -115,9 +114,6 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
         mDownloadManager = new DownloadManager();
 
-        /*accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
-        branchcode = accountInfo.accountBranchCode;
-*/
         l1= findViewById(R.id.l1);
         l0= findViewById(R.id.l0);
         etxtFrom =  findViewById(R.id.etxtFrom);
@@ -644,8 +640,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     String fDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
                     String tDate = new SimpleDateFormat("yyyy-MM-dd").format(d1);
 
-                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
-                    branchcode = accountInfo.accountBranchCode;
+//                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
+//                    branchcode = accountInfo.accountBranchCode;
 
                     requestObject1.put("SubModule", IScoreApplication.encryptStart(submod));
                     requestObject1.put("FromNo", IScoreApplication.encryptStart(acc));
@@ -861,8 +857,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     String fDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
                     String tDate = new SimpleDateFormat("yyyy-MM-dd").format(d1);
 
-                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
-                    branchcode = accountInfo.accountBranchCode;
+//                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
+//                    branchcode = accountInfo.accountBranchCode;
 
                     requestObject1.put("SubModule", IScoreApplication.encryptStart(submod));
                     requestObject1.put("FromNo", IScoreApplication.encryptStart(acc));
