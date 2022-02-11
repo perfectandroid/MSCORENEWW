@@ -32,8 +32,6 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoanMiniadapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -116,7 +114,6 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
             "September","October","November","December"};
     RadioButton rb1,rb2;
     ArrayAdapter aa;
-    AccountInfo accountInfo;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -135,10 +132,9 @@ public class LoanMinistatement extends AppCompatActivity implements View.OnClick
         account = getIntent().getStringExtra("account");
         submodule = getIntent().getStringExtra("submodule");
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
+        branchcode = getIntent().getStringExtra("BranchCode");
 
-
-        accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
-        branchcode = accountInfo.accountBranchCode;
+        Log.e(TAG,"branchcode   158   "+branchcode);
 
 
 

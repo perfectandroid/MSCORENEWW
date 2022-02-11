@@ -121,6 +121,7 @@ public class LoanListInfoAdapter extends RecyclerView.Adapter {
                             i.putExtra("loantypemode", loantypemode);
                             i.putExtra("IsShareAc", IsShareAc);
                             i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
+                            i.putExtra("BranchCode", jsonObject.getString("BranchCode"));
                             context.startActivity(i);
                         } catch (JSONException e) {
                             e.printStackTrace();

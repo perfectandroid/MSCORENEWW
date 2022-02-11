@@ -69,6 +69,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
     String shareData = "";
     LinearLayout ll_shareaccount,ll_min_share,ll_share_details;
     CardView cv_accSummary;
+    String BranchCode = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
         loantypemode = getIntent().getStringExtra("loantypemode");
         IsShareAc = getIntent().getStringExtra("IsShareAc");
         EnableDownloadStatement = getIntent().getStringExtra("EnableDownloadStatement");
+        BranchCode = getIntent().getStringExtra("BranchCode");
 
         setRegViews();
         Log.e(TAG,"START    180");
@@ -449,6 +451,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                     i.putExtra("submodule", subModule);
                     i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
                     i.putExtra("account", account);
+                    i.putExtra("BranchCode", BranchCode);
                     startActivity(i);
 
                 }
@@ -460,6 +463,7 @@ public class DepositAccountSummaryDetailsActivity extends AppCompatActivity impl
                     i.putExtra("submodule", subModule);
                     i.putExtra("EnableDownloadStatement", EnableDownloadStatement);
                     i.putExtra("account", account);
+                    i.putExtra("BranchCode", BranchCode);
                     startActivity(i);
                 }
                 break;
