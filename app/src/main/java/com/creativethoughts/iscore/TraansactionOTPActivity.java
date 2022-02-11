@@ -1,7 +1,8 @@
 package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,12 +32,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -45,6 +41,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import okhttp3.OkHttpClient;
@@ -56,55 +53,76 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class AddSenderActivity extends AppCompatActivity implements View.OnClickListener{
-    private AppCompatEditText mFirstNameEt;
-    private AppCompatEditText mLastNameEt;
-    private AppCompatEditText mMobileNumberEt;
-    String token,cusid,pin;
-    private TextView mDOBTv;
+public class TraansactionOTPActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String BUNDLE_DATA_SENDER_ID = "sender_id";
+    private static final String BUNDLE_DATA_RECEIVER_ID = "receiver_id";
+    private static final String BUNDLE_DATA_TRANSACTION_ID = "transaction_id";
+    private static final String BUNDLE_DATA_IS_TRANSACTION = "is_transaction";
+    private static final String BUNDLE_OTP_REFERENCE = "otpReference";
+    private static final String BUNDLE_MOBILE = "mobile";
+    private static final String BUNDLE_RESEND_LINK = "resend_link";
+    private static final String BUNDLE_IS_SENDER = "is_sender";
+    private static final String BUNDLE_SENDER_RECEIVER_OBJ = "sender_reciever_obj";
+    protected Button button;
+    private String mSenderId;
+    private String mReceiverId;
+    private String mTransactionId;
+    private boolean mIsForTransaction;
+    private boolean mIsSender;
+    public TextView txt_amtinword;
+    private AppCompatEditText mOTPEt;
+    private String mOtpReferenceNo;
+    private String mMobileNo;
+    private ProgressDialog mProgressDialog;
+    private String mResendLink;
+    private AddSenderReceiverResponseModel mAddSenderReceiverResponseModel;
+    String cusid;
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_add_sender);
+        setContentView(R.layout.fragment_transaction_ot);
 
         setRegViews();
     }
 
     private void setRegViews() {
-        mFirstNameEt = findViewById(R.id.first_name);
-        mLastNameEt = findViewById(R.id.last_name);
-        mMobileNumberEt = findViewById(R.id.mobile_number);
 
-        mDOBTv = findViewById(R.id.txtDOB);
-        String defaultDate = "01-01-1990";
-        mDOBTv.setText( defaultDate );
+        mOTPEt =   findViewById(R.id.otp);
 
-        mDOBTv.setOnClickListener(this);
+        button =   findViewById(R.id.btn_submit);
+        //txt_amtinword =   view.findViewById(R.id.txt_amtinword);
 
-        Button button = findViewById(R.id.btn_submit);
-        button.setOnClickListener(this);
+        button.setOnClickListener( this );
+        Button btnResendOtp  =  findViewById( R.id.btn_resend_otp );
+        btnResendOtp.setOnClickListener( this );
     }
 
     @Override
     public void onClick(View v) {
-       switch (v.getId())
-       {
-           case R.id.txtDOB:
-               showDOBDatePicker();
-               break;
-           case R.id.btn_submit:
-               if (isValid()) {
-                   String firstName = mFirstNameEt.getText().toString();
-                   String lastName = mLastNameEt.getText().toString();
-                   String mobileNumber = mMobileNumberEt.getText().toString();
-                   String dob =mDOBTv.getText().toString();
-                   getSender(firstName,lastName,mobileNumber,dob);
-               }
-               break;
-       }
+        switch (v.getId())
+        {
+            case R.id.btn_submit:
+                if (isValid()) {
+                    if (NetworkUtil.isOnline()) {
+                        button.setEnabled(false);
+                        String otp = mOTPEt.getText().toString();
+                        getonfirmOTP(otp);
+                    } else {
+
+                        alertMessage1("",  "Network is currently unavailable. Please try again later.");
+
+                       /* DialogUtil.showAlert(getActivity(),
+                                "Network is currently unavailable. Please try again later.");*/
+                    }
+                }
+                break;
+            case R.id.btn_resend_otp:
+                break;
+        }
     }
 
-    private void getSender(String firstName, String lastName, String mobileNumber, String dob) {
+    private void getonfirmOTP(String otp) {
+
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
@@ -127,18 +145,20 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                 try {
 
 
-                    SharedPreferences cusidpref = AddSenderActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("sender_fname", IScoreApplication.encryptStart(firstName));
-                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("sender_lname", IScoreApplication.encryptStart(lastName));
-                    requestObject1.put("sender_dob", IScoreApplication.encryptStart(dob));
-                    requestObject1.put("sender_mobile", IScoreApplication.encryptStart(mobileNumber));
-                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("transcationID", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("OTP", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("otpRefNo", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("mobile", IScoreApplication.encryptStart(cusid) );
+
+
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
@@ -153,7 +173,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
 
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
-                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
+
                     Log.e("requestObject1 addsndr",""+requestObject1);
 
                 } catch (JSONException e) {
@@ -164,8 +184,48 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response addsender   "+response.body());
+                            Log.e("TAG","Response ownaccount   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+                            String statusCode=jObject.getString("StatusCode");
+                            String statusmsg = jObject.getString("StatusMessage");
+
+                            if ( statusCode!= null && statusCode.equals("200") ){
+
+                                Intent i = new Intent(TraansactionOTPActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
+
+                                //   !moneyTransferResponseModel.getOtpRefNo().equals("0")){
+                               /* TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
+                                        moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
+                                        moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
+                                //     Log.e(TAG,"1091   "+moneyTransferResponseModel.getMessage());
+                            }
+                            else if ( statusCode!= null && statusCode.equals("200")){
+                                //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
+
+                               /* QuickSuccess(mAccNo,moneyTransferResponseModel.getStatus(),moneyTransferResponseModel.getMessage(),"",
+                                        moneyTransferResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch,mAmount);*/
+
+                                //  Log.e(TAG,"10912   "+moneyTransferResponseModel.getMessage());
+
+                            }
+                            else if (  statusCode.equals("500")){
+                                Intent i = new Intent(TraansactionOTPActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
+                 /*   TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
+                            moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
+                            moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
+
+                                alertMessage1(statusmsg, statusmsg);
+                            }
+                            else {
+//                    QuickSuccess(mAccNo,"Oops....","Something went wrong",moneyTransferResponseModel.getStatusCode(),
+//                            moneyTransfer
+//                            ResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch, mAmount);
+                                //    Log.e(TAG,"10914   "+moneyTransferResponseModel.getMessage());
+                                alertMessage1("Oops....!", "Something went wrong");
+                            }
+
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
                             String statusmsg = j1.getString("StatusMessage");
@@ -249,13 +309,27 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
             // DialogUtil.showAlert(this,
             //"Network is currently unavailable. Please try again later.");
         }
-
     }
 
-    private void alertMessage1(String s, String s1) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSenderActivity.this);
+    private boolean isValid() {
+        String otp = mOTPEt.getText().toString();
 
-        LayoutInflater inflater = AddSenderActivity.this.getLayoutInflater();
+        if (TextUtils.isEmpty(otp)) {
+            mOTPEt.setError("Please enter the OTP");
+
+            return false;
+        }
+
+        mOTPEt.setError(null);
+
+        return true;
+    }
+
+    private void alertMessage1(String msg1, String msg2) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TraansactionOTPActivity.this);
+
+        LayoutInflater inflater =this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_layout, null);
         dialogBuilder.setView(dialogView);
 
@@ -264,8 +338,8 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
         TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
 
-        tv_msg.setText(s);
-        tv_msg2.setText(s1);
+        tv_msg.setText(msg1);
+        tv_msg2.setText(msg2);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,76 +356,6 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
             }
         });
         alertDialog.show();
-    }
-
-    private void showDOBDatePicker() {
-
-        String fromParse = mDOBTv.getText().toString();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH); // I assume d-M, you may refer to M-d for month-day instead.
-        Date date = null;
-        try {
-            date = formatter.parse(fromParse);
-        } catch (ParseException e) {
-            //Do nothing
-        }
-
-
-        final Calendar c = Calendar.getInstance();
-        c.setTime(date);
-
-
-        Calendar calendarMin = Calendar.getInstance();
-        calendarMin.set(1990, 1,1);
-
-
-        // Launch Date Picker Dialog
-        DatePickerDialog dpd = new DatePickerDialog(this,
-                (view, year1, monthOfYear, dayOfMonth) -> {
-                    String dateOfBirth = getTwoDigitNumber(dayOfMonth) + "-" + getTwoDigitNumber(monthOfYear + 1) + "-" + year1;
-                    mDOBTv.setText( dateOfBirth );
-                    mDOBTv.setError(null);
-                }, 1990, 0, 1);
-        dpd.getDatePicker().setMaxDate(System.currentTimeMillis());
-        dpd.show();
-    }
-    private String getTwoDigitNumber(int value) {
-        return new DecimalFormat("00").format(value);
-    }
-    private boolean isValid() {
-
-        String firstName = mFirstNameEt.getText().toString();
-        String lastName = mLastNameEt.getText().toString();
-        String mobileNumber = mMobileNumberEt.getText().toString();
-
-        if (TextUtils.isEmpty(firstName)) {
-            mFirstNameEt.setError("Please enter first name");
-
-            return false;
-        }
-        mFirstNameEt.setError(null);
-
-        if (TextUtils.isEmpty(lastName)) {
-            mLastNameEt.setError("Please enter last name");
-
-            return false;
-        }
-        mLastNameEt.setError(null);
-
-        if (TextUtils.isEmpty(mobileNumber)) {
-            mMobileNumberEt.setError("Please enter mobile number");
-
-            return false;
-        }
-
-        if (mobileNumber.length() > 10 || mobileNumber.length() < 10) {
-            mMobileNumberEt.setError("Please enter valid 10 digit mobile number");
-
-            return false;
-        }
-
-        mMobileNumberEt.setError(null);
-
-        return true;
     }
     private HostnameVerifier getHostnameVerifier() {
         return new HostnameVerifier() {
@@ -421,5 +425,5 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
         sslContext.init(null, wrappedTrustManagers, null);
         return sslContext.getSocketFactory();
     }
-}
 
+}

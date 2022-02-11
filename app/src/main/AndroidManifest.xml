@@ -658,6 +658,10 @@
             android:label="@string/title_activity_transaction_otp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".TraansactionOTPActivity"
+            android:label="@string/title_activity_transaction_otp"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ScannerActivity"
             android:label="@string/title_activity_scanner"
             android:theme="@style/AppTheme.NoActionBar" />
