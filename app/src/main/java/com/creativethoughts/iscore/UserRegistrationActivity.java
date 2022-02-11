@@ -409,8 +409,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if (NetworkUtil.isOnline()) {
 
 
-                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
 //                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
 //                    BASE_URL=pref.getString("baseurl", null);
