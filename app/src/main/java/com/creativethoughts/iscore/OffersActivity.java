@@ -115,6 +115,7 @@ public class OffersActivity extends AppCompatActivity {
                     requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("MsgType",IScoreApplication.encryptStart("1"));
 
 
                     Log.e(TAG,"requestObject1   2111     "+requestObject1);
