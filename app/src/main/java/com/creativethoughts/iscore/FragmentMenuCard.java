@@ -647,12 +647,12 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fab2:
                 Log.e(TAG,"OffersFragment   630    ");
-                fragment = new OffersFragment();
-                assert actionBar != null;
-                actionBar.setTitle("Offer" );
+//                fragment = new OffersFragment();
+//                assert actionBar != null;
+//                actionBar.setTitle("Offer" );
 
-//                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
-//                startActivity(ioa);
+                Intent ioa = new Intent(getActivity(),OffersActivity.class);
+                startActivity(ioa);
 
 
 

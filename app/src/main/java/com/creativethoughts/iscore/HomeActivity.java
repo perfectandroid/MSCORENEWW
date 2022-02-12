@@ -175,17 +175,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 startActivity(im);
                 break;
             case 3:
-                if(mNavigationDrawerFragment != null) {
-                   // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                if(mNavigationDrawerFragment != null) {
+//                   // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//
+//                  //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
+//                   // PBMessagesDAO.getInstance().markOffersAsRead(customerId);
+//                    mNavigationDrawerFragment.refreshMenu();
+//                }
+//                fragment = OffersFragment.newInstance();
 
-                  //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
-                   // PBMessagesDAO.getInstance().markOffersAsRead(customerId);
-                    mNavigationDrawerFragment.refreshMenu();
-                }
-                fragment = OffersFragment.newInstance();
-
-//                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
-//                startActivity(ioa);
+                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
+                startActivity(ioa);
                 break;
             case 4:
                 fragment = KsebBillStatusFragment.newInstance();
