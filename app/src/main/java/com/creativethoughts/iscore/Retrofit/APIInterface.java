@@ -180,4 +180,7 @@ public interface APIInterface {
     @POST("api/Customer/VerifyOTP")
     Call<String>getVerifyOTP(@Body RequestBody body);
 
+    @POST("api/Recharge/KSEBTransactionResponse")
+    Call<String>KSEBTransactionResponse(@Body RequestBody body);
+
 }
