@@ -304,7 +304,17 @@ public class KsebBillStatusFragment extends Fragment implements View.OnClickList
                             Log.e(TAG,"response 2113     "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
+                                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+                                builder.setMessage(""+jsonObj.getString("EXMessage"))
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
 
+                                            }
+                                        });
+                                android.app.AlertDialog alert = builder.create();
+                                alert.show();
 
                             }
                             else {
