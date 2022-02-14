@@ -16,19 +16,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.MessageAdapter1;
-import com.creativethoughts.iscore.utility.ConnectionUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -132,100 +124,7 @@ public class KsebBillStatusFragment extends Fragment implements View.OnClickList
 
 
 
-    private class CheckStatusAsync extends AsyncTask<String, android.R.integer, String>{
-        final String id;
-        ProgressDialog progressDialog;
-        private CheckStatusAsync(String transId){
-            id = transId;
-        }
-        private String downloadStatus(String id){
-            String url;
-            String response;
-            String pin;
-            SharedPreferences pinIdSP = getActivity().getSharedPreferences(Config.SHARED_PREF36, 0);
-            pin = pinIdSP.getString("pinlog","");
 
-//            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
-//            String BASE_URL=pref.getString("oldbaseurl", null);
-
-            SharedPreferences pref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-            String BASE_URL=pref.getString("baseurl", null);
-
-            url = BASE_URL+"/KSEBTransactionResponse?TransactioID="+id+
-                    "&Pin="+pin;
-            response = ConnectionUtil.getResponse(url);
-            return response;
-
-        }
-        @Override
-        public void onPreExecute(){
-            btnCheckStatus.setEnabled(false);
-            progressDialog = ProgressDialog.show(
-                    getContext(), "",""
-            );
-        }
-        @Override
-        public String doInBackground(String... params){
-            String result;
-            result = downloadStatus(id);
-            return result;
-        }
-        @Override
-        public void onPostExecute(String result){
-            btnCheckStatus.setEnabled(true);
-            progressDialog.dismiss();
-            processResponse(result);
-
-        }
-        private void processResponse(String response){
-            try{
-                int tempResponse = Integer.parseInt(response.trim());
-                switch (tempResponse){
-                    case 1:
-                        showAlertDialogue(getString(R.string.app_name), "Your bill payment was successfull",1);
-                        break;
-                    case  2:
-                        showAlertDialogue(getString(R.string.app_name), "Your bill payment was failed",2);
-                        break;
-                    case 3:
-                        showAlertDialogue(getString(R.string.app_name), "Your bill payment is on pending",2);
-                        break;
-                    case 4:
-                        showAlertDialogue(getString(R.string.app_name), "Wrong transaction Id", 2);
-                        break;
-                    case 5:
-                        showAlertDialogue(getString(R.string.app_name), "Due to some technical issues, your transaction was reversed.\nThe amount will" +
-                                " be reversed with in few hours",2);
-                        break;
-                    default:
-                        break;
-                }
-            }catch (Exception e){
-                if(IScoreApplication.DEBUG) Log.e("Response parse error", e.toString());
-            }
-        }
-        private void showAlertDialogue(String title, String message, final int status){ // status for decide whether going to home fragment or not
-            if ( getActivity() == null )
-                return;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(message).setTitle(title)
-                    .setIcon(R.drawable.aappicon)
-                    .setPositiveButton("Ok", (dialog, idTemp) -> {
-                        if(status == 1){
-                            Fragment fragment =   new KsebBillStatusFragment();
-                            FragmentManager fragmentManager = getFragmentManager();
-                            assert fragmentManager != null;
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.container, fragment);
-                            fragmentTransaction.addToBackStack("Kseb");
-                            fragmentTransaction.commit();
-                        }
-                    });
-
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
-    }
 
     private void getTransactionDetails(String transId) {
 

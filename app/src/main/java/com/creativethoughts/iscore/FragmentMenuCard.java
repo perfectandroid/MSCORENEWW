@@ -853,9 +853,9 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 actionBar.setTitle( getString(R.string.title_section1) );
                 break;
             case R.id.searc_h:
-                fragment = new SearchFragment();
-                assert actionBar != null;
-                actionBar.setTitle( getString( R.string.title_section2 ) );
+//                fragment = new SearchFragment();
+//                assert actionBar != null;
+//                actionBar.setTitle( getString( R.string.title_section2 ) );
                 break;
             case R.id.rltv_notice:
                 Intent i = new Intent(getContext(),NotificationPostingActivity.class);
