@@ -10,13 +10,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class BeneficiaryDetailsModel implements Parcelable {
     @SerializedName( "BeneAccNo" )
-    private String beneficiaryAccNo;
+    public String beneficiaryAccNo;
 
     @SerializedName( "BeneName" )
-    private String beneficiaryName;
+    public String beneficiaryName;
 
     @SerializedName( "BeneIFSC" )
-    private String beneficiaryIfsc;
+    public String beneficiaryIfsc;
 
     public BeneficiaryDetailsModel(String benefname, String beneIFSC, String beneAccNo) {
         this.beneficiaryName = benefname;

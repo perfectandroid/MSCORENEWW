@@ -19,6 +19,8 @@ import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.NeftRtgsActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.model.FundTransferResult1;
+import com.creativethoughts.iscore.neftrtgs.BeneficiaryDetailsModel;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,6 +39,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -61,6 +64,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class BeneficiaryListAdapter extends RecyclerView.Adapter {
     JSONArray jsonArray;
     JSONObject jsonObject = null;
+    private ArrayList<BeneficiaryDetailsModel> beneficiaryDetailsModels = new ArrayList<BeneficiaryDetailsModel>();
     Context context;
     String name, accno, ifsc;
     LinearLayout l2;
@@ -124,7 +128,20 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
                     public void onClick(View v) {
                         try {
                             jsonObject = jsonArray.getJSONObject(position);
+                            String Benefname =jsonObject.getString("BeneName");
+                            String BeneIFSC =jsonObject.getString("BeneIFSC");
+                            String BeneAccNo =jsonObject.getString("BeneAccNo");
+
+                            BeneficiaryDetailsModel beneficiaryDetailsModel = new BeneficiaryDetailsModel();
+                            beneficiaryDetailsModel.beneficiaryName =Benefname;
+                            beneficiaryDetailsModel.beneficiaryIfsc = BeneIFSC;
+                            beneficiaryDetailsModel.beneficiaryAccNo=BeneAccNo;
+
+                            beneficiaryDetailsModels.add(beneficiaryDetailsModel);
+
+
                             Intent i = new Intent(context, NeftRtgsActivity.class);
+                            i.putExtra("benefmodel",beneficiaryDetailsModels);
                             context.startActivity(i);
                         /*    submodule = jsonObject.getString("SubModule");
                             account= jsonObject.getString("FK_Account");

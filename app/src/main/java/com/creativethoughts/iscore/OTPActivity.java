@@ -1,8 +1,13 @@
 package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
+import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.neftrtgs.NeftRtgsOtpResponseModel;
 import com.creativethoughts.iscore.neftrtgs.PaymentModel;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -27,6 +33,8 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -67,12 +75,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String BUNDLE_PAYMENT_MODEL = "payment_model";
+    private ArrayList<NeftRtgsOtpResponseModel> neftRtgsOtpResponseModels = new ArrayList<NeftRtgsOtpResponseModel>();
     private static final String BUNDLE_REQUEST_NEFT_RTGS_OTP_RESPONSE_MODEL = "neft_rtgs_request_otp_request_response_model";
     String from="OTP";
     private RecyclerView mRecyclerView;
     private static final int STATUS_RESEND_OTP = 100;
     private static final int STATUS_VERIFY_OTP = 200;
     int mode;
+    String otp;
     private NeftRtgsOtpResponseModel mNeftRtgsOtpResponseModel;
     private EditText mEdtotp;
     private PaymentModel mPaymentModel;
@@ -82,7 +92,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     private TextView txtFailedAttempt;
     Button btnResend,btnSubmt;
     PaymentModel paymentModel = new PaymentModel();
-    String accntno,module,bennme,benifsc,benacc,pin,amt;
+    String accntno,module,bennme,benifsc,benacc,pin,amt,otpref,benadd;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,12 +116,13 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         accntno = getIntent().getStringExtra("AccountNo");
         module = getIntent().getStringExtra("Module");
         bennme = getIntent().getStringExtra("BeneName");
+        benadd = getIntent().getStringExtra("Benadd");
         benifsc = getIntent().getStringExtra("BeneIFSC");
         benacc = getIntent().getStringExtra("BeneAccountNumber");
         pin = getIntent().getStringExtra("Pin");
         amt = getIntent().getStringExtra("Amount");
         mode = getIntent().getIntExtra("EftType",0);
-
+        otpref = getIntent().getStringExtra("otpref");
 
     }
 
@@ -119,25 +130,35 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId())
         {
+
             case R.id.btn_resend:
-                 getResendOTP();
+                otp = mEdtotp.getText().toString();
+                 getResendOTP(otp);
                 break;
             case R.id.btn_submit:
-                String otp = mEdtotp.getText().toString();
-                if ( otp.length() < 6 ){
+                 otp = mEdtotp.getText().toString();
+                if ( otp.length() < 6 && !(otp.length()==0)){
                     Toast.makeText( getApplicationContext(), "Please enter atleast 6 digits", Toast.LENGTH_LONG ).show();
 
                 }
-                if ( otp.isEmpty() ){
+               else if ( otp.length()==0){
                     Toast.makeText( getApplicationContext(), "Please enter OTP that you have received", Toast.LENGTH_LONG ).show();
 
                 }
-                getVerifyOTP();
+              /*  else if ( !otp.equals(otpref) ){
+                    Toast.makeText( getApplicationContext(), "Please enter OTP that you have received", Toast.LENGTH_LONG ).show();
+
+                }*/
+                else
+                {
+                    getVerifyOTP(otp);
+                }
+
                 break;
         }
     }
 
-    private void getVerifyOTP() {
+    private void getVerifyOTP(String otp) {
 
 
         SharedPreferences pref =this.getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
@@ -171,15 +192,15 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                     SharedPreferences prefpin =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                     String pin =prefpin.getString("pinlog", "");
-
+                    String benefadd =paymentModel.getBeneficiaryAdd( );
                     requestObject1.put("amount", IScoreApplication.encryptStart(amt));
                     requestObject1.put("EftType", IScoreApplication.encryptStart(Integer.toString(mode)));
-                    requestObject1.put("BeneAdd", IScoreApplication.encryptStart(paymentModel.getBeneficiaryAdd( ) ));
+                    requestObject1.put("BeneAdd", IScoreApplication.encryptStart(benadd));
                     requestObject1.put("Pin", IScoreApplication.encryptStart( paymentModel.getPin( )  ));
-                    requestObject1.put("OTPRef", IScoreApplication.encryptStart(""));
-                    requestObject1.put("OTPCode", IScoreApplication.encryptStart(""));
+                    requestObject1.put("OTPRef", IScoreApplication.encryptStart(otpref));
+                    requestObject1.put("OTPCode", IScoreApplication.encryptStart(otp));
 
-                    // requestObject1.put("IMEI",IScoreApplication.encryptStart(ToFK_Account));
+                     requestObject1.put("imei",IScoreApplication.encryptStart(""));
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
@@ -194,8 +215,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
 
-                    Log.e("requestObject1   344   ",""+requestObject1);
+                    Log.e("requestObject1otpverify",""+requestObject1);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -208,15 +230,28 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                             Log.e("TAG","Response neftotp   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
-                            int statusCode=jObject.getInt("StatusCode");
+                            int statusCode=jObject.getInt("HttpStatusCode");
+                            String otpref=jObject.getString("StatusCode");
                             String statsmsg=jObject.getString("Message");
+                            String refid=jObject.getString("RefID");
+                            String amt=jObject.getString("Amount");
+                            String exmsg=jObject.getString("ExMessge");
 
-                           if(statusCode==200 && statsmsg.equals("200"))
+                           if(statusCode==200 && otpref.equals("200"))
                             {
 
 
+                                NeftRtgsOtpResponseModel neftRtgsOtpResponseModel = new NeftRtgsOtpResponseModel();
 
-                                ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
+
+                                neftRtgsOtpResponseModel.statusCode =statusCode;
+                                neftRtgsOtpResponseModel.otpRefNo =otpref;
+                                neftRtgsOtpResponseModel.message =statsmsg;
+                                neftRtgsOtpResponseModel.refId =refid;
+                                neftRtgsOtpResponseModel.amount =amt;
+                                neftRtgsOtpResponseModel.exMessage =exmsg;
+                                neftRtgsOtpResponseModels.add(neftRtgsOtpResponseModel);
+                               /* ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
                                 KeyValuePair keyValuePair = new KeyValuePair();
                                 keyValuePair.setKey("Amount");
                                 String rupee = getString( R.string.rupee );
@@ -225,11 +260,16 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                                 keyValuePair = new KeyValuePair();
                                 keyValuePair.setKey("Ref.Id");
                                 //keyValuePair.setValue( "Refid"  );
-                                keyValuePairs.add( keyValuePair );
-                                alertMessage("", keyValuePairs, statsmsg, true, false);
+                                keyValuePairs.add( keyValuePair );*/
+                                NeftRtgsOtpResponseModel neftRtgsOtpResponseModel1= new NeftRtgsOtpResponseModel();
+                              //  alertMessage("", neftRtgsOtpResponseModel1, statsmsg, true, false);
                             }
 
-
+                           else if(statusCode<0)
+                           {
+                               String msg="";
+                               alertMessage1(msg,  statsmsg);
+                           }
 
 
 
@@ -258,44 +298,43 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private void alertMessage(String title, ArrayList<KeyValuePair> keyValuePairs, String statsmsg, boolean b, boolean b1) {
-        alertPopup(title,keyValuePairs,statsmsg,b,b1);
+    private void alertMessage(String title, NeftRtgsOtpResponseModel neftRtgsOtpResponseModell, String statsmsg, boolean b, boolean b1) {
+        alertPopup(title,neftRtgsOtpResponseModell,statsmsg,b,b1);
 
     }
 
-    private void alertPopup(String title, ArrayList<KeyValuePair> keyValuePairs, String statsmsg, boolean b, boolean b1) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+    private void alertPopup(String title, NeftRtgsOtpResponseModel keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.fragment_message_alert_new, null);
         dialogBuilder.setView(dialogView);
 
+        RelativeLayout rltv_share = dialogView.findViewById( R.id.rltv_share );
+        RelativeLayout lay_share = dialogView.findViewById( R.id.lay_share );
+        mRecyclerView = dialogView.findViewById( R.id.recycler_message );
+        ImageView imgIcon      = dialogView.findViewById( R.id.img_success );
+        ImageView img_share      = dialogView.findViewById( R.id.img_share );
+        TextView txtTitle       = dialogView.findViewById( R.id.txt_success );
+        TextView txtMessage = dialogView.findViewById( R.id.txt_message );
+        TextView tvrefe = dialogView.findViewById( R.id.tvrefe );
 
-        RelativeLayout rltv_share = findViewById( R.id.rltv_share );
-        RelativeLayout lay_share = findViewById( R.id.lay_share );
-        mRecyclerView = findViewById( R.id.recycler_message );
-        ImageView imgIcon      = findViewById( R.id.img_success );
-        ImageView img_share      = findViewById( R.id.img_share );
-        TextView txtTitle       = findViewById( R.id.txt_success );
-        TextView txtMessage = findViewById( R.id.txt_message );
-        TextView txtpfrom = findViewById( R.id.txtpfrom );
+        TextView tvdate = dialogView.findViewById( R.id.tvdate );
+        TextView tvtime = dialogView.findViewById( R.id.tvtime );
+        TextView tv_amount_words = dialogView.findViewById( R.id.tv_amount_words );
 
+        TextView tv_amount = dialogView.findViewById(R.id.tv_amount);
+        TextView txtvAcntno = dialogView.findViewById(R.id.txtvAcntno);
+        TextView txtvbranch = dialogView.findViewById(R.id.txtvbranch);
+        TextView txtvbalnce = dialogView.findViewById(R.id.txtvbalnce);
 
-        TextView tvdate = findViewById( R.id.tvdate );
-        TextView tvtime = findViewById( R.id.tvtime );
-        TextView tv_amount_words = findViewById( R.id.tv_amount_words );
+        TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
+        TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
+        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
+        tvrefe.setText("Ref.No "+neftRtgsOtpResponseModels.get(0).getRefId());
+        txtMessage.setText(neftRtgsOtpResponseModels.get(0).getMessage());
 
-        TextView tv_amount =findViewById(R.id.tv_amount);
-        TextView txtvAcntno = findViewById(R.id.txtvAcntno);
-        TextView txtvbranch = findViewById(R.id.txtvbranch);
-        TextView txtvbalnce =findViewById(R.id.txtvbalnce);
-
-
-
-        TextView txtvAcntnoto = findViewById(R.id.txtvAcntnoto);
-        TextView txtvbranchto =findViewById(R.id.txtvbranchto);
-        TextView txtvbalnceto =findViewById(R.id.txtvbalnceto);
-
+        //current time
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
         tvtime.setText("Time : "+currentTime);
 
@@ -304,60 +343,115 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
 
-        // txtvbranch.setText(mPaymentModel.getBranch());
-
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
         tvdate.setText("Date : "+formattedDate);
 
-        if(amt!=null) {
-
-            String amnt = amt.replaceAll(",", "");
-            String[] netAmountArr = amnt.split("\\.");
-            String amountInWordPop = "";
-            if (netAmountArr.length > 0) {
-                int integerValue = Integer.parseInt(netAmountArr[0]);
-                amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords(integerValue);
-                if (netAmountArr.length > 1) {
-                    int decimalValue = Integer.parseInt(netAmountArr[1]);
-                    if (decimalValue != 0) {
-                        amountInWordPop += " and " + NumberToWord.convertNumberToWords(decimalValue) + " paise";
-                    }
+        String amnt = amt.replaceAll(",", "");
+        String[] netAmountArr = amnt.split("\\.");
+        String amountInWordPop = "";
+        if ( netAmountArr.length > 0 ){
+            int integerValue = Integer.parseInt( netAmountArr[0] );
+            amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+            if ( netAmountArr.length > 1 ){
+                int decimalValue = Integer.parseInt( netAmountArr[1] );
+                if ( decimalValue != 0 ){
+                    amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
                 }
-                amountInWordPop += " only";
             }
-            tv_amount_words.setText("" + amountInWordPop);
-
-            double num = Double.parseDouble("" + amnt);
-            Log.e("TAG", "CommonUtilities  945   " + CommonUtilities.getDecimelFormate(num));
-            String stramnt = CommonUtilities.getDecimelFormate(num);
-
-
-            tv_amount.setText("₹ " + stramnt);
-
-            double num1 = Double.parseDouble(mPaymentModel.getBal()) - Double.parseDouble(stramnt.replaceAll(",", ""));
-            DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-
-            // txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
-            txtvbalnce.setVisibility(View.GONE);
+            amountInWordPop += " only";
         }
-        else {
+        tv_amount_words.setText(""+amountInWordPop);
 
-            double num1 = Double.parseDouble(mPaymentModel.getBal());
-            DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+        double num =Double.parseDouble(""+amnt);
+        Log.e("TAG","CommonUtilities  945   "+ CommonUtilities.getDecimelFormate(num));
+        String stramnt = CommonUtilities.getDecimelFormate(num);
 
-            txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
-            txtvbalnce.setVisibility(View.GONE);
 
+        tv_amount.setText("₹ " + stramnt );
+
+
+
+        txtvAcntno.setText("A/C :"+accntno);
+     //   txtvbranch.setText("Branch :"+BranchName);
+     /*   double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
+        DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+
+        txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
+*/
+        txtvAcntnoto.setText("A/C : "+ benacc);
+  //      txtvbranchto.setText("Branch :"+result);
+
+        dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
+            try{
+
+                Intent i=new Intent(this, HomeActivity.class);
+                startActivity(i);
+                finish();
+            }catch ( NullPointerException e ){
+                //Do nothing
+            }
+        } );
+
+        try{
+
+            txtMessage.setText( message );
+            txtTitle.setText( title );
+            if ( !isHappy ){
+                imgIcon.setImageResource( R.mipmap.ic_failed );
+            }
+
+
+            lay_share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.e("img_share","img_share   1170   ");
+                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+                    Canvas canvas = new Canvas(bitmap);
+                    rltv_share.draw(canvas);
+
+                    try {
+
+                        File file = saveBitmap(bitmap, accntno+".png");
+                        Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
+                        Uri bmpUri = Uri.fromFile(file);
+
+                        // Uri bmpUri = getLocalBitmapUri(bitmap);
+
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+                        shareIntent.setType("image/*");
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        //   shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        startActivity(Intent.createChooser(shareIntent, "Share"));
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e("Exception","Exception   117   "+e.toString());
+                    }
+
+                }
+            });
+
+
+
+
+        }catch ( Exception e){
+            //Do nothing
         }
-        txtvAcntno.setText("A/C No : "+mPaymentModel.getAccNo());
-        txtvbranch.setText("Branch : "+mPaymentModel.getBranch());
-        txtvAcntnoto.setText("A/C No : "+mPaymentModel.getBeneficiaryAccNo());
 
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
-    private void getResendOTP() {
-        getVerifyOTP();
+
+    private void getResendOTP(String otp) {
+
+        getVerifyOTP(otp);
     }
 
     private SSLSocketFactory getSSLSocketFactory()
@@ -435,9 +529,10 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         };
     }
 
+
     private void alertMessage1(String msg1, String msg2) {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OTPActivity.this);
 
         LayoutInflater inflater = OTPActivity.this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_layout, null);
@@ -467,4 +562,28 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         });
         alertDialog.show();
     }
+
+    private File saveBitmap(Bitmap bm, String fileName){
+
+        File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
+        boolean isPresent = true;
+        Log.e("photoURI","StatementDownloadViewActivity   5682   ");
+        if (!docsFolder.exists()) {
+            // isPresent = docsFolder.mkdir();
+            docsFolder.mkdir();
+            Log.e("photoURI","StatementDownloadViewActivity   5683   ");
+        }
+
+        File file = new File(docsFolder, fileName);
+        try {
+            FileOutputStream fOut = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
 }

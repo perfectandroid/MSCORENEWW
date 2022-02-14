@@ -11,17 +11,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class NeftRtgsOtpResponseModel implements Parcelable {
     @SerializedName("HttpStatusCode")
-    private int statusCode;
+    public int statusCode;
     @SerializedName("StatusCode")
-    private String otpRefNo;
+    public String otpRefNo;
     @SerializedName("Message")
-    private String message;
+    public String message;
     @SerializedName("ExMessge")
-    private String exMessage;
+    public String exMessage;
     @SerializedName("RefID")
-    private String refId;
+    public String refId;
     @SerializedName("Amount")
-    private String amount;
+    public String amount;
 
 
     public NeftRtgsOtpResponseModel() {

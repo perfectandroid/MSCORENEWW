@@ -92,7 +92,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
     private static final String MODE = "MODE";
     public static ArrayList<ToAccountDetails> AccountDetails;
     static ArrayAdapter<ToAccountDetails> AccountAdapter = null;
-    String mode;
+    String mode,benef;
     public static String bal="";
     String type = "";
     PaymentModel paymentModel = new PaymentModel( );
@@ -102,6 +102,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
         setContentView(R.layout.fragment_neft_rtgs);
 
         mode = getIntent().getStringExtra("mode");
+        benef = getIntent().getStringExtra("benefmodel");
 
         setRegViews();
         setAccountNumber();
@@ -847,8 +848,8 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                 final JSONObject requestObject1 = new JSONObject();
                 try {
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(paymentModel.getAccNo( )));
-                    requestObject1.put("Module", IScoreApplication.encryptStart(paymentModel.getModule( )) );
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(paymentModel.getAccNo()));
+                    requestObject1.put("Module", IScoreApplication.encryptStart(paymentModel.getModule()) );
                     requestObject1.put("BeneName", IScoreApplication.encryptStart(paymentModel.getBeneficiaryName( )));
                     requestObject1.put("BeneIFSC", IScoreApplication.encryptStart(paymentModel.getIfsc( )));
                     requestObject1.put("BeneAccountNumber", IScoreApplication.encryptStart(paymentModel.getBeneficiaryAccNo( )));
@@ -859,6 +860,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                      amot = amt.replace(",","");
                     requestObject1.put("amount", IScoreApplication.encryptStart(amot));
                     requestObject1.put("EftType", IScoreApplication.encryptStart(Integer.toString( mModeNeftRtgs)));
+                    String benefadd =paymentModel.getBeneficiaryAdd();
                     requestObject1.put("BeneAdd", IScoreApplication.encryptStart(paymentModel.getBeneficiaryAdd( ) ));
                     requestObject1.put("Pin", IScoreApplication.encryptStart( paymentModel.getPin( )  ));
                     requestObject1.put("OTPRef", IScoreApplication.encryptStart(""));
@@ -898,7 +900,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                             String statsmsg=jObject.getString("Message");
                             String otpref=jObject.getString("StatusCode");
 
-                            if(statusCode==1 && !otpref.isEmpty( ))
+                            if(statusCode==1 && !otpref.isEmpty())
                             {
                                 Log.i("Values",paymentModel.getAccNo( )+"\n"+paymentModel.getModule( )
                                 +type+"\n"+paymentModel.getIfsc()+"\n"+paymentModel.getAccNo()+"\n"+paymentModel.getPin()+amot+"\n"+mModeNeftRtgs);
@@ -910,22 +912,24 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                                 i.putExtra("BeneAccountNumber",paymentModel.getAccNo());
                                 i.putExtra("Pin",paymentModel.getPin());
                                 i.putExtra("Amount",amot);
+                                i.putExtra("Benadd",paymentModel.getBeneficiaryAdd());
                                 i.putExtra("EftType",mModeNeftRtgs);
+                                i.putExtra("otpref",otpref);
 
 
                                 startActivity(i);
                             }
                             else if ( statusCode< 0  ){
 
-                                alertMessage1( "Oops...!",  statsmsg);
+                                alertMessage1( "",  statsmsg);
 
 
                             }else if (statusCode== 3  ){
-                                alertMessage1( "Oops...!",  statsmsg);
+                                alertMessage1( "",  statsmsg);
                             }else{
 
 
-                                alertMessage1( "Oops...!", statsmsg);
+                                alertMessage1( "", statsmsg);
                             }
                /*             JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
