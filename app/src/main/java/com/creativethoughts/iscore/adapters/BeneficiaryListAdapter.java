@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
+import com.creativethoughts.iscore.ListSavedBeneficiaryActivity;
 import com.creativethoughts.iscore.NeftRtgsActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -66,12 +67,13 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
     JSONObject jsonObject = null;
     private ArrayList<BeneficiaryDetailsModel> beneficiaryDetailsModels = new ArrayList<BeneficiaryDetailsModel>();
     Context context;
-    String name, accno, ifsc;
+    String name, accno, ifsc,mode;
     LinearLayout l2;
 
-    public BeneficiaryListAdapter(Context context, JSONArray jsonArray) {
+    public BeneficiaryListAdapter(Context context, JSONArray jsonArray, String mMode) {
         this.context = context;
         this.jsonArray = jsonArray;
+        this.mode=mMode;
 
     }
 
@@ -109,8 +111,9 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
                             String BeneIFSC =jsonObject.getString("BeneIFSC");
                             String BeneAccNo =jsonObject.getString("BeneAccNo");
 
-                            alertMessage1("Alert", "Do you want to delete the beneficiary details?",Benefname,BeneIFSC,BeneAccNo);
 
+
+                            alertMessage1("Alert", "Do you want to delete the beneficiary details?",Benefname,BeneIFSC,BeneAccNo);
 
 
                         } catch (JSONException e) {
@@ -141,7 +144,7 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
 
 
                             Intent i = new Intent(context, NeftRtgsActivity.class);
-                            i.putExtra("benefmodel",beneficiaryDetailsModels);
+                            i.putExtra("mode",mode);
                             context.startActivity(i);
                         /*    submodule = jsonObject.getString("SubModule");
                             account= jsonObject.getString("FK_Account");
@@ -261,16 +264,33 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
                         try {
                             Log.e("TAG","Response benefcry   "+response.body());
 
-                            int resultInt = Integer.parseInt(String.valueOf(response));
-                            if (resultInt > 0) {
+                            JSONObject jObject = null;
+                            try {
+                                jObject = new JSONObject(response.body());
+                                JSONObject j1 = jObject.getJSONObject("NEFTRTGSDeleteReceiver");
+                                int statuscode = jObject.getInt("StatusCode");
+                                if (statuscode == 0) {
 
-                                if ( benefname.isEmpty() ){
+                                    JSONObject object = new JSONObject(String.valueOf(j1));
+                                    String neftde=object.getString("NEFTRTGSDeleted");
+                                    if(neftde.equals("1"))
+                                    {
+                                        Toast.makeText(context, "Beneficiary deleted successfully", Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(context, ListSavedBeneficiaryActivity.class);
+                                        i.putExtra("mode",mode);
+                                        context.startActivity(i);
+                                    }
+                                    else {
+                                        Toast.makeText(context, " Can't delete the beneficiary ", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
-                                Toast.makeText(context, "Beneficiary deleted successfully", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, " Can't delete the beneficiary ", Toast.LENGTH_SHORT).show();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
+
+
 
                         } catch (NumberFormatException e) {
                             e.printStackTrace();
