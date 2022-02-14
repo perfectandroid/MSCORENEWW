@@ -65,6 +65,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ChangePinActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public String TAG = "ChangePinActivity";
     private ProgressDialog progressDialog;
     Button cmdSubmit;
     EditText edtOldPin, edtNewPin, edtCnfrmPin;
@@ -73,7 +74,7 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_change_pin);
-
+        Log.e(TAG,"START  77    ");
         setInitialise();
         setRegister();
 
@@ -96,7 +97,9 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.cmdSubmit:
+                Log.e(TAG,"cmdSubmit  77    ");
                 if (edtOldPin.getText().toString().isEmpty()) {
                     edtOldPin.setError("Please enter old Pin number");
                 } else if (edtOldPin.getText().toString().length()!=6) {
@@ -160,14 +163,17 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
+                    String iemi =   IScoreApplication.getIEMI();
 
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("imei",IScoreApplication.encryptStart("1234567890"));
+                    requestObject1.put("imei",IScoreApplication.encryptStart(iemi));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("oldPin",IScoreApplication.encryptStart(edtOldPin.getText().toString()));
                     requestObject1.put("newPin",IScoreApplication.encryptStart(edtCnfrmPin.getText().toString()));
+
+                    Log.e(TAG,"requestObject1  1731    "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -180,7 +186,7 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
                             progressDialog.dismiss();
-
+                            Log.e(TAG,"response  1732    "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
                                 SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
