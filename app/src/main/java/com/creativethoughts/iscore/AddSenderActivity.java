@@ -166,6 +166,20 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                         try {
                             Log.e("TAG","Response addsender   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+                            String statscode =jObject.getString("StatusCode");
+                            String msg =jObject.getString("message");
+                            if(statscode.equals("0"))
+                            {
+
+                            }
+                            else if(statscode.equals("500"))
+                            {
+                                alertMessage1("" ,msg );
+                            }
+                            else
+                            {
+                                alertMessage1("" ,msg );
+                            }
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
                             String statusmsg = j1.getString("StatusMessage");
