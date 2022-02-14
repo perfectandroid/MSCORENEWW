@@ -906,10 +906,13 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                                 +type+"\n"+paymentModel.getIfsc()+"\n"+paymentModel.getAccNo()+"\n"+paymentModel.getPin()+amot+"\n"+mModeNeftRtgs);
                                 Intent i = new Intent(NeftRtgsActivity.this,OTPActivity.class);
                                 i.putExtra("AccountNo",paymentModel.getAccNo( ));
+                                i.putExtra("Branch",paymentModel.getBranch( ));
+                                i.putExtra("Balance",paymentModel.getBal( ));
+
                                 i.putExtra("Module",paymentModel.getModule( ));
                                 i.putExtra("BeneName",paymentModel.getBeneficiaryName());
                                 i.putExtra("BeneIFSC",paymentModel.getIfsc());
-                                i.putExtra("BeneAccountNumber",paymentModel.getAccNo());
+                                i.putExtra("BeneAccountNumber",paymentModel.getBeneficiaryAccNo());
                                 i.putExtra("Pin",paymentModel.getPin());
                                 i.putExtra("Amount",amot);
                                 i.putExtra("Benadd",paymentModel.getBeneficiaryAdd());

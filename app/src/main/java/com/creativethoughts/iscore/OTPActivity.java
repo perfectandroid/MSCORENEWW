@@ -87,12 +87,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     private EditText mEdtotp;
     private PaymentModel mPaymentModel;
     private SweetAlertDialog mSweetAlertDialog;
-    String paymntmodel;
+    String paymntmodel,branch,bal;
     private int maxFailedAttempt = 3;
     private TextView txtFailedAttempt;
     Button btnResend,btnSubmt;
+    int statusCode;
     PaymentModel paymentModel = new PaymentModel();
-    String accntno,module,bennme,benifsc,benacc,pin,amt,otpref,benadd;
+    String accntno,module,bennme,benifsc,benacc,pin,amt,otpref,otpref1,benadd,statsmsg1,refid1,amt1,exmsg1;
+    NeftRtgsOtpResponseModel neftRtgsOtpResponseModel1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +125,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         amt = getIntent().getStringExtra("Amount");
         mode = getIntent().getIntExtra("EftType",0);
         otpref = getIntent().getStringExtra("otpref");
+        branch = getIntent().getStringExtra("Branch");
+        bal = getIntent().getStringExtra("Balance");
 
     }
 
@@ -230,14 +234,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                             Log.e("TAG","Response neftotp   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
-                            int statusCode=jObject.getInt("HttpStatusCode");
-                            String otpref=jObject.getString("StatusCode");
-                            String statsmsg=jObject.getString("Message");
-                            String refid=jObject.getString("RefID");
-                            String amt=jObject.getString("Amount");
-                            String exmsg=jObject.getString("ExMessge");
+                             statusCode=jObject.getInt("HttpStatusCode");
+                            otpref1=jObject.getString("StatusCode");
+                             statsmsg1=jObject.getString("Message");
+                             refid1=jObject.getString("RefID");
+                             amt1=jObject.getString("Amount");
+                             exmsg1=jObject.getString("ExMessge");
 
-                           if(statusCode==200 && otpref.equals("200"))
+                           if(statusCode==200 && otpref1.equals("200"))
                             {
 
 
@@ -245,11 +249,11 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
                                 neftRtgsOtpResponseModel.statusCode =statusCode;
-                                neftRtgsOtpResponseModel.otpRefNo =otpref;
-                                neftRtgsOtpResponseModel.message =statsmsg;
-                                neftRtgsOtpResponseModel.refId =refid;
-                                neftRtgsOtpResponseModel.amount =amt;
-                                neftRtgsOtpResponseModel.exMessage =exmsg;
+                                neftRtgsOtpResponseModel.otpRefNo =otpref1;
+                                neftRtgsOtpResponseModel.message =statsmsg1;
+                                neftRtgsOtpResponseModel.refId =refid1;
+                                neftRtgsOtpResponseModel.amount =amt1;
+                                neftRtgsOtpResponseModel.exMessage =exmsg1;
                                 neftRtgsOtpResponseModels.add(neftRtgsOtpResponseModel);
                                /* ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
                                 KeyValuePair keyValuePair = new KeyValuePair();
@@ -261,16 +265,20 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                                 keyValuePair.setKey("Ref.Id");
                                 //keyValuePair.setValue( "Refid"  );
                                 keyValuePairs.add( keyValuePair );*/
-                                NeftRtgsOtpResponseModel neftRtgsOtpResponseModel1= new NeftRtgsOtpResponseModel();
-                              //  alertMessage("", neftRtgsOtpResponseModel1, statsmsg, true, false);
+                                 neftRtgsOtpResponseModel1= new NeftRtgsOtpResponseModel();
+                                alertMessage("", neftRtgsOtpResponseModels, statsmsg1, true, false);
                             }
 
                            else if(statusCode<0)
                            {
                                String msg="";
-                               alertMessage1(msg,  statsmsg);
+                               alertMessage1(msg,  statsmsg1);
                            }
-
+                           else if(statusCode==500)
+                           {
+                               String msg="";
+                               alertMessage1(msg,  statsmsg1);
+                           }
 
 
                         } catch (JSONException e) {
@@ -298,12 +306,12 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private void alertMessage(String title, NeftRtgsOtpResponseModel neftRtgsOtpResponseModell, String statsmsg, boolean b, boolean b1) {
+    private void alertMessage(String title, ArrayList<NeftRtgsOtpResponseModel> neftRtgsOtpResponseModell, String statsmsg, boolean b, boolean b1) {
         alertPopup(title,neftRtgsOtpResponseModell,statsmsg,b,b1);
 
     }
 
-    private void alertPopup(String title, NeftRtgsOtpResponseModel keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
+    private void alertPopup(String title, ArrayList<NeftRtgsOtpResponseModel> keyValueList, String message, boolean isHappy, boolean isBackButtonEnabled) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -317,7 +325,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         ImageView img_share      = dialogView.findViewById( R.id.img_share );
         TextView txtTitle       = dialogView.findViewById( R.id.txt_success );
         TextView txtMessage = dialogView.findViewById( R.id.txt_message );
-        TextView tvrefe = dialogView.findViewById( R.id.tvrefe );
+
 
         TextView tvdate = dialogView.findViewById( R.id.tvdate );
         TextView tvtime = dialogView.findViewById( R.id.tvtime );
@@ -329,10 +337,17 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         TextView txtvbalnce = dialogView.findViewById(R.id.txtvbalnce);
 
         TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
-        TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
-        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
-        tvrefe.setText("Ref.No "+neftRtgsOtpResponseModels.get(0).getRefId());
-        txtMessage.setText(neftRtgsOtpResponseModels.get(0).getMessage());
+        /*TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
+        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);*/
+
+        String refid=neftRtgsOtpResponseModels.get(0).getRefId();
+        String msg=neftRtgsOtpResponseModels.get(0).getMessage();
+        String amm=neftRtgsOtpResponseModels.get(0).getAmount();
+
+
+
+        txtTitle.setText("Ref.No "+refid);
+        txtMessage.setText(msg);
 
         //current time
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -347,7 +362,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         String formattedDate = df.format(c);
         tvdate.setText("Date : "+formattedDate);
 
-        String amnt = amt.replaceAll(",", "");
+        String amnt = amm.replaceAll(",", "");
         String[] netAmountArr = amnt.split("\\.");
         String amountInWordPop = "";
         if ( netAmountArr.length > 0 ){
@@ -373,12 +388,12 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
         txtvAcntno.setText("A/C :"+accntno);
-     //   txtvbranch.setText("Branch :"+BranchName);
-     /*   double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
+        txtvbranch.setText("Branch :"+branch);
+        double num1 = Double.parseDouble(bal) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
         txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
-*/
+
         txtvAcntnoto.setText("A/C : "+ benacc);
   //      txtvbranchto.setText("Branch :"+result);
 
@@ -436,7 +451,6 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                 }
             });
-
 
 
 
