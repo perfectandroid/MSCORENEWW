@@ -35,7 +35,6 @@ import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountListAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
 import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.model.AccountToTransfer;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -115,9 +114,6 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
 
         mDownloadManager = new DownloadManager();
 
-        /*accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accNewChange);
-        branchcode = accountInfo.accountBranchCode;
-*/
         l1= findViewById(R.id.l1);
         l0= findViewById(R.id.l0);
         etxtFrom =  findViewById(R.id.etxtFrom);
@@ -260,17 +256,33 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
+//                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+//                    String token = tokenIdSP.getString("Token","");
+//                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+//                    String cusid = customerIdSP.getString("customerId","");
+//
+//
+//                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("26"));
+//                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+//                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+//                    requestObject1.put("SubMode",       IScoreApplication.encryptStart("0"));
+//                    requestObject1.put("LoanType",      IScoreApplication.encryptStart("0"));
+//                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+//                    String BankKey=bankkeypref.getString("bankkey", null);
+//                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+//                    String BankHeader=bankheaderpref.getString("bankheader", null);
+//                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+//                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
                     SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
-                    String token = tokenIdSP.getString("Token","");
-                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
-                    String cusid = customerIdSP.getString("customerId","");
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
 
-
-                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("26"));
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("SubMode",       IScoreApplication.encryptStart("0"));
-                    requestObject1.put("LoanType",      IScoreApplication.encryptStart("0"));
+                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
@@ -283,27 +295,35 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     e.printStackTrace();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getCustomerLoanandDeposit(body);
+              //  Call<String> call = apiService.getCustomerLoanandDeposit(body);
+                Call<String> call = apiService.getOwnAccounDetails(body);
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
 
-                            Log.e("response  286  ",""+response.body());
+                            Log.e("response  2861  ",""+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
-                                JSONObject jsonObj1 = jsonObj.getJSONObject("CustomerLoanAndDepositDetails");
+//                                JSONObject jsonObj1 = jsonObj.getJSONObject("CustomerLoanAndDepositDetails");
+//                                JSONObject object = new JSONObject(String.valueOf(jsonObj1));
+//                                JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
+
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
-                                JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
+                                JSONArray Jarray  = object.getJSONArray("OwnAccountdetailsList");
+
                                 if(Jarray.length()!=0) {
-                                    JSONArray jarray = Jarray;
+                                   // JSONArray jarray = Jarray;
                                     ArrayList<AccountToTransfer>  searchNamesArrayList = new ArrayList<>();
                                     ArrayList<AccountToTransfer> array_sort = new ArrayList<>();
-                                    for (int k = 0; k < jarray.length(); k++) {
-                                        jsonObject = jarray.getJSONObject(k);
-                                        searchNamesArrayList.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),jsonObject.getString("LoanType"),jsonObject.getString("BranchName")));
-                                        array_sort.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),jsonObject.getString("BranchName"),jsonObject.getString("LoanType")));
+                                    for (int k = 0; k < Jarray.length(); k++) {
+                                        jsonObject = Jarray.getJSONObject(k);
+//                                        searchNamesArrayList.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),jsonObject.getString("LoanType"),jsonObject.getString("BranchName")));
+//                                        array_sort.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),jsonObject.getString("BranchName"),jsonObject.getString("LoanType")));
+                                        searchNamesArrayList.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),"",jsonObject.getString("BranchName")));
+                                        array_sort.add(new AccountToTransfer(jsonObject.getString("FK_Account"),jsonObject.getString("AccountNumber"),jsonObject.getString("SubModule"),jsonObject.getString("BranchName"),""));
                                     }
                                     AccountListAdapter sadapter = new AccountListAdapter(StatementDownloadViewActivity.this, array_sort);
                                     list_view.setAdapter(sadapter);
@@ -326,7 +346,9 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                             }
                             else { }
                         }
-                        catch (JSONException e) { }
+                        catch (Exception e) {
+                            Log.e("TAG","Exception  2862   "+e.toString());
+                        }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) { }
@@ -618,8 +640,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     String fDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
                     String tDate = new SimpleDateFormat("yyyy-MM-dd").format(d1);
 
-                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
-                    branchcode = accountInfo.accountBranchCode;
+//                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
+//                    branchcode = accountInfo.accountBranchCode;
 
                     requestObject1.put("SubModule", IScoreApplication.encryptStart(submod));
                     requestObject1.put("FromNo", IScoreApplication.encryptStart(acc));
@@ -835,8 +857,8 @@ public class StatementDownloadViewActivity extends AppCompatActivity implements 
                     String fDate = new SimpleDateFormat("yyyy-MM-dd").format(d);
                     String tDate = new SimpleDateFormat("yyyy-MM-dd").format(d1);
 
-                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
-                    branchcode = accountInfo.accountBranchCode;
+//                    accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acc);
+//                    branchcode = accountInfo.accountBranchCode;
 
                     requestObject1.put("SubModule", IScoreApplication.encryptStart(submod));
                     requestObject1.put("FromNo", IScoreApplication.encryptStart(acc));

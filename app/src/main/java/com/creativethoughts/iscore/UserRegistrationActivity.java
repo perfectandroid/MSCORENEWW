@@ -92,8 +92,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
 
-    static String bank_Key, bank_Header;
-    static String host_nameCommon, asset_namecommon;
+//    static String bank_Key, bank_Header;
+//    static String host_nameCommon, asset_namecommon;
 //
 //
 //    private static final String HOSTNAME_SUBJECT="TEST16";
@@ -409,8 +409,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 if (NetworkUtil.isOnline()) {
 
 
-                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
+//                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+//                    BASE_URL=pref.getString("baseurl", null)+"api/MV3";
 
 //                    SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
 //                    BASE_URL=pref.getString("baseurl", null);
@@ -527,6 +527,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
                     Log.e(TAG,"requestObject1     506   "+requestObject1);
+                    Log.e(TAG,"requestObject1     Details  506   "
+                            +"\n"+"MobileNo         "+countryCode+mobileNumber
+                            +"\n"+"Pin              "+"00"
+                            +"\n"+"IMEI             "+"123456789"
+                            +"\n"+"imei             "+iemi
+                            +"\n"+"BankKey          "+BankKey
+                            +"\n"+"BankHeader       "+BankHeader
+                            +"\n"+"BankVerified     "+"1");
 
 //                    {"Mobno":"9745413880","Pin":"vHyQzFkgJvE%3D%0A","IMEI":"","imei":"1465619482e61710",
 //                            "BankKey":"d.22333","BankHeader":"prxuXYDph13cofyYPekZyk3XkN%2BX3E%2FObqX2qrdI%2BoU%3D%0A",
@@ -893,37 +901,37 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
 
-    public static String getBankkey() {
-        try {
-            return bank_Key;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getBankheader() {
-        try {
-            return bank_Header;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getHostnameSubject() {
-        try {
-            return host_nameCommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getCertificateAssetName() {
-        try {
-            return asset_namecommon;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
+//    public static String getBankkey() {
+//        try {
+//            return bank_Key;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getBankheader() {
+//        try {
+//            return bank_Header;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getHostnameSubject() {
+//        try {
+//            return host_nameCommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getCertificateAssetName() {
+//        try {
+//            return asset_namecommon;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
 
 
     private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,

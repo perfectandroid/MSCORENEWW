@@ -64,8 +64,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HomeActivity extends AppCompatActivity implements NavigationDrawerCallbacks, ConnectivityReceiver.ConnectivityReceiverListener {
 
-    static String bank_Key, bank_Header,version;
-    static String host_nameCommon, asset_namecommon;
+//    static String bank_Key, bank_Header,version;
+//    static String host_nameCommon, asset_namecommon;
+    static String version;
     String customerId ="";
 
 
@@ -174,17 +175,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 startActivity(im);
                 break;
             case 3:
-                if(mNavigationDrawerFragment != null) {
-                   // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//                if(mNavigationDrawerFragment != null) {
+//                   // UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
+//
+//                  //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
+//                   // PBMessagesDAO.getInstance().markOffersAsRead(customerId);
+//                    mNavigationDrawerFragment.refreshMenu();
+//                }
+//                fragment = OffersFragment.newInstance();
 
-                  //  PBMessagesDAO.getInstance().markOffersAsRead(userDetails.customerId);
-                   // PBMessagesDAO.getInstance().markOffersAsRead(customerId);
-                    mNavigationDrawerFragment.refreshMenu();
-                }
-                fragment = OffersFragment.newInstance();
-
-//                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
-//                startActivity(ioa);
+                Intent ioa = new Intent(HomeActivity.this,OffersActivity.class);
+                startActivity(ioa);
                 break;
             case 4:
                 fragment = KsebBillStatusFragment.newInstance();
@@ -622,35 +623,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
     }
 
 
-    public static String getBankkey() {
-        try {
-            return bank_Key; }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getBankheader() {
-       try {
-            return bank_Header;
-        }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-    }
-
-    public static String getHostnameSubject() {
-        try {
-            return host_nameCommon;
-       }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI; }
-   }
-
-    public static String getCertificateAssetName() {
-       try {
-            return asset_namecommon;
-       }catch (Exception e){
-            return IScoreApplication.EXCEPTION_NOIEMI;
-        }
-   }
+//    public static String getBankkey() {
+//        try {
+//            return bank_Key; }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getBankheader() {
+//       try {
+//            return bank_Header;
+//        }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//    }
+//
+//    public static String getHostnameSubject() {
+//        try {
+//            return host_nameCommon;
+//       }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI; }
+//   }
+//
+//    public static String getCertificateAssetName() {
+//       try {
+//            return asset_namecommon;
+//       }catch (Exception e){
+//            return IScoreApplication.EXCEPTION_NOIEMI;
+//        }
+//   }
 
     private SSLSocketFactory getSSLSocketFactory()
             throws CertificateException, KeyStoreException, IOException,

@@ -115,6 +115,9 @@ public class MessageActivity extends AppCompatActivity {
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    requestObject1.put("MsgType",IScoreApplication.encryptStart("0"));
+
+
 
                     Log.e(TAG,"requestObject1   2111     "+requestObject1);
                     Log.e(TAG,"token  2111   "+token+"   "+cusid);
