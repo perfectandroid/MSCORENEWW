@@ -183,4 +183,7 @@ public interface APIInterface {
     @POST("api/Recharge/KSEBTransactionResponse")
     Call<String>KSEBTransactionResponse(@Body RequestBody body);
 
+    @POST("api/Customer/ChangeMpin")
+    Call<String>doChangeMpin(@Body RequestBody body);
+
 }

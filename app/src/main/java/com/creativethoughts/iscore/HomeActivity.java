@@ -209,7 +209,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                 fragment = MoreFragment.newInstance();
                 break;
             case 8:
-                fragment = ChangePinFragment.newInstance();
+
+                Intent setIntentpin=new Intent(this,ChangePinActivity.class);
+                startActivity(setIntentpin);
+               // fragment = ChangePinFragment.newInstance();
                 break;
             case 9:
 //                fragment = SettingsFragment.newInstance();

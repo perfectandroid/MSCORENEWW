@@ -45,6 +45,7 @@ import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.ReachargeOfferActivity;
+import com.creativethoughts.iscore.RechargeHistoryActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.RecentHistoryAdapter;
 
@@ -1606,22 +1607,30 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
 
-                                alertMessage1("",jsonObj.getString("EXMessage"));
+                                alertMessage2("0",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("1")) {
+
+
+                                alertMessage2("1",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("2")) {
+
+
+                                alertMessage2("2",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("3")) {
+
+
+                                alertMessage2("3",jsonObj.getString("EXMessage"));
 
                             }
                             else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-                                builder.setMessage(jsonObj.getString("EXMessage"))
-//                                builder.setMessage("No data found.")
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
 
-                                            }
-                                        });
-                                AlertDialog alert = builder.create();
-                                alert.show();
+                                alertMessage2("",jsonObj.getString("EXMessage"));
 
                             }
 
@@ -1748,7 +1757,6 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -1769,25 +1777,34 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                             JSONObject jsonObj = new JSONObject(response.body());
                             Log.e(TAG,"PostLand  jsonObj    14886       "+jsonObj.getString("EXMessage"));
+
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
 
-                                alertMessage1("",jsonObj.getString("EXMessage"));
+                                alertMessage2("0",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("1")) {
+
+
+                                alertMessage2("1",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("2")) {
+
+
+                                alertMessage2("2",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("3")) {
+
+
+                                alertMessage2("3",jsonObj.getString("EXMessage"));
 
                             }
                             else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-                                builder.setMessage(jsonObj.getString("EXMessage"))
-//                                builder.setMessage("No data found.")
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
 
-                                            }
-                                        });
-                                AlertDialog alert = builder.create();
-                                alert.show();
+                                alertMessage2("",jsonObj.getString("EXMessage"));
 
                             }
 
@@ -1933,68 +1950,11 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 
                             JSONObject jsonObj = new JSONObject(response.body());
                             Log.e(TAG," jsonObj    18715       "+jsonObj.getString("EXMessage"));
-                            if(jsonObj.getString("StatusCode").equals("0")) {
-                              //  JSONObject jsonObj1 = jsonObj.getJSONObject("ProvidersDetailsInfo");
-
-//                                if (jsonObj1.getString("ResponseCode").equals("0")){
+//                            if(jsonObj.getString("StatusCode").equals("0")) {
 //
-////                                    JarrayOperator  = jsonObj1.getJSONArray("ProvidersDetails");
-////                                    Log.e(TAG," JarrayOperator    1360       "+JarrayOperator);
-////
-////                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-////                                    final View customLayout = getLayoutInflater().inflate(R.layout.pop_operatorlist, null);
-////                                    RecyclerView rvOperator = customLayout.findViewById(R.id.rvOperator);
-////                                    builder.setView(customLayout);
-////
-////
-////                                    GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
-////                                    rvOperator.setLayoutManager(lLayout);
-////                                    rvOperator.setHasFixedSize(true);
-////                                    OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
-////                                    rvOperator.setAdapter(adapter);
-////                                    adapter.setOnItemClickListener(RechargeActivity.this);
-////
-////                                    dialog = builder.create();
-////                                    dialog = builder.create();
-////                                    dialog.setCancelable(true);
-////                                    dialog.show();
-//
-//                                }else {
-//                                    AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-//                                    builder.setMessage(jsonObj1.getString("ResponseMessage"))
-////                                builder.setMessage("No data found.")
-//                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                                                @Override
-//                                                public void onClick(DialogInterface dialog, int which) {
-//                                                    dialog.dismiss();
-//
-//                                                }
-//                                            });
-//                                    AlertDialog alert = builder.create();
-//                                    alert.show();
-//                                }
-
-//                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeHistory");
-//                                JarrayOperator  = jsonObj1.getJSONArray("RechargeHistoryList");
-//
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-//                                final View customLayout = getLayoutInflater().inflate(R.layout.pop_operatorlist, null);
-//                                RecyclerView rvOperator = customLayout.findViewById(R.id.rvOperator);
-//                                builder.setView(customLayout);
-//
-//
-////                                GridLayoutManager lLayout = new GridLayoutManager(getApplicationContext(), 1);
-////                                rvOperator.setLayoutManager(lLayout);
-////                                rvOperator.setHasFixedSize(true);
-////                                OperatorAdapter adapter = new OperatorAdapter(getApplicationContext(), JarrayOperator);
-////                                rvOperator.setAdapter(adapter);
-////                                adapter.setOnItemClickListener(RechargeActivity.this);
-//
-////                                AlertDialog dialog = builder.create();
-//                                dialog = builder.create();
-//                                dialog.setCancelable(true);
-//                                dialog.show();
-
+//                                alertMessage1("",jsonObj.getString("EXMessage"));
+//                            }
+//                            else {
 //                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
 //                                builder.setMessage(jsonObj.getString("EXMessage"))
 ////                                builder.setMessage("No data found.")
@@ -2007,23 +1967,36 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 //                                        });
 //                                AlertDialog alert = builder.create();
 //                                alert.show();
+//
+//                            }
 
-                                alertMessage1("",jsonObj.getString("EXMessage"));
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+
+
+                                alertMessage2("0",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("1")) {
+
+
+                                alertMessage2("1",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("2")) {
+
+
+                                alertMessage2("2",jsonObj.getString("EXMessage"));
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("3")) {
+
+
+                                alertMessage2("3",jsonObj.getString("EXMessage"));
 
                             }
                             else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
-                                builder.setMessage(jsonObj.getString("EXMessage"))
-//                                builder.setMessage("No data found.")
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
 
-                                            }
-                                        });
-                                AlertDialog alert = builder.create();
-                                alert.show();
+                                alertMessage2("",jsonObj.getString("EXMessage"));
 
                             }
 
@@ -2107,7 +2080,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
         TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
 
-        tv_msg.setText(msg1);
+       // tv_msg.setText(msg1);
         tv_msg2.setText(msg2);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
 //        tv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -2130,4 +2103,57 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         });
         alertDialog.show();
     }
+
+    private void alertMessage2(String msg1, String msg2) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RechargeActivity.this);
+
+        LayoutInflater inflater = RechargeActivity.this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_recharge, null);
+        dialogBuilder.setView(dialogView);
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        TextView tv_ok =  dialogView.findViewById(R.id.tv_ok);
+        TextView tv_msg =  dialogView.findViewById(R.id.txt1);
+        TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+
+        // tv_msg.setText(msg1);
+        tv_msg2.setText(msg2);
+        TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
+//        tv_cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                alertDialog.dismiss();
+//
+//            }
+//        });
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //  finishAffinity();
+                alertDialog.dismiss();
+//                Intent intent = new Intent(RechargeActivity.this, HomeActivity.class);
+//                startActivity(intent);
+//                finish();
+                if (msg1.equals("0")){
+
+                }
+                else if (msg1.equals("1") || msg1.equals("2") || msg1.equals("3")){
+                    Intent intent = new Intent(RechargeActivity.this, RechargeHistoryActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(RechargeActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+
+            }
+        });
+        alertDialog.show();
+    }
+
+
 }

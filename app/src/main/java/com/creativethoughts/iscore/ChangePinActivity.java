@@ -1,22 +1,39 @@
 package com.creativethoughts.iscore;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Recharge.AccountAdapter;
+import com.creativethoughts.iscore.Recharge.OnItemClickListener;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.adapters.rechargeHistoryAdapter;
-import com.creativethoughts.iscore.db.dao.model.Share;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -28,7 +45,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -36,9 +53,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -48,37 +63,71 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class RechargeHistoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChangePinActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public String TAG = "RechargeHistoryActivity";
     private ProgressDialog progressDialog;
-    RecyclerView rv_recarge_history;
-    String token,cusid,name;
-    JSONArray Jarray;
-    JSONObject jsonObject = null;
-    public List<Share> shareArrayList ;
-    rechargeHistoryAdapter adapter;
-    String branchcode;
+    Button cmdSubmit;
+    EditText edtOldPin, edtNewPin, edtCnfrmPin;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recharge_history);
+        setContentView(R.layout.fragment_change_pin);
 
-        Log.e(TAG,"START   68");
-        setRegViews();
-        showActiveList();
+        setInitialise();
+        setRegister();
+
+
     }
 
-    private void setRegViews() {
-        rv_recarge_history = findViewById(R.id.rv_recarge_history);
+    private void setRegister() {
+        cmdSubmit.setOnClickListener(this);
     }
 
-    private void showActiveList() {
+    private void setInitialise() {
+
+        cmdSubmit              =  findViewById(R.id.cmdSubmit);
+        edtOldPin              =  findViewById(R.id.edtOldPin);
+        edtNewPin              =  findViewById(R.id.edtNewPin);
+        edtCnfrmPin              =  findViewById(R.id.edtCnfrmPin);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cmdSubmit:
+                if (edtOldPin.getText().toString().isEmpty()) {
+                    edtOldPin.setError("Please enter old Pin number");
+                } else if (edtOldPin.getText().toString().length()!=6) {
+                    edtOldPin.setError("Please enter valid Pin number");
+                } else if (edtNewPin.getText().toString().isEmpty()) {
+                    edtNewPin.setError("Please enter valid Pin number");
+                } else if (edtNewPin.getText().toString().length()!=6) {
+                    edtNewPin.setError("Please enter valid Pin number");
+                }else if (edtCnfrmPin.getText().toString().isEmpty()) {
+                    edtCnfrmPin.setError("Please re enter valid Pin number ");
+                } else if (edtCnfrmPin.getText().toString().length()!=6) {
+                    edtCnfrmPin.setError("Please re enter valid Pin number");
+                }   else {
+                    if(edtNewPin.getText().toString().equals(edtCnfrmPin.getText().toString())) {
+                        doChangePin();
+                    }else{
+                        edtCnfrmPin.setError("New Pin No and Confirm Pin No does not match.");
+                    }
+                }
+
+                break;
+        }
+
+    }
+
+
+    private void doChangePin() {
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
-            progressDialog = new ProgressDialog(RechargeHistoryActivity.this, R.style.Progress);
+            progressDialog = new ProgressDialog(ChangePinActivity.this, R.style.Progress);
             progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
             progressDialog.setCancelable(false);
             progressDialog.setIndeterminate(true);
@@ -86,7 +135,6 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                     .getDrawable(R.drawable.progress));
             progressDialog.show();
             try {
-
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -101,79 +149,80 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                         .client(client)
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
-                String reqmode = IScoreApplication.encryptStart("21");
                 final JSONObject requestObject1 = new JSONObject();
                 try {
 
-                    SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
-                    cusid = customerIdSP.getString("customerId","");
                     SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
-                    token = tokenIdSP.getString("Token","");
-                    SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
-                   // name = userDetails.userCustomerName;
-                    name = customerNameSP.getString("customerName","");
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
-
-                    requestObject1.put("ReqMode",reqmode);
-                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("BranchCode", IScoreApplication.encryptStart("0"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("imei",IScoreApplication.encryptStart("1234567890"));
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
-
-                    Log.e(TAG,"requestObject1  1281   "+requestObject1);
+                    requestObject1.put("oldPin",IScoreApplication.encryptStart(edtOldPin.getText().toString()));
+                    requestObject1.put("newPin",IScoreApplication.encryptStart(edtCnfrmPin.getText().toString()));
 
                 } catch (Exception e) {
                     e.printStackTrace();
-
+                    progressDialog.dismiss();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getRechargeHistory(body);
+                Call<String> call = apiService.doChangeMpin(body);
                 call.enqueue(new Callback<String>() {
-
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        progressDialog.dismiss();
-                        try{
-                            Log.e(TAG,"response  1282   "+response.body());
-                            Log.i("DepositDetails",response.body());
+                        try {
+                            progressDialog.dismiss();
+
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
-                                JSONObject jsonObj1 = jsonObj.getJSONObject("RechargeHistory");
-                                 Jarray  = jsonObj1.getJSONArray("RechargeHistoryList");
-                                if(Jarray.length()!=0) {
-                                    GridLayoutManager lLayout = new GridLayoutManager(RechargeHistoryActivity.this, 1);
-                                    rv_recarge_history.setLayoutManager(lLayout);
-                                    rv_recarge_history.setHasFixedSize(true);
-                                    adapter = new rechargeHistoryAdapter(RechargeHistoryActivity.this,Jarray);
-                                    rv_recarge_history.setAdapter(adapter);
-                                }
+                                SharedPreferences pinIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                                SharedPreferences.Editor pinIdSPEditer = pinIdSP.edit();
+                                pinIdSPEditer.putString("pinlog", edtCnfrmPin.getText().toString());
+                                pinIdSPEditer.commit();
+                                String EXMessage = jsonObj.getString("ResponseMessage");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
+                                builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
                             }
                             else {
-                                rv_recarge_history.setVisibility(View.GONE);
+
                                 try{
-                                    JSONObject jobj = jsonObj.getJSONObject("RechargeHistory");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");
-                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RechargeHistoryActivity.this);
-                                    builder.setMessage(ResponseMessage)
+                                    String EXMessage = jsonObj.getString("ResponseMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
+                                    builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     dialog.dismiss();
+
                                                 }
                                             });
-                                    android.app.AlertDialog alert = builder.create();
+                                    AlertDialog alert = builder.create();
                                     alert.show();
 
                                 }
                                 catch (JSONException e){
-                                    String EXMessage = jsonObj.getString("EXMessage");
-                                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RechargeHistoryActivity.this);
+                                    String EXMessage = jsonObj.getString("ResponseMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
                                     builder.setMessage(EXMessage)
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -182,58 +231,45 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                                                     dialog.dismiss();
                                                 }
                                             });
-                                    android.app.AlertDialog alert = builder.create();
+                                    AlertDialog alert = builder.create();
                                     alert.show();
 
                                 }
                             }
-
                         }
-                        catch (JSONException e)
-                        {
-
+                        catch (JSONException e) {
+                            progressDialog.dismiss();
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-
+                        progressDialog.dismiss();
                     }
                 });
-
             }
-            catch (Exception e)
-            {
-
+            catch (Exception e) {
+                progressDialog.dismiss();
             }
         }
         else {
-            DialogUtil.showAlert(RechargeHistoryActivity.this,
-                    "Network is currently unavailable. Please try again later.");
+
+            progressDialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(ChangePinActivity.this);
+            builder.setMessage("Network error occured. Please try again later")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
         }
+
     }
 
-    public   List<Share> getListData() {
-        shareArrayList = new ArrayList<>();
-        for (int k = 0; k < Jarray.length(); k++) {
-
-            try {
-
-                jsonObject = Jarray.getJSONObject(k);
-                shareArrayList.add(new Share(jsonObject.getString("AccountNumber"), jsonObject.getString("IFSCCode"),
-                        jsonObject.getString("FundTransferAccount"), jsonObject.getString("BranchName"), jsonObject.getString("LoanType"),name));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return  shareArrayList;
-    }
-
-    private SSLSocketFactory getSSLSocketFactory()
-            throws CertificateException, KeyStoreException, IOException,
-            NoSuchAlgorithmException,
+    private SSLSocketFactory getSSLSocketFactory() throws CertificateException, KeyStoreException, IOException, NoSuchAlgorithmException,
             KeyManagementException {
         SharedPreferences sslnamepref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF24, 0);
         String asset_Name=sslnamepref.getString("certificateassetname", null);
@@ -255,6 +291,7 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
         sslContext.init(null, wrappedTrustManagers, null);
         return sslContext.getSocketFactory();
     }
+
     private TrustManager[] getWrappedTrustManagers(TrustManager[] trustManagers) {
         final X509TrustManager originalTrustManager = (X509TrustManager) trustManagers[0];
         return new TrustManager[]{
@@ -289,6 +326,7 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                 }
         };
     }
+
     private HostnameVerifier getHostnameVerifier() {
         return new HostnameVerifier() {
             @Override
@@ -298,10 +336,4 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
         };
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-        }
-    }
 }

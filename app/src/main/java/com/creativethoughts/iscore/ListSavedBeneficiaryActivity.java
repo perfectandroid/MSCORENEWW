@@ -411,4 +411,11 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent i = new Intent(ListSavedBeneficiaryActivity.this,HomeActivity.class);
+        startActivity(i);
+    }
 }

@@ -66,6 +66,15 @@
                 android:value="com.creativethoughts.iscore.HomeActivity" />
         </activity>
 
+        <activity android:name=".ChangePinActivity"
+            android:label="Pin Change"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/HomeActivityTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.creativethoughts.iscore.HomeActivity" />
+        </activity>
+
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
         <activity
