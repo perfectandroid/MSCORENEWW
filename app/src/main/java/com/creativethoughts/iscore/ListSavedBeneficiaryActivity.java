@@ -81,6 +81,7 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
          mMode = getIntent().getStringExtra("mode");
          Log.i("Mode",mMode);
         setRegViews();
+
     }
 
     private void setRegViews() {
@@ -132,7 +133,7 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     requestObject1.put("token", IScoreApplication.encryptStart(tokn));
-                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+             //       requestObject1.put("token", IScoreApplication.encryptStart(tokn));
                     requestObject1.put("imei", IScoreApplication.encryptStart(""));
 
 
@@ -204,8 +205,9 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
                                         GridLayoutManager lLayout = new GridLayoutManager(ListSavedBeneficiaryActivity.this, 1);
                                         mRecyclerBeneficiary.setLayoutManager(lLayout);
                                         mRecyclerBeneficiary.setHasFixedSize(true);
-                                        BeneficiaryListAdapter adapter = new BeneficiaryListAdapter(ListSavedBeneficiaryActivity.this, Jarray);
+                                        BeneficiaryListAdapter adapter = new BeneficiaryListAdapter(ListSavedBeneficiaryActivity.this, Jarray,mMode);
                                         mRecyclerBeneficiary.setAdapter(adapter);
+                                        //fetchBeneficiary();
                                     }
                                 }
 
@@ -404,4 +406,5 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
         }
 
     }
+
 }

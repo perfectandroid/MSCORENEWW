@@ -102,7 +102,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
         setContentView(R.layout.fragment_neft_rtgs);
 
         mode = getIntent().getStringExtra("mode");
-        benef = getIntent().getStringExtra("benefmodel");
+    //    benef = getIntent().getStringExtra("benefmodel");
 
         setRegViews();
         setAccountNumber();
