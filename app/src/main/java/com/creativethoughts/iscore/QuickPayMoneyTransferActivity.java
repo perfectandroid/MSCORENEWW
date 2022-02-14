@@ -756,6 +756,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
+        SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+        String pin=pref1.getString("pinlog", null);
         if (NetworkUtil.isOnline()) {
             try{
                 OkHttpClient client = new OkHttpClient.Builder()
@@ -782,16 +784,16 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
-                    requestObject1.put("receiverid", IScoreApplication.encryptStart(cusid) );
-                 /*   requestObject1.put("IDCustomer", IScoreApplication.encryptStart(lastName));
-                    requestObject1.put("amount", IScoreApplication.encryptStart(dob));
-                    requestObject1.put("Messages", IScoreApplication.encryptStart(mobileNumber));
-                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(mobileNumber));
-                    requestObject1.put("Module", IScoreApplication.encryptStart(mobileNumber));
-                    requestObject1.put("Pin", IScoreApplication.encryptStart(mobileNumber));
-                    requestObject1.put("MPIN", IScoreApplication.encryptStart(mobileNumber));
-*/
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amount));
+                    requestObject1.put("Messages", IScoreApplication.encryptStart(message));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
+                    requestObject1.put("Module", IScoreApplication.encryptStart("module"));
+                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
+                    requestObject1.put("MPIN", IScoreApplication.encryptStart(senderMobile));
+
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");

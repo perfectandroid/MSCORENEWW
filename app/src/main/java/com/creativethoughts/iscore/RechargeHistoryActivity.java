@@ -125,6 +125,7 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1  1281   "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -138,6 +139,7 @@ public class RechargeHistoryActivity extends AppCompatActivity implements View.O
                     public void onResponse(Call<String> call, Response<String> response) {
                         progressDialog.dismiss();
                         try{
+                            Log.e(TAG,"response  1282   "+response.body());
                             Log.i("DepositDetails",response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {

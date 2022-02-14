@@ -906,6 +906,16 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                 alertMessage2("",jsonObj.getString("EXMessage"));
 
                             }
+                            if(jsonObj.getString("StatusCode").equals("1")) {
+
+                                alertMessageSucces("1",jsonObj.getString("EXMessage"));
+
+                            }
+                            if(jsonObj.getString("StatusCode").equals("3")) {
+
+                                alertMessageSucces("3",jsonObj.getString("EXMessage"));
+
+                            }
                             else {
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
@@ -1001,6 +1011,41 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
+    }
+
+    private void alertMessageSucces(String mode, String msg2) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(KsebActivity.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_layout, null);
+        dialogBuilder.setView(dialogView);
+
+        android.app.AlertDialog alertDialog = dialogBuilder.create();
+        TextView tv_share =  dialogView.findViewById(R.id.tv_share);
+        TextView tv_msg =  dialogView.findViewById(R.id.txt1);
+        TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+
+        tv_msg.setText("msg1");
+        tv_msg2.setText(msg2);
+        TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                alertDialog.dismiss();
+                Intent intent = new Intent(KsebActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
