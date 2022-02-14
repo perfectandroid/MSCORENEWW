@@ -129,6 +129,7 @@ public class LoginOTPActivity extends AppCompatActivity implements View.OnClickL
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
                     Log.e(TAG,"requestObject1  1311  "+requestObject1);
+                    Log.e(TAG,"BASE_URL  1311  "+BASE_URL);
 
 
                 } catch (JSONException e) {
