@@ -96,7 +96,7 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
 
         img_refrsh.setOnClickListener(this);
         llyt_adbnfcry.setOnClickListener(this);
-
+        hideAnim( true );
         fetchBeneficiary();
     }
 
@@ -206,6 +206,7 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
                                         mRecyclerBeneficiary.setLayoutManager(lLayout);
                                         mRecyclerBeneficiary.setHasFixedSize(true);
                                         BeneficiaryListAdapter adapter = new BeneficiaryListAdapter(ListSavedBeneficiaryActivity.this, Jarray,mMode);
+                                        adapter.notifyDataSetChanged();
                                         mRecyclerBeneficiary.setAdapter(adapter);
                                         //fetchBeneficiary();
                                     }
@@ -401,6 +402,9 @@ public class ListSavedBeneficiaryActivity extends AppCompatActivity implements V
             case R.id.lnr_add_new_beneficiary:
                 Intent i = new Intent(ListSavedBeneficiaryActivity.this, NeftRtgsActivity.class);
                 i.putExtra("mode",mMode);
+                i.putExtra("name","");
+                i.putExtra("accno","");
+                i.putExtra("ifsc","");
                 startActivity(i);
                 break;
         }

@@ -92,7 +92,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
     private static final String MODE = "MODE";
     public static ArrayList<ToAccountDetails> AccountDetails;
     static ArrayAdapter<ToAccountDetails> AccountAdapter = null;
-    String mode,benef;
+    String mode,benef,name,ifsc,accno;
     public static String bal="";
     String type = "";
     PaymentModel paymentModel = new PaymentModel( );
@@ -102,10 +102,31 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
         setContentView(R.layout.fragment_neft_rtgs);
 
         mode = getIntent().getStringExtra("mode");
+
     //    benef = getIntent().getStringExtra("benefmodel");
 
         setRegViews();
         setAccountNumber();
+
+
+        name = getIntent().getStringExtra("name");
+        ifsc = getIntent().getStringExtra("ifsc");
+        accno = getIntent().getStringExtra("accno");
+
+        if(!name.equals("null") && !ifsc.equals("null") && !accno.equals("null"))
+        {
+            mEdtTxtBeneficiaryName.setText(name);
+            mEdtTxtIfscNo.setText(ifsc);
+            mEdtTxtBeneficiaryAccNo.setText(accno);
+            mEdtTxtBeneficiaryConfirmAccNo.setText(accno);
+        }
+        if(name.equals("") && !ifsc.equals("") && !accno.equals(""))
+        {
+            mEdtTxtBeneficiaryName.setText("");
+            mEdtTxtIfscNo.setText("");
+            mEdtTxtBeneficiaryAccNo.setText("");
+            mEdtTxtBeneficiaryConfirmAccNo.setText("");
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.creativethoughts.iscore.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -135,6 +136,7 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
                             String BeneIFSC =jsonObject.getString("BeneIFSC");
                             String BeneAccNo =jsonObject.getString("BeneAccNo");
 
+
                             BeneficiaryDetailsModel beneficiaryDetailsModel = new BeneficiaryDetailsModel();
                             beneficiaryDetailsModel.beneficiaryName =Benefname;
                             beneficiaryDetailsModel.beneficiaryIfsc = BeneIFSC;
@@ -145,7 +147,12 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
 
                             Intent i = new Intent(context, NeftRtgsActivity.class);
                             i.putExtra("mode",mode);
+                            i.putExtra("name",Benefname);
+                            i.putExtra("accno",BeneAccNo);
+                            i.putExtra("ifsc",BeneIFSC);
                             context.startActivity(i);
+
+
                         /*    submodule = jsonObject.getString("SubModule");
                             account= jsonObject.getString("FK_Account");
                             status = jsonObject.getString("Status");
@@ -279,6 +286,7 @@ public class BeneficiaryListAdapter extends RecyclerView.Adapter {
                                         Intent i = new Intent(context, ListSavedBeneficiaryActivity.class);
                                         i.putExtra("mode",mode);
                                         context.startActivity(i);
+                                        ((Activity)context).finish();
                                     }
                                     else {
                                         Toast.makeText(context, " Can't delete the beneficiary ", Toast.LENGTH_SHORT).show();
