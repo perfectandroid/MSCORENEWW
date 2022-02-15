@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.FullLenghRecyclertview;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
@@ -2079,7 +2080,13 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         TextView tv_ok =  dialogView.findViewById(R.id.tv_ok);
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
         TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+        ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
 
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(RechargeActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
        // tv_msg.setText(msg1);
         tv_msg2.setText(msg2);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
@@ -2117,6 +2124,12 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
         TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
 
+        ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(RechargeActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
         // tv_msg.setText(msg1);
         tv_msg2.setText(msg2);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
