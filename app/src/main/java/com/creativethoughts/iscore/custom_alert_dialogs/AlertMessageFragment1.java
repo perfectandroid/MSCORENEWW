@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.custom_alert_dialogs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.kseb.KsebRechargeStatus;
@@ -129,6 +132,14 @@ public class AlertMessageFragment1 extends Fragment {
         TextView txtvAcntnoto = view.findViewById(R.id.txtvconsumersectn);
         TextView txtvbranchto = view.findViewById(R.id.txtvconsumerno);
         TextView txtvbill = view.findViewById(R.id.txtvbill);
+
+        ImageView img_applogo = view.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         txtTo.setText("Consumer Details");
 
