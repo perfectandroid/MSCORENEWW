@@ -8,11 +8,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -117,6 +119,7 @@ public class SplashScreen extends AppCompatActivity {
     static String bank_Key, bank_Header;
     TextView tv_error_message;
     Button btn_proceed;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +127,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         tv_error_message = findViewById(R.id.tv_error_message);
         btn_proceed = findViewById(R.id.btn_proceed);
+        imageView = findViewById(R.id.imageView);
+
         btn_proceed.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -445,6 +450,8 @@ public class SplashScreen extends AppCompatActivity {
                                 SharedPreferences.Editor AppIconImageCodeSPEditer = AppIconImageCodeSP.edit();
                                 AppIconImageCodeSPEditer.putString("AppIconImageCode", jobjt.getString("AppIconImageCode"));
                                 AppIconImageCodeSPEditer.commit();
+
+
                                 SharedPreferences CompanyLogoImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
                                 SharedPreferences.Editor CompanyLogoImageCodeSPEditer = CompanyLogoImageCodeSP.edit();
                                 CompanyLogoImageCodeSPEditer.putString("CompanyLogoImageCode", jobjt.getString("CompanyLogoImageCode"));
@@ -686,7 +693,10 @@ public class SplashScreen extends AppCompatActivity {
 
                               /* */
 
-
+                                SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                                String IMAGEURL = imageurlSP.getString("imageurl","");
+                                String AppIconImageCodePath =IMAGEURL+jobjt.getString("AppIconImageCode");
+                                PicassoTrustAll.getInstance(SplashScreen.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(imageView);
                                 getMaintenanceMessage();
 
                             }
