@@ -410,7 +410,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 
         }
         else  if(version.equals("false")) {
-            //   getVersioncode();
+               getVersioncode();
 
            /* if (NetworkUtil.isOnline()) {
                 int versionNumber = getCurrentVersionNumber(HomeActivity.this);
