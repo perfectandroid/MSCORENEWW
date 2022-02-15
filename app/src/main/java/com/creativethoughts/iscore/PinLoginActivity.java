@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,6 +47,7 @@ import io.reactivex.schedulers.Schedulers;
     private String  fifthLetter;
     private String  sixthLetter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,15 @@ import io.reactivex.schedulers.Schedulers;
         TextView txt_user  = findViewById(R.id.txt_user);
         TextView txt_logout  = findViewById(R.id.txt_logout);
         TextView txt_quit  = findViewById(R.id.txt_quit);
+        ImageView img_applogo = findViewById(R.id.img_applogo);
         //  ImageView imgClose  = findViewById(R.id.img_Close);
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+
+
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(PinLoginActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         imgLogout.setOnClickListener(this);
         txt_logout.setOnClickListener(this);
@@ -351,10 +361,16 @@ try {
             View layout = inflater1.inflate(R.layout.logout_popup, null);
             TextView tv_share =  layout.findViewById(R.id.tv_share);
             TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
+            ImageView img_applogo1 = layout.findViewById(R.id.img_applogo1);
 
             builder.setView(layout);
             final android.app.AlertDialog alertDialog = builder.create();
 
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(PinLoginActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo1);
 
 
 
@@ -548,8 +564,16 @@ try {
             View layout = inflater1.inflate(R.layout.quit_popup, null);
             TextView tv_share =  layout.findViewById(R.id.tv_share);
             TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
+            ImageView img_applogo2 = layout.findViewById(R.id.img_applogo2);
             builder.setView(layout);
             final android.app.AlertDialog alertDialog = builder.create();
+
+            SharedPreferences imageurlSP = getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(PinLoginActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo2);
+
             tv_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

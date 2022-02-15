@@ -38,6 +38,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -127,6 +128,8 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 //    SharedPreferences NeftSP = null;
 //    SharedPreferences OwnImpsSP = null;
 
+    ImageView imCompanylogo;
+
 
     // TODO: Rename and change types and number of parameters
     public  static Fragment newInstance(String hideRecharge, String hideMoneyTransfer ) {
@@ -179,11 +182,18 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         llnotification            = view.findViewById(R.id.llnotification);
         llrecharge            = view.findViewById(R.id.llrecharge);
         llfundtransfer            = view.findViewById(R.id.llfundtransfer);
+        imCompanylogo            = view.findViewById(R.id.imCompanylogo);
         llrecharge.setOnClickListener(this);
         llnotification.setOnClickListener(this);
         llfundtransfer.setOnClickListener(this);
         llquickView.setOnClickListener(this);
 
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+
+        SharedPreferences CompanyLogoImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF4, 0);
+        String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
 
          RechargeSP = getActivity().getSharedPreferences(Config.SHARED_PREF44, 0);
          //ImpsSP = getActivity().getSharedPreferences(Config.SHARED_PREF45, 0);

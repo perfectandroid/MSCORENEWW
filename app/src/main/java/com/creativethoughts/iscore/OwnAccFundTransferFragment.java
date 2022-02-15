@@ -44,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
@@ -676,6 +677,13 @@ public class OwnAccFundTransferFragment extends Fragment implements View.OnClick
                     TextView tv_amount_words = dialogView.findViewById(R.id.tv_amount_words);
                     Button butOk = dialogView.findViewById(R.id.btnOK);
                     Button butCan = dialogView.findViewById(R.id.btnCncl);
+                    ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+
+                    SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+                    String IMAGEURL = imageurlSP.getString("imageurl","");
+                    SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+                    String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+                    PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
                     String stramnt = CommonUtilities.getDecimelFormate(Double.parseDouble(amnt));
 

@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,20 +12,35 @@ import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 
 public class AboutUsActivity extends AppCompatActivity {
 
+    public String TAG = "AboutUsActivity";
+    ImageView imCompanylogo,img_applogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
+
+        imCompanylogo = findViewById(R.id.imCompanylogo);
+        img_applogo = findViewById(R.id.img_applogo);
         try {
-            SharedPreferences companypref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
-            ImageView imCompanylogo = findViewById(R.id.imCompanylogo);
-            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
-            String BASE_URL=pref.getString("baseurl", null);
-            String strimagepath1 = BASE_URL + companypref.getString("CompanyLogoImageCode", null);
-           //   String strimagepath1 = "https://play-lh.googleusercontent.com/o4P4Bi80PUysmO-y5ulsJJ4H-Vb6AkRMPNtGxtMzBLmobS3DP_DHu6bqu79_iSIBew=w500";
-           // PicassoTrustAll.getInstance(this).load(R.d).into(imCompanylogo);
+
+
+
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences CompanyLogoImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
+
+            PicassoTrustAll.getInstance(AboutUsActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+            PicassoTrustAll.getInstance(AboutUsActivity.this).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
+
+
         }catch (Exception e){
             e.printStackTrace();
+            Log.e(TAG,"Exception   "+e.toString());
+
         }
 
     }

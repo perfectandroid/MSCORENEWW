@@ -837,12 +837,12 @@
                     android:textColor="@color/black"
                     android:text="Powered by"/>
                 <ImageView
+                    android:id="@+id/imCompanylogo"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:paddingBottom="22dp"
                     android:paddingRight="5dp"
-                    android:paddingLeft="5dp"
-                    android:src="@drawable/companylogo"/>
+                    android:paddingLeft="5dp" />
             </LinearLayout>
         </RelativeLayout>
 

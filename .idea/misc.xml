@@ -58,14 +58,17 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_splash_screen.xml" value="0.3229166666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_splitlist.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_statement_download_view.xml" value="0.303125" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_walletservice.xml" value="0.21614583333333334" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/adapter_account.xml" value="0.27395833333333336" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/adapter_message.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/adapter_recharge_header.xml" value="0.26666666666666666" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/alert_layout.xml" value="0.32760416666666664" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/alert_recharge.xml" value="0.32760416666666664" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/circle_list.xml" value="0.1515625" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/confirmation_msg_popup.xml" value="0.18697916666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_about.xml" value="0.29270833333333335" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_accsummary.xml" value="0.30885416666666665" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_add_receiver.xml" value="0.24739583333333334" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_add_sender.xml" value="0.2015625" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_change_pin.xml" value="0.340625" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_deposit.xml" value="0.2682291666666667" />
@@ -89,9 +92,11 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/moneytransfer_popup_new.xml" value="0.3104166666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/oprator_list.xml" value="0.33" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/other_acc_fund_transferfragment.xml" value="0.325" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/phone_permission_layout.xml" value="0.2828125" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/pop_circlelist.xml" value="0.35104166666666664" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/pop_operatorlist.xml" value="0.26666666666666666" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/popup_accountno.xml" value="0.27395833333333336" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/quit_popup.xml" value="0.22864583333333333" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/recharge_confirmation_popup.xml" value="0.234375" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/recharge_popup_new.xml" value="0.24739583333333334" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/recycler_kseb_section.xml" value="0.30833333333333335" />

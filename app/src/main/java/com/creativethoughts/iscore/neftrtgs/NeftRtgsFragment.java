@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OtherfundTransferHistoryIMPS;
 import com.creativethoughts.iscore.OtherfundTransferHistoryNEFT;
@@ -371,7 +373,13 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
          TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
          TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
          TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
+         ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
 
+         SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+         String IMAGEURL = imageurlSP.getString("imageurl","");
+         SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+         String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+         PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
 
          txtvAcntno.setText("A/C No : "+mSpinnerAccountNo.getSelectedItem().toString());
@@ -725,6 +733,14 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
 
         tv_msg.setText(msg1);
         tv_msg2.setText(msg2);
+        ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
+
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

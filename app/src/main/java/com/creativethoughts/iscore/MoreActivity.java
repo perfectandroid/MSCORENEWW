@@ -3,16 +3,22 @@ package com.creativethoughts.iscore;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
+
 public class MoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tv_version, tv_abt_us, tv_contact_us, tv_rate_us, tv_feed_back, tv_faq,tv_features;
+    ImageView imCompanylogo,img_applogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,17 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         intViews();
         setRegViews();
         tv_version.setText("Version : "+ IScoreApplication.versionName);
+
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(MoreActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        SharedPreferences CompanyLogoImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
+        String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
+        PicassoTrustAll.getInstance(MoreActivity.this).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
+
     }
     private void intViews() {
         tv_version=findViewById(R.id.tv_version);
@@ -30,6 +47,8 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         tv_feed_back=findViewById(R.id.tv_feed_back);
         tv_faq=findViewById(R.id.tv_faq);
         tv_features=findViewById(R.id.tv_feat);
+        imCompanylogo = findViewById(R.id.imCompanylogo);
+        img_applogo = findViewById(R.id.img_applogo);
     }
 
     private void setRegViews() {

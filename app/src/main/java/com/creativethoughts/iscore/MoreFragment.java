@@ -2,23 +2,27 @@ package com.creativethoughts.iscore;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 
 
 public class MoreFragment extends Fragment implements View.OnClickListener{
 
 
     TextView tv_version, tv_abt_us, tv_contact_us, tv_features, tv_rate_us, tv_feed_back, tv_faq;
-
+    ImageView imCompanylogo,img_applogo;
     public MoreFragment() {
     }
 
@@ -40,7 +44,16 @@ public class MoreFragment extends Fragment implements View.OnClickListener{
         intViews(rootView);
         setRegViews();
         tv_version.setText("Version : "+ IScoreApplication.versionName);
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
 
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        SharedPreferences CompanyLogoImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF4, 0);
+        String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
         return rootView;
     }
 
@@ -52,6 +65,8 @@ public class MoreFragment extends Fragment implements View.OnClickListener{
         tv_feed_back=v.findViewById(R.id.tv_feed_back);
         tv_faq=v.findViewById(R.id.tv_faq);
         tv_features=v.findViewById(R.id.tv_feat);
+        imCompanylogo = v.findViewById(R.id.imCompanylogo);
+        img_applogo = v.findViewById(R.id.img_applogo);
     }
 
     private void setRegViews() {

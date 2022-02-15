@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.LoginBannerAdapter;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -89,6 +91,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private ArrayList<Integer> XMENArray = new ArrayList<Integer>();
     private static final int STORAGE_PERMISSION_CODE = 101;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    ImageView img_applogo;
 
 
 
@@ -148,6 +151,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
             init();
             queryPhoneNumber();
             addListenerOnButton();
+            img_applogo = findViewById(R.id.img_applogo);
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(UserRegistrationActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
         }
         checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
 
