@@ -87,7 +87,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     private Spinner mSenderSpinner;
     private Spinner mReceiverSpinner;
     private String mOtpResendLink;
-    private String token,cusid;
+    private String token,cusid,msg;
     private boolean mCanLoadSenderReceiver = false;
     String reference;
     ArrayList<SenderReceiver> arrayList2 = new ArrayList<>();
@@ -648,7 +648,160 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 String pin=pref1.getString("pinlog", null);
                 QuickPayTransfer("001001001510", "466677", "4556", "100", "TEST", pin,"hina","0010015855","9656789056","ananya","00100","8656789021","headoffice");
                 break;
+            case R.id.btn_forgot_mpin:
+                forgotMpin();
+                break;
         }
+    }
+
+    private void forgotMpin() {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    SharedPreferences cusidpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
+
+
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
+                    Log.e("requestObjectforgotmpin",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getForgotMpin(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response addsender   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            String statscode =jObject.getString("StatusCode");
+                            msg =jObject.getString("message");
+
+                    /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
+                            String responsemsg = j1.getString("ResponseMessage");
+                            String statusmsg = j1.getString("StatusMessage");
+                            int statusCode=j1.getInt("StatusCode");*/
+                        /*    if(statusCode==1){
+                                String refid;
+                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
+
+
+                                alertMessage("", keyValuePairs, statusmsg, true, false);
+                                //  JSONArray jarray = jobj.getJSONArray( "Data");
+
+                            }
+                            else if ( statusCode == 2 ){
+                                alertMessage1("" ,statusmsg );
+                            }
+                            else if ( statusCode == 3 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else if ( statusCode == 4 ){
+                                alertMessage1("", statusmsg);
+                            }
+                            else  if ( statusCode == 5 ){
+                                alertMessage1("", statusmsg);
+                            }
+
+                            else{
+
+
+                                try{
+                                  *//*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
+                                    String ResponseMessage = jobj.getString("ResponseMessage");*//*
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(responsemsg)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }catch (Exception e){
+                                    String EXMessage = j1.getString("EXMessage");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                                    builder.setMessage(EXMessage)
+//                                builder.setMessage("No data found.")
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+
+                                }
+                            }
+*/
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            alertMessage1("" ,msg );
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                        alertMessage1("" ,msg );
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
     }
 
     private void QuickConfirmation() {

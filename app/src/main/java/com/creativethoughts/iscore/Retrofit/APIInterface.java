@@ -198,6 +198,7 @@ public interface APIInterface {
     @POST("api/Customer/MTVerifyReceiverOTP")
     Call<String>getVerifyReceiverOTP(@Body RequestBody body);
 
-
+    @POST("api/AccountSummary/MTResendMPIN")
+    Call<String>getForgotMpin(@Body RequestBody body);
 
 }

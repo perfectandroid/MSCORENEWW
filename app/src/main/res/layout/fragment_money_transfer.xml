@@ -307,18 +307,19 @@
                         android:textColorHint="@color/text_primary"
                         android:textSize="18sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_forgot_mpin"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@null"
                     android:gravity="center"
+                    android:padding="5dp"
                     android:text="Forgot m-Pin"
                     android:textAllCaps="false"
-                    android:textColor="@color/RoyalBlue"/>
+                    android:textColor="@color/RoyalBlue" />
             </LinearLayout>
 
 
