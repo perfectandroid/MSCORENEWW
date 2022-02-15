@@ -17,12 +17,12 @@
     <style name="HomeActivityThem" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#4285F4</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:icon">@drawable/aappicon</item>
+<!--        <item name="android:icon">@drawable/aappicon</item>-->
     </style>
     <style name="HomeActivityTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#ffffff</item>
         <item name="android:textColorPrimary">@color/black_75_per</item>
-        <item name="android:icon">@drawable/aappicon</item>
+<!--        <item name="android:icon">@drawable/aappicon</item>-->
     </style>
 
     <style name="HomeActivityTheme1" parent="Theme.AppCompat.Light">
@@ -44,7 +44,7 @@
     <style name="MoneTransferTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#ffffff</item>
         <item name="android:textColorPrimary">@color/black_75_per</item>
-        <item name="android:icon">@drawable/aappicon</item>
+<!--        <item name="android:icon">@drawable/aappicon</item>-->
     </style>
     <style name="Zaark_Dialog_Button">
         <item name="android:layout_width">wrap_content</item>
@@ -146,7 +146,7 @@
     <style name="HomeActivityTheme2" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#297CCA</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:icon">@drawable/aappicon</item>
+<!--        <item name="android:icon">@drawable/aappicon</item>-->
     </style>
     <style name="service_chooser_before">
         <item name="android:background">@drawable/service_chooser_button_before</item>
