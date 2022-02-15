@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ import com.coolerfall.download.DownloadListener;
 import com.coolerfall.download.DownloadManager;
 import com.coolerfall.download.DownloadRequest;
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.MiniStatementTranscationListAdapter;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -1790,7 +1792,13 @@ public class DepositMinistatement extends AppCompatActivity implements View.OnCl
         AlertDialog alertDialog = dialogBuilder.create();
         TextView tv_share =  dialogView.findViewById(R.id.tv_share);
         TextView tv_msg =  dialogView.findViewById(R.id.txt1);
+        ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
         //  TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(DepositMinistatement.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
         if(msg1.equals(""))
         {
             tv_msg.setText(msg2);
