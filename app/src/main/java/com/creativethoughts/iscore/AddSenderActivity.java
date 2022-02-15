@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -62,8 +63,9 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
     private AppCompatEditText mFirstNameEt;
     private AppCompatEditText mLastNameEt;
     private AppCompatEditText mMobileNumberEt;
-    String token,cusid,pin;
+    String token,cusid,pin,msg;
     private TextView mDOBTv;
+    String from ="sender";
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,10 +171,22 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             Log.e("TAG","Response addsender   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statscode =jObject.getString("StatusCode");
-                            String msg =jObject.getString("message");
+                             msg =jObject.getString("message");
+                            String otprefno =jObject.getString("otpRefNo");
+                            
                             if(statscode.equals("0"))
                             {
 
+                            }
+                           else if(statscode.equals("200")&& otprefno.equals("0"))
+                            {
+                                alertMessage1("" ,msg );
+                            }
+                            else if(statscode.equals("200")&& !otprefno.equals("0"))
+                            {
+                               Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                               i.putExtra("from",from);
+                               startActivity(i);
                             }
                             else if(statscode.equals("500"))
                             {
@@ -246,12 +260,14 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            alertMessage1("" ,msg );
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        alertMessage1("" ,msg );
                     }
                 });
             }

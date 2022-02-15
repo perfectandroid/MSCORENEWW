@@ -189,4 +189,15 @@ public interface APIInterface {
     @POST("api/AccountSummary/MoneyTransferPayment")
     Call<String>getMoneytransferPayment(@Body RequestBody body);
 
+    @POST("api/Customer/MTVerifyPaymentOTP")
+    Call<String>getVerifyPaymentOTP(@Body RequestBody body);
+
+    @POST("api/Customer/MTVerifySenderOTP")
+    Call<String>getVerifySenderOTP(@Body RequestBody body);
+
+    @POST("api/Customer/MTVerifyReceiverOTP")
+    Call<String>getVerifyReceiverOTP(@Body RequestBody body);
+
+
+
 }

@@ -106,14 +106,15 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     long userId,fkSenderId;
     ArrayAdapter senderReceiverArrayAdapter = null;
     int mode;
-
-    String senderName,senderMobile,receiveraccno;
+    String from ="quickpay";
+    String senderName,senderMobile,receiveraccno,filename;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_money_transfer);
         
         setRegViews();
+
     }
 
     private void setRegViews() {
@@ -642,7 +643,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 break;
 
             case R.id.btn_submit:
-                QuickConfirmation();
+              //  QuickConfirmation();
+                SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                String pin=pref1.getString("pinlog", null);
+                QuickPayTransfer("001001001510", "466677", "4556", "100", "TEST", pin,"hina","0010015855","9656789056","ananya","00100","8656789021","headoffice");
                 break;
         }
     }
@@ -786,13 +790,14 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
+                  //  requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
                     requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     requestObject1.put("amount", IScoreApplication.encryptStart(amount));
                     requestObject1.put("Messages", IScoreApplication.encryptStart(message));
                     requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
-                    requestObject1.put("Module", IScoreApplication.encryptStart("module"));
+                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
                     requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
                     requestObject1.put("MPIN", IScoreApplication.encryptStart(senderMobile));
 
@@ -821,21 +826,21 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response ownaccount   "+response.body());
+                            Log.e("TAG","Response QUICKPAY   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statusCode=jObject.getString("StatusCode");
                             String statusmsg = jObject.getString("StatusMessage");
+                            String otpref = jObject.getString("otpRefNo");
 
-                            if ( statusCode!= null && statusCode.equals("200") ){
+                            if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
 
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
                                 startActivity(i);
 
-                                 //   !moneyTransferResponseModel.getOtpRefNo().equals("0")){
-                               /* TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
-                                        moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
-                                        moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
-                           //     Log.e(TAG,"1091   "+moneyTransferResponseModel.getMessage());
+                            }
+                            if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
+
                             }
                             else if ( statusCode!= null && statusCode.equals("200")){
                                  //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
@@ -849,17 +854,11 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             else if (  statusCode.equals("500")){
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
                                 startActivity(i);
-                 /*   TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
-                            moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
-                            moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
 
-                                alertMessage1(statusmsg, statusmsg);
+                              //  alertMessage1(statusmsg, statusmsg);
                             }
                             else {
-//                    QuickSuccess(mAccNo,"Oops....","Something went wrong",moneyTransferResponseModel.getStatusCode(),
-//                            moneyTransfer
-//                            ResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch, mAmount);
-                            //    Log.e(TAG,"10914   "+moneyTransferResponseModel.getMessage());
+//
                                 alertMessage1("Oops....!", "Something went wrong");
                             }
 
