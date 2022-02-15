@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -69,8 +70,8 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
     private AppCompatEditText mConfirmAccountNumberEt;
     private ProgressDialog mProgressDialog;
     private Spinner mSenderSpinner;
-    private String url,cusid;
-
+    private String url,cusid,msg;
+    String from ="receiver";
     ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -284,14 +285,24 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             Log.e("TAG","Response receivr   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statscode =jObject.getString("StatusCode");
-                            String msg =jObject.getString("message");
+                            msg =jObject.getString("message");
+                            String otprefno =jObject.getString("otpRefNo");
                             if(statscode.equals("0"))
                             {
 
                             }
+                            else if(statscode.equals("200")&& otprefno.equals("0"))
+                            {
+                                Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                startActivity(i);
+                            }
                             else if(statscode.equals("500"))
                             {
-                                alertMessage1("" ,msg );
+                              //  alertMessage1("" ,msg );
+                                Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                startActivity(i);
                             }
                             else
                             {
@@ -361,12 +372,14 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            alertMessage1("" ,msg );
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        alertMessage1("" ,msg );
                     }
                 });
             }

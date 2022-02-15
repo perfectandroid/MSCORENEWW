@@ -92,52 +92,108 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private ProgressDialog mProgressDialog;
     private String mResendLink;
     private AddSenderReceiverResponseModel mAddSenderReceiverResponseModel;
-    String cusid;
+    String cusid,from;
+    String otp;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_transaction_ot);
 
+
         setRegViews();
+        from = getIntent().getStringExtra("from");
+
     }
 
-    private void setRegViews() {
+    private void getVerifyreceiverOTP(String otp) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
 
-        mOTPEt =   findViewById(R.id.otp);
 
-        button =   findViewById(R.id.btn_submit);
-        //txt_amtinword =   view.findViewById(R.id.txt_amtinword);
+                    SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
 
-        button.setOnClickListener( this );
-        Button btnResendOtp  =  findViewById( R.id.btn_resend_otp );
-        btnResendOtp.setOnClickListener( this );
-    }
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.btn_submit:
-                if (isValid()) {
-                    if (NetworkUtil.isOnline()) {
-                        button.setEnabled(false);
-                        String otp = mOTPEt.getText().toString();
-                        getonfirmOTP(otp);
-                    } else {
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
 
-                        alertMessage1("",  "Network is currently unavailable. Please try again later.");
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
 
-                       /* DialogUtil.showAlert(getActivity(),
-                                "Network is currently unavailable. Please try again later.");*/
-                    }
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("23"));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart("48"));
+                    requestObject1.put("OTP", IScoreApplication.encryptStart(otp));
+                    requestObject1.put("otpRefNo", IScoreApplication.encryptStart("43434"));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(cusid));
+
+
+
+                    Log.e("requestObject1 addrecvr",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                break;
-            case R.id.btn_resend_otp:
-                break;
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getVerifyReceiverOTP(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response rcvrotp   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
         }
+
     }
 
-    private void getonfirmOTP(String otp) {
+    private void getVerifysenderOTP(String otp) {
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -164,18 +220,6 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
 
-
-
-                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
-                    requestObject1.put("receiverid", IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("transcationID", IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("OTP", IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("otpRefNo", IScoreApplication.encryptStart(cusid) );
-                    requestObject1.put("mobile", IScoreApplication.encryptStart(cusid) );
-
-
-
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
 
@@ -187,122 +231,32 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("23"));
+                    requestObject1.put("OTP", IScoreApplication.encryptStart(otp));
+                    requestObject1.put("otpRefNo", IScoreApplication.encryptStart("43434"));
+                    requestObject1.put("MobileNo", IScoreApplication.encryptStart("9745413880"));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(cusid));
 
-                    Log.e("requestObject1 addsndr",""+requestObject1);
+
+
+                    Log.e("requestObject1senderotp",""+requestObject1);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getAddsender(body);
+                Call<String> call = apiService.getVerifySenderOTP(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response ownaccount   "+response.body());
+                            Log.e("TAG","Response snderotp   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
-                            String statusCode=jObject.getString("StatusCode");
-                            String statusmsg = jObject.getString("StatusMessage");
 
-                            if ( statusCode!= null && statusCode.equals("200") ){
-
-                                Intent i = new Intent(TraansactionOTPActivity.this,TraansactionOTPActivity.class);
-                                startActivity(i);
-                                QuickSuccess();
-                                //   !moneyTransferResponseModel.getOtpRefNo().equals("0")){
-                               /* TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
-                                        moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
-                                        moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
-                                //     Log.e(TAG,"1091   "+moneyTransferResponseModel.getMessage());
-                            }
-                            else if ( statusCode!= null && statusCode.equals("200")){
-                                //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
-
-                               /* QuickSuccess(mAccNo,moneyTransferResponseModel.getStatus(),moneyTransferResponseModel.getMessage(),"",
-                                        moneyTransferResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch,mAmount);*/
-
-                                //  Log.e(TAG,"10912   "+moneyTransferResponseModel.getMessage());
-
-                            }
-                            else if (  statusCode.equals("500")){
-                                Intent i = new Intent(TraansactionOTPActivity.this,TraansactionOTPActivity.class);
-                                startActivity(i);
-                 /*   TransactionOTPFragment.openTransactionOTP(getActivity(), mSender, mReceiver,
-                            moneyTransferResponseModel.getTransactionId(), new AddSenderReceiverResponseModel(),
-                            moneyTransferResponseModel.getOtpRefNo(), mOtpResendLink);*/
-
-                                alertMessage1(statusmsg, statusmsg);
-                            }
-                            else {
-//                    QuickSuccess(mAccNo,"Oops....","Something went wrong",moneyTransferResponseModel.getStatusCode(),
-//                            moneyTransfer
-//                            ResponseModel.getOtpRefNo(),msenderName,msenderMobile,mreceiverAccountno,mrecievererName,mrecieverMobile,mbranch, mAmount);
-                                //    Log.e(TAG,"10914   "+moneyTransferResponseModel.getMessage());
-                                alertMessage1("Oops....!", "Something went wrong");
-                            }
-
-                    /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
-                            String responsemsg = j1.getString("ResponseMessage");
-                            String statusmsg = j1.getString("StatusMessage");
-                            int statusCode=j1.getInt("StatusCode");*/
-                        /*    if(statusCode==1){
-                                String refid;
-                                JSONArray jArray3 = j1.getJSONArray("FundTransferIntraBankList");
-
-
-                                alertMessage("", keyValuePairs, statusmsg, true, false);
-                                //  JSONArray jarray = jobj.getJSONArray( "Data");
-
-                            }
-                            else if ( statusCode == 2 ){
-                                alertMessage1("" ,statusmsg );
-                            }
-                            else if ( statusCode == 3 ){
-                                alertMessage1("", statusmsg);
-                            }
-                            else if ( statusCode == 4 ){
-                                alertMessage1("", statusmsg);
-                            }
-                            else  if ( statusCode == 5 ){
-                                alertMessage1("", statusmsg);
-                            }
-
-                            else{
-
-
-                                try{
-                                  *//*  JSONObject jobj = jObject.getJSONObject("AccountDueDetails");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");*//*
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
-                                    builder.setMessage(responsemsg)
-//                                builder.setMessage("No data found.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
-
-                                }catch (Exception e){
-                                    String EXMessage = j1.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
-                                    builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
-
-                                }
-                            }
-*/
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -325,7 +279,165 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
             // DialogUtil.showAlert(this,
             //"Network is currently unavailable. Please try again later.");
         }
+
     }
+
+    private void getVerifypaymentOTP(String otp) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("23"));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart("48"));
+                    requestObject1.put("transcationID", IScoreApplication.encryptStart("48"));
+                    requestObject1.put("OTP", IScoreApplication.encryptStart(otp));
+                    requestObject1.put("otpRefNo", IScoreApplication.encryptStart("43434"));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(cusid));
+
+
+
+                    Log.e("requestObject1 transotp",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getVerifyPaymentOTP(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response quickpay   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
+    }
+
+    private void setRegViews() {
+
+        mOTPEt =   findViewById(R.id.otp);
+
+        button =   findViewById(R.id.btn_submit);
+        //txt_amtinword =   view.findViewById(R.id.txt_amtinword);
+
+        button.setOnClickListener( this );
+        Button btnResendOtp  =  findViewById( R.id.btn_resend_otp );
+        btnResendOtp.setOnClickListener( this );
+
+        otp = mOTPEt.getText().toString();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.btn_submit:
+                if (isValid()) {
+                    if (NetworkUtil.isOnline()) {
+                      //  button.setEnabled(false);
+
+
+
+                        if(from.equals("quickpay"))
+                        {
+                            getVerifypaymentOTP(otp);
+                        }
+                        else if(from.equals("receiver"))
+                        {
+
+                            getVerifyreceiverOTP(otp);
+                        }
+                        else if(from.equals("sender"))
+                        {
+                            getVerifysenderOTP(otp);
+                        }
+                    } else {
+
+                        alertMessage1("",  "Network is currently unavailable. Please try again later.");
+
+                       /* DialogUtil.showAlert(getActivity(),
+                                "Network is currently unavailable. Please try again later.");*/
+                    }
+                }
+                break;
+            case R.id.btn_resend_otp:
+                if(from.equals("quickpay"))
+                {
+                    getVerifypaymentOTP(otp);
+                }
+                else if(from.equals("receiver"))
+                {
+
+                    getVerifyreceiverOTP(otp);
+                }
+                else if(from.equals("sender"))
+                {
+                    getVerifysenderOTP(otp);
+                }
+                break;
+        }
+    }
+
+
 
     private void QuickSuccess() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
