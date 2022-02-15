@@ -339,7 +339,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                                 }
-                                ArrayAdapter<SenderReceiver> dataAdapter = new ArrayAdapter<SenderReceiver>(getApplicationContext(), android.R.layout.simple_spinner_item, (List<SenderReceiver>) senders);
+                                ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter = new ArrayAdapter<SenderReceiver>(getApplicationContext(), android.R.layout.simple_spinner_item, (List<SenderReceiver>) senders);
                              //   senderReceiverArrayAdapter = new ArrayAdapter<>(getApplicationContext(),  R.layout.list_content_spin, R.id.textview, senders);
                                 mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
 
@@ -815,7 +815,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                     e.printStackTrace();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getAddsender(body);
+                Call<String> call = apiService.getMoneytransferPayment(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
