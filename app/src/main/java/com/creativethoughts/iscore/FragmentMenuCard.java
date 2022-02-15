@@ -532,10 +532,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 //                                JSONObject object = new JSONObject(String.valueOf(jsonObj1));
 //                                JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
 
+
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                 JSONArray Jarray  = object.getJSONArray("OwnAccountdetailsList");
-
                                 if(Jarray.length()!=0) {
                                     for (int i=0;i<Jarray.length();i++){
                                         JSONObject jsonobject= (JSONObject) Jarray.get(i);
