@@ -2,19 +2,26 @@ package com.creativethoughts.iscore;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +30,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
@@ -301,23 +309,27 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
                     TransactionOTPFragment.openSenderOTP( getActivity(),   addSenderResponseModel , url, false );
                     getActivity().finish();
                 }else if ( addSenderResponseModel.getStatusCode().equals("200") && addSenderResponseModel.getOtpRefNo().equals("0") ){
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setCustomImage(R.drawable.aappicon)
-                            .setConfirmText("Ok!")
-                            .showCancelButton(true)
-                            .setTitleText(addSenderResponseModel.getStatus())
-                            .setContentText( addSenderResponseModel.getMessage() )
-                            .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
-                            .show();
+//                    new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+//                            .setCustomImage(R.drawable.aappicon)
+//                            .setConfirmText("Ok!")
+//                            .showCancelButton(true)
+//                            .setTitleText(addSenderResponseModel.getStatus())
+//                            .setContentText( addSenderResponseModel.getMessage() )
+//                            .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
+//                            .show();
+                    alertMessage(addSenderResponseModel.getStatus(), addSenderResponseModel.getMessage() );
+
                 }else {
-                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                            .setCustomImage(R.drawable.aappicon)
-                            .setConfirmText("Ok!")
-                            .showCancelButton(true)
-                            .setTitleText(addSenderResponseModel.getStatus())
-                            .setContentText( addSenderResponseModel.getMessage() )
-                            .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
-                            .show();
+//                    new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+//                            .setCustomImage(R.drawable.aappicon)
+//                            .setConfirmText("Ok!")
+//                            .showCancelButton(true)
+//                            .setTitleText(addSenderResponseModel.getStatus())
+//                            .setContentText( addSenderResponseModel.getMessage() )
+//                            .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
+//                            .show();
+
+                    alertMessage(addSenderResponseModel.getStatus(), addSenderResponseModel.getMessage() );
                 }
             }catch ( Exception e ){
                 new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE )
@@ -353,7 +365,48 @@ public class AddReceiverFragment extends Fragment implements View.OnClickListene
 
     }
 
-   private class SenderReceiverAsyncTask extends AsyncTask<String, android.R.integer, ArrayList<SenderReceiver>> {
+    private void alertMessage(String title, String message) {
+
+        try {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+            LayoutInflater inflater1 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater1.inflate(R.layout.alert_layout1, null);
+
+            ImageView img_applogo = layout.findViewById(R.id.img_applogo);
+            TextView txt_header = layout.findViewById(R.id.txt_header);
+            TextView txt_message = layout.findViewById(R.id.txt_message);
+            TextView tv_ok = layout.findViewById(R.id.tv_ok);
+
+            SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+            txt_header.setText(""+title);
+            txt_message.setText(""+message);
+
+            builder.setView(layout);
+            AlertDialog alertDialog1 = builder.create();
+
+            tv_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog1.dismiss();
+                }
+            });
+
+            Window window = alertDialog1.getWindow();
+            window.setGravity(Gravity.CENTER);
+            alertDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog1.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private class SenderReceiverAsyncTask extends AsyncTask<String, android.R.integer, ArrayList<SenderReceiver>> {
 
         private SenderReceiverAsyncTask() {
 
