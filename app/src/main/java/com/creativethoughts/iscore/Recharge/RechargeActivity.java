@@ -1425,9 +1425,15 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
             TextView text_confirmationmsg =  layout.findViewById(R.id.text_confirmationmsg);
             TextView bt_ok =  layout.findViewById(R.id.bt_ok);
             TextView bt_cancel =  layout.findViewById(R.id.bt_cancel);
+            ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
             builder.setView(layout);
             final AlertDialog alertDialog = builder.create();
 
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(RechargeActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
             tvAcntno.setText(""+mAccountNumber);
             tvbranch.setText(BranchName);
