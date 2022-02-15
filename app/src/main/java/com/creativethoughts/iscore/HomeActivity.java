@@ -335,12 +335,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
             View layout = inflater1.inflate(R.layout.quit_popup, null);
             TextView tv_share =  layout.findViewById(R.id.tv_share);
             TextView tv_cancel =  layout.findViewById(R.id.tv_cancel);
+            ImageView img_applogo = layout.findViewById(R.id.img_applogo2);
 
             builder.setView(layout);
             final android.app.AlertDialog alertDialog = builder.create();
 
 
-
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(HomeActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
             tv_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
