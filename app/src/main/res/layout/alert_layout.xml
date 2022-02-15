@@ -42,7 +42,6 @@
                     <ImageView
                         android:id="@+id/img_applogo"
                         android:layout_width="65dp"
-                        android:background="@drawable/aappicon"
                         android:layout_gravity="center"
                         android:layout_height="65dp" />
                     <TextView
