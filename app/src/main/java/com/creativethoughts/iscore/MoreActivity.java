@@ -18,7 +18,7 @@ import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 public class MoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tv_version, tv_abt_us, tv_contact_us, tv_rate_us, tv_feed_back, tv_faq,tv_features;
-    ImageView imCompanylogo;
+    ImageView imCompanylogo,img_applogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,9 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
         String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(MoreActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         SharedPreferences CompanyLogoImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
         String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
@@ -45,6 +48,7 @@ public class MoreActivity extends AppCompatActivity implements View.OnClickListe
         tv_faq=findViewById(R.id.tv_faq);
         tv_features=findViewById(R.id.tv_feat);
         imCompanylogo = findViewById(R.id.imCompanylogo);
+        img_applogo = findViewById(R.id.img_applogo);
     }
 
     private void setRegViews() {
