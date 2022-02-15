@@ -394,6 +394,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void getResellerData() {
+        Log.e("TAG","BASE_URL   2351 "+BASE_URL);
         if (NetworkUtil.isOnline()) {
             try {
                 OkHttpClient client = new OkHttpClient.Builder()

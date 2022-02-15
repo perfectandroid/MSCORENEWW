@@ -506,10 +506,10 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
         SharedPreferences mobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF31, 0);
         String strMobileNo =mobileNoSP.getString("mobileNo","");
 
-        SharedPreferences TestingMobileNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
-        SharedPreferences.Editor TestingMobileNoEditer = TestingMobileNoSP.edit();
-        TestingMobileNoEditer.putString("LoginMobileNo", strMobileNo);
-        TestingMobileNoEditer.commit();
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
+        SharedPreferences.Editor prefEditer = pref.edit();
+        prefEditer.putString("LoginMobileNo", strMobileNo);
+        prefEditer.commit();
 
         SharedPreferences loginSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
                                       SharedPreferences.Editor loginEditer = loginSP.edit();
