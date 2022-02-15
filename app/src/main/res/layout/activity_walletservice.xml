@@ -39,14 +39,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center">
                             <ImageView
+                                android:id="@+id/img_applogo"
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="center_horizontal"
                                 android:gravity="center"
                                 android:scaleType="fitXY"
-                                android:background="@drawable/circle_shape"
-                                android:src="@drawable/aappicon"/>
+                                android:background="@drawable/circle_shape" />
 
                             <TextView
                                 android:layout_width="342dp"

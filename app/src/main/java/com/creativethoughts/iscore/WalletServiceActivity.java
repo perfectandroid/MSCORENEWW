@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.WalletMintransAdapter;
 import com.creativethoughts.iscore.model.ToAccountDetails;
@@ -83,6 +85,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
     EditText edt_txt_amount;
     Button btn_submit;
     Spinner mAccountSpinner;
+    ImageView img_applogo;
 
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist;
@@ -110,6 +113,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         spn_account_type = findViewById(R.id.spn_account_type);
         edt_txt_amount = findViewById(R.id.edt_txt_amount);
         btn_submit = findViewById(R.id.btn_submit);
+        img_applogo = findViewById(R.id.img_applogo);
+
         btn_submit.setOnClickListener(this);
 
         SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
@@ -120,7 +125,15 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
         tvwalletbal.setText( "WALLET BALANCE ON "+currentDate);
 
-      //  showOwnAccToList();
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+
+
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(WalletServiceActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        //  showOwnAccToList();
         getWalletAmount();
 
         getAccList();
