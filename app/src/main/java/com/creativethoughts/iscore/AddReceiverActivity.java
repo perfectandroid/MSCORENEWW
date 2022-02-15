@@ -130,7 +130,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
-                    Log.e("requestObject1 addsndr",""+requestObject1);
+                    Log.e("requestObject1 addrecvr",""+requestObject1);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -140,7 +140,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response senderlist   "+response.body());
+                            Log.e("TAG","Response receiver   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             JSONArray jsonArray = jObject.getJSONArray("SenderReceiverDetailedList");
                             if (jsonArray != null) {
@@ -249,12 +249,13 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("receiver_name", IScoreApplication.encryptStart(receiverName));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("receiver_name", IScoreApplication.encryptStart(receiverName));
                     requestObject1.put("receiver_mobile", IScoreApplication.encryptStart(mobileNumber));
                     requestObject1.put("receiver_IFSCcode", IScoreApplication.encryptStart(ifscCode));
                     requestObject1.put("receiver_accountno", IScoreApplication.encryptStart(accNumber));
-
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
@@ -282,6 +283,20 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                         try {
                             Log.e("TAG","Response receivr   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+                            String statscode =jObject.getString("StatusCode");
+                            String msg =jObject.getString("message");
+                            if(statscode.equals("0"))
+                            {
+
+                            }
+                            else if(statscode.equals("500"))
+                            {
+                                alertMessage1("" ,msg );
+                            }
+                            else
+                            {
+                                alertMessage1("" ,msg );
+                            }
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
                             String statusmsg = j1.getString("StatusMessage");
@@ -373,7 +388,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
         SenderReceiver senderReceiver = ((SenderReceiver) mSenderSpinner.getSelectedItem());
 
-        if (senderReceiver == null) {
+     /*   if (senderReceiver == null) {
             if (mSenderReceivers.isEmpty()) {
                 showToast("Please add minimum one sender, and then add receiver");
             }
@@ -385,7 +400,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
             return false;
         }
-
+*/
         String receiverName = mReceiverEt.getText().toString();
         String mobileNumber = mMobileNumberEt.getText().toString();
         String ifscCode = mIFSCCodeEt.getText().toString();
