@@ -1566,6 +1566,13 @@ public class OtherAccFundTransferFragment extends Fragment implements View.OnCli
         ImageView img_share      = dialogView.findViewById( R.id.img_share );
         TextView txtTitle       = dialogView.findViewById( R.id.txt_success );
         TextView txtMessage = dialogView.findViewById( R.id.txt_message );
+        ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         dialogView.findViewById( R.id.rltv_footer ).setOnClickListener( view1 -> {
             try{
