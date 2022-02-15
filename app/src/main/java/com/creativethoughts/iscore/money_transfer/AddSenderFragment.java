@@ -1,17 +1,23 @@
 package com.creativethoughts.iscore.money_transfer;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +25,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.TransactionOTPFragment;
@@ -232,14 +239,16 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
 
                 try{
                     if ( addSenderResponseModel.getOtpRefNo().equals("0") && addSenderResponseModel.getStatusCode().equals("200") ){
-                        new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                                .setCustomImage(R.drawable.aappicon)
-                                .setConfirmText("Ok!")
-                                .showCancelButton(true)
-                                .setTitleText(addSenderResponseModel.getStatus())
-                                .setContentText( addSenderResponseModel.getMessage() )
-                                .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
-                                .show();
+//                        new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+//                                .setCustomImage(R.drawable.aappicon)
+//                                .setConfirmText("Ok!")
+//                                .showCancelButton(true)
+//                                .setTitleText(addSenderResponseModel.getStatus())
+//                                .setContentText( addSenderResponseModel.getMessage() )
+//                                .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
+//                                .show();
+
+                        alertMessage(addSenderResponseModel.getStatus(), addSenderResponseModel.getMessage() );
 
                     }
                     else if ( !addSenderResponseModel.getOtpRefNo().equals("0") && addSenderResponseModel.getStatusCode().equals("200") ){
@@ -255,14 +264,16 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
                         getActivity().finish();
                     }
                     else {
-                        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                                .setCustomImage(R.drawable.aappicon)
-                                .setConfirmText("Ok!")
-                                .showCancelButton(true)
-                                .setTitleText(addSenderResponseModel.getStatus())
-                                .setContentText( addSenderResponseModel.getMessage() )
-                                .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
-                                .show();
+//                        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+//                                .setCustomImage(R.drawable.aappicon)
+//                                .setConfirmText("Ok!")
+//                                .showCancelButton(true)
+//                                .setTitleText(addSenderResponseModel.getStatus())
+//                                .setContentText( addSenderResponseModel.getMessage() )
+//                                .setConfirmClickListener(SweetAlertDialog::dismissWithAnimation)
+//                                .show();
+
+                        alertMessage(addSenderResponseModel.getStatus(), addSenderResponseModel.getMessage() );
                     }
 
 
@@ -330,5 +341,46 @@ public class AddSenderFragment extends Fragment implements View.OnClickListener 
             Log.e("TAG","Exception   3143   "+e.toString());
         }
         return new AddSenderReceiverResponseModel();
+    }
+
+    private void alertMessage(String title, String message) {
+
+        try {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+            LayoutInflater inflater1 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater1.inflate(R.layout.alert_layout1, null);
+
+            ImageView img_applogo = layout.findViewById(R.id.img_applogo);
+            TextView txt_header = layout.findViewById(R.id.txt_header);
+            TextView txt_message = layout.findViewById(R.id.txt_message);
+            TextView tv_ok = layout.findViewById(R.id.tv_ok);
+
+            SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+            txt_header.setText(""+title);
+            txt_message.setText(""+message);
+
+            builder.setView(layout);
+            AlertDialog alertDialog1 = builder.create();
+
+            tv_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog1.dismiss();
+                }
+            });
+
+            Window window = alertDialog1.getWindow();
+            window.setGravity(Gravity.CENTER);
+            alertDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog1.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

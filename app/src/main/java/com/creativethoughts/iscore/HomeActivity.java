@@ -9,12 +9,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -601,18 +607,65 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
             alertDialogBuilder.show();
             return;
         }
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog( HomeActivity.this , SweetAlertDialog.CUSTOM_IMAGE_TYPE);
-        sweetAlertDialog
-                .setCustomImage(R.drawable.aappicon)
-                .setConfirmText("OK!")
-                .showCancelButton(true)
-                .setTitleText("New Version Available")
-                .setContentText("New version of this application is available.\nClick OK to upgrade now")
-                .setConfirmClickListener(sweetAlertDialog1 -> {
-                    sweetAlertDialog1.dismissWithAnimation();
-                    finish();
-//                    String url = getResources().getString(R.string.app_link );
+//        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog( HomeActivity.this , SweetAlertDialog.CUSTOM_IMAGE_TYPE);
+//        sweetAlertDialog
+//                .setCustomImage(R.drawable.aappicon)
+//                .setConfirmText("OK!")
+//                .showCancelButton(true)
+//                .setTitleText("New Version Available")
+//                .setContentText("New version of this application is available.\nClick OK to upgrade now")
+//                .setConfirmClickListener(sweetAlertDialog1 -> {
+//                    sweetAlertDialog1.dismissWithAnimation();
+//                    finish();
+////                    String url = getResources().getString(R.string.app_link );
+//
+//                    SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF6, 0);
+//
+//                    String url = pref.getString("PlayStoreLink", null);
+//                    try {
+//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//                    } catch (android.content.ActivityNotFoundException anfe) {
+//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+//                    }
+//                })
+//                .setCancelable(false);
+//        sweetAlertDialog.show();
 
+        playStorePop();
+
+    }
+
+    private void playStorePop() {
+
+
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            LayoutInflater inflater1 = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater1.inflate(R.layout.alert_playstore, null);
+
+
+            ImageView img_applogo = layout.findViewById(R.id.img_applogo);
+            TextView txt_header = layout.findViewById(R.id.txt_header);
+            TextView txt_message = layout.findViewById(R.id.txt_message);
+            Button butok = layout.findViewById(R.id.butok);
+
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(HomeActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+            txt_header.setText("New Version Available");
+            txt_message.setText("New version of this application is available.\nClick OK to upgrade now");
+            builder.setCancelable(false);
+            builder.setView(layout);
+            AlertDialog alertDialog1 = builder.create();
+
+            butok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    finish();
                     SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF6, 0);
 
                     String url = pref.getString("PlayStoreLink", null);
@@ -621,10 +674,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
                     } catch (android.content.ActivityNotFoundException anfe) {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                     }
-                })
-                .setCancelable(false);
-        sweetAlertDialog.show();
-
+                }
+            });
+            Window window = alertDialog1.getWindow();
+            window.setGravity(Gravity.CENTER);
+            alertDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            alertDialog1.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("TAG","Exception  673 "+e.toString());
+        }
     }
 
 
