@@ -490,13 +490,21 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                     SharedPreferences bankheaderpref =getActivity().getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
+//
+//                    requestObject1.put("ReqMode",reqmode);
+//                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
+//                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+//                    requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
+//                    requestObject1.put("LoanType",IScoreApplication.encryptStart(types));
+//                    // requestObject1.put("IsShareAc", IScoreApplication.encryptStart("0"));
+//
+//                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+//                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
-                    requestObject1.put("ReqMode",reqmode);
-                    requestObject1.put("Token",IScoreApplication.encryptStart(token));
-                    requestObject1.put("FK_Customer",IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
+                    requestObject1.put("Token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
                     requestObject1.put("SubMode",IScoreApplication.encryptStart("1"));
-                    requestObject1.put("LoanType",IScoreApplication.encryptStart(types));
-                    // requestObject1.put("IsShareAc", IScoreApplication.encryptStart("0"));
 
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
@@ -504,12 +512,14 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                     Log.e(TAG,"requestObject1  474   "+requestObject1);
 
 
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
-                Call<String> call = apiService.getCustomerLoanandDeposit(body);
+              //  Call<String> call = apiService.getCustomerLoanandDeposit(body);
+                Call<String> call = apiService.getOwnAccounDetails(body);
                 call.enqueue(new Callback<String>() {
 
                     @Override
@@ -518,16 +528,20 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                             JSONObject jsonObj = new JSONObject(response.body());
                             Log.e(TAG,"response  4742   "+response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
-                                JSONObject jsonObj1 = jsonObj.getJSONObject("CustomerLoanAndDepositDetails");
+//                                JSONObject jsonObj1 = jsonObj.getJSONObject("CustomerLoanAndDepositDetails");
+//                                JSONObject object = new JSONObject(String.valueOf(jsonObj1));
+//                                JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
+
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
-                                JSONArray Jarray  = object.getJSONArray("CustomerLoanAndDepositDetailsList");
+                                JSONArray Jarray  = object.getJSONArray("OwnAccountdetailsList");
 
                                 if(Jarray.length()!=0) {
                                     for (int i=0;i<Jarray.length();i++){
                                         JSONObject jsonobject= (JSONObject) Jarray.get(i);
                                         SharedPreferences SelectedAccountSP = getActivity().getSharedPreferences(Config.SHARED_PREF40, 0);
                                         String acChange = SelectedAccountSP.getString("SelectedAccount",null);
-
+                                        Log.e(TAG,"acChange  47411   "+acChange+"   "+jsonobject.optString("AccountNumber"));
                                         if (acChange == null){
 
                                             JSONObject jsonobject1= (JSONObject) Jarray.get(0);
