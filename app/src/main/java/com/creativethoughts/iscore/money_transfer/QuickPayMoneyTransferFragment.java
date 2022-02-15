@@ -1226,6 +1226,13 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         TextView txtv_typeamt =  layout.findViewById(R.id.txtv_typeamt);
         TextView txtTo =  layout.findViewById(R.id.txtTo);
         TextView txtpfrom =  layout.findViewById(R.id.txtpfrom);
+        ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
 
       //  crdSuccess.setVisibility(View.VISIBLE);
