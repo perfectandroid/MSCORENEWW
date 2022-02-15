@@ -287,12 +287,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            alertMessage1("",  statsmsg1);
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        alertMessage1("",  statsmsg1);
                     }
                 });
             }
