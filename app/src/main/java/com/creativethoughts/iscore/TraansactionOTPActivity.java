@@ -469,9 +469,16 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
         TextView txtv_typeamt =  layout.findViewById(R.id.txtv_typeamt);
         TextView txtTo =  layout.findViewById(R.id.txtTo);
         TextView txtpfrom =  layout.findViewById(R.id.txtpfrom);
+        ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
 
 
         //  crdSuccess.setVisibility(View.VISIBLE);
+
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(TraansactionOTPActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         tv_msg.setText("status");
         tv_sender_name.setText("msenderName");

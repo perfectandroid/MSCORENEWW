@@ -1923,6 +1923,14 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
        tvrefe.setText("Ref.No "+fundtransfrlist.get(0).getrefId());
 
+       ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+
+       SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+       String IMAGEURL = imageurlSP.getString("imageurl","");
+       SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+       String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+       PicassoTrustAll.getInstance(OwnAccountFundTransferActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
        //current time
        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
        tvtime.setText("Time : "+currentTime);

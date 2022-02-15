@@ -3,6 +3,7 @@ package com.creativethoughts.iscore.custom_alert_dialogs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -18,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.creativethoughts.iscore.FragmentMenuCard;
+import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.db.dao.model.RechargeModel;
@@ -129,6 +132,14 @@ public class AlertMessageFragment2 extends Fragment {
         TextView txtcircle = view.findViewById(R.id.txtvcircle);
         TextView txtvbranchto = view.findViewById(R.id.txtvbranchto);
         TextView txtvbalnceto = view.findViewById(R.id.txtvbalnceto);
+
+        ImageView img_applogo = view.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
     /*   if(from1!=null)
        {

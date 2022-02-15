@@ -75,7 +75,7 @@ public class NotificationMgr {
         builder = new NotificationCompat.Builder(mContext).setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle("Mscore").setContentText(message).setAutoCancel(
                         true) // clear it when user click on it
-                .setSmallIcon(R.drawable.aappicon)
+//                .setSmallIcon(R.drawable.aappicon)
                 .setOnlyAlertOnce(true);
 
         Intent resultIntent = new Intent(mContext, PinLoginActivity.class);

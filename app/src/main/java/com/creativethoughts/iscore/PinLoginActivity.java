@@ -519,6 +519,13 @@ try {
             OwnImpsEditer.putString("OwnImps","");
             OwnImpsEditer.commit();
 
+
+            SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF14, 0);
+            SharedPreferences.Editor prefEditer = pref.edit();
+            prefEditer.putString("LoginMobileNo", "");
+            prefEditer.commit();
+
+
             Intent intent = new Intent( this, SplashScreen.class );
             intent.putExtra("from","true");
             startActivity( intent );

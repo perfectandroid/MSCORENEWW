@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -23,6 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.adapters.NewMenuAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -227,7 +229,13 @@ public class NavigationDrawerFragment extends Fragment {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.custom_action_bar);
+        ImageView img_applogo = getActivity().findViewById(R.id.custom_action_bar_logo);
 
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.

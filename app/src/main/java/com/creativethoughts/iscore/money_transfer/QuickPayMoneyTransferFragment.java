@@ -667,9 +667,15 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                     TextView text_confirmationmsg =  layout.findViewById(R.id.text_confirmationmsg);
                     TextView bt_ok =  layout.findViewById(R.id.bt_ok);
                     TextView bt_cancel =  layout.findViewById(R.id.bt_cancel);
+                    ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
                     builder.setView(layout);
                     final AlertDialog alertDialog = builder.create();
 
+                    SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+                    String IMAGEURL = imageurlSP.getString("imageurl","");
+                    SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+                    String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+                    PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
                     tvbranch.setText(BranchName);
                     tv_sender_name.setText(senderName);
                     tv_sender_acc_no.setText(accountNumber);
@@ -1220,6 +1226,13 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
         TextView txtv_typeamt =  layout.findViewById(R.id.txtv_typeamt);
         TextView txtTo =  layout.findViewById(R.id.txtTo);
         TextView txtpfrom =  layout.findViewById(R.id.txtpfrom);
+        ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
 
       //  crdSuccess.setVisibility(View.VISIBLE);
