@@ -697,10 +697,17 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
             TextView txtvAcntno = dialogView.findViewById(R.id.txtvAcntno);
             TextView txtvbranch = dialogView.findViewById(R.id.txtvbranch);
             TextView txtvbalnce = dialogView.findViewById(R.id.txtvbalnce);
+            ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
 
             TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
             TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
             TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
+
+            SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+            String IMAGEURL = imageurlSP.getString("imageurl","");
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+            PicassoTrustAll.getInstance(NeftRtgsActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
 
 

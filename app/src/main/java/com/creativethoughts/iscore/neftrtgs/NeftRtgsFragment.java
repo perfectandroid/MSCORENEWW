@@ -373,7 +373,13 @@ public class NeftRtgsFragment extends Fragment implements View.OnClickListener {
          TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
          TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
          TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);
+         ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
 
+         SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
+         String IMAGEURL = imageurlSP.getString("imageurl","");
+         SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
+         String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+         PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
 
          txtvAcntno.setText("A/C No : "+mSpinnerAccountNo.getSelectedItem().toString());
