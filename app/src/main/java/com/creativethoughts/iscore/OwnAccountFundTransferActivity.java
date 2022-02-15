@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
@@ -1760,6 +1761,14 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
         tv_msg.setText(msg1);
         tv_msg2.setText(msg2);
+        ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
+
+
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(OwnAccountFundTransferActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
         TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
