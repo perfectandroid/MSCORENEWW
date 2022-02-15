@@ -344,6 +344,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         /*TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
         TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);*/
 
+        ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(OTPActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
         String refid=neftRtgsOtpResponseModels.get(0).getRefId();
         String msg=neftRtgsOtpResponseModels.get(0).getMessage();
         String amm=neftRtgsOtpResponseModels.get(0).getAmount();
