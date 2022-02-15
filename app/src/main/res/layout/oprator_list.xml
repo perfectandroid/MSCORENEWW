@@ -27,7 +27,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
-                android:src="@drawable/aappicon"/>
+                android:src="@drawable/no_image"/>
 
             <TextView
                 android:id="@+id/tva_oprator"

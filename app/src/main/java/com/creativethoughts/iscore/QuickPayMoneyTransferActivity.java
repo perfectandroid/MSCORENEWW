@@ -697,8 +697,16 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                     TextView text_confirmationmsg =  layout.findViewById(R.id.text_confirmationmsg);
                     TextView bt_ok =  layout.findViewById(R.id.bt_ok);
                     TextView bt_cancel =  layout.findViewById(R.id.bt_cancel);
+                    ImageView img_applogo = layout.findViewById(R.id.img_aapicon);
+
                     builder.setView(layout);
                     final AlertDialog alertDialog = builder.create();
+
+                    SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+                    String IMAGEURL = imageurlSP.getString("imageurl","");
+                    SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+                    String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+                    PicassoTrustAll.getInstance(QuickPayMoneyTransferActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
                     tvbranch.setText(BranchName);
                     tv_sender_name.setText(senderName);
