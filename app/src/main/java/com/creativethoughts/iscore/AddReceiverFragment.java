@@ -46,7 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
+@Deprecated
 /**
  * A simple {@link Fragment} subclass.
  */

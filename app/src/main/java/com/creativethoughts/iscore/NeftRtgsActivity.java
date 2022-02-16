@@ -299,10 +299,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-//                    UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-//                    String token = loginCredential.token;
-//                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-//                    String cusid = userDetails.customerId;
+
                     customerIdSP = this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     SharedPreferences tokenIdSP = this.getSharedPreferences(Config.SHARED_PREF35, 0);
                     String token = tokenIdSP.getString("Token","");
@@ -386,7 +383,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                                             if (TextUtils.isEmpty(account)) {
                                                 continue;
                                             }
-                                            //  SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+
 
 
                                             String customerId = customerIdSP.getString("customerId","");
@@ -792,7 +789,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     "Network is currently unavailable. Please try again later." );*/
             return;
         }
-       // UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
+
         if (isValid( ) ){
             String tempAccNo = mSpinnerAccountNo.getSelectedItem( ).toString( );
             tempAccNo = tempAccNo.replace(tempAccNo.substring(tempAccNo.indexOf(" (" )+1, tempAccNo.indexOf( ')' )+1 ), "" );
@@ -822,8 +819,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
 
 
-          /*  AccountInfo accountInfo = PBAccountInfoDAO.getInstance( ).getAccountInfo(tempAccNo );*/
-          //  final String module = accountInfo.s;
+
 
             final String accNo = tempAccNo;
 

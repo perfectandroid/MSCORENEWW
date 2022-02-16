@@ -963,7 +963,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
             if (TextUtils.isEmpty(account)) {
                 continue;
             }
-         //   SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+
             if (account.equalsIgnoreCase(cusid)) {
                 mAccountSpinner.setSelection(i);
 
@@ -1971,8 +1971,6 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
        txtvAcntno.setText("A/C :"+SourceAccountNumber);
        txtvbranch.setText("Branch :"+BranchName);
-       double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
-       DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
      /*  txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));*/
 

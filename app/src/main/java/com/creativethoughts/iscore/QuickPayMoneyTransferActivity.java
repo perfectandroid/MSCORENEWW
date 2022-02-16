@@ -25,8 +25,7 @@ import android.widget.TextView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
+
 import com.creativethoughts.iscore.model.Receivers;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
@@ -500,10 +499,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
                 try {
-                 /*   UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-                    String token = loginCredential.token;
-                    UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-                    String cusid = userDetails.customerId;*/
+
                     requestObject1.put("ReqMode",       IScoreApplication.encryptStart("13"));
                     requestObject1.put("Token",         IScoreApplication.encryptStart(token));
                     requestObject1.put("FK_Customer",   IScoreApplication.encryptStart(cusid));
@@ -560,8 +556,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                     }
                                 })
                                 ;
-                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
+
 
 
                             }

@@ -258,17 +258,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         scan.setOnClickListener(this);
 
 
-       /* UserCredential loginCredential = UserCredentialDAO.getInstance( ).getLoginCredential( );
-        token =  loginCredential.token;
-        UserDetails userDetails = UserDetailsDAO.getInstance().getUserDetail();
-        cusid = userDetails.customerId;
-        try {
-            Log.e(TAG,"token   251   "+IScoreApplication.encryptStart(token));
-            Log.e(TAG,"token   252   "+IScoreApplication.encryptStart(cusid));
-            Log.e(TAG,"token   253   "+IScoreApplication.encryptStart("13"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
 
         SharedPreferences toknpref = OtherAccountFundTransferActivity.this.getSharedPreferences(Config.SHARED_PREF35, 0);
          token=toknpref.getString("Token", null);
@@ -668,13 +658,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     private void setAccountNumber() {
         settingAccountNumber(cusid);
 
-        /*SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
 
-        if (settingsModel == null) {
-            settingAccountNumber(null);
-        } else {
-            settingAccountNumber(settingsModel.customerId);
-        }*/
     }
     private void settingAccountNumber(String cusid){
         //  CommonUtilities.transactionActivitySetAccountNumber(customerId, mAccountSpinner, getActivity());
@@ -698,8 +682,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             e.printStackTrace();
         }
 
-      //  List<String> accountSpinnerItems  ;
-        //accountSpinnerItems = PBAccountInfoDAO.getInstance().getAccountNos();
+
         ArrayList<String> itemTemp =  new ArrayList<>();
 
         if (accountSpinnerItems.isEmpty())
@@ -726,7 +709,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             if (TextUtils.isEmpty(account)) {
                 continue;
             }
-        //    SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+
             if (account.equalsIgnoreCase(cusid)) {
                 mAccountSpinner.setSelection(i);
 
@@ -945,9 +928,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         accountNumber = accountNumber.replace(accountNumber.substring(accountNumber.indexOf(" (") + 1, accountNumber.indexOf(")") + 1), "");
         accountNumber = accountNumber.replace(" ", "");
 
-      //  AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(accountNumber);
 
-     //   String accountType = accountInfo.accountTypeShort;
         final String tempFromAccNo = accountNumber +"("+ type +")";
         final String tempToAccNo = recvaccNumber +"("+ type +")";
 
