@@ -891,21 +891,21 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
                     Log.e(TAG,"requestObject1     790   "+requestObject1);
 
-//                    Log.e(TAG,"payKsebBill  790 "
-//                            +"\n"+"ConsumerName   "+tempStringConsumerName
-//                            +"\n"+"MobileNo   "+tempStringMobileNumber
-//                            +"\n"+"ConsumerNo   "+tempStringConsumerNo
-//                            +"\n"+"SectionList   "+sectionCode
-//                            +"\n"+"BillNo   "+tempStringBillNo
-//                            +"\n"+"amount   "+mAmount
-//                            +"\n"+"AccountNo   "+extractedAccNo
-//                            +"\n"+"Module   "+SubModule
-//                            +"\n"+"Pin   "+pin
-//                            +"\n"+"imei   "+iemi
-//                            +"\n"+"token   "+token
-//                            +"\n"+"BankKey   "+BankKey
-//                            +"\n"+"BankHeader   "+BankHeader
-//                            +"\n"+"BankVerified   "+BankVerifier);
+                    Log.e(TAG,"payKsebBill  790 "
+                            +"\n"+"ConsumerName   "+tempStringConsumerName
+                            +"\n"+"MobileNo   "+tempStringMobileNumber
+                            +"\n"+"ConsumerNo   "+tempStringConsumerNo
+                            +"\n"+"SectionList   "+sectionCode
+                            +"\n"+"BillNo   "+tempStringBillNo
+                            +"\n"+"amount   "+mAmount
+                            +"\n"+"AccountNo   "+extractedAccNo
+                            +"\n"+"Module   "+SubModule
+                            +"\n"+"Pin   "+pin
+                            +"\n"+"imei   "+iemi
+                            +"\n"+"token   "+token
+                            +"\n"+"BankKey   "+BankKey
+                            +"\n"+"BankHeader   "+BankHeader
+                            +"\n"+"BankVerified   "+BankVerifier);
 
 
                 } catch (Exception e) {
@@ -951,6 +951,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
+                                                Intent intent = new Intent(KsebActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
 
                                             }
                                         });
@@ -1095,7 +1098,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                 JSONObject jsonObject = jresult.getJSONObject(position);
                 BranchName = jsonObject.getString("BranchName");
                 typeShort = jsonObject.getString("typeShort");
-                SubModule = jsonObject.getString("SubModule");
+                //SubModule = jsonObject.getString("SubModule");
+                SubModule = jsonObject.getString("typeShort");
                 tv_accountno.setText(""+jsonObject.getString("AccountNumber"));
             }catch (Exception e){
 

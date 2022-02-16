@@ -201,6 +201,9 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
+//                                                finish();
+                                                Intent i = new Intent(ChangePinActivity.this,PinLoginActivity.class);
+                                                startActivity(i);
                                                 finish();
                                             }
                                         });

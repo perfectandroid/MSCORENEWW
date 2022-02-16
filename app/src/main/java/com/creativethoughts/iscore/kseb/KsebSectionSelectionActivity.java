@@ -60,12 +60,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class KsebSectionSelectionActivity extends Activity {
     private RecyclerSectionListAdapter mRecyclerSectionListAdapter;
     public String TAG = "KsebSectionSelectionActivity";
+    RecyclerView recyclerSectionList ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kseb_section_selection);
 
-        RecyclerView recyclerSectionList = findViewById(R.id.recycler_select_kseb_section);
+        recyclerSectionList = findViewById(R.id.recycler_select_kseb_section);
         recyclerSectionList.setHasFixedSize( true );
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this );
         recyclerSectionList.setLayoutManager( layoutManager );
@@ -93,7 +94,10 @@ public class KsebSectionSelectionActivity extends Activity {
 //                         .subscribeOn( Schedulers.io() )
 //                         .observeOn( AndroidSchedulers.mainThread() )
 //                         .subscribe(  getObserver() );
+              //  String sss = edtTxtSectionName.getText().toString();
+            //    Log.e(TAG,"sss   97    "+sss);
                 getSection(keyWord.toString());
+               // getSection(sss);
             }
 
             @Override
@@ -167,37 +171,39 @@ public class KsebSectionSelectionActivity extends Activity {
                             }
                             else {
 
-                                try{
+                                recyclerSectionList.setAdapter(null);
 
-                                    String EXMessage = jsonObj.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
-                                    builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-
-                                                }
-                                            });
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
-
-                                }catch (JSONException e){
-                                    String EXMessage = jsonObj.getString("EXMessage");
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
-                                    builder.setMessage(EXMessage)
-//                                builder.setMessage("No data found.")
-                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                    AlertDialog alert = builder.create();
-                                    alert.show();
-
-                                }
+//                                try{
+//
+//                                    String EXMessage = jsonObj.getString("EXMessage");
+//                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
+//                                    builder.setMessage(EXMessage)
+////                                builder.setMessage("No data found.")
+//                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    dialog.dismiss();
+//
+//                                                }
+//                                            });
+//                                    AlertDialog alert = builder.create();
+//                                    alert.show();
+//
+//                                }catch (JSONException e){
+//                                    String EXMessage = jsonObj.getString("EXMessage");
+//                                    AlertDialog.Builder builder = new AlertDialog.Builder(KsebSectionSelectionActivity.this);
+//                                    builder.setMessage(EXMessage)
+////                                builder.setMessage("No data found.")
+//                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                                @Override
+//                                                public void onClick(DialogInterface dialog, int which) {
+//                                                    dialog.dismiss();
+//                                                }
+//                                            });
+//                                    AlertDialog alert = builder.create();
+//                                    alert.show();
+//
+//                                }
                             }
                         }
                         catch (JSONException e) {
@@ -234,29 +240,29 @@ public class KsebSectionSelectionActivity extends Activity {
     private Observable< String > getObservable( String keyword ){
         return Observable.fromCallable( ()-> listenText( keyword ));
     }
-    private Observer< String > getObserver(  ){
-        return  new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                //Do nothing
-            }
-
-            @Override
-            public void onNext(String result ) {
-                processResult( result );
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                //Do nothing
-            }
-
-            @Override
-            public void onComplete() {
-                //Do nothing
-            }
-        };
-    }
+//    private Observer< String > getObserver(  ){
+//        return  new Observer<String>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                //Do nothing
+//            }
+//
+//            @Override
+//            public void onNext(String result ) {
+//                processResult( result );
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                //Do nothing
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                //Do nothing
+//            }
+//        };
+//    }
     private String listenText( String keyWord ){
 //        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF8, 0);
 //        String BASE_URL=pref.getString("oldbaseurl", null);
@@ -272,13 +278,18 @@ public class KsebSectionSelectionActivity extends Activity {
     private void processResult( String result ){
         Gson gson = new Gson();
         try{
-            SectionSearchResult sectionSearchResult  = gson.fromJson( result, SectionSearchResult.class );
-            Log.e("TAG","sectionSearchResult  1101  "+sectionSearchResult);
-            Log.e("TAG","result  1102  "+result);
-            if ( mRecyclerSectionListAdapter != null ){
-                mRecyclerSectionListAdapter.addSections( sectionSearchResult.getSectionDetailsList() );
-                mRecyclerSectionListAdapter.notifyDataSetChanged();
-            }
+            Log.e(TAG,"result    "+result);
+
+                SectionSearchResult sectionSearchResult  = gson.fromJson( result, SectionSearchResult.class );
+                Log.e("TAG","sectionSearchResult  1101  "+sectionSearchResult);
+                Log.e("TAG","result  1102  "+result);
+                recyclerSectionList.setAdapter(mRecyclerSectionListAdapter);
+                if ( mRecyclerSectionListAdapter != null ){
+                    mRecyclerSectionListAdapter.addSections( sectionSearchResult.getSectionDetailsList() );
+                    mRecyclerSectionListAdapter.notifyDataSetChanged();
+                }
+
+
 
         }catch ( Exception e ){
             if ( IScoreApplication.DEBUG ){
