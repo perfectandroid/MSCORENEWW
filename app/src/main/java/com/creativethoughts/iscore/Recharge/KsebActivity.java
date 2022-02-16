@@ -951,6 +951,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 dialog.dismiss();
+                                                Intent intent = new Intent(KsebActivity.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
 
                                             }
                                         });
