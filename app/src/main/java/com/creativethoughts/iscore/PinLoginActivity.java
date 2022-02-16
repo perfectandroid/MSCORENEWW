@@ -572,20 +572,20 @@ try {
             prefEditer.putString("LoginMobileNo", "");
             prefEditer.commit();
 
-            SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
-            SharedPreferences.Editor SelectedDaysEditer = SelectedDaysSP.edit();
-            SelectedDaysEditer.putString("SelectedDays",  "");
-            SelectedDaysEditer.commit();
+//            SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
+//            SharedPreferences.Editor SelectedDaysEditer = SelectedDaysSP.edit();
+//            SelectedDaysEditer.putString("SelectedDays",  "");
+//            SelectedDaysEditer.commit();
 
-            SharedPreferences SelectedHoursSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF38, 0);
-            SharedPreferences.Editor SelectedHoursEditer = SelectedHoursSP.edit();
-            SelectedHoursEditer.putString("SelectedHours", "String.valueOf(mSelectedHours)");
-            SelectedHoursEditer.commit();
-
-            SharedPreferences SelectedMinuteSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF39, 0);
-            SharedPreferences.Editor SelectedMinuteEditer = SelectedMinuteSP.edit();
-            SelectedMinuteEditer.putString("SelectedMinute", "");
-            SelectedMinuteEditer.commit();
+//            SharedPreferences SelectedHoursSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF38, 0);
+//            SharedPreferences.Editor SelectedHoursEditer = SelectedHoursSP.edit();
+//            SelectedHoursEditer.putString("SelectedHours", "");
+//            SelectedHoursEditer.commit();
+//
+//            SharedPreferences SelectedMinuteSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF39, 0);
+//            SharedPreferences.Editor SelectedMinuteEditer = SelectedMinuteSP.edit();
+//            SelectedMinuteEditer.putString("SelectedMinute", "");
+//            SelectedMinuteEditer.commit();
 
             SharedPreferences SelectedAccountSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF40, 0);
             SharedPreferences.Editor SelectedAccountEditer = SelectedAccountSP.edit();
