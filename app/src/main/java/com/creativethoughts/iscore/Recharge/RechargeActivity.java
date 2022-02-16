@@ -416,6 +416,18 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
 //                                                setOperator(1,jsonObject.getString("OperatorName"));
 //                                                operatorIds = jsonObject.getString("Operator");
 //                                                setCircle();
+
+
+                                                tv_operator.setText(""+jsonObject.getString("OperatorName"));
+                                                ID_Providers=jsonObject.getString("ID_Operator");
+                                                ProvidersName=jsonObject.getString("OperatorName");
+                                                ProvidersCode=jsonObject.getString("Operator");
+
+                                                tv_circle.setText(""+jsonObject.getString("CircleName"));
+                                                ID_RechargeCircle = jsonObject.getString("Circle");
+                                                CircleName = jsonObject.getString("CircleName");
+                                                CircleMode = jsonObject.getString("CircleMode");
+
                                                 mAmountEt.setText(""+jsonObject.getInt("RechargeRs"));
                                                 scrl_main.scrollTo(0,0);
 
