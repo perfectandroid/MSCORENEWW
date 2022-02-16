@@ -406,8 +406,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         double num1 = Double.parseDouble(bal) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
-        txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
-        txtvbalnce.setVisibility(View.GONE);
+
+
 
         txtvAcntnoto.setText("A/C : "+ benacc);
   //      txtvbranchto.setText("Branch :"+result);

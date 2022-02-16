@@ -164,7 +164,7 @@ public interface APIInterface {
     @POST("api/AccountSummary/NEFTRTGSPayment")
     Call<String>getNeftPaymnt(@Body RequestBody body);
 
-    @POST("api/AccountSummary/MTAddnewreceiver")
+    @POST("api/AccountSummary/MTAddnewsender")
     Call<String>getAddsender(@Body RequestBody body);
 
     @POST("api/AccountSummary/MTAddnewreceiver")

@@ -190,7 +190,10 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             }
                             else if(statscode.equals("500"))
                             {
-                                alertMessage1("" ,msg );
+                               // alertMessage1("" ,msg );
+                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                startActivity(i);
                             }
                             else
                             {
@@ -260,14 +263,14 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            alertMessage1("" ,msg );
+                            alertMessage1("" ,"Some technical issues" );
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
-                        alertMessage1("" ,msg );
+                        alertMessage1("" ,"Some technical issues" );
                     }
                 });
             }

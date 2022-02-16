@@ -711,7 +711,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response addsender   "+response.body());
+                            Log.e("TAG","Response forgotMpin   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statscode =jObject.getString("StatusCode");
                             msg =jObject.getString("message");

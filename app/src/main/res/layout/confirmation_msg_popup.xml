@@ -139,7 +139,7 @@
                         </LinearLayout>
                         <TextView
                             android:id="@+id/tv_amount"
-                            android:text="₹ 100"
+                            android:text="₹ "
                             android:textSize="35dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="20dp"
