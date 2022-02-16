@@ -57,8 +57,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SplashScreen extends AppCompatActivity {
 
 
-     //public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
-    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+     public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
+   // public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
   //  public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
