@@ -544,6 +544,8 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                         Log.e(TAG,"acChange  47411   "+acChange+"   "+jsonobject.optString("AccountNumber"));
                                         if (acChange == null){
 
+                                            Log.e(TAG,"acChange  474112   "+acChange);
+
                                             JSONObject jsonobject1= (JSONObject) Jarray.get(0);
                                             AccountNumber =jsonobject1.optString("AccountNumber");
                                             maskAccountNumber = jsonobject1.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
@@ -565,6 +567,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                             }
                                         }
                                         else  if (acChange.equals(jsonobject.optString("AccountNumber"))){
+                                            Log.e(TAG,"acChange  474113   "+acChange);
                                             AccountNumber =jsonobject.optString("AccountNumber");
                                             maskAccountNumber = jsonobject.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
 
@@ -583,6 +586,9 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                                 AccountDetails.add(new Account(kjsonObject.getString("AccountNumber"), kjsonObject.getString("Balance")));
 
                                             }
+                                        }
+                                        else {
+                                            Log.e(TAG,"acChange  474114   "+acChange);
                                         }
                                     }
 
