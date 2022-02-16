@@ -287,12 +287,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            alertMessage1("",  statsmsg1);
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        alertMessage1("",  statsmsg1);
                     }
                 });
             }
@@ -405,6 +407,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
         txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));
+        txtvbalnce.setVisibility(View.GONE);
 
         txtvAcntnoto.setText("A/C : "+ benacc);
   //      txtvbranchto.setText("Branch :"+result);
