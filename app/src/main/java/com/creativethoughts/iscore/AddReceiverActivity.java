@@ -372,14 +372,14 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            alertMessage1("" ,msg );
+                            alertMessage1("" ,"Some technical issues." );
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
-                        alertMessage1("" ,msg );
+                        alertMessage1("" ,"Some technical issues." );
                     }
                 });
             }

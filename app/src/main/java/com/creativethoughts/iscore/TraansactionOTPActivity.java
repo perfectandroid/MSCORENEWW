@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
@@ -79,7 +80,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private static final String BUNDLE_RESEND_LINK = "resend_link";
     private static final String BUNDLE_IS_SENDER = "is_sender";
     private static final String BUNDLE_SENDER_RECEIVER_OBJ = "sender_reciever_obj";
-    protected Button button;
+    protected Button button, btnResendOtp;
     private String mSenderId;
     private String mReceiverId;
     private String mTransactionId;
@@ -380,7 +381,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
         //txt_amtinword =   view.findViewById(R.id.txt_amtinword);
 
         button.setOnClickListener( this );
-        Button btnResendOtp  =  findViewById( R.id.btn_resend_otp );
+        btnResendOtp  =  findViewById( R.id.btn_resend_otp );
         btnResendOtp.setOnClickListener( this );
 
         otp = mOTPEt.getText().toString();
@@ -420,6 +421,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                 }
                 break;
             case R.id.btn_resend_otp:
+                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
                 if(from.equals("quickpay"))
                 {
                     getVerifypaymentOTP(otp);

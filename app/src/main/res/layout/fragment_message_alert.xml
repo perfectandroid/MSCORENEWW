@@ -103,7 +103,7 @@
                         android:id="@+id/tvdate"
                         android:drawablePadding="5dp"
                         android:textStyle="bold"
-                        android:text="ssdsdd"></TextView>
+                        android:text=""></TextView>
                     <TextView
                         android:id="@+id/tvtime"
                         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                         android:drawablePadding="5dp"
                         android:drawableLeft="@drawable/time"
                         android:layout_weight="1"
-                        android:text="tytyt"></TextView>
+                        android:text=""></TextView>
                 </LinearLayout>
                 <TextView
                     android:layout_below="@id/l1"
@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginLeft="50dp"
-                        android:text="dvdvd">
+                        android:text="">
                     </TextView>
                     <TextView
                         android:id="@+id/txtvbranch"
@@ -164,7 +164,7 @@
                         android:textColor="@color/black"
                         android:layout_marginLeft="50dp"
                         android:layout_weight="1"
-                        android:text="dfddf"></TextView>
+                        android:text=""></TextView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -182,8 +182,9 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginLeft="50dp"
+                        android:visibility="gone"
                         android:layout_weight="1"
-                        android:text="trtrtr"/>
+                        android:text=""/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -216,7 +217,7 @@
                             android:textStyle="bold"
                             android:layout_weight="1"
                             android:layout_marginLeft="50dp"
-                            android:text="dsfsfsf"></TextView>
+                            android:text=""></TextView>
                         <TextView
                             android:layout_marginTop="5dp"
                             android:id="@+id/txtvbranchto"
@@ -225,7 +226,7 @@
                             android:layout_marginLeft="50dp"
                             android:textColor="@color/black"
                             android:layout_weight="1"
-                            android:text="dsdsd">
+                            android:text="">
                         </TextView>
                     </LinearLayout>
 

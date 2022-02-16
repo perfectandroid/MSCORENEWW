@@ -1648,7 +1648,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
-        txtvbalnce.setVisibility(View.GONE);
+
 
         String rtype =mAccountTypeSpinner.getSelectedItem().toString();
         String type ="";
@@ -1673,7 +1673,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
         txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
         txtvbranchto.setText("Branch :"+result);
-        txtvbranchto.setVisibility(View.GONE);
+
+
 
 
 

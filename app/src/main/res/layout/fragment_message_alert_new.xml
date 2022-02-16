@@ -171,6 +171,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginLeft="50dp"
+                        android:visibility="gone"
                         android:layout_weight="1"
                         android:text=""></TextView>
                     <View
@@ -243,7 +244,7 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tv_amount"
-                        android:text="₹ 100"
+                        android:text="₹ "
                         android:textSize="35dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"

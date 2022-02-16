@@ -1975,7 +1975,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
      /*  txtvbalnce.setText("Available Bal: "+"\u20B9 "+ CommonUtilities.getDecimelFormate(num1));*/
-       txtvbalnce.setVisibility(View.GONE);
+
 
        txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getAccNo());
        txtvbranchto.setText("Branch :"+result);
