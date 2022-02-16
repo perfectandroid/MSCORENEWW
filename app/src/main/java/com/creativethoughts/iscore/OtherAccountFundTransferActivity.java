@@ -75,6 +75,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -127,7 +128,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     String MaximumAmount = "0";
     private EditText edtTxtAmount;
     private EditText edt_txt_remark;
-    private String token,cusid,dataItem;
+    private String token,cusid,dataItem,second,third;
     ListView list_view;
     TextView tv_popuptitle,tv_branch_name,tv_maxamount,tv_balance,tv_account_no,txt_amtinword;
     private ArrayList<BarcodeAgainstCustomerAccountList> CustomerList = new ArrayList<>();
@@ -139,6 +140,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     private static final String MESSAGE = "message";
     String SourceAccountNumber,Balance,typeShort,SubModule,FK_Account,BranchName;
     String reference;
+    String first;
     String receiveraccno;
 
     JSONArray array;
@@ -153,6 +155,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
         SourceAccountNumber = getIntent().getStringExtra("AccountNumber");
+
         BranchName = getIntent().getStringExtra("BranchName");
         Balance = getIntent().getStringExtra("Balance");
         typeShort = getIntent().getStringExtra("typeShort");
@@ -911,7 +914,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     }
                     String Finalamount = amount.replace(",","");
 
-                    startTransfer1( accountNumber, type[0], accNumber, Finalamount,remark);
+                    startTransfer1( accountNumber,typeShort, type[0], accNumber, Finalamount,remark);
                 });
 
                 butCan.setOnClickListener(new View.OnClickListener() {
@@ -931,7 +934,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         }
     }
 
-    private void startTransfer1(String accountNumber, String type, String recvaccNumber, String finalamount, String remark) {
+    private void startTransfer1(String typeshrt, String accountNumber, String type, String recvaccNumber, String finalamount, String remark) {
 
         if (TextUtils.isEmpty(mScannedValue)) {
             mScannedValue = "novalue";
@@ -978,7 +981,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 try {
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
                     requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
-                    requestObject1.put("Module", IScoreApplication.encryptStart(type) );
+                    String s = typeShort;
+                    requestObject1.put("Module", IScoreApplication.encryptStart(typeShort) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));
                     requestObject1.put("ReceiverAccountNo", IScoreApplication.encryptStart(recvaccNumber.trim()));
 
@@ -1224,7 +1228,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                         .build();
                 APIInterface apiService = retrofit.create(APIInterface.class);
                 final JSONObject requestObject1 = new JSONObject();
-                String  accountType = mAccountTypeSpinner.getSelectedItem().toString();
+              /*  String  accountType = mAccountTypeSpinner.getSelectedItem().toString();
                 final String type;
 
                 if (accountType.equalsIgnoreCase(getString(R.string.savings_bank))) {
@@ -1246,14 +1250,14 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 }
                 else {
                     type = "GD";
-                }
+                }*/
 
                 //String sourceAccount = mAccountSpinner.getSelectedItem().toString();
                 try {
                     requestObject1.put("ReqMode", IScoreApplication.encryptStart("10") );
                     requestObject1.put("CustomerNoumber", IScoreApplication.encryptStart(value) );
                     requestObject1.put("Token", IScoreApplication.encryptStart(token));
-                    requestObject1.put("SubModule", IScoreApplication.encryptStart(type) );
+                    requestObject1.put("SubModule", IScoreApplication.encryptStart(typeShort) );
                     requestObject1.put("ModuleCode", IScoreApplication.encryptStart(submodule) );
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
