@@ -542,7 +542,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                         SharedPreferences SelectedAccountSP = getActivity().getSharedPreferences(Config.SHARED_PREF40, 0);
                                         String acChange = SelectedAccountSP.getString("SelectedAccount",null);
                                         Log.e(TAG,"acChange  47411   "+acChange+"   "+jsonobject.optString("AccountNumber"));
-                                        if (acChange == null){
+                                        if (acChange == null || acChange.isEmpty()){
 
                                             Log.e(TAG,"acChange  474112   "+acChange);
 

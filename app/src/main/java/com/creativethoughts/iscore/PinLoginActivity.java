@@ -399,6 +399,53 @@ try {
     private void delete(){
 
         try {
+
+            /////////  16.02.2022
+
+            SharedPreferences logintimeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+            SharedPreferences.Editor logintimeEditer = logintimeSP.edit();
+            logintimeEditer.putString("logintime", "");
+            logintimeEditer.commit();
+
+
+            SharedPreferences ImageSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF1, 0);
+            SharedPreferences.Editor imageEditer = ImageSP.edit();
+            imageEditer.putString("custimage", "");
+            imageEditer.commit();
+
+            SharedPreferences ResellerNameeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF2, 0);
+            SharedPreferences.Editor ResellerNameeSPEditer = ResellerNameeSP.edit();
+            ResellerNameeSPEditer.putString("ResellerName", "");
+            ResellerNameeSPEditer.commit();
+
+
+            SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+            SharedPreferences.Editor AppIconImageCodeSPEditer = AppIconImageCodeSP.edit();
+            AppIconImageCodeSPEditer.putString("AppIconImageCode", "");
+            AppIconImageCodeSPEditer.commit();
+
+            SharedPreferences CompanyLogoImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF4, 0);
+            SharedPreferences.Editor CompanyLogoImageCodeSPEditer = CompanyLogoImageCodeSP.edit();
+            CompanyLogoImageCodeSPEditer.putString("CompanyLogoImageCode", "");
+            CompanyLogoImageCodeSPEditer.commit();
+
+            SharedPreferences ProductNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF5, 0);
+            SharedPreferences.Editor ProductNameSPEditer = ProductNameSP.edit();
+            ProductNameSPEditer.putString("ProductName", "");
+            ProductNameSPEditer.commit();
+
+            SharedPreferences PlayStoreLinkSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF6, 0);
+            SharedPreferences.Editor PlayStoreLinkSPEditer = PlayStoreLinkSP.edit();
+            PlayStoreLinkSPEditer.putString("PlayStoreLink","");
+            PlayStoreLinkSPEditer.commit();
+
+            SharedPreferences EwireCardServiceSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF12, 0);
+            SharedPreferences.Editor EwireCardServiceEditer = EwireCardServiceSP.edit();
+            EwireCardServiceEditer.putString("EwireCardService","");
+            EwireCardServiceEditer.commit();
+
+
+            ///////////////////////16.02.2022
             SharedPreferences baseurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
             SharedPreferences.Editor baseurlEditer = baseurlSP.edit();
             baseurlEditer.putString("baseurl", SplashScreen.BASE_URL + "/");
@@ -524,6 +571,31 @@ try {
             SharedPreferences.Editor prefEditer = pref.edit();
             prefEditer.putString("LoginMobileNo", "");
             prefEditer.commit();
+
+            SharedPreferences SelectedDaysSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF37, 0);
+            SharedPreferences.Editor SelectedDaysEditer = SelectedDaysSP.edit();
+            SelectedDaysEditer.putString("SelectedDays",  "");
+            SelectedDaysEditer.commit();
+
+            SharedPreferences SelectedHoursSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF38, 0);
+            SharedPreferences.Editor SelectedHoursEditer = SelectedHoursSP.edit();
+            SelectedHoursEditer.putString("SelectedHours", "String.valueOf(mSelectedHours)");
+            SelectedHoursEditer.commit();
+
+            SharedPreferences SelectedMinuteSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF39, 0);
+            SharedPreferences.Editor SelectedMinuteEditer = SelectedMinuteSP.edit();
+            SelectedMinuteEditer.putString("SelectedMinute", "");
+            SelectedMinuteEditer.commit();
+
+            SharedPreferences SelectedAccountSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF40, 0);
+            SharedPreferences.Editor SelectedAccountEditer = SelectedAccountSP.edit();
+            SelectedAccountEditer.putString("SelectedAccount",  "");
+            SelectedAccountEditer.commit();
+
+            SharedPreferences syncintervaltimemsSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF41, 0);
+            SharedPreferences.Editor syncintervaltimemsEditer = syncintervaltimemsSP.edit();
+            syncintervaltimemsEditer.putString("syncintervaltimems", "");
+            syncintervaltimemsEditer.commit();
 
 
             Intent intent = new Intent( this, SplashScreen.class );
