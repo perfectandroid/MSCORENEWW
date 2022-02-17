@@ -621,20 +621,21 @@
             android:label="@string/title_activity_transaction_details"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver
-            android:name=".receiver.MScoreBootCompleteReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.KeepUpdateBroadcastReceiver" />
-        <receiver android:name=".receiver.SMSReceiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver-->
+<!--            android:name=".receiver.MScoreBootCompleteReceiver"-->
+<!--            android:enabled="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+<!--        <receiver android:name=".receiver.KeepUpdateBroadcastReceiver" />-->
+<!--        <receiver android:name=".receiver.SMSReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
         <receiver
             android:name=".receiver.ConnectivityReceiver"
             android:enabled="true">

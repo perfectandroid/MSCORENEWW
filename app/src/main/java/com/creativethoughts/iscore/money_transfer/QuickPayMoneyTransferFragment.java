@@ -49,8 +49,6 @@ import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.TransactionOTPFragment;
 import com.creativethoughts.iscore.adapters.SenderReceiverSpinnerAdapter;
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
@@ -108,7 +106,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class QuickPayMoneyTransferFragment extends Fragment implements View.OnClickListener {
 
-    private static final String TAG = QuickPayMoneyTransferFragment.class.getSimpleName();
+    public String TAG = "QuickPayMoneyTransferFragment";
+  //  private static final String TAG = QuickPayMoneyTransferFragment.class.getSimpleName();
     private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
     private Button mBtnSubmit;
     private Spinner mAccountSpinner;
@@ -143,6 +142,7 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
         View view = inflater.inflate(R.layout.fragment_money_transfer, container, false);
 
+        Log.e(TAG,"START   147    ");
         mSenderSpinner = view.findViewById(R.id.sender_spinner);
         mReceiverSpinner = view.findViewById(R.id.receiver_spinner);
         txt_amtinword= view.findViewById(R.id.txt_amtinword);
@@ -357,15 +357,15 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
 
     private void setAccountNumber() {
 
-        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-        if (settingsModel == null) {
-
-            settingAccountNumber(null);
-        } else {
-
-            settingAccountNumber(settingsModel.customerId);
-        }
+//        SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//        if (settingsModel == null) {
+//
+//            settingAccountNumber(null);
+//        } else {
+//
+//            settingAccountNumber(settingsModel.customerId);
+//        }
     }
     private void settingAccountNumber(String customerId){
         if ( customerId != null )
@@ -525,8 +525,8 @@ public class QuickPayMoneyTransferFragment extends Fragment implements View.OnCl
                                     }
                                 })
                                 ;
-                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
+//                                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//                                mAccountSpinner.setSelection(getIndex(mAccountSpinner, settingsModel.customerId));
 
 
                             }

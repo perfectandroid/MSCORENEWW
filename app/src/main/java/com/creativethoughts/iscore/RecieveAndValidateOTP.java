@@ -15,8 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.dao.DbSync;
-import com.creativethoughts.iscore.gsonmodel.SyncParent;
 import com.creativethoughts.iscore.receiver.MySMSBroadcastReceiver;
 import com.creativethoughts.iscore.receiver.SMSReceiver;
 import com.creativethoughts.iscore.utility.DialogUtil;
@@ -438,9 +436,10 @@ public class RecieveAndValidateOTP extends Activity implements MySMSBroadcastRec
 //                PBMessagesDAO.getInstance().deleteAllRows();
              //   SettingsDAO.getInstance().deleteAllRows();
 
-                SyncParent syncParent = new Gson().fromJson( response, SyncParent.class );
+//                SyncParent syncParent = new Gson().fromJson( response, SyncParent.class );
 
-                return DbSync.getInstance().sync( syncParent,true );
+              //  return DbSync.getInstance().sync( syncParent,true );
+                return 1;
             }
 
         }else {

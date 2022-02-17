@@ -33,6 +33,9 @@ public class AboutUsActivity extends AppCompatActivity {
             String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
             String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
 
+            Log.e(TAG,"AppIconImageCodePath   36    "+AppIconImageCodePath);
+            Log.e(TAG,"companylogoPath   36    "+companylogoPath);
+
             PicassoTrustAll.getInstance(AboutUsActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
             PicassoTrustAll.getInstance(AboutUsActivity.this).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
 

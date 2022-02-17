@@ -23,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.creativethoughts.iscore.Helper.Config;
-import com.creativethoughts.iscore.db.IScoreDatabase;
 import com.creativethoughts.iscore.receiver.ConnectivityReceiver;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.PreferenceUtil;
@@ -377,7 +376,7 @@ public class IScoreApplication extends Application {
 
         mInstance = this;
 
-        IScoreDatabase.initDataBase(this);
+      //  IScoreDatabase.initDataBase(this);
 
         NotificationMgr.init(this);
 

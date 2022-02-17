@@ -28,8 +28,6 @@ import com.creativethoughts.iscore.Retrofit.APIInterface;
 
 import com.creativethoughts.iscore.model.Receivers;
 import com.creativethoughts.iscore.model.SenderReceiver;
-import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
-import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -75,7 +73,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class QuickPayMoneyTransferActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = QuickPayMoneyTransferFragment.class.getSimpleName();
+    public String TAG ="QuickPayMoneyTransferActivity";
     private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
     private Button mBtnSubmit;
     private Spinner mAccountSpinner;

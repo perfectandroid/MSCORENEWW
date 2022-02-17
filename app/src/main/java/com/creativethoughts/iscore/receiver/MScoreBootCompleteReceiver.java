@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.creativethoughts.iscore.db.dao.SettingsDAO;
-import com.creativethoughts.iscore.db.dao.model.SettingsModel;
 import com.creativethoughts.iscore.utility.SyncUtils;
 
 /**
@@ -26,19 +24,19 @@ public class MScoreBootCompleteReceiver extends BroadcastReceiver {
                     connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
             boolean isConnected = activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
             if (isConnected) {
-                long intervalTime = SettingsDAO.getInstance().getIntervalTime();
-
-                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
-
-                if (settingsModel != null) {
-                    long lastSync = settingsModel.lastSyncTime;
-
-                    long currentTime = System.currentTimeMillis();
-
-                    if ((currentTime - lastSync) > intervalTime) {
-                        SyncUtils.startAlarmManage(context);
-                    }
-                }
+//                long intervalTime = SettingsDAO.getInstance().getIntervalTime();
+//
+//                SettingsModel settingsModel = SettingsDAO.getInstance().getDetails();
+//
+//                if (settingsModel != null) {
+//                    long lastSync = settingsModel.lastSyncTime;
+//
+//                    long currentTime = System.currentTimeMillis();
+//
+//                    if ((currentTime - lastSync) > intervalTime) {
+//                        SyncUtils.startAlarmManage(context);
+//                    }
+//                }
             }
         }
     }

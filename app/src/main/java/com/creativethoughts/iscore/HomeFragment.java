@@ -31,10 +31,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.NewAccountExpandableListAdapter;
 import com.creativethoughts.iscore.adapters.PassbookListAdapter;
-import com.creativethoughts.iscore.db.dao.PBAccountInfoDAO;
-import com.creativethoughts.iscore.db.dao.model.AccountInfo;
 import com.creativethoughts.iscore.db.dao.model.Transaction;
-import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.SyncAll;
@@ -248,94 +245,94 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void updateTopView() {
-        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acChange);
-
-        String unClrBal = accountInfo.unClrBal;
-
-        String availableBal = accountInfo.availableBal;
-
-
-        if (!TextUtils.isEmpty(unClrBal)) {
-
-            double dblUnclrbal = /*Double.valueOf(unClrBal)*/ Double.parseDouble( unClrBal );
-
-
-            if (dblUnclrbal <= 0) {
-                mUnclearBalanceTV.setTextColor(Color.RED);
-
-                if(dblUnclrbal == 0) {
-                    unClrBal = "" + Math.abs(dblUnclrbal);
-                }
-                String unclearBalance = "Rs " + unClrBal;
-
-                double num = Double.parseDouble(unClrBal);
-                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-//                mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
-                mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
-            } else {
-                mUnclearBalanceTV.setTextColor(Color.parseColor("#7E5858"));
-
-                String[] parts = unClrBal.split(Pattern.quote("."));
-                String d1 = parts[0];
-                String d2 = parts[1];
-                String unclearBalance;
-                if (d2.length() <= 1) {
-
-
-                    double num = Double.parseDouble(d1 + "." + d2 + "0");
-                    DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-//                    mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
-                    mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
-                } else {
-                    unclearBalance = "Rs " + unClrBal;
-
-                    double num = Double.parseDouble(unClrBal);
-                    DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-//                    mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
-                    mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
-                }
-            }
-        }
-        else {
-            String unclearBal = "\u20B9 " + 0.00;
-            mUnclearBalanceTV.setText( unclearBal );
-        }
-
-        if (!TextUtils.isEmpty(availableBal)) {
-            String[] parts = availableBal.split(Pattern.quote("."));
-            String d1 = parts[0];
-            String d2 = parts[1];
-            String balanceStatus ;
-            if (Long.parseLong(d1) < 0){
-                balanceStatus = " (Dr)";
-                Long temp = Long.parseLong(d1);
-                temp = -1* temp;
-                d1 = Long.toString(temp);
-            }
-            else balanceStatus = " (Cr)";
-            if (d2.length() <= 1) {
-
-                double num = Double.parseDouble( d1 + "." + d2 + "0");
-                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-//                mAvailableAmountTV.setText("Rs " + fmt.format(num)+ balanceStatus);
-                mAvailableAmountTV.setText("Rs " + CommonUtilities.getDecimelFormate(num)+ balanceStatus);
-            } else {
-
-                double num = Double.parseDouble(availableBal);
-                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
-//                mAvailableAmountTV.setText("Rs " + fmt.format(num) + balanceStatus);
-                mAvailableAmountTV.setText("Rs " + CommonUtilities.getDecimelFormate(num) + balanceStatus);
-            }
-        }
-        else {
-            mAvailableAmountTV.setText("Rs " + 0.00);
-        }
-
-        mAccountTypeTV.setText(accountInfo.accountAcType);
-
-        updateView();
-    }
+//    private void updateTopView() {
+//        AccountInfo accountInfo = PBAccountInfoDAO.getInstance().getAccountInfo(acChange);
+//
+//        String unClrBal = accountInfo.unClrBal;
+//
+//        String availableBal = accountInfo.availableBal;
+//
+//
+//        if (!TextUtils.isEmpty(unClrBal)) {
+//
+//            double dblUnclrbal = /*Double.valueOf(unClrBal)*/ Double.parseDouble( unClrBal );
+//
+//
+//            if (dblUnclrbal <= 0) {
+//                mUnclearBalanceTV.setTextColor(Color.RED);
+//
+//                if(dblUnclrbal == 0) {
+//                    unClrBal = "" + Math.abs(dblUnclrbal);
+//                }
+//                String unclearBalance = "Rs " + unClrBal;
+//
+//                double num = Double.parseDouble(unClrBal);
+//                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+////                mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
+//                mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
+//            } else {
+//                mUnclearBalanceTV.setTextColor(Color.parseColor("#7E5858"));
+//
+//                String[] parts = unClrBal.split(Pattern.quote("."));
+//                String d1 = parts[0];
+//                String d2 = parts[1];
+//                String unclearBalance;
+//                if (d2.length() <= 1) {
+//
+//
+//                    double num = Double.parseDouble(d1 + "." + d2 + "0");
+//                    DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+////                    mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
+//                    mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
+//                } else {
+//                    unclearBalance = "Rs " + unClrBal;
+//
+//                    double num = Double.parseDouble(unClrBal);
+//                    DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+////                    mUnclearBalanceTV.setText( "\u20B9 "+ fmt.format(num) );
+//                    mUnclearBalanceTV.setText( "\u20B9 "+ CommonUtilities.getDecimelFormate(num) );
+//                }
+//            }
+//        }
+//        else {
+//            String unclearBal = "\u20B9 " + 0.00;
+//            mUnclearBalanceTV.setText( unclearBal );
+//        }
+//
+//        if (!TextUtils.isEmpty(availableBal)) {
+//            String[] parts = availableBal.split(Pattern.quote("."));
+//            String d1 = parts[0];
+//            String d2 = parts[1];
+//            String balanceStatus ;
+//            if (Long.parseLong(d1) < 0){
+//                balanceStatus = " (Dr)";
+//                Long temp = Long.parseLong(d1);
+//                temp = -1* temp;
+//                d1 = Long.toString(temp);
+//            }
+//            else balanceStatus = " (Cr)";
+//            if (d2.length() <= 1) {
+//
+//                double num = Double.parseDouble( d1 + "." + d2 + "0");
+//                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+////                mAvailableAmountTV.setText("Rs " + fmt.format(num)+ balanceStatus);
+//                mAvailableAmountTV.setText("Rs " + CommonUtilities.getDecimelFormate(num)+ balanceStatus);
+//            } else {
+//
+//                double num = Double.parseDouble(availableBal);
+//                DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+////                mAvailableAmountTV.setText("Rs " + fmt.format(num) + balanceStatus);
+//                mAvailableAmountTV.setText("Rs " + CommonUtilities.getDecimelFormate(num) + balanceStatus);
+//            }
+//        }
+//        else {
+//            mAvailableAmountTV.setText("Rs " + 0.00);
+//        }
+//
+//        mAccountTypeTV.setText(accountInfo.accountAcType);
+//
+//        updateView();
+//    }
 
     private void updateView() {
       //  adapter.clearAll();
@@ -436,12 +433,12 @@ public class HomeFragment extends Fragment {
                 SyncAll.syncAllAccounts(new SyncAll.OnSyncStateListener() {
                     @Override
                     public void onCompleted() {
-                        updateTopView();
+                     //   updateTopView();
                         pDialog.dismiss();
                     }
                     @Override
                     public void onFailed() {
-                        updateTopView();
+                     //   updateTopView();
                         pDialog.dismiss();
                     }
                 }, true, getContext());
@@ -490,7 +487,7 @@ public class HomeFragment extends Fragment {
             acChange = (String) item;
             acChange = acChange.replace(acChange.substring(acChange.indexOf(" (")+1, acChange.indexOf(")")+1), "");
             acChange = acChange.replace(" ","");
-            updateTopView();
+          //  updateTopView();
         }
 
         @Override

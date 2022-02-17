@@ -24,7 +24,6 @@ import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OtherfundTransferHistory;
 import com.creativethoughts.iscore.R;
-import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
 import com.creativethoughts.iscore.money_transfer.OtherbankFundTransferActivity;
 import com.creativethoughts.iscore.money_transfer.OtherfundTransferType;
 
@@ -189,7 +188,7 @@ public class OtherBankFundTransferServiceChooserFragment extends Fragment implem
                 isVisible = true;
                 break;
             case R.id.btn_proceed:
-                proceed();
+               // proceed();
                 break;
 
             case R.id.rltv_imps:
@@ -272,12 +271,12 @@ public class OtherBankFundTransferServiceChooserFragment extends Fragment implem
             case "NO_MODE":
                 Toast.makeText(getContext(), "Please select mode", Toast.LENGTH_SHORT).show();
                 return;
-            case IScoreApplication.OTHER_FUND_TRANSFER_MODE_QKPY:
-                assert getFragmentManager() != null;
-                fragmentTransaction.add(R.id.container, QuickPayMoneyTransferFragment.newInstance());
-                fragmentTransaction.addToBackStack("sample");
-                fragmentTransaction.commit();
-                break;
+//            case IScoreApplication.OTHER_FUND_TRANSFER_MODE_QKPY:
+//                assert getFragmentManager() != null;
+//                fragmentTransaction.add(R.id.container, QuickPayMoneyTransferFragment.newInstance());
+//                fragmentTransaction.addToBackStack("sample");
+//                fragmentTransaction.commit();
+//                break;
 
             default:
                 assert getFragmentManager() != null;

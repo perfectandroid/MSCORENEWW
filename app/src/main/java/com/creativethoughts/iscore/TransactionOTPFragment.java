@@ -25,13 +25,10 @@ import android.widget.TextView;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
-import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.money_transfer.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.money_transfer.MoneyTransferResponseModel;
-import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.ConnectionUtil;
-import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.NumberToWord;
 import com.google.gson.Gson;

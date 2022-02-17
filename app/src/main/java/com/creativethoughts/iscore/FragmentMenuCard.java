@@ -44,8 +44,6 @@ import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.model.Account;
 import com.creativethoughts.iscore.money_transfer.FundTransferActivity;
-import com.creativethoughts.iscore.money_transfer.QuickPayMoneyTransferFragment;
-import com.creativethoughts.iscore.neftrtgs.OtherBankFundTransferServiceChooserFragment;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.DialogUtil;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -869,13 +867,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
 //                ((Activity) getActivity()).overridePendingTransition(0, 0);
 //                alertDialogmoney_transfer.dismiss();
 //                break;
-            case R.id.rltv_otherbank:
-
-                fragment =  new OtherBankFundTransferServiceChooserFragment();
-                assert actionBar != null;
-                actionBar.setTitle("IMPS/NEFT");
-                alertDialogmoney_transfer.dismiss();
-                break;
+//            case R.id.rltv_otherbank:
+//
+//                fragment =  new OtherBankFundTransferServiceChooserFragment();
+//                assert actionBar != null;
+//                actionBar.setTitle("IMPS/NEFT");
+//                alertDialogmoney_transfer.dismiss();
+//                break;
 
             case R.id.account_info:
                 fragment = new AccountInfoFragment();
@@ -924,22 +922,22 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 startActivity(intnt);
                 break;
             case R.id.imps_neft:
-                fragment = new QuickPayMoneyTransferFragment();
-                assert actionBar != null;
-                actionBar.setTitle(getString(R.string.fund_transfer_title));
-                break;
+//                fragment = new QuickPayMoneyTransferFragment();
+//                assert actionBar != null;
+//                actionBar.setTitle(getString(R.string.fund_transfer_title));
+//                break;
 //            case R.id.fund_transfer:
 //                fragment = new OwnAccFundTransferFragment().newInstance();
 //                assert actionBar != null;
 //                actionBar.setTitle(getString(R.string.fund_transfer_title));
 //                break;
 
-            case R.id.rtgs:
-                //noinspection AccessStaticViaInstance
-                fragment = new OtherBankFundTransferServiceChooserFragment();
-                assert actionBar != null;
-                actionBar.setTitle("IMPS/NEFT");
-                break;
+//            case R.id.rtgs:
+//                //noinspection AccessStaticViaInstance
+//                fragment = new OtherBankFundTransferServiceChooserFragment();
+//                assert actionBar != null;
+//                actionBar.setTitle("IMPS/NEFT");
+//                break;
             case R.id.standing_i:
                 fragment = new StandingInstructionFragment().newInstance();
                 assert actionBar != null;
