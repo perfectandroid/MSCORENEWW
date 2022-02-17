@@ -3,6 +3,9 @@ package com.creativethoughts.iscore.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.SingleBranchActivity;
 
@@ -24,6 +29,7 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 
 public class rechargeHistoryAdapter extends RecyclerView.Adapter {
+    public String TAG  = "rechargeHistoryAdapter";
     JSONArray jsonArray;
     JSONObject jsonObject = null;
     Context context;
@@ -57,6 +63,7 @@ public class rechargeHistoryAdapter extends RecyclerView.Adapter {
                 RechargeRs = jsonObject.getString("RechargeRs");
                 String OperatorName = jsonObject.getString("OperatorName");
                 String StatusType = jsonObject.getString("StatusType");
+                String StatusTypeCode = jsonObject.getString("StatusTypeCode");
 
 
                 ((MainViewHolder) holder).txtv_ph.setText(MobileNo);
@@ -67,39 +74,47 @@ public class rechargeHistoryAdapter extends RecyclerView.Adapter {
                 ((MainViewHolder) holder).txtv_date.setText("Done On "+RechargeDate);
                 ((MainViewHolder) holder).tv_status.setText(""+StatusType);
 
-                if (StatusType.equals("Failed")){
+
+//                StatusTypeCode
+//                1.Success
+//                2.Failed
+//                3.Pending
+//                4.Reversed
+
+                if (StatusTypeCode.equals("2")){
                     ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.FireBrick));
                 }
-                if (StatusType.equals("Success")){
+                if (StatusTypeCode.equals("1")){
                     ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Green));
                 }
-                if (StatusType.equals("Pending")){
+                if (StatusTypeCode.equals("3")){
                     ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Chocolate));
                 }
-                if (StatusType.equals("Reversed")){
+                if (StatusTypeCode.equals("4")){
                     ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Magenta));
                 }
 
-                if (OperatorName.startsWith("Airtel"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.airtel);
-                if (OperatorName.startsWith("Jio"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.mipmap.jio);
-                if (OperatorName.startsWith("BSNL"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.bsnal_3g);
-                if (OperatorName.startsWith("Dish TV"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.dishtv);
-                if (OperatorName.startsWith("Big TV"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.bigtv);
-                if (OperatorName.startsWith("Tata Sky"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.tata_sky);
-                if (OperatorName.startsWith("Sun"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.sun_direct);
-                if (OperatorName.startsWith("NetConnect"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.reliance);
-                if (OperatorName.startsWith("Tata Photon +"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.docomo);
-                if (OperatorName.startsWith("Mbrowse"))
-                    ((MainViewHolder) holder).iv_operator.setImageResource(R.drawable.mts);
+//                if (StatusType.equals("Failed")){
+//                    ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.FireBrick));
+//                  //  ((MainViewHolder) holder).tv_status.setTextColor(Color.parseColor("#008000"));
+//                }
+//                if (StatusType.equals("Success")){
+//                    ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Green));
+//                }
+//                if (StatusType.equals("Pending")){
+//                    ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Chocolate));
+//                }
+//                if (StatusType.equals("Reversed")){
+//                    ((MainViewHolder) holder).tv_status.setTextColor(ContextCompat.getColor(context,R.color.Magenta));
+//                }
+
+               // Log.e(TAG,"OperatorImagePath  891     "+jsonObject.getString("OperatorImagePath"));
+
+                SharedPreferences pref =context.getSharedPreferences(Config.SHARED_PREF7, 0);
+                String BASE_URL=pref.getString("baseurl", null);
+                String ProvidersImagePath = BASE_URL+ jsonObject.getString("OperatorImagePath");
+               // Log.e(TAG,"ProvidersImagePath  8911    "+ProvidersImagePath);
+                PicassoTrustAll.getInstance(context).load(ProvidersImagePath).error(R.drawable.no_image).into(((MainViewHolder) holder).iv_operator);
 
                 ((MainViewHolder) holder).ll_main.setTag(position);
                 ((MainViewHolder) holder).ll_main.setOnClickListener(new View.OnClickListener() {

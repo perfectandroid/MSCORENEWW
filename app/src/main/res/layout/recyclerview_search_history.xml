@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:padding="3dp"
     android:id="@+id/ll_main">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@drawable/card"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,6 +67,7 @@
                             android:drawablePadding="5dp"
                             android:gravity="center_vertical"
                             android:layout_weight="1"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                         <TextView
@@ -87,9 +88,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:textAllCaps="false"
+                        android:text=""
                         android:textColor="@color/Green"
                         android:textSize="12sp" />
 
