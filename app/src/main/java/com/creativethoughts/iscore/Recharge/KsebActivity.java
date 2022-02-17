@@ -5,7 +5,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +39,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
+import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.kseb.KsebSectionSelectionActivity;
@@ -47,6 +54,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -57,7 +66,11 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -124,6 +137,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
           //  getAccountNumber();
         }
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         setInitialise();
         setRegister();
@@ -716,6 +732,10 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
 
+
+
+
+
             Log.e(TAG,"proceedPay  567 "
             +"\n"+"tempStringAccountNo   "+tempStringAccountNo
                     +"\n"+"tempStringConsumerName   "+tempStringConsumerName
@@ -723,7 +743,11 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     +"\n"+"tempStringConsumerNo   "+tempStringConsumerNo
                     +"\n"+"txt_section_name   "+txt_section_name
                     +"\n"+"tempStringBillNo   "+tempStringBillNo
+                    +"\n"+"tempDisplaySection   "+tempDisplaySection
+                    +"\n"+"BranchName   "+BranchName
                     +"\n"+"tempStringAmount   "+tempStringAmount);
+
+
             ksebConfirmation(tempStringAccountNo,tempStringConsumerName,
                     tempStringMobileNumber,tempStringConsumerNo,txt_section_name,tempStringBillNo,tempStringAmount);
         }
@@ -924,29 +948,47 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         Log.e(TAG,"KSEBPaymentRequest  7901   "+response.body());
                         try{
                             progressDialog.dismiss();
+//                            2.KSEB
+//                                    -------------------------------
+//                                    -55    "Your transaction is already processed";
+//                            -2     "Transaction Failed";
+//                            1      "Transaction Successful";
+//                            3       "Transaction Successful";  // Not working
 
                             Log.e(TAG," KSEBPaymentRequest    7902       "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
-                            if(jsonObj.getString("StatusCode").equals("0")) {
+//                            if(jsonObj.getString("StatusCode").equals("0")) {
+//
+//                                alertMessage2("",jsonObj.getString("EXMessage"));
+////                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+////                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,jsonObj.getString("EXMessage"));
+//
+//
+//                            }
 
+                                if(jsonObj.getString("StatusCode").equals("1")) {
+
+                                String EXMessage = jsonObj.getString("EXMessage");
+                                String RefID = jsonObj.getString("RefID");
+                              //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
+                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID);
+
+
+
+                            }
+                            else if(jsonObj.getString("StatusCode").equals("3")) {
                                 alertMessage2("",jsonObj.getString("EXMessage"));
-
-                            }
-                            if(jsonObj.getString("StatusCode").equals("1")) {
-
-                                alertMessageSucces("1",jsonObj.getString("EXMessage"));
-
-                            }
-                            if(jsonObj.getString("StatusCode").equals("3")) {
-
-                                alertMessageSucces("3",jsonObj.getString("EXMessage"));
+//                                alertMessageSucces("3",jsonObj.getString("EXMessage"));
+//                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+//                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,jsonObj.getString("EXMessage"));
 
                             }
                             else {
 
+
                                 AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
                                 builder.setMessage(jsonObj.getString("EXMessage"))
-//                                builder.setMessage("No data found.")
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -959,6 +1001,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                         });
                                 AlertDialog alert = builder.create();
                                 alert.show();
+
+
                             }
 
                         }
@@ -1038,6 +1082,143 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             alert.show();
 
         }
+
+
+    }
+
+    private void alertMessageSucces1(String tempStringAccountNo, String tempStringConsumerName, String tempStringMobileNumber,
+                                     String tempStringConsumerNo, String txt_section_name, String tempStringBillNo,
+                                     String tempDisplaySection, String branchName, String tempStringAmount, String exMessage,String RefId) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.kseb_success_popup, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
+
+        ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+
+        SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+        String IMAGEURL = imageurlSP.getString("imageurl","");
+        SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+        String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+        PicassoTrustAll.getInstance(KsebActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        TextView txtTitle       = dialogView.findViewById( R.id.txt_message );
+        TextView tvdate = dialogView.findViewById( R.id.tvdate );
+        TextView tvtime = dialogView.findViewById( R.id.tvtime );
+
+        TextView txtvMobno = dialogView.findViewById( R.id.txtvMobno );
+        TextView txtvAcntno = dialogView.findViewById( R.id.txtvAcntno );
+        TextView txtvbranch = dialogView.findViewById( R.id.txtvbranch );
+
+        TextView txtvTransid = dialogView.findViewById( R.id.txtvTransid );
+        TextView txtvConsumerName = dialogView.findViewById( R.id.txtvConsumerName );
+        TextView txtvConsumerNo = dialogView.findViewById( R.id.txtvConsumerNo );
+        TextView txtvConsumerSection = dialogView.findViewById( R.id.txtvConsumerSection );
+        TextView txtvBillNo = dialogView.findViewById( R.id.txtvBillNo );
+
+        TextView tv_amount = dialogView.findViewById( R.id.tv_amount );
+        TextView tv_amount_words = dialogView.findViewById( R.id.tv_amount_words );
+
+        RelativeLayout rltv_share = dialogView.findViewById( R.id.rltv_share );
+        RelativeLayout lay_share = dialogView.findViewById( R.id.lay_share );
+
+        txtTitle.setText(""+exMessage);
+        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        tvtime.setText("Time : "+currentTime);
+
+        //current date
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        tvdate.setText("Date : "+formattedDate);
+
+        txtvMobno.setText(""+tempStringMobileNumber);
+        txtvAcntno.setText(""+tempStringAccountNo);
+        txtvbranch.setText(""+branchName);
+
+
+        txtvTransid.setText("Transaction ID : "+RefId);
+        txtvConsumerName.setText("Consumer Name : "+tempStringConsumerName);
+        txtvConsumerNo.setText("Consumer No : "+tempStringConsumerNo);
+        txtvConsumerSection.setText("Consumer Section : "+txt_section_name);
+        txtvBillNo.setText("Bill No  : "+tempStringBillNo);
+
+
+        String amnt = tempStringAmount.replaceAll(",", "");
+        String[] netAmountArr = amnt.split("\\.");
+        String amountInWordPop = "";
+        if ( netAmountArr.length > 0 ){
+            int integerValue = Integer.parseInt( netAmountArr[0] );
+            amountInWordPop = "Rupees " + NumberToWord.convertNumberToWords( integerValue );
+            if ( netAmountArr.length > 1 ){
+                int decimalValue = Integer.parseInt( netAmountArr[1] );
+                if ( decimalValue != 0 ){
+                    amountInWordPop += " and " + NumberToWord.convertNumberToWords( decimalValue ) + " paise" ;
+                }
+            }
+            amountInWordPop += " only";
+        }
+        tv_amount_words.setText(""+amountInWordPop);
+
+        double num =Double.parseDouble(""+amnt);
+        Log.e(TAG,"CommonUtilities  945   "+ CommonUtilities.getDecimelFormate(num));
+        String stramnt = CommonUtilities.getDecimelFormate(num);
+        tv_amount.setText(""+stramnt);
+
+        dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
+            try{
+
+                Intent i=new Intent(this, HomeActivity.class);
+                startActivity(i);
+                finish();
+            }catch ( NullPointerException e ){
+                //Do nothing
+            }
+        } );
+
+        lay_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.e("img_share","img_share   1170   ");
+                Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
+                        rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                rltv_share.draw(canvas);
+
+                try {
+
+                    File file = saveBitmap(bitmap, tempStringAccountNo+".png");
+                    Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
+                    Uri bmpUri = Uri.fromFile(file);
+
+                    // Uri bmpUri = getLocalBitmapUri(bitmap);
+
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    //   shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivity(Intent.createChooser(shareIntent, "Share"));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("Exception","Exception   117   "+e.toString());
+                }
+
+            }
+        });
+
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
 
 
     }
@@ -1132,5 +1313,30 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    private File saveBitmap(Bitmap bm, String fileName){
+
+        File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Download"+ "/");
+        boolean isPresent = true;
+        Log.e("photoURI","StatementDownloadViewActivity   5682   ");
+        if (!docsFolder.exists()) {
+            // isPresent = docsFolder.mkdir();
+            docsFolder.mkdir();
+            Log.e("photoURI","StatementDownloadViewActivity   5683   ");
+        }
+
+        File file = new File(docsFolder, fileName);
+
+
+        try {
+            FileOutputStream fOut = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }
