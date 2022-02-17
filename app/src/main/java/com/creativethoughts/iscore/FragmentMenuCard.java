@@ -539,10 +539,10 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                         JSONObject jsonobject= (JSONObject) Jarray.get(i);
                                         SharedPreferences SelectedAccountSP = getActivity().getSharedPreferences(Config.SHARED_PREF40, 0);
                                         String acChange = SelectedAccountSP.getString("SelectedAccount",null);
-                                        Log.e(TAG,"acChange  47411   "+acChange+"   "+jsonobject.optString("AccountNumber"));
+                                   //     Log.e(TAG,"acChange  47411   "+acChange+"   "+jsonobject.optString("AccountNumber"));
                                         if (acChange == null || acChange.isEmpty()){
 
-                                            Log.e(TAG,"acChange  474112   "+acChange);
+                                        //    Log.e(TAG,"acChange  474112   "+acChange);
 
                                             JSONObject jsonobject1= (JSONObject) Jarray.get(0);
                                             AccountNumber =jsonobject1.optString("AccountNumber");
@@ -565,7 +565,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                                             }
                                         }
                                         else  if (acChange.equals(jsonobject.optString("AccountNumber"))){
-                                            Log.e(TAG,"acChange  474113   "+acChange);
+                                          //  Log.e(TAG,"acChange  474113   "+acChange);
                                             AccountNumber =jsonobject.optString("AccountNumber");
                                             maskAccountNumber = jsonobject.optString("AccountNumber").replaceAll("\\w(?=\\w{4})", "*");
 
@@ -674,7 +674,7 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
                 startActivity(im);
                 break;
             case R.id.fab2:
-                Log.e(TAG,"OffersFragment   630    ");
+               // Log.e(TAG,"OffersFragment   630    ");
 //                fragment = new OffersFragment();
 //                assert actionBar != null;
 //                actionBar.setTitle("Offer" );
