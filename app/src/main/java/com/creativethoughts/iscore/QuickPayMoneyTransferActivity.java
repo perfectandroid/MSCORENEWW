@@ -72,7 +72,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class QuickPayMoneyTransferActivity extends AppCompatActivity implements View.OnClickListener {
+public class QuickPayMoneyTransferActivity extends AppCompatActivity implements View.OnClickListener,Spinner.OnItemSelectedListener {
     public String TAG ="QuickPayMoneyTransferActivity";
     private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
     private Button mBtnSubmit;
@@ -105,12 +105,22 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     int mode;
     String from ="quickpay";
     String senderName,senderMobile,receiveraccno,filename;
+
+    private JSONArray jresultSender = new JSONArray();
+    private JSONArray jresultReceiver = new JSONArray();
+    private ArrayList<String> Senderlist;
+    private ArrayList<String> Receiverlist;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_money_transfer);
         
         setRegViews();
+
+        Senderlist = new ArrayList<String>();
+        accountlist = new ArrayList<String>();
 
     }
 
@@ -302,20 +312,31 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
                                 Log.e("TAG","Response ownaccount   "+response.body());
+
                             JSONObject jObject = new JSONObject(response.body());
-                            if (jObject.getString("StatusCode") == "0") {
 
-                                JSONObject j1 = jObject.getJSONObject("QuickPaySenderReciver");
-                                JSONObject jsonobj2 = new JSONObject(j1.toString());
+                            if (jObject.getString("StatusCode").equals("0")) {
 
-                                JSONArray jresult = jsonobj2.getJSONArray("QuickPaySenderReciverlist");
+                                JSONObject j1 = jObject.getJSONObject("GenerateSenderReceiverList");
+                                Log.e("j1   3091   ",""+j1);
+                                JSONArray jresult = j1.getJSONArray("SenderReceiverDetailedList");
+                                Log.e("jresult   3092   ",""+jresult);
+//                                JSONObject j1 = jObject.getJSONObject("QuickPaySenderReciver");
+//                                JSONObject jsonobj2 = new JSONObject(j1.toString());
 
+                               // JSONArray jresult = jsonobj2.getJSONArray("QuickPaySenderReciverlist");
 
+                                List<SenderReceiver> meModels = new ArrayList<>();
                                 for (int i = 0; i < jresult.length(); i++) {
 
                                         JSONObject json = jresult.getJSONObject(i);
 
+
+
                                         if (json.getString("Mode").equals("1")) {
+
+                                            jresultSender.put(json);
+                                            Senderlist.add(json.getString("SenderName"));
 
                                             senders.userId = json.getLong("UserID");
                                             senders.fkSenderId = json.getLong("FK_SenderID");
@@ -324,7 +345,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                             senders.receiverAccountno = json.getString("ReceiverAccountno");
                                         }
                                         if (json.getString("Mode").equals("2")) {
-
+                                            jresultReceiver.put(json);
+                                            Receiverlist.add(json.getString("SenderName"));
                                             receivers.userId = json.getLong("UserID");
                                             receivers.fkSenderId = json.getLong("FK_SenderID");
                                             receivers.senderName = json.getString("SenderName");
@@ -334,46 +356,59 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                         arrayList2.add(senders);
                                         arrayList3.add(receivers);
 
+                                        Log.e(TAG,"senders  337  "+senders);
+                                        Log.e(TAG,"arrayList2  3371  "+arrayList2);
+                                        Log.e(TAG,"arrayList3  3372  "+arrayList3);
+
 
 
 
 
                                 }
-                                ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter = new ArrayAdapter<SenderReceiver>(getApplicationContext(), android.R.layout.simple_spinner_item, (List<SenderReceiver>) senders);
-                             //   senderReceiverArrayAdapter = new ArrayAdapter<>(getApplicationContext(),  R.layout.list_content_spin, R.id.textview, senders);
-                                mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
 
+                                mSenderSpinner.setAdapter(new ArrayAdapter<String>(QuickPayMoneyTransferActivity.this, android.R.layout.simple_spinner_dropdown_item, Senderlist));
+                                mSenderSpinner.setOnItemSelectedListener(QuickPayMoneyTransferActivity.this);
 
-                                mSenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                                        SenderReceiver senderRec = (SenderReceiver) arrayList2.get(pos);
-                                        userId = senderRec.getUserID();
-                                        fkSenderId = senderRec.getFkSenderId();
-                                        senderName = senderRec.getSenderName();
-                                        senderMobile = senderRec.getSenderMobile();
-                                        receiveraccno = senderRec.getReceiverAccountno();
-                                        mode=senderRec.getMode();
-                                        for (int i = 0; i < arrayList3.size(); i++) {
-                                            SenderReceiver senderRec1 = (SenderReceiver) arrayList2.get(i);
-                                            int mod =senderRec1.getMode();
-                                            long receivers =senderRec1.getUserID();
-                                            long fkuser =senderRec1.getFkSenderId();
-
-
-                                            if (userId==fkuser)
-                                            {
-                                                //  receivers1.senderName=senderRec1.getSenderName();
-                                                // receivers1.receiverAccountno=senderRec1.getReceiverAccountno();
-
-
-
-                                            }
-                                        }
-
-                                    }
-                                    public void onNothingSelected(AdapterView<?> parent) {
-                                    }
-                                });
+//                                ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter = new ArrayAdapter<SenderReceiver>(getApplicationContext(), android.R.layout.simple_spinner_item, (List<SenderReceiver>) senders);
+//                             //   senderReceiverArrayAdapter = new ArrayAdapter<>(getApplicationContext(),  R.layout.list_content_spin, R.id.textview, senders);
+//                                mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
+//
+//
+//                                mSenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//
+//
+//                                        Log.e(TAG,"START  361  ");
+//                                        SenderReceiver senderRec = (SenderReceiver) arrayList2.get(pos);
+//
+//                                        Log.e(TAG,"senderRec  3611  "+senderRec.getUserID());
+////                                        userId = senderRec.getUserID();
+////                                        fkSenderId = senderRec.getFkSenderId();
+////                                        senderName = senderRec.getSenderName();
+////                                        senderMobile = senderRec.getSenderMobile();
+////                                        receiveraccno = senderRec.getReceiverAccountno();
+////                                        mode=senderRec.getMode();
+////                                        for (int i = 0; i < arrayList3.size(); i++) {
+////                                            SenderReceiver senderRec1 = (SenderReceiver) arrayList2.get(i);
+////                                            int mod =senderRec1.getMode();
+////                                            long receivers =senderRec1.getUserID();
+////                                            long fkuser =senderRec1.getFkSenderId();
+////
+////
+////                                            if (userId==fkuser)
+////                                            {
+////                                                //  receivers1.senderName=senderRec1.getSenderName();
+////                                                // receivers1.receiverAccountno=senderRec1.getReceiverAccountno();
+////
+////
+////
+////                                            }
+////                                        }
+//
+//                                    }
+//                                    public void onNothingSelected(AdapterView<?> parent) {
+//                                    }
+//                                });
 
 
                             }
@@ -441,9 +476,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             }
 */
 
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
 //                            progressDialog.dismiss();
+                            Log.e(TAG,"Exception   449    "+e.toString());
                         }
                     }
                     @Override
@@ -1241,5 +1277,24 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
             }
         });
         alertDialog.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+        try {
+            JSONObject json = jresultSender.getJSONObject(position);
+            Log.e(TAG,"   1287    "+json.getString("SenderName")+"   "+json.getString("SenderMobile")+"   ");
+
+        }catch (Exception e){
+            Log.e(TAG,"Exception 1287   "+e.toString());
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
