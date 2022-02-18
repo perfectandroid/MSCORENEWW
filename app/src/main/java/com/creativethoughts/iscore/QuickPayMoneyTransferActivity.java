@@ -1033,6 +1033,9 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
     private void QuickPayTransfer(String accountNumber, String sender, String receiver, String amount, String message, String mPinString, String senderName, String senderAccountno, String senderMobile, String recievererName, String receiverAccountno, String recieverMobile, String branch) {
 
+
+
+
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
@@ -1059,37 +1062,80 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
                     SharedPreferences cusidpref = QuickPayMoneyTransferActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
                     cusid=cusidpref.getString("customerId", null);
-
-
-
-                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                  //  requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
-                    requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
-                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
-                    requestObject1.put("amount", IScoreApplication.encryptStart(amount));
-                    requestObject1.put("Messages", IScoreApplication.encryptStart(message));
-                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
-                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
-                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
-                    requestObject1.put("MPIN", IScoreApplication.encryptStart(senderMobile));
-
-
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
-
-                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
-
+                    String iemi =   IScoreApplication.getIEMI();
                     SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                     String BankKey=bankkeypref.getString("bankkey", null);
-
                     SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
                     String BankHeader=bankheaderpref.getString("bankheader", null);
 
+
+//                    CID    : 86111
+//                    UID    : 6918
+//                    NAME   : AKHIL PV
+//                    MOBILE : 7293132504
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                  //  requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
+//                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
+//                    requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
+//                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
+//                    requestObject1.put("amount", IScoreApplication.encryptStart(amount));
+//                    requestObject1.put("Messages", IScoreApplication.encryptStart(message));
+//                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
+//                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
+//                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
+//                    requestObject1.put("MPIN", IScoreApplication.encryptStart(senderMobile));
+
+
+
+
+//                    {"senderid":"6918","receiverid":"10920","FK_Customer":"86111","amount":"10","Messages":"test","AccountNo":"001001234567",
+//                            "Module":"SB","Pin":"123456","MPIN":"12345","imei":"1ba6f19bfae2630a","token":"55F6AA8D-8B29-4756-9153-1428E31EA13B","BankKey":"d.22333",
+//                            "BankHeader":"Perfect","BankVerified":""}
+//
+
+//                    requestObject1.put("senderid", IScoreApplication.encryptStart("6918"));
+//                    requestObject1.put("receiverid", IScoreApplication.encryptStart("10920") );
+//                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart("86111"));
+//                    requestObject1.put("amount", IScoreApplication.encryptStart("1"));
+//                    requestObject1.put("Messages", IScoreApplication.encryptStart("TEST"));
+//                    requestObject1.put("AccountNo", IScoreApplication.encryptStart("001001999311"));
+//                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
+//                    requestObject1.put("Pin", IScoreApplication.encryptStart("123456"));
+//                    requestObject1.put("MPIN", IScoreApplication.encryptStart("123456"));
+//                    requestObject1.put("imei", IScoreApplication.encryptStart(iemi));
+//                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+//                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+//                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("3702"));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart("11211") );
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart("86112"));
+                    requestObject1.put("amount", IScoreApplication.encryptStart("1"));
+                    requestObject1.put("Messages", IScoreApplication.encryptStart("TEST"));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart("001001999311"));
+                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
+                    requestObject1.put("Pin", IScoreApplication.encryptStart("123456"));
+                    requestObject1.put("MPIN", IScoreApplication.encryptStart("123456"));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(iemi));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
-                    Log.e("requestObject1 addsndr",""+requestObject1);
+                    Log.e("requestObject1 addsndr"," 10311    "+requestObject1);
+                    Log.e(TAG,"QUICK PAY  10311    "
+                            +"\n"+"senderid    "+"6918"
+                            +"\n"+"receiverid    "+"10920"
+                            +"\n"+"FK_Customer    "+"86111"
+                            +"\n"+"cusid    "+cusid
+                            +"\n"+"amount    "+"1"
+                            +"\n"+"Messages    "+"test"
+                            +"\n"+"AccountNo    "+"001001999311"
+                            +"\n"+"Module   "+"SB"
+                            +"\n"+"Pin    "+"123456"
+                            +"\n"+"MPIN    "+"123456");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1099,7 +1145,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
-                            Log.e("TAG","Response QUICKPAY   "+response.body());
+                            Log.e("TAG","Response QUICKPAY 10312  "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statusCode=jObject.getString("StatusCode");
                             String statusmsg = jObject.getString("StatusMessage");
