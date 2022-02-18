@@ -955,6 +955,16 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 //                            1      "Transaction Successful";
 //                            3       "Transaction Successful";  // Not working
 
+                            String ss = " {\"CommonRecharge\":{\"RefID\":763371,\"MobileNumber\":\"1167898003096\",\"Amount\":\"16.00\",\"AccNumber\":null,\"ResponseCode\":\"1\",\"ResponseMessage\":\"Transaction Successful\"},\"StatusCode\":1,\"EXMessage\":\"Transaction Successful\"}";
+//                            JSONObject jsonObj11 = new JSONObject(ss);
+//
+//                            Log.e(TAG,"jsonObj11  1111 "+jsonObj11);
+//                            Log.e(TAG,"StatusCode  1111  "+jsonObj11.getString("StatusCode"));
+//                            JSONObject jsonObj111 = new JSONObject(jsonObj11.getString("CommonRecharge"));
+//                            Log.e(TAG,"jsonObj111 1111   "+jsonObj111);
+//                            Log.e(TAG,"RefID  1111  "+jsonObj111.getString("RefID"));
+//
+
                             Log.e(TAG," KSEBPaymentRequest    7902       "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
 //                            if(jsonObj.getString("StatusCode").equals("0")) {
@@ -969,7 +979,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                 if(jsonObj.getString("StatusCode").equals("1")) {
 
                                 String EXMessage = jsonObj.getString("EXMessage");
-                                String RefID = jsonObj.getString("RefID");
+                                String CommonRecharge = jsonObj.getString("CommonRecharge");
+                                JSONObject jsonObjCommon = new JSONObject(CommonRecharge);
+                                String RefID = jsonObjCommon.getString("RefID");
                               //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
                                 alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
                                         txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID);

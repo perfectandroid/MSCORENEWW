@@ -333,9 +333,9 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(cusid));
 
-
-
                     Log.e("requestObject1 transotp",""+requestObject1);
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
