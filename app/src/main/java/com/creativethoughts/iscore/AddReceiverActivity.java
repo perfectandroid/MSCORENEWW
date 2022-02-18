@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.model.SenderReceiver;
+import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +41,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -61,8 +64,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AddReceiverActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = AddReceiverFragment.class.getSimpleName();
-    private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
+
+    public static ArrayList<SenderReceiver> mSenders ;
+    static ArrayAdapter<SenderReceiver> senderAdapter = null;
     private AppCompatEditText mReceiverEt;
     private AppCompatEditText mMobileNumberEt;
     private AppCompatEditText mIFSCCodeEt;
@@ -70,9 +74,10 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
     private AppCompatEditText mConfirmAccountNumberEt;
     private ProgressDialog mProgressDialog;
     private Spinner mSenderSpinner;
+    long senderid;
     private String url,cusid,msg;
     String from ="receiver";
-    ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter = null;
+    List<String> senders = new ArrayList<String>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,26 +148,71 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                         try {
                             Log.e("TAG","Response receiver   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
-                            JSONArray jsonArray = jObject.getJSONArray("SenderReceiverDetailedList");
+                            JSONObject jobj = jObject.getJSONObject("GenerateSenderReceiverList");
+                            JSONArray jsonArray = jobj.getJSONArray("SenderReceiverDetailedList");
                             if (jsonArray != null) {
-                                ArrayList<SenderReceiver> senderReceivers = new ArrayList<>();
-                                SenderReceiver senderReceiver = new SenderReceiver();
+                             //  ArrayList<SenderReceiver> senderReceivers = new ArrayList<SenderReceiver>();
+                                List<String> senderList = new ArrayList< >();
+                                List<String> senderItems = new ArrayList< >();
+                                mSenders  = new ArrayList<>();
+
+                             //    SenderReceiver senderReceiver = new SenderReceiver();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject json = jsonArray.getJSONObject(i);
                                     if (json.getString("Mode").equals("1")) {
+                                        senderList.add(json.getString("UserID"));
+                                        senderList.add(json.getString("FK_SenderID"));
+                                        senderList.add(json.getString("SenderMobile"));
+                                        senderList.add(json.getString("ReceiverAccountno"));
+                                        senderList.add(json.getString("Mode"));
+                                        senderItems.add(json.getString("SenderName"));
+                                        mSenders.add(new SenderReceiver( json.getLong("UserID"), json.getLong("FK_SenderID"), json.getString("SenderName"), json.getString("SenderMobile"), json.getString("ReceiverAccountno"), json.getInt("Mode")));
 
-                                        senderReceiver.userId = json.getLong("UserID");
+                                     /*  senderReceiver.userId = json.getLong("UserID");
                                         senderReceiver.fkSenderId = json.getLong("FK_SenderID");
                                         senderReceiver.senderName = json.getString("SenderName");
                                         senderReceiver.senderMobile = json.getString("SenderMobile");
-                                        senderReceiver.receiverAccountno = json.getString("ReceiverAccountno");
+                                        senderReceiver.receiverAccountno = json.getString("ReceiverAccountno");*/
+
                                     }
-                                    senderReceivers.add(senderReceiver);
+
+                                }
+
+                              //  mSenderSpinner.setAdapter(new ArrayAdapter<String>(AddReceiverActivity.this, android.R.layout.simple_spinner_dropdown_item, senderReceivers));
+                              // ArrayAdapter<SenderReceiver> senderReceiverArrayAdapter  = new ArrayAdapter<SenderReceiver>(AddReceiverActivity.this,  R.layout.list_content_spin, R.id.textview, senderReceivers);
+                              //  mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
+
+                                if (senderItems.size()>0){
+                                    senderAdapter = new ArrayAdapter<>(AddReceiverActivity.this, android.R.layout.simple_spinner_dropdown_item, mSenders);
+                                    //                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
+                                    mSenderSpinner.setAdapter(senderAdapter);
                                 }
 
 
-                                senderReceiverArrayAdapter = new ArrayAdapter<>(AddReceiverActivity.this,  R.layout.list_content_spin, R.id.textview, senderReceivers);
-                                mSenderSpinner.setAdapter(senderReceiverArrayAdapter);
+
+                                mSenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                        // TextView textView = (TextView)mAccountTypeSpinner.getSelectedView();
+                                        senderid = senderAdapter.getItem(position).getUserID();
+
+
+
+                                        //   Toast.makeText(activity,AccountAdapter.getItem(position).getBranchName(),Toast.LENGTH_LONG).show();
+
+
+                                    }
+
+
+
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+                                        //Do nothing
+                                    }
+                                });
+
 
                             }
 
@@ -214,13 +264,13 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                     String ifscCode = mIFSCCodeEt.getText().toString();
                     String accNumber = mConfirmAccountNumberEt.getText().toString();
 
-                    getAddReceiver(receiverName,mobileNumber,ifscCode,accNumber);
+                    getAddReceiver(senderid,receiverName,mobileNumber,ifscCode,accNumber);
                 }
                 break;
         }
     }
 
-    private void getAddReceiver(String receiverName, String mobileNumber, String ifscCode, String accNumber) {
+    private void getAddReceiver(long senderid, String receiverName, String mobileNumber, String ifscCode, String accNumber) {
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -250,7 +300,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart("7857"));
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid) );
                     requestObject1.put("receiver_name", IScoreApplication.encryptStart(receiverName));
                     requestObject1.put("receiver_mobile", IScoreApplication.encryptStart(mobileNumber));

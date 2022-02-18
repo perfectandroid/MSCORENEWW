@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,6 +38,7 @@ import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -66,6 +69,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
     String token,cusid,pin,msg;
     private TextView mDOBTv;
     String from ="sender";
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

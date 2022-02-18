@@ -13,11 +13,23 @@ public class SenderReceiver {
     public int checkError;
 
 
+    public SenderReceiver(long userId,long fkSenderId,String senderName,String senderMobile,String receiverAccountno,int mode) {
+        this.userId = userId;
+        this.fkSenderId = fkSenderId;
+        this.senderName = senderName;
+        this.senderMobile = senderMobile;
+        this.receiverAccountno = receiverAccountno;
+        this.mode = mode;
+    }
+
+
     public long getUserID() {
+
         return userId;
     }
 
     public void setUserId(String userId) {
+
         userId = userId;
     }
 
@@ -59,5 +71,10 @@ public class SenderReceiver {
 
     public void setMode(String mode) {
         mode = mode;
+    }
+
+    @Override
+    public String toString() {
+        return senderName;
     }
 }

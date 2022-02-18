@@ -132,7 +132,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     ListView list_view;
     TextView tv_popuptitle,tv_branch_name,tv_maxamount,tv_balance,tv_account_no,txt_amtinword;
     private ArrayList<BarcodeAgainstCustomerAccountList> CustomerList = new ArrayList<>();
-
+    String acc1;
     private RecyclerView mRecyclerView;
     private static final String KEY_VALUE = "keyvalue";
     private static final String TITLE = "title";
@@ -155,6 +155,11 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
         SourceAccountNumber = getIntent().getStringExtra("AccountNumber");
+
+        StringTokenizer st = new StringTokenizer(SourceAccountNumber, "(");
+        acc1 = st.nextToken();
+
+
 
         BranchName = getIntent().getStringExtra("BranchName");
         Balance = getIntent().getStringExtra("Balance");
@@ -925,8 +930,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         mScannedValue = mScannedValue.replaceAll(" ", "%20");
 
         /*Extract account number*/
-        accountNumber = accountNumber.replace(accountNumber.substring(accountNumber.indexOf(" (") + 1, accountNumber.indexOf(")") + 1), "");
-        accountNumber = accountNumber.replace(" ", "");
+       // accountNumber = accountNumber.replace(accountNumber.substring(accountNumber.indexOf(" (") + 1, accountNumber.indexOf(")") + 1), "");
+       // accountNumber = accountNumber.replace(" ", "");
 
 
         final String tempFromAccNo = accountNumber +"("+ type +")";
@@ -961,7 +966,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
                 try {
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(acc1));
                     String s = typeShort;
                     requestObject1.put("Module", IScoreApplication.encryptStart(typeShort) );
                     requestObject1.put("ReceiverModule", IScoreApplication.encryptStart(type));

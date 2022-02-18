@@ -652,9 +652,6 @@
         </receiver>
 
         <activity
-            android:name=".AddSenderReceiverActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".OTPActivity"
             android:label="Fund Transfer"
             android:parentActivityName=".HomeActivity"
