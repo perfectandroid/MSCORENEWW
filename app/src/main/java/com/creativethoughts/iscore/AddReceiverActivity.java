@@ -76,7 +76,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
     private Spinner mSenderSpinner;
     long senderid;
     private String url,cusid,msg;
-
+    public String from ="receiver";
     List<String> senders = new ArrayList<String>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -343,9 +343,9 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-                                String from ="receiver";
+
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from",from);
+                                i.putExtra("from","receiver");
                                 startActivity(i);
                             }
                             else if(statscode.equals("500"))

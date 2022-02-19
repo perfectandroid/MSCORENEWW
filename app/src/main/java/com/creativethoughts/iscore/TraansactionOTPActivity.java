@@ -102,6 +102,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
 
         setRegViews();
+      //  Log.i("FRom",from);
         from = getIntent().getStringExtra("from");
 
     }
@@ -402,12 +403,12 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                         {
                             getVerifypaymentOTP(otp);
                         }
-                        else if(from.equals("receiver"))
+                         if(from.equals("receiver"))
                         {
 
                             getVerifyreceiverOTP(otp);
                         }
-                        else if(from.equals("sender"))
+                         if(from.equals("sender"))
                         {
                             getVerifysenderOTP(otp);
                         }
