@@ -10,14 +10,14 @@ android {
 
     signingConfigs {
         // HIDE
-       /* release {
-            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\kuruvattoor\\kuruvattoor.jks')
-            storePassword 'mocte$8316Zuma'
-            keyAlias 'Kuruvattoor Bank'
-            keyPassword 'mocte$8317Zuma'
+        release {
+            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\kodiyathur\\kodiyathoormscore.jks')
+            storePassword 'bnS<AH4fnWV.}mZN'
+            keyAlias 'mscorekodiyathoor'
+            keyPassword 'z}by1LGD_J&Xh76f'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
-        }*/
+        }
 
     }
     aaptOptions {
@@ -31,16 +31,16 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 30
-        applicationId "com.mscore.pss"
+        applicationId "com.mscore.kodiyathoor"
       //  applicationId "com.mscore.kuruvattoor"
 
-       versionCode = 1
-        versionName = '1.0.0'
+      /* versionCode = 1
+        versionName = '1.0.0'*/
       /*  versionCode = 15
        versionName = '4.0.4'*/
 
-       /* versionCode = 19
-        versionName = '4.0.8'*/
+        versionCode = 13
+        versionName = '4.0.4'
 
     }
 
@@ -52,7 +52,7 @@ android {
                 abortOnError false
             }
             minifyEnabled false
-           // signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {

@@ -226,6 +226,7 @@
                             android:layout_marginLeft="50dp"
                             android:textColor="@color/black"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:text="">
                         </TextView>
                     </LinearLayout>

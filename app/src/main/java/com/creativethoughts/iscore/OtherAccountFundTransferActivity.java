@@ -1662,7 +1662,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
         txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
-        txtvbranchto.setText("Branch :"+result);
+
+
 
 
 

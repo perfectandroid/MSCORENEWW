@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+ <!--   <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>-->
 <!--        tools:ignore="ScopedStorage"/>-->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -390,7 +390,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCsmlFvi1PG_51mOuHF9Fe4PAD8E7c5qrU"/>
+            android:value="AIzaSyCFrJ8zS8oxu4PKGMhkyVbQolie2KSm2ac"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

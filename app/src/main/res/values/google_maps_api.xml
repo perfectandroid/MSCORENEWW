@@ -93,8 +93,11 @@
 -->
 <!--    atholi-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAuCq1Kb9yJP3vTXA6WzaDB0NlwWR6FsCQ</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCFrJ8zS8oxu4PKGMhkyVbQolie2KSm2ac</string>
+
+
     <!--    Kuruvattoor-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCsmlFvi1PG_51mOuHF9Fe4PAD8E7c5qrU</string>
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCsmlFvi1PG_51mOuHF9Fe4PAD8E7c5qrU</string>-->
 <!--thiruvambadi-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB604ecFDJEdSKgaJU13IrLVSeRfnTxsAI</string>-->
 
