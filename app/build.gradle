@@ -31,16 +31,17 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 30
-        applicationId "com.mscore.kodiyathoor"
+        applicationId "com.mscore.pss"
+       // applicationId "com.mscore.kodiyathoor"
       //  applicationId "com.mscore.kuruvattoor"
 
-      /* versionCode = 1
-        versionName = '1.0.0'*/
+       versionCode = 1
+        versionName = '1.0.0'
       /*  versionCode = 15
        versionName = '4.0.4'*/
 
-        versionCode = 13
-        versionName = '4.0.4'
+     /*   versionCode = 13
+        versionName = '4.0.4'*/
 
     }
 
