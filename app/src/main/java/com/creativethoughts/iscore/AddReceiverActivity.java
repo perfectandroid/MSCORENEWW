@@ -76,7 +76,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
     private Spinner mSenderSpinner;
     long senderid;
     private String url,cusid,msg;
-    String from ="receiver";
+
     List<String> senders = new ArrayList<String>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -300,7 +300,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("7857"));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(String.valueOf(senderid)));
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid) );
                     requestObject1.put("receiver_name", IScoreApplication.encryptStart(receiverName));
                     requestObject1.put("receiver_mobile", IScoreApplication.encryptStart(mobileNumber));
@@ -343,16 +343,15 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
+                                String from ="receiver";
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
                                 startActivity(i);
                             }
                             else if(statscode.equals("500"))
                             {
-                              //  alertMessage1("" ,msg );
-                                Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from",from);
-                                startActivity(i);
+                                alertMessage1("" ,msg );
+
                             }
                             else
                             {

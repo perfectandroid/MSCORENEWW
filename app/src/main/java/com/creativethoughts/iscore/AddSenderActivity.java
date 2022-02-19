@@ -68,7 +68,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
     private AppCompatEditText mMobileNumberEt;
     String token,cusid,pin,msg;
     private TextView mDOBTv;
-    String from ="sender";
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -188,16 +188,17 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {
+                                String from ="sender";
                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                i.putExtra("from",from);
                                startActivity(i);
                             }
                             else if(statscode.equals("500"))
                             {
-                               // alertMessage1("" ,msg );
-                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                                alertMessage1("" ,msg );
+                              /*  Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
-                                startActivity(i);
+                                startActivity(i);*/
                             }
                             else
                             {
