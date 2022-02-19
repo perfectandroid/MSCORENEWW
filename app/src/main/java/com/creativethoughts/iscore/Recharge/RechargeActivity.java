@@ -2,8 +2,11 @@ package com.creativethoughts.iscore.Recharge;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
@@ -12,8 +15,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -127,6 +132,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     String BranchName = "";
     private static final int REACHARGE_OFFER = 10;
     private static final int PICK_CONTACT = 1;
+    public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 2;
 
     JSONArray Jarray;
     public JSONArray JarrayOperator;
@@ -746,7 +752,9 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.select_contact_image:
-                contactSelect();
+              //  contactSelect();
+
+                requestContactPermission();
                 break;
 
             case R.id.tv_operator:
@@ -1155,6 +1163,47 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void requestContactPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        android.Manifest.permission.READ_CONTACTS)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Read Contacts permission");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setMessage("Please enable access to contacts.");
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @TargetApi(Build.VERSION_CODES.M)
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            requestPermissions(
+                                    new String[]
+                                            {android.Manifest.permission.READ_CONTACTS}
+                                    , PERMISSIONS_REQUEST_READ_CONTACTS);
+                        }
+                    });
+                    builder.show();
+                } else {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{android.Manifest.permission.READ_CONTACTS},
+                            PERMISSIONS_REQUEST_READ_CONTACTS);
+                }
+            } else {
+                getContacts();
+            }
+        } else {
+            getContacts();
+        }
+    }
+
+
+    private void getContacts() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        intent.setType( ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE );
+        startActivityForResult(intent, PICK_CONTACT);
+    }
+
     private void contactSelect() {
         Intent intent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
@@ -1179,19 +1228,24 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         if(requestCode == PICK_CONTACT && resultCode == RESULT_OK && getApplicationContext() != null ){
             try{
                 Uri uriContact = data.getData();
+                Log.e(TAG,"uriContact   1182   "+uriContact);
                 assert uriContact != null;
                 Cursor cursor =
                         getApplicationContext().getContentResolver().query(
                                 uriContact, null, null, null, null);
 
                 assert cursor != null;
+                Log.e(TAG,"cursor   11822   "+cursor);
                 cursor.moveToFirst();
+                Log.e(TAG,"cursor   11823   "+cursor.getCount());
+//                Log.e(TAG,"NUMBER   11822   "+cursor.getString(cursor.getColumnIndex("ContactNumber")));
                 String tempContact = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 mMobileNumEt.setText(extractPhoneNumber(tempContact));
 
                 closeCursor(cursor);
             }catch (Exception e){
                 if(IScoreApplication.DEBUG)Log.e("contact ex", e.toString());
+                Log.e(TAG,"Exception   11824   "+e.toString());
             }
         }
         if (requestCode == 10) {
