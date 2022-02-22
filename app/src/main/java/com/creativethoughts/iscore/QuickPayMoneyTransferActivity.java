@@ -27,6 +27,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 
+import com.creativethoughts.iscore.model.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.model.Receivers;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -77,6 +78,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class QuickPayMoneyTransferActivity extends AppCompatActivity implements View.OnClickListener,Spinner.OnItemSelectedListener {
     public String TAG ="QuickPayMoneyTransferActivity";
     private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
+    private ArrayList<AddSenderReceiverResponseModel> addSenderReceiverResponseModels = new ArrayList<AddSenderReceiverResponseModel>();
     private Button mBtnSubmit;
     private Spinner mAccountSpinner;
     private AppCompatEditText mAmountEt;
@@ -357,11 +359,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                             mSenders.add(new SenderReceiver( json.getLong("UserID"), json.getLong("FK_SenderID"), json.getString("SenderName"), json.getString("SenderMobile"), json.getString("ReceiverAccountno"), json.getInt("Mode")));
 
 
-                                          /*  senders.userId = json.getLong("UserID");
-                                            senders.fkSenderId = json.getLong("FK_SenderID");
-                                            senders.senderName = json.getString("SenderName");
-                                            senders.senderMobile = json.getString("SenderMobile");
-                                            senders.receiverAccountno = json.getString("ReceiverAccountno");*/
+
                                         }
                                     if (json.getString("Mode").equals("2")) {
 
@@ -1193,18 +1191,43 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             JSONObject jObject = new JSONObject(response.body());
                             String statusCode=jObject.getString("StatusCode");
                             String statusmsg = jObject.getString("message");
-                            String status = jObject.getString("ERROR");
+                            String status = jObject.getString("Status");
                             String otpref = jObject.getString("otpRefNo");
+                            String receivr = jObject.getString("ID_Receiver");
+                            String sendr = jObject.getString("ID_Sender");
+                            String transid = jObject.getString("TrasactionID");
+
+                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+
+
+                            addSenderReceiverResponseModel.status =status;
+                            addSenderReceiverResponseModel.statusCode = statusCode;
+                            addSenderReceiverResponseModel.senderid=sendr;
+                            addSenderReceiverResponseModel.message=statusmsg;
+                            addSenderReceiverResponseModel.receiverid=receivr;
+                            addSenderReceiverResponseModel.otprefno=otpref;
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
 
                             if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
                                 String from ="quickpay";
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
+                                i.putExtra("transid",transid);
                                 startActivity(i);
 
                             }
                             if ( statusCode!= null && statusCode.equals("200") &&otpref.equals("0")){
-
+                                String from ="quickpay";
+                                Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
+                                i.putExtra("transid",transid);
+                                startActivity(i);
                             }
                             else if ( statusCode!= null && statusCode.equals("200")){
                                  //   moneyTransferResponseModel.getOtpRefNo().equals("0")){

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.model.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.model.ToAccountDetails;
 import com.creativethoughts.iscore.utility.NetworkUtil;
@@ -78,6 +79,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
     private String url,cusid,msg;
     public String from ="receiver";
     List<String> senders = new ArrayList<String>();
+    private ArrayList<AddSenderReceiverResponseModel> addSenderReceiverResponseModels = new ArrayList<AddSenderReceiverResponseModel>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -337,15 +339,44 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             String statscode =jObject.getString("StatusCode");
                             msg =jObject.getString("message");
                             String otprefno =jObject.getString("otpRefNo");
+                            String status =jObject.getString("Status");
+                            String sender =jObject.getString("ID_Sender");
+                            String receiver =jObject.getString("ID_Receiver");
+                           // String mobileno =mMobileNumberEt.getText().toString();
+                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+                            addSenderReceiverResponseModel.status =status;
+                            addSenderReceiverResponseModel.statusCode = statscode;
+                            addSenderReceiverResponseModel.senderid=sender;
+                         //   addSenderReceiverResponseModel.mobileno=mobileno;
+                            addSenderReceiverResponseModel.message=msg;
+                             addSenderReceiverResponseModel.receiverid=receiver;
+                            addSenderReceiverResponseModel.otprefno=otprefno;
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
+
                             if(statscode.equals("0"))
                             {
 
                             }
                             else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-
+                                String from ="receiver";
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from","receiver");
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());
+
+                                startActivity(i);
+                            }
+                            else if(statscode.equals("200")&& !otprefno.equals("0"))
+                            {
+                                String from ="receiver";
+                                Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());
+
                                 startActivity(i);
                             }
                             else if(statscode.equals("500"))

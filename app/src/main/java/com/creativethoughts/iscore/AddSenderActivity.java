@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.model.AddSenderReceiverResponseModel;
+import com.creativethoughts.iscore.model.FundTransferResult1;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.google.gson.Gson;
@@ -41,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
@@ -68,7 +71,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
     private AppCompatEditText mMobileNumberEt;
     String token,cusid,pin,msg;
     private TextView mDOBTv;
-
+    private ArrayList<AddSenderReceiverResponseModel> addSenderReceiverResponseModels = new ArrayList<AddSenderReceiverResponseModel>();
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -177,6 +180,21 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             String statscode =jObject.getString("StatusCode");
                              msg =jObject.getString("message");
                             String otprefno =jObject.getString("otpRefNo");
+                            String status =jObject.getString("Status");
+                            String sender =jObject.getString("ID_Sender");
+                          //  String receiver =jObject.getString("ID_Receiver");
+                            String mobileno =mMobileNumberEt.getText().toString();
+                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+
+
+                            addSenderReceiverResponseModel.status =status;
+                            addSenderReceiverResponseModel.statusCode = statscode;
+                            addSenderReceiverResponseModel.senderid=sender;
+                            addSenderReceiverResponseModel.mobileno=mobileno;
+                            addSenderReceiverResponseModel.message=msg;
+                           // addSenderReceiverResponseModel.receiverid=receiver;
+                            addSenderReceiverResponseModel.otprefno=otprefno;
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
                             
                             if(statscode.equals("0"))
                             {
@@ -184,13 +202,25 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             }
                            else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-                                alertMessage1("" ,msg );
+
+                                String from ="sender";
+                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("mob",addSenderReceiverResponseModels.get(0).getMobileno());
+
+                                startActivity(i);
+                             //   alertMessage1("" ,msg );
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {
                                 String from ="sender";
                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("mob",addSenderReceiverResponseModels.get(0).getMobileno());
                                startActivity(i);
                             }
                             else if(statscode.equals("500"))

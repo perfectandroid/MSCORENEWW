@@ -1,9 +1,10 @@
 <resources>
-    <!-- <string name="app_name">Perfect Demo</string>-->
+    <string name="app_name">Perfect Demo</string>
    <!-- <string name="app_name">Parappanangadi CSB</string>-->
  <!--   <string name="app_name"> Calicut Town SCB</string>-->
   <!--  <string name="app_name">Kulathupuzha SCB</string>-->
    <!-- <string name="app_name">Panniyankara SCB</string>-->
+  <!--  <string name="app_name">Edacheri SCB</string>-->
 
    <!-- <string name="app_name">Kadampazhipuram SCB</string>-->
   <!--  <string name="app_name">Chathamangalam SCB</string>-->
@@ -29,7 +30,7 @@
  <!--   <string name="app_name">Porora SCB</string>-->
   <!--  <string name="app_name">Mezhuveli SCB</string>-->
 
-    <string name="app_name">Mscore Demo</string>
+ <!--   <string name="app_name">Mscore Demo</string>-->
 <!--    <string name="app_name">Kodiyathoor Bank</string>-->
 <!--   <string name="app_name">Kuruvattoor Bank</string>-->
 
@@ -58,7 +59,7 @@
 <!--    <string name="app_name">CSC Bank</string>-->
 <!--    <string name="app_name">Mezhuveli SCB</string> -->
  <!--  <string name="app_name">Kuttikkattoor Urban Society</string>-->
-<!--    <string name="app_name">Calicut City Bank</string>-->
+  <!--  <string name="app_name">Calicut Town Co-Operative Bank</string>-->
     <!--<string name="app_name">Kayanna SCB</string>-->
 
 
