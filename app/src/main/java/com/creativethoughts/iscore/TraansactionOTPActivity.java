@@ -465,7 +465,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     String senderid = addSenderReceiverResponseModel.getSenderid();
                     String receivrid = addSenderReceiverResponseModel.getReceiverid();
                     String otprefno = addSenderReceiverResponseModel.getOtprefno();
-                    getVerifyreceiverOTP(otp, senderid, receivrid, otp);
+                    getVerifyreceiverOTP(otp, senderid, receivrid, otprefno);
                 }
                 else if(from.equals("sender"))
                 {
