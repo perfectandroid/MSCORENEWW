@@ -201,4 +201,7 @@ public interface APIInterface {
     @POST("api/AccountSummary/MTResendMPIN")
     Call<String>getForgotMpin(@Body RequestBody body);
 
+    @POST("api/Recharge/KSEBCommission")
+    Call<String>getKSEBCommission(@Body RequestBody body);
+
 }

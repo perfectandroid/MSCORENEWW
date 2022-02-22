@@ -346,6 +346,93 @@
                                 android:textColor="@color/google_blue" />
                         </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:id="@+id/tv_commision"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:drawablePadding="5dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:paddingEnd="8dp"
+                            android:paddingLeft="20dp"
+                            android:drawableRight="@drawable/arrow_down"
+                            android:drawableTint="@color/grey1"
+                            android:background="@color/grey"
+                            android:paddingRight="8dp"
+                            android:text="Commision Details"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_commision"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:background="@drawable/lay_commision">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Commision Range"
+                                    android:textStyle="bold"
+                                    android:layout_margin="5dp"
+                                    android:textSize="15dp"
+                                    android:padding="5dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/black" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:text="Commision Range"
+                                    android:layout_margin="1dp"
+                                    android:textStyle="bold"
+                                    android:padding="5dp"
+                                    android:background="@color/white"
+                                    android:textSize="15dp"
+                                    android:gravity="center_vertical"
+                                    android:textColor="@color/black" />
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5"
+                                    android:text="Commision"
+                                    android:textStyle="bold"
+                                    android:padding="5dp"
+                                    android:layout_margin="5dp"
+                                    android:textSize="15dp"
+                                    android:gravity="center"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+                            <com.creativethoughts.iscore.Helper.FullLenghRecyclertview
+                                android:id="@+id/recyc_commision"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
                         <!--Bill no-->
                         <!--Amount-->
                         \
