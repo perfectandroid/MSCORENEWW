@@ -150,6 +150,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     JSONObject obj1;
     String accno,typeshrt;
     List<String> accountSpinnerItems = new ArrayList<String>();
+    String netAmounts = "";
+    String LiabiltyAmount = "";
+    String paySubModule= "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -394,6 +397,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                 edtTxtAmount.setText("");
                 edt_txt_remark.setText("");
                 txt_amtinword.setText("");
+                netAmounts = "";
+                LiabiltyAmount = "";
+
                 break;
             case R.id.scan:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -580,6 +586,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e(TAG,"requestObject1   5831   "+requestObject1);
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -592,6 +600,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     public void onResponse(Call<String> call, Response<String> response) {
                         try{
                             JSONObject jsonObj = new JSONObject(response.body());
+                            Log.e(TAG,"response   5832   "+response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
@@ -622,7 +631,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     mAccountPayingToSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                         @Override
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                                            netAmounts = "";
+                                            LiabiltyAmount = "";
+                                            paySubModule="";
                                             if (position!=0) {
 
                                                 // TextView textView = (TextView)mAccountTypeSpinner.getSelectedView();
@@ -635,10 +646,12 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                                 ll_remittance.setVisibility(View.GONE);
                                                 Object item = parent.getItemAtPosition(position);
 
+                                                paySubModule = AccountAdapter.getItem(position).getSubModule();
+
                                                 BalanceSplitUpDetails(AccountAdapter.getItem(position).getSubModule(),AccountAdapter.getItem(position).getFK_Account());
                                             }
                                             else {
-
+                                                paySubModule="";
                                                 ll_needTochange.setVisibility(View.GONE);
                                                 ll_needToPayAdvance.setVisibility(View.GONE);
                                                 ll_remittance.setVisibility(View.GONE);
@@ -649,6 +662,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                         @Override
                                         public void onNothingSelected(AdapterView<?> parent) {
                                             //Do nothing
+                                            paySubModule="";
                                         }
                                     });
                                 }
@@ -1315,15 +1329,50 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
     private boolean isValid() {
 
-        String amount = edtTxtAmount.getText().toString();
+//        String amount = edtTxtAmount.getText().toString();
+//        if (amount.length() <1)
+//            return false;
+//        edtTxtAmount.setError(null);
+//        return true;
+        Log.e(TAG,"paySubModule  1342   "+paySubModule+"   "+netAmounts+ "   "+LiabiltyAmount);
+        boolean result = false;
+        String amount = edtTxtAmount.getText().toString().replaceAll(",", "");
+        if (amount.length() <1){
+            result = false;
+        }else {
+            edtTxtAmount.setError(null);
+            if (paySubModule.equals("SLJL")){
+                Log.e(TAG,"13421   "+amount+"   "+netAmounts);
+                Log.e(TAG,"134212   "+Double.parseDouble(""+amount)+"   "+Double.parseDouble(""+netAmounts));
+                if (Double.parseDouble(""+amount)<=Double.parseDouble(""+netAmounts)){
+                    Log.e(TAG,"13422   ");
+                    result = true;
+                }else {
+                    Log.e(TAG,"13423   ");
+                    alertMessage1("", "Amount should not be exceed due as on given date");
+                    result = false;
 
+                }
+            }
+            else if (paySubModule.equals("TLML")){
+                Log.e(TAG,"13422   "+amount+"   "+LiabiltyAmount);
+                Log.e(TAG,"134222   "+Double.parseDouble(""+amount)+"   "+Double.parseDouble(""+LiabiltyAmount));
+                if (Double.parseDouble(""+amount)<=Double.parseDouble(""+LiabiltyAmount)){
+                    Log.e(TAG,"134221   ");
+                    result = true;
+                }else {
+                    Log.e(TAG,"13423   ");
+                    alertMessage1("", "Amount should not be exceed total liability amount");
+                    result = false;
 
-        if (amount.length() <1)
-            return false;
+                }
+            }
+            else {
+                result = true;
+            }
+        }
 
-
-        edtTxtAmount.setError(null);
-        return true;
+        return result;
     }
 
     @Override
@@ -1392,6 +1441,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                     String BankHeader=bankheaderpref.getString("bankheader", null);
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1   1121   "+requestObject1);
+                    Log.e(TAG,"ToSubModule   1121   "+ToSubModule);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1421,11 +1474,21 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                             JSONObject DetailsjsonObject=jsonObjectjarray.getJSONObject(k);
                                             String NetAmount = DetailsjsonObject.getString("Key");
                                             if (NetAmount.equals("NetAmount")){
+                                                netAmounts = DetailsjsonObject.getString("Value");
                                                 Log.e(TAG,"onResponse   1142   ");
                                                 edtTxtAmount.setText(DetailsjsonObject.getString("Value").replace("-",""));
                                             }
                                             else{
                                                 edtTxtAmount.setText("");
+                                                netAmounts = "";
+                                            }
+
+                                            if (ToSubModule.equals("TLML")){
+                                                LiabiltyAmount = DetailsjsonObject.getString("Value");
+
+                                            }else {
+                                                LiabiltyAmount = "";
+
                                             }
 
                                             String BalanceInstallment = DetailsjsonObject.getString("Key");

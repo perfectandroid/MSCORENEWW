@@ -36,12 +36,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.creativethoughts.iscore.Helper.Config;
+import com.creativethoughts.iscore.Helper.FullLenghRecyclertview;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
+import com.creativethoughts.iscore.kseb.KsebCommisionAdapter;
 import com.creativethoughts.iscore.kseb.KsebSectionSelectionActivity;
 import com.creativethoughts.iscore.kseb.SectionDetails;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -107,6 +109,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     private Button proceedToPayButton;
     private Button btnClearAll;
     TextView tv_accountno;
+    FullLenghRecyclertview recyc_commision;
+    LinearLayout ll_commision;
+    TextView tv_commision;
 
 
     private String tempStringMobileNumber;
@@ -121,9 +126,12 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     String typeShort="";
     String SubModule="";
     String tempDisplaySection;
+    String strCommision="";
     private String sectionCode = "";
+    String selComm = "0";
 
     private static final int REQUEST_SELECT_SECTION = 100;
+    JSONArray JArrayComm = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,7 +148,13 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-
+        int angle = 100;
+        if (angle >= 90 && angle <= 180) {
+            Log.e(TAG,"145   angle >= 90 && angle <= 180");
+        }else {
+            Log.e(TAG,"145 else  angle >= 90 && angle <= 180");
+        }
+        getCommision("");
         setInitialise();
         setRegister();
 
@@ -181,6 +195,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         amountInWordPop += " only";
                     }
                     txt_amtinword.setText(""+amountInWordPop);
+               //    getCommision(originalString);
 
 
                 } catch (NumberFormatException nfe) {
@@ -217,6 +232,141 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void getCommision(String sAmount) {
+
+//        FullLenghRecyclertview recyc_commision = (FullLenghRecyclertview)findViewById(R.id.recyc_commision) ;
+//        String ss = "[{\"FK_Account\":1205,\"AccountNumber\":\"001001001510 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":172014.40,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":1377,\"AccountNumber\":\"001001001682 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":3323.06,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":1399,\"AccountNumber\":\"001001001704 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":21622.72,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":2020,\"AccountNumber\":\"001001002327 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":6654.70,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":2186,\"AccountNumber\":\"001001002493 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":479.83,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":3008,\"AccountNumber\":\"001001003316 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":7187.91,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":5046,\"AccountNumber\":\"001001000766 (CA)\",\"SubModule\":\"DDCA\",\"Balance\":1176.20,\"typeShort\":\"CA\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14511,\"AccountNumber\":\"001001005868 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":12.90,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14587,\"AccountNumber\":\"001001005930 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":330244.41,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14827,\"AccountNumber\":\"001001100000 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":14043.33,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14852,\"AccountNumber\":\"001018000001 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":0.00,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14902,\"AccountNumber\":\"001001998896 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":0.00,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14906,\"AccountNumber\":\"001004998900 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":14057.00,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14914,\"AccountNumber\":\"001001998908 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":23460.80,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":14923,\"AccountNumber\":\"001001998915 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":285.80,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15039,\"AccountNumber\":\"001001998995 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":3420.49,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15077,\"AccountNumber\":\"001013999023 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":28.00,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15109,\"AccountNumber\":\"001001999048 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":49396.86,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15149,\"AccountNumber\":\"001003000003 (CA)\",\"SubModule\":\"DDCA\",\"Balance\":2060.00,\"typeShort\":\"CA\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15150,\"AccountNumber\":\"001003000004 (CA)\",\"SubModule\":\"DDCA\",\"Balance\":2056.00,\"typeShort\":\"CA\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15394,\"AccountNumber\":\"001001999184 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":13198.88,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":15520,\"AccountNumber\":\"001029231231 (SB)\",\"SubModule\":\"DDSB\",\"Balance\":1854468.00,\"typeShort\":\"SB\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":43890,\"AccountNumber\":\"001006965718 (OD)\",\"SubModule\":\"TLOD\",\"Balance\":-18601.00,\"typeShort\":\"OD\",\"BranchName\":\"HEAD OFFICE\"},{\"FK_Account\":44639,\"AccountNumber\":\"001001965822 (OD)\",\"SubModule\":\"TLOD\",\"Balance\":-13750.00,\"typeShort\":\"OD\",\"BranchName\":\"HEAD OFFICE\"}]";
+////        JArrayComm = new JSONArray(ss.toString());
+//        try {
+//            JSONArray jsonArray = new JSONArray(ss);
+//            GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
+//            recyc_commision.setLayoutManager(lLayout1);
+//            recyc_commision.setHasFixedSize(true);
+//            KsebCommisionAdapter adapter1 = new KsebCommisionAdapter(getApplicationContext(), jsonArray);
+//            recyc_commision.setAdapter(adapter1);
+//        }catch (Exception e){
+//
+//        }
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            progressDialog = new ProgressDialog(KsebActivity.this, R.style.Progress);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setIndeterminateDrawable(this.getResources()
+                    .getDrawable(R.drawable.progress));
+            progressDialog.show();
+            try {
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    Date date = Calendar.getInstance().getTime();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    String formattedDate = df.format(date);
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    String iemi =   IScoreApplication.getIEMI();
+                    SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                    String BankVerifier =BankVerifierSP.getString("BankVerifier","");
+
+                    requestObject1.put("ReqMode",       IScoreApplication.encryptStart("33"));
+                    requestObject1.put("SubMode",         IScoreApplication.encryptStart("1"));
+                    requestObject1.put("TrnsDate",         IScoreApplication.encryptStart(formattedDate));
+                    requestObject1.put("imei",         IScoreApplication.encryptStart(iemi));
+                    requestObject1.put("token",         IScoreApplication.encryptStart(token));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified",IScoreApplication.encryptStart(BankVerifier));
+
+//                    {"ReqMode":"33","SubMode":"1","TrnsDate":"2022-02-21","amount":"1001","imei":"tRlL57dQ1Lm3OwxZvjFWGNr6JrIT21Uf\n","token":"z7apU+lpNzG0HGWZdkVOE5QQKQE7rDcV+yOpmr\/RIdrgqqM92AN6lg==\n",
+//                            "BankKey":"d.22333","BankHeader":"Perfectclt","BankVerified":""}
+
+                    Log.e(TAG,"requestObject1   2771   "+requestObject1);
+                    Log.e(TAG,"requestObject1  2772 "
+                            +"\n"+"ReqMode    "+"33"
+                            +"\n"+"SubMode    "+"1"
+                            +"\n"+"TrnsDate    "+formattedDate
+                            +"\n"+"amount    "+sAmount
+                            +"\n"+"imei    "+iemi
+                            +"\n"+"token    "+token
+                            +"\n"+"BankKey   "+BankKey
+                            +"\n"+"BankHeader    "+BankHeader
+                            +"\n"+"BankVerified    "+BankVerifier);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getKSEBCommission(body);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            progressDialog.dismiss();
+                            Log.e(TAG,"response   2773   "+response.body());
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+                                ll_commision.setVisibility(View.VISIBLE);
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("CommissionAmtDetails");
+                                JSONObject object = new JSONObject(String.valueOf(jsonObj1));
+                                JArrayComm = object.getJSONArray("KSEBCommissionDetails");
+
+                                GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
+                                recyc_commision.setLayoutManager(lLayout1);
+                                recyc_commision.setHasFixedSize(true);
+                                KsebCommisionAdapter adapter1 = new KsebCommisionAdapter(getApplicationContext(), JArrayComm);
+                                recyc_commision.setAdapter(adapter1);
+
+                            }
+                            else {
+                                ll_commision.setVisibility(View.GONE);
+
+                            }
+                        }
+                        catch (JSONException e) {
+                            progressDialog.dismiss();
+                            ll_commision.setVisibility(View.GONE);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
+                        ll_commision.setVisibility(View.GONE);
+                    }
+                });
+            }
+            catch (Exception e) {
+                progressDialog.dismiss();
+                ll_commision.setVisibility(View.GONE);
+            }
+        }
+        else {
+            ll_commision.setVisibility(View.GONE);
+        }
+    }
 
 
     private void setInitialise() {
@@ -235,10 +385,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         edtTxtAmount                =   (AutoCompleteTextView) findViewById(R.id.amount);
 
         tv_accountno = (TextView)findViewById(R.id.tv_accountno);
-
-
-
-
+        recyc_commision = (FullLenghRecyclertview)findViewById(R.id.recyc_commision) ;
+        ll_commision = (LinearLayout) findViewById(R.id.ll_commision) ;
+        tv_commision = (TextView) findViewById(R.id.tv_commision) ;
 
 
     }
@@ -249,6 +398,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         proceedToPayButton.setOnClickListener(this);
         btnClearAll.setOnClickListener(this);
         tv_accountno.setOnClickListener(this);
+        tv_commision.setOnClickListener(this);
 
     }
 
@@ -426,6 +576,17 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.clear_all:
                 clearAll();
+                break;
+            case R.id.tv_commision:
+                if (selComm.equals("0")){
+                    selComm = "1";
+                    ll_commision.setVisibility(View.VISIBLE);
+                    tv_commision.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.arrow_up), null);
+                }else {
+                    selComm = "0";
+                    ll_commision.setVisibility(View.GONE);
+                    tv_commision.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(this,R.drawable.arrow_down), null);
+                }
                 break;
 
         }
@@ -732,8 +893,22 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
 
+            strCommision = "0";
 
+            for (int i = 0;i<JArrayComm.length();i++){
+                try {
+                    String mAmount = tempStringAmount.replace(",","");
+                    JSONObject jsonObject = JArrayComm.getJSONObject(i);
+                    if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountFrom"))) {
+                        Log.e(TAG,"145   angle >= 90 && angle <= 180");
+                        strCommision = jsonObject.getString("CommissionAmount");
+                    }
 
+                }catch (Exception e){
+
+                }
+
+            }
 
 
             Log.e(TAG,"proceedPay  567 "
@@ -745,6 +920,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     +"\n"+"tempStringBillNo   "+tempStringBillNo
                     +"\n"+"tempDisplaySection   "+tempDisplaySection
                     +"\n"+"BranchName   "+BranchName
+                    +"\n"+"strCommision   "+strCommision
                     +"\n"+"tempStringAmount   "+tempStringAmount);
 
 

@@ -67,12 +67,27 @@ public class AccountSplitBalanceDetailsAdapter extends RecyclerView.Adapter {
                     ((MainViewHolder)holder).tv_sep.setTextColor(Color.parseColor("#B22222"));
                     ((MainViewHolder)holder).tvvalue.setTextColor(Color.parseColor("#B22222"));
                 }
+
                 else {
 
                     ((MainViewHolder)holder).tvkey.setText(jsonObject.getString("Key"));
                     ((MainViewHolder)holder).tvvalue.setText(jsonObject.getString("Value"));
                     ((MainViewHolder)holder).v_sep.setVisibility(View.GONE);
                 }
+
+                if (jsonObject.getString("Key").equals("Total Liability Amount") ){
+
+                    ((MainViewHolder)holder).ll_liability.setVisibility(View.VISIBLE);
+                    ((MainViewHolder)holder).ll_main.setVisibility(View.GONE);
+
+
+                    ((MainViewHolder)holder).tvkey1.setText("Total Liability Amount");
+                    ((MainViewHolder)holder).tvvalue1.setText(jsonObject.getString("Value"));
+                    ((MainViewHolder)holder).tvkey1.setTextColor(Color.parseColor("#63B456"));
+                    ((MainViewHolder)holder).tv_sep1.setTextColor(Color.parseColor("#63B456"));
+                    ((MainViewHolder)holder).tvvalue1.setTextColor(Color.parseColor("#63B456"));
+                }
+
 //                Log.e(TAG,"Value   57   "+jsonObject.getString("Value"));
 //                double num =Double.parseDouble(""+jsonObject.getString("Value"));
 //                ((MainViewHolder)holder).tvvalue.setText(""+ CommonUtilities.getDecimelFormate(num));
@@ -122,7 +137,10 @@ public class AccountSplitBalanceDetailsAdapter extends RecyclerView.Adapter {
 
     private class MainViewHolder extends RecyclerView.ViewHolder {
         TextView  tvkey,tvvalue,tv_sl_no,tv_sep;
+        TextView  tvkey1,tvvalue1,tv_sl_no1,tv_sep1;
         LinearLayout llDetails;
+        LinearLayout ll_main;
+        LinearLayout ll_liability;
         ImageView imSeperator;
         View v_sep;
         public MainViewHolder(View v) {
@@ -134,6 +152,14 @@ public class AccountSplitBalanceDetailsAdapter extends RecyclerView.Adapter {
             tvkey=v.findViewById(R.id.tvkey);
             llDetails=v.findViewById(R.id.llDetails);
            // imSeperator=v.findViewById(R.id.imSeperator);
+
+            tv_sl_no1=v.findViewById(R.id.tv_sl_no1);
+            tvvalue1=v.findViewById(R.id.tvvalue1);
+            tv_sep1=v.findViewById(R.id.tv_sep1);
+            tvkey1=v.findViewById(R.id.tvkey1);
+
+            ll_main=v.findViewById(R.id.ll_main);
+            ll_liability=v.findViewById(R.id.ll_liability);
         }
     }
 }
