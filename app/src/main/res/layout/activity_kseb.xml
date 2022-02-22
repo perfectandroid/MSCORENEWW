@@ -35,8 +35,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
                         android:orientation="vertical">
                         <!--Consumer name-->
                         <TextView
@@ -46,7 +46,8 @@
                             android:text="@string/kseb_title_action_bar"
                             android:textSize="25sp"
                             android:textStyle="bold"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -58,14 +59,15 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:drawableLeft="@drawable/ick_acnt_num"
-                                android:gravity="center_vertical"
                                 android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
                                 android:paddingEnd="8dp"
                                 android:paddingRight="8dp"
                                 android:text="@string/account_no"
                                 android:textColor="@color/text_secondary"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
+
                             <Spinner
                                 android:id="@+id/account_number_selector_spinner"
                                 android:layout_width="match_parent"
@@ -73,19 +75,19 @@
                                 android:layout_marginLeft="20dp"
                                 android:popupBackground="#cccccc"
                                 android:spinnerMode="dialog"
-                                android:visibility="gone"/>
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/tv_accountno"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:textSize="14sp"
-                                android:paddingLeft="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:drawableRight="@drawable/ic_arrow_down_white"
+                                android:drawableTint="@color/black"
                                 android:gravity="center_vertical"
                                 android:hint="Select Account"
-                                android:drawableTint="@color/black"
-                                android:drawableRight="@drawable/ic_arrow_down_white"
-                                android:layout_gravity="center_vertical"
+                                android:paddingLeft="10dp"
+                                android:textSize="14sp"
                                 android:textStyle="normal" />
 
                         </LinearLayout>
@@ -101,8 +103,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:drawableLeft="@drawable/ick_cons_name"
-                                android:gravity="center_vertical"
                                 android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
                                 android:paddingEnd="8dp"
                                 android:paddingRight="8dp"
                                 android:text="@string/consumer_name"
@@ -115,10 +117,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="20dp"
-                                android:textSize="15sp"
-                                android:singleLine="true"
                                 android:focusableInTouchMode="true"
-                                android:imeOptions="actionNext" />
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/name_error"
@@ -126,8 +128,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="center_vertical"
-                                android:visibility="gone"
-                                android:textColor="@color/google_blue" />
+                                android:textColor="@color/google_blue"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -141,8 +143,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:drawableLeft="@drawable/ick_mob_num"
-                                android:gravity="center_vertical"
                                 android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
                                 android:paddingEnd="8dp"
                                 android:paddingRight="8dp"
                                 android:text="@string/mobile_no"
@@ -156,10 +158,10 @@
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="20dp"
                                 android:imeOptions="actionNext"
-                                android:textSize="15sp"
-                                android:singleLine="true"
                                 android:inputType="number"
-                                android:maxLength="10" />
+                                android:maxLength="10"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/mobile_no_error"
@@ -167,8 +169,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="start"
-                                android:visibility="gone"
-                                android:textColor="@color/google_blue" />
+                                android:textColor="@color/google_blue"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -182,8 +184,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:drawableLeft="@drawable/ick_cons_num"
-                                android:gravity="center_vertical"
                                 android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
                                 android:paddingEnd="8dp"
                                 android:paddingRight="8dp"
                                 android:text="@string/consumer_no"
@@ -197,10 +199,10 @@
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="20dp"
                                 android:imeOptions="actionNext"
-                                android:textSize="15sp"
-                                android:singleLine="true"
                                 android:inputType="number"
-                                android:maxLength="16" />
+                                android:maxLength="16"
+                                android:singleLine="true"
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/consumer_no_error"
@@ -208,9 +210,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="start"
-                                android:visibility="gone"
-                                android:textColor="@color/google_blue" />
+                                android:textColor="@color/google_blue"
+                                android:visibility="gone" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -222,29 +225,31 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:drawableLeft="@drawable/ick_section_name"
-                                android:gravity="center_vertical"
                                 android:drawablePadding="5dp"
+                                android:gravity="center_vertical"
                                 android:paddingEnd="8dp"
                                 android:paddingRight="8dp"
                                 android:text="Section Name"
                                 android:textColor="@color/text_secondary"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
+
                             <LinearLayout
                                 android:id="@+id/lnr_lyt_select_section"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:orientation="horizontal">
+
                                 <TextView
                                     android:id="@+id/txt_section_name"
                                     android:layout_width="match_parent"
-                                    android:layout_gravity="center_vertical"
-                                    android:gravity="center_vertical"
-                                    android:textColor="@color/Black"
                                     android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
                                     android:drawableRight="@drawable/ic_arrow_right"
+                                    android:gravity="center_vertical"
                                     android:hint="Select"
+                                    android:textColor="@color/Black"
                                     android:textSize="15sp" />
 
                             </LinearLayout>
@@ -280,9 +285,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="20dp"
+                                android:imeOptions="actionNext"
                                 android:singleLine="true"
-                                android:textSize="15sp"
-                                android:imeOptions="actionNext" />
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:id="@+id/bill_no_error"
@@ -290,8 +295,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="start"
-                                android:visibility="gone"
-                                android:textColor="@color/google_blue" />
+                                android:textColor="@color/google_blue"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -313,6 +318,7 @@
                                 android:textColor="@color/text_secondary"
                                 android:textSize="16sp"
                                 android:textStyle="normal" />
+
                             <AutoCompleteTextView
                                 android:id="@+id/amount"
                                 android:layout_width="match_parent"
@@ -326,63 +332,65 @@
                                 android:textColorHint="@color/text_primary"
                                 android:textSize="22dp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/txt_amtinword"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:text=""
                                 android:textColor="@color/RoyalBlue"
                                 android:textSize="15dp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="5dp"
-                                android:text=""/>
+                                android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/amount_error"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="start"
-                                android:visibility="gone"
-                                android:textColor="@color/google_blue" />
+                                android:textColor="@color/google_blue"
+                                android:visibility="gone" />
                         </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="15dp"
-                        android:visibility="gone"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:id="@+id/tv_commision"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:drawablePadding="5dp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:paddingEnd="8dp"
-                            android:paddingLeft="20dp"
-                            android:drawableRight="@drawable/arrow_down"
-                            android:drawableTint="@color/grey1"
-                            android:background="@color/grey"
-                            android:paddingRight="8dp"
-                            android:text="Commision Details"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:layout_marginTop="15dp"
+                            android:background="@color/white"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_commision"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@color/grey"
+                                android:drawableRight="@drawable/arrow_down"
+                                android:drawablePadding="5dp"
+                                android:drawableTint="@color/grey1"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="8dp"
+                                android:paddingRight="8dp"
+                                android:paddingBottom="10dp"
+                                android:text="Commision Details"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/ll_commision"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/lay_commision"
                             android:orientation="vertical"
-                            android:visibility="gone"
-                            android:background="@drawable/lay_commision">
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -392,39 +400,39 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Commision Range"
-                                    android:textStyle="bold"
                                     android:layout_margin="5dp"
-                                    android:textSize="15dp"
-                                    android:padding="5dp"
+                                    android:layout_weight="1"
                                     android:gravity="center"
-                                    android:textColor="@color/black" />
+                                    android:padding="5dp"
+                                    android:text="Amount Range"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
 
                                 <View
                                     android:layout_width="1dp"
                                     android:layout_height="match_parent"
-                                    android:text="Commision Range"
                                     android:layout_margin="1dp"
-                                    android:textStyle="bold"
-                                    android:padding="5dp"
                                     android:background="@color/white"
-                                    android:textSize="15dp"
                                     android:gravity="center_vertical"
-                                    android:textColor="@color/black" />
+                                    android:padding="5dp"
+                                    android:text="Commision Range"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
 
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.5"
-                                    android:text="Commision"
-                                    android:textStyle="bold"
-                                    android:padding="5dp"
                                     android:layout_margin="5dp"
-                                    android:textSize="15dp"
+                                    android:layout_weight="1.5"
                                     android:gravity="center"
-                                    android:textColor="@color/black" />
+                                    android:padding="5dp"
+                                    android:text="Commision"
+                                    android:textColor="@color/black"
+                                    android:textSize="15dp"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                             <com.creativethoughts.iscore.Helper.FullLenghRecyclertview
@@ -440,11 +448,13 @@
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
+
             <FrameLayout
                 android:id="@+id/view_data"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
                 <include layout="@layout/view_kseb_user_data_for_check" />
             </FrameLayout>
 

@@ -346,7 +346,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
                             }
                         }
-                        catch (JSONException e) {
+                        catch (Exception e) {
                             progressDialog.dismiss();
                             ll_commision.setVisibility(View.GONE);
                         }
@@ -898,8 +898,10 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 0;i<JArrayComm.length();i++){
                 try {
                     String mAmount = tempStringAmount.replace(",","");
+
                     JSONObject jsonObject = JArrayComm.getJSONObject(i);
-                    if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountFrom"))) {
+                    Log.e(TAG,""+Double.parseDouble(""+jsonObject.getString("AmountFrom"))+"    <=   "+ Double.parseDouble(mAmount));
+                    if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountTo"))) {
                         Log.e(TAG,"145   angle >= 90 && angle <= 180");
                         strCommision = jsonObject.getString("CommissionAmount");
                     }
@@ -925,14 +927,14 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
 
             ksebConfirmation(tempStringAccountNo,tempStringConsumerName,
-                    tempStringMobileNumber,tempStringConsumerNo,txt_section_name,tempStringBillNo,tempStringAmount);
+                    tempStringMobileNumber,tempStringConsumerNo,txt_section_name,tempStringBillNo,tempStringAmount,strCommision);
         }
     }
 
 
     private void ksebConfirmation(String tempStringAccountNo,String tempStringConsumerName,
                                   String tempStringMobileNumber,String tempStringConsumerNo, String txt_section_name,
-                                  String tempStringBillNo, String tempStringAmount ) {
+                                  String tempStringBillNo, String tempStringAmount,String strCommision ) {
         try {
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(KsebActivity.this);
             LayoutInflater inflater1 = (LayoutInflater) KsebActivity.this.getSystemService(KsebActivity.this.LAYOUT_INFLATER_SERVICE);
@@ -970,8 +972,12 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             tv_bill_num.setText("Bill NO : "+tempStringBillNo);
 
 
+            double amnt = Double.parseDouble(tempStringAmount.replace(",",""))+Double.parseDouble(strCommision);
+           // String stramnt = tempStringAmount.replace(",","");
+            String stramnt = String.valueOf(amnt);
 
-            String stramnt = tempStringAmount.replace(",","");
+
+
             text_confirmationmsg.setText("Proceed Recharge With Above Amount"+ "..?");
             String[] netAmountArr = stramnt.split("\\.");
             String amountInWordPop = "";
@@ -1088,6 +1094,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
+                    requestObject1.put("DeductAmount", IScoreApplication.encryptStart("0"));
 
                     Log.e(TAG,"requestObject1     790   "+requestObject1);
 
