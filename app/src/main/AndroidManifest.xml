@@ -390,7 +390,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCFrJ8zS8oxu4PKGMhkyVbQolie2KSm2ac"/>
+            android:value="AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -660,10 +660,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.creativethoughts.iscore.HomeActivity" />
         </activity>
-        <activity
-            android:name=".TransactionOTPActivity"
-            android:label="@string/title_activity_transaction_otp"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TraansactionOTPActivity"
             android:label="@string/title_activity_transaction_otp"

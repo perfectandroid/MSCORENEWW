@@ -27,6 +27,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 
+import com.creativethoughts.iscore.model.AddSenderReceiverResponseModel;
 import com.creativethoughts.iscore.model.Receivers;
 import com.creativethoughts.iscore.model.SenderReceiver;
 import com.creativethoughts.iscore.utility.CommonUtilities;
@@ -52,6 +53,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -76,6 +78,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class QuickPayMoneyTransferActivity extends AppCompatActivity implements View.OnClickListener,Spinner.OnItemSelectedListener {
     public String TAG ="QuickPayMoneyTransferActivity";
     private final ArrayList<SenderReceiver> mSenderReceivers = new ArrayList<>();
+    private ArrayList<AddSenderReceiverResponseModel> addSenderReceiverResponseModels = new ArrayList<AddSenderReceiverResponseModel>();
     private Button mBtnSubmit;
     private Spinner mAccountSpinner;
     private AppCompatEditText mAmountEt;
@@ -85,9 +88,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     private Spinner mSenderSpinner;
     private Spinner mReceiverSpinner;
     private String mOtpResendLink;
-    private String token,cusid,msg;
-    long senderid,userid1,fkuserid1,fksndrid;
+    private String token,cusid,msg,sendername,senderacc,sendermob,receivrid,recvrname,recvracc,recvrmob;
+    long senderid,userid1,fkuserid1,fksndrid,receiverid;
     private boolean mCanLoadSenderReceiver = false;
+    public String myString = "Select";
     String reference;
     ArrayList<SenderReceiver> arrayList2 = new ArrayList<>();
     ArrayList<SenderReceiver> arrayList3 = new ArrayList<>();
@@ -103,7 +107,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     long userId,fkSenderId;
     ArrayAdapter senderReceiverArrayAdapter = null;
     int mode,mode1;
-    String from ="quickpay";
+
     String senderName,senderMobile,receiveraccno,filename,accno1,sendrname1,mob1;
 
     private JSONArray jresultSender = new JSONArray();
@@ -115,7 +119,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
     public static ArrayList<SenderReceiver> mReceivers ;
     public static ArrayList<Receivers> mReceivers1 ;
     static ArrayAdapter<SenderReceiver> senderAdapter = null;
-    static ArrayAdapter<SenderReceiver> receiverAdapter = null;
+    static ArrayAdapter<Receivers> receiverAdapter = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,8 +127,8 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         
         setRegViews();
 
-        Senderlist = new ArrayList<String>();
-        accountlist = new ArrayList<String>();
+       // Senderlist = new ArrayList<String>();
+      //  accountlist = new ArrayList<String>();
 
     }
 
@@ -355,11 +359,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                             mSenders.add(new SenderReceiver( json.getLong("UserID"), json.getLong("FK_SenderID"), json.getString("SenderName"), json.getString("SenderMobile"), json.getString("ReceiverAccountno"), json.getInt("Mode")));
 
 
-                                          /*  senders.userId = json.getLong("UserID");
-                                            senders.fkSenderId = json.getLong("FK_SenderID");
-                                            senders.senderName = json.getString("SenderName");
-                                            senders.senderMobile = json.getString("SenderMobile");
-                                            senders.receiverAccountno = json.getString("ReceiverAccountno");*/
+
                                         }
                                     if (json.getString("Mode").equals("2")) {
 
@@ -404,6 +404,9 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                         // TextView textView = (TextView)mAccountTypeSpinner.getSelectedView();
                                         senderid = senderAdapter.getItem(position).getUserID();
                                         fksndrid= senderAdapter.getItem(position).getFkSenderId();
+                                        sendername=senderAdapter.getItem(position).getSenderName();
+                                        senderacc=senderAdapter.getItem(position).getReceiverAccountno();
+                                        sendermob=senderAdapter.getItem(position).getSenderMobile();
 
                                         for (int i = 0; i < mReceivers.size(); i++) {
 
@@ -424,14 +427,14 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                                 receivers1.add(accno1);
                                                 receivers1.add(String.valueOf(mode1));
                                                 receivers1.add(sendrname1);
-                                                mReceivers1.add(new Receivers( sendrname1,accno1));
+                                                mReceivers1.add(new Receivers( sendrname1,accno1,userid1,mob1));
 
                                             }
 
                                         }
                                         //   Toast.makeText(activity,AccountAdapter.getItem(position).getBranchName(),Toast.LENGTH_LONG).show();
 
-                                        receiverAdapter = new ArrayAdapter<>(QuickPayMoneyTransferActivity.this,  android.R.layout.simple_spinner_dropdown_item, mReceivers);
+                                        receiverAdapter = new ArrayAdapter<>(QuickPayMoneyTransferActivity.this,  android.R.layout.simple_spinner_dropdown_item, mReceivers1);
                                         //                                    AccountAdapter.setDropDownViewResource( android.R.layout.activity_list_item);
                                         mReceiverSpinner.setAdapter(receiverAdapter);
                                     }
@@ -444,7 +447,27 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                                         //Do nothing
                                     }
                                 });
+                                mReceiverSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                                        receivrid = String.valueOf(receiverAdapter.getItem(position).getReceiverid());
+                                      // fksndrid= receiverAdapter.getItem(position).getFkSenderId();
+                                        recvrname=receiverAdapter.getItem(position).getSenderName();
+                                        recvracc=receiverAdapter.getItem(position).getReceiverAccountno();
+                                        recvrmob=receiverAdapter.getItem(position).getReceivermobile();
+
+
+                                    }
+
+
+
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+                                        //Do nothing
+                                    }
+                                });
                               /*  mSenderSpinner.setAdapter(new ArrayAdapter<String>(QuickPayMoneyTransferActivity.this, android.R.layout.simple_spinner_dropdown_item, Senderlist));
                                 mSenderSpinner.setOnItemSelectedListener(QuickPayMoneyTransferActivity.this);*/
 
@@ -751,10 +774,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 break;
 
             case R.id.btn_submit:
-              //  QuickConfirmation();
-                SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
+                QuickConfirmation();
+               /* SharedPreferences pref1 =getApplicationContext().getSharedPreferences(Config.SHARED_PREF36, 0);
                 String pin=pref1.getString("pinlog", null);
-                QuickPayTransfer("001001001510", "466677", "4556", "100", "TEST", pin,"hina","0010015855","9656789056","ananya","00100","8656789021","headoffice");
+                QuickPayTransfer("001001001510", "466677", "4556", "100", "TEST", pin,"hina","0010015855","9656789056","ananya","00100","8656789021","headoffice");*/
                 break;
             case R.id.btn_forgot_mpin:
                 if ( fksndrid == -100 ){
@@ -796,7 +819,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
                     //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("firstName"));
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(String.valueOf(senderid)));
                     requestObject1.put("imei", IScoreApplication.encryptStart(""));
 
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
@@ -826,7 +849,16 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             Log.e("TAG","Response forgotMpin   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statscode =jObject.getString("StatusCode");
-                            msg =jObject.getString("message");
+                            msg =jObject.getString("EXMessage");
+                            if(statscode.equals("1"))
+                            {
+                                alertMessage1("" ,"M-Pin is resend to your mobile." );
+                            }
+
+                            else
+                            {
+                                alertMessage1("" ,msg );
+                            }
 
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
                             String responsemsg = j1.getString("ResponseMessage");
@@ -906,6 +938,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
             catch (Exception e) {
 //                progressDialog.dismiss();
                 e.printStackTrace();
+                alertMessage1("" ,"Some technical issues." );
             }
         } else {
             alertMessage1("", " Network is currently unavailable. Please try again later.");
@@ -925,26 +958,32 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                 try {
 
                     final String amount = mAmountEt.getText().toString().replaceAll(",","");
-                    final SenderReceiver receiverObj = ((SenderReceiver) mReceiverSpinner.getSelectedItem());
+
                     final String accountNumber = mAccountSpinner.getSelectedItem().toString();
+
+                    StringTokenizer tokens = new StringTokenizer(accountNumber, "(");
+                    String first = tokens.nextToken();
+                    String second = tokens.nextToken();
+                    String module = second.replaceAll("\\p{P}","");
+                    Log.i("mod",module);
 
 
                     String message = mMessageEt.getText().toString();
 
-                    SenderReceiver senderObj = ((SenderReceiver) mSenderSpinner.getSelectedItem());
 
 
-                    String sender = String.valueOf(senderObj.userId);
-                    String senderName = String.valueOf(senderObj.senderName);
-                    String senderAccountno = String.valueOf(senderObj.receiverAccountno);
-                    String senderMobile = String.valueOf(senderObj.senderMobile);
+
+                    String sender = String.valueOf(senderid);
+                    String senderName = sendername;
+                    String senderAccountno = senderacc;
+                    String senderMobile = sendermob;
 
 
-                    String recievererName = String.valueOf(receiverObj.senderName);
-                    String receiverAccountno = String.valueOf(receiverObj.receiverAccountno);
-                    String recieverMobile = String.valueOf(receiverObj.senderMobile);
+                    String recievererName =recvrname;
+                    String receiverAccountno =recvracc;
+                    String recieverMobile =recvrmob;
 
-                    String receiver = String.valueOf(receiverObj.userId);
+                    String receiver =receivrid;
 
                     String mPinString = mPin.getText().toString().trim();
                     String branch = BranchName;
@@ -1015,7 +1054,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
 
 
-                             QuickPayTransfer(accountNumber, sender, receiver, amount, message, mPinString,senderName,senderAccountno,senderMobile,recievererName,receiverAccountno,recieverMobile,branch);
+                             QuickPayTransfer(accountNumber, sender, receiver, module,amount, message, mPinString,senderName,senderAccountno,senderMobile,recievererName,receiverAccountno,recieverMobile,branch);
                             alertDialog.dismiss();
                         }
                     });
@@ -1031,7 +1070,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
         }
     }
 
-    private void QuickPayTransfer(String accountNumber, String sender, String receiver, String amount, String message, String mPinString, String senderName, String senderAccountno, String senderMobile, String recievererName, String receiverAccountno, String recieverMobile, String branch) {
+    private void QuickPayTransfer(String accountNumber, String sender, String receiver, String amount, String message, String mPinString, String senderName, String senderAccountno, String senderMobile, String recievererName, String receiverAccountno, String recieverMobile, String branch, String module) {
 
 
 
@@ -1076,17 +1115,20 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 //                    NAME   : AKHIL PV
 //                    MOBILE : 7293132504
 
-                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
-                  //  requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
-//                    requestObject1.put("senderid", IScoreApplication.encryptStart("456"));
-//                    requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
-//                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
-//                    requestObject1.put("amount", IScoreApplication.encryptStart(amount));
-//                    requestObject1.put("Messages", IScoreApplication.encryptStart(message));
-//                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
-//                    requestObject1.put("Module", IScoreApplication.encryptStart("SB"));
-//                    requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
-//                    requestObject1.put("MPIN", IScoreApplication.encryptStart(senderMobile));
+                //    requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(sender));
+                    requestObject1.put("receiverid", IScoreApplication.encryptStart(receiver) );
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid));
+                    requestObject1.put("amount", IScoreApplication.encryptStart(amount));
+                    requestObject1.put("Messages", IScoreApplication.encryptStart(message));
+                    requestObject1.put("AccountNo", IScoreApplication.encryptStart(accountNumber));
+                    requestObject1.put("Module", IScoreApplication.encryptStart(module));
+                   requestObject1.put("Pin", IScoreApplication.encryptStart(pin));
+                   requestObject1.put("MPIN", IScoreApplication.encryptStart(mPinString));
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
 
 
 
@@ -1110,7 +1152,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 //                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
 //                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
 
-                    requestObject1.put("senderid", IScoreApplication.encryptStart("3702"));
+                 /*   requestObject1.put("senderid", IScoreApplication.encryptStart("3702"));
                     requestObject1.put("receiverid", IScoreApplication.encryptStart("11211") );
                     requestObject1.put("FK_Customer", IScoreApplication.encryptStart("86112"));
                     requestObject1.put("amount", IScoreApplication.encryptStart("1"));
@@ -1122,10 +1164,10 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                     requestObject1.put("imei", IScoreApplication.encryptStart(iemi));
                     requestObject1.put("token", IScoreApplication.encryptStart(tokn));
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
-                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));*/
 
                     Log.e("requestObject1 addsndr"," 10311    "+requestObject1);
-                    Log.e(TAG,"QUICK PAY  10311    "
+                /*    Log.e(TAG,"QUICK PAY  10311    "
                             +"\n"+"senderid    "+"6918"
                             +"\n"+"receiverid    "+"10920"
                             +"\n"+"FK_Customer    "+"86111"
@@ -1135,7 +1177,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             +"\n"+"AccountNo    "+"001001999311"
                             +"\n"+"Module   "+"SB"
                             +"\n"+"Pin    "+"123456"
-                            +"\n"+"MPIN    "+"123456");
+                            +"\n"+"MPIN    "+"123456");*/
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1148,18 +1190,44 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             Log.e("TAG","Response QUICKPAY 10312  "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             String statusCode=jObject.getString("StatusCode");
-                            String statusmsg = jObject.getString("StatusMessage");
+                            String statusmsg = jObject.getString("message");
+                            String status = jObject.getString("Status");
                             String otpref = jObject.getString("otpRefNo");
+                            String receivr = jObject.getString("ID_Receiver");
+                            String sendr = jObject.getString("ID_Sender");
+                            String transid = jObject.getString("TrasactionID");
+
+                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+
+
+                            addSenderReceiverResponseModel.status =status;
+                            addSenderReceiverResponseModel.statusCode = statusCode;
+                            addSenderReceiverResponseModel.senderid=sendr;
+                            addSenderReceiverResponseModel.message=statusmsg;
+                            addSenderReceiverResponseModel.receiverid=receivr;
+                            addSenderReceiverResponseModel.otprefno=otpref;
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
 
                             if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
-
+                                String from ="quickpay";
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
+                                i.putExtra("transid",transid);
                                 startActivity(i);
 
                             }
-                            if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
-
+                            if ( statusCode!= null && statusCode.equals("200") &&otpref.equals("0")){
+                                String from ="quickpay";
+                                Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
+                                i.putExtra("transid",transid);
+                                startActivity(i);
                             }
                             else if ( statusCode!= null && statusCode.equals("200")){
                                  //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
@@ -1171,14 +1239,13 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
                             }
                             else if (  statusCode.equals("500")){
-                                Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
-                                startActivity(i);
 
-                              //  alertMessage1(statusmsg, statusmsg);
+
+                               alertMessage1(status, statusmsg);
                             }
                             else {
 //
-                                alertMessage1("Oops....!", "Something went wrong");
+                                alertMessage1(status, statusmsg);
                             }
 
                     /*        JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
@@ -1246,17 +1313,20 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                         } catch (JSONException e) {
                             e.printStackTrace();
 //                            progressDialog.dismiss();
+                            alertMessage1("", "Some technical issues.");
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        alertMessage1("", "Some technical issues.");
                     }
                 });
             }
             catch (Exception e) {
 //                progressDialog.dismiss();
                 e.printStackTrace();
+                alertMessage1("", "Some technical issues.");
             }
         } else {
             alertMessage1("", " Network is currently unavailable. Please try again later.");
