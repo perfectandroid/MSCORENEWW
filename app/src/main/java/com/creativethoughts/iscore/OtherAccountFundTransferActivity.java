@@ -953,7 +953,10 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                                 LiabilityAmount = jsonObj1.getString("TotalLiabilityAmount");
                                 double numLia =Double.parseDouble(LiabilityAmount);
                                 tv_liabilityamnt.setText("Total Liability : "+CommonUtilities.getDecimelFormate(numLia));
-                                DueAmount = "";
+                                DueAmount = jsonObj1.getString("TotalDueAmt");
+
+                                edtTxtAmount.setText(""+jsonObj1.getString("TotalDueAmt"));
+
 
 
                             }
