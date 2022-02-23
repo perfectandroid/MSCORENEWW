@@ -207,4 +207,10 @@ public interface APIInterface {
     @POST("api/Customer/MTResendSenderOTP")
     Call<String>getResendersenderotp(@Body RequestBody body);
 
+    @POST("api/AccountSummary/RecieverModuleList")
+    Call<String>getRecieverModuleList(@Body RequestBody body);
+
+    @POST("api/AccountSummary/FundTransferIntraBankOtherAccLiabilityAmount")
+    Call<String>getAccLiabilityAmount(@Body RequestBody body);
+
 }
