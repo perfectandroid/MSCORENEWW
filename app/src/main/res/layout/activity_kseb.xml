@@ -390,6 +390,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/lay_commision"
                             android:orientation="vertical"
+                            android:layout_marginBottom="10dp"
                             android:visibility="gone">
 
                             <LinearLayout

@@ -148,12 +148,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        int angle = 100;
-        if (angle >= 90 && angle <= 180) {
-            Log.e(TAG,"145   angle >= 90 && angle <= 180");
-        }else {
-            Log.e(TAG,"145 else  angle >= 90 && angle <= 180");
-        }
+
         getCommision("");
         setInitialise();
         setRegister();
@@ -304,17 +299,17 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 //                    {"ReqMode":"33","SubMode":"1","TrnsDate":"2022-02-21","amount":"1001","imei":"tRlL57dQ1Lm3OwxZvjFWGNr6JrIT21Uf\n","token":"z7apU+lpNzG0HGWZdkVOE5QQKQE7rDcV+yOpmr\/RIdrgqqM92AN6lg==\n",
 //                            "BankKey":"d.22333","BankHeader":"Perfectclt","BankVerified":""}
 
-                    Log.e(TAG,"requestObject1   2771   "+requestObject1);
-                    Log.e(TAG,"requestObject1  2772 "
-                            +"\n"+"ReqMode    "+"33"
-                            +"\n"+"SubMode    "+"1"
-                            +"\n"+"TrnsDate    "+formattedDate
-                            +"\n"+"amount    "+sAmount
-                            +"\n"+"imei    "+iemi
-                            +"\n"+"token    "+token
-                            +"\n"+"BankKey   "+BankKey
-                            +"\n"+"BankHeader    "+BankHeader
-                            +"\n"+"BankVerified    "+BankVerifier);
+//                    Log.e(TAG,"requestObject1   2771   "+requestObject1);
+//                    Log.e(TAG,"requestObject1  2772 "
+//                            +"\n"+"ReqMode    "+"33"
+//                            +"\n"+"SubMode    "+"1"
+//                            +"\n"+"TrnsDate    "+formattedDate
+//                            +"\n"+"amount    "+sAmount
+//                            +"\n"+"imei    "+iemi
+//                            +"\n"+"token    "+token
+//                            +"\n"+"BankKey   "+BankKey
+//                            +"\n"+"BankHeader    "+BankHeader
+//                            +"\n"+"BankVerified    "+BankVerifier);
                 } catch (Exception e) {
                     e.printStackTrace();
                     progressDialog.dismiss();
@@ -1094,7 +1089,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
-                    requestObject1.put("DeductAmount", IScoreApplication.encryptStart("0"));
+                    requestObject1.put("DeductAmount", IScoreApplication.encryptStart("0")); // No Use
 
                     Log.e(TAG,"requestObject1     790   "+requestObject1);
 
