@@ -23,6 +23,7 @@ import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.model.AddSenderReceiverResponseModel;
+import com.creativethoughts.iscore.model.ResendOtp;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 import com.creativethoughts.iscore.utility.NetworkUtil;
 import com.creativethoughts.iscore.utility.NumberToWord;
@@ -46,6 +47,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -80,7 +82,6 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private static final String BUNDLE_RESEND_LINK = "resend_link";
     private static final String BUNDLE_IS_SENDER = "is_sender";
     private static final String BUNDLE_SENDER_RECEIVER_OBJ = "sender_reciever_obj";
-    AddSenderReceiverResponseModel addSenderReceiverResponseModel =new AddSenderReceiverResponseModel();
     protected Button button, btnResendOtp;
     private String mSenderId;
     private String mReceiverId;
@@ -93,9 +94,11 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private String mMobileNo;
     private ProgressDialog mProgressDialog;
     private String mResendLink;
-    private AddSenderReceiverResponseModel mAddSenderReceiverResponseModel;
+    private ResendOtp resendOtp;
     String cusid,from;
-    String otp,sender;
+    String otp,sender,otprefno;
+    String otpresend,otpresend1,otpresend2;
+    private ArrayList<ResendOtp> resendOtps = new ArrayList<ResendOtp>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +109,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
       //  Log.i("FRom",from);
         from = getIntent().getStringExtra("from");
 
-
+       // resendOtp=new ResendOtp();
     }
 
     private void getVerifyreceiverOTP( String otp,String otprefno, String senderid, String receivrid) {
@@ -171,6 +174,25 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                         try {
                             Log.e("TAG","Response rcvrotp   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+
+                            String statuscode = jObject.getString("StatusCode");
+                            String status = jObject.getString("Status");
+                            String statusmsg = jObject.getString("message");
+                            String senderid = jObject.getString("ID_Sender");
+                            String receiverid = jObject.getString("ID_Receiver");
+                            String otprefno = jObject.getString("otpRefNo");
+                            if(statuscode.equals("200"))
+                            {
+                                QuickSuccess(senderid,receiverid,otprefno);
+                            }
+                            else if(statuscode.equals("500"))
+                            {
+                                alertMessage1("", statusmsg);
+                            }
+                            else
+                            {
+                                alertMessage1("", statusmsg);
+                            }
 
 
                         } catch (JSONException e) {
@@ -265,6 +287,24 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                         try {
                             Log.e("TAG","Response snderotp   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
+                            String statuscode = jObject.getString("StatusCode");
+                            String status = jObject.getString("Status");
+                            String statusmsg = jObject.getString("message");
+                            String senderid = jObject.getString("ID_Sender");
+                            String receiverid = jObject.getString("ID_Receiver");
+                            String otprefno = jObject.getString("otpRefNo");
+                            if(statuscode.equals("200"))
+                            {
+                                QuickSuccess(senderid,receiverid,otprefno);
+                            }
+                            else if(statuscode.equals("500"))
+                            {
+                                alertMessage1("", statusmsg);
+                            }
+                            else
+                            {
+                                alertMessage1("", statusmsg);
+                            }
 
 
                         } catch (JSONException e) {
@@ -359,6 +399,25 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             Log.e("TAG","Response quickpay   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
 
+                            String statuscode = jObject.getString("StatusCode");
+                            String status = jObject.getString("Status");
+                            String statusmsg = jObject.getString("message");
+                            String senderid = jObject.getString("ID_Sender");
+                            String receiverid = jObject.getString("ID_Receiver");
+                            String otprefno = jObject.getString("otpRefNo");
+                            if(statuscode.equals("200"))
+                            {
+                                QuickSuccess(senderid,receiverid,otprefno);
+                            }
+                            else if(statuscode.equals("500"))
+                            {
+                                alertMessage1("", statusmsg);
+                            }
+                            else
+                            {
+                                alertMessage1("", statusmsg);
+                            }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -422,7 +481,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                             String senderid = getIntent().getStringExtra("sender");
                             String receivrid = getIntent().getStringExtra("recvr");
-                            String otprefno = getIntent().getStringExtra("otprefno");
+                             otprefno = getIntent().getStringExtra("otprefno");
                             String transid = getIntent().getStringExtra("transid");
 
                             getVerifypaymentOTP(otp,senderid,receivrid,otprefno,transid);
@@ -431,15 +490,23 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                         {
                             String senderid = getIntent().getStringExtra("sender");
                             String receivrid = getIntent().getStringExtra("receiver");
-                            String otprefno = getIntent().getStringExtra("otprefno");
+                             otprefno = getIntent().getStringExtra("otprefno");
                             getVerifyreceiverOTP(otp,otprefno,senderid,receivrid);
                         }
                          if(from.equals("sender"))
                         {
+
                             String senderid = getIntent().getStringExtra("sender");
-                            String otprefno = getIntent().getStringExtra("otprefno");
+                             otprefno = getIntent().getStringExtra("otprefno");
                             String mob =getIntent().getStringExtra("mob");
-                            getVerifysenderOTP(otp,senderid,otprefno,mob);
+
+                                getVerifysenderOTP(otp,senderid,otprefno,mob);
+
+
+
+
+
+
                         }
                     } else {
 
@@ -456,31 +523,137 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                 {
                     String senderid = getIntent().getStringExtra("sender");
                     String receivrid = getIntent().getStringExtra("recvr");
-                    String otprefno = getIntent().getStringExtra("otprefno");
+                     otprefno = getIntent().getStringExtra("otprefno");
                     String transid = getIntent().getStringExtra("transid");
                     getVerifypaymentOTP(otp, senderid, receivrid, otprefno, transid);
                 }
                 else if(from.equals("receiver"))
                 {
-                    String senderid = addSenderReceiverResponseModel.getSenderid();
-                    String receivrid = addSenderReceiverResponseModel.getReceiverid();
-                    String otprefno = addSenderReceiverResponseModel.getOtprefno();
+                    String senderid = getIntent().getStringExtra("sender");
+                    String receivrid = getIntent().getStringExtra("recvr");
+                     otprefno = getIntent().getStringExtra("otprefno");
                     getVerifyreceiverOTP(otp, senderid, receivrid, otprefno);
                 }
                 else if(from.equals("sender"))
                 {
-                    String senderid = addSenderReceiverResponseModel.getSenderid();
-                    String otprefno = addSenderReceiverResponseModel.getOtprefno();
-                    String mob = addSenderReceiverResponseModel.getMobileno();
-                    getVerifysenderOTP(otp, senderid, otprefno, mob);
+                    String senderid =  getIntent().getStringExtra("sender");
+
+
+                    getResendersenderOTP(senderid);
                 }
                 break;
         }
     }
 
+    private void getResendersenderOTP(String senderid) {
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
 
 
-    private void QuickSuccess() {
+                    SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(senderid));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
+
+
+
+                    Log.e("requestObject1 resndr",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getResendersenderotp(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response rcvrotp   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+
+                            String statuscode = jObject.getString("StatusCode");
+                            String statusmsg = jObject.getString("EXMessage");
+
+                            if(statuscode.equals("0"))
+                            {
+                                JSONObject jobj = jObject.getJSONObject("MTResendSenderOTPDetails");
+                                String msg = jobj.getString( "ResponseMessage");
+                                otprefno = jobj.getString( "otpRefNo");
+
+                               /* resendOtp.otprefno=otpresend;
+                                resendOtps.add(resendOtp);*/
+                            }
+
+                            else
+                            {
+                                alertMessage1("", statusmsg);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+//                            progressDialog.dismiss();
+                            alertMessage1("", "Some technical issues.");
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                        alertMessage1("", "Some technical issues.");
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+                alertMessage1("", "Some technical issues.");
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
+
+    }
+
+
+    private void QuickSuccess(String senderid, String receiverid, String otprefno) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater1 = this.getLayoutInflater();
 

@@ -203,15 +203,16 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                            else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
 
-                                String from ="sender";
+                              /*  String from ="sender";
                                 Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
                                 i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
                                 i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
                                 i.putExtra("mob",addSenderReceiverResponseModels.get(0).getMobileno());
+                                Log.i("sender",addSenderReceiverResponseModels.get(0).getSenderid());
 
-                                startActivity(i);
-                             //   alertMessage1("" ,msg );
+                                startActivity(i);*/
+                                alertMessage1("" ,msg );
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {

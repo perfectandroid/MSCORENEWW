@@ -359,14 +359,15 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-                                String from ="receiver";
+                                alertMessage1("" ,msg );
+                               /* String from ="receiver";
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
                                 i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
                                 i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
                                 i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());
 
-                                startActivity(i);
+                                startActivity(i);*/
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {
@@ -381,8 +382,13 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("500"))
                             {
+                               // alertMessage1("" ,msg );
+                                /*Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
+                                i.putExtra("from",from);
+                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
+                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
+                                i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());*/
                                 alertMessage1("" ,msg );
-
                             }
                             else
                             {

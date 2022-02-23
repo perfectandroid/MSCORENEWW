@@ -204,4 +204,7 @@ public interface APIInterface {
     @POST("api/Recharge/KSEBCommission")
     Call<String>getKSEBCommission(@Body RequestBody body);
 
+    @POST("api/Customer/MTResendSenderOTP")
+    Call<String>getResendersenderotp(@Body RequestBody body);
+
 }
