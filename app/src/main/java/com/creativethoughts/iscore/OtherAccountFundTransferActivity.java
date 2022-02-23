@@ -36,6 +36,8 @@ import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
+import com.creativethoughts.iscore.Recharge.CircleAdapter;
+import com.creativethoughts.iscore.Recharge.RechargeActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
 import com.creativethoughts.iscore.custom_alert_dialogs.KeyValuePair;
@@ -90,6 +92,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -148,11 +151,20 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
     String accno,typeshrt;
     List<String> accountSpinnerItems = new ArrayList<String>();
 
+    public JSONArray JarrayReceiver;
+    String strModuleShortName = "";
+    String strModule = "";
+    Button confirm_button;
+    String LiabilityAmount = "";
+    String DueAmount = "";
+    boolean ContinueChek = false;
+    TextView tv_liabilityamnt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.other_acc_fund_transferfragment);
-
 
         SourceAccountNumber = getIntent().getStringExtra("AccountNumber");
 
@@ -225,6 +237,9 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
         edtTxtAmount = findViewById(R.id.edt_txt_amount);
         edt_txt_remark = findViewById(R.id.edt_txt_remark);
+        confirm_button = findViewById(R.id.confirm_button);
+        tv_liabilityamnt = findViewById(R.id.tv_liabilityamnt);
+        confirm_button.setOnClickListener(this);
 
         mAccountNumberEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -725,20 +740,24 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
     private void setAccountType() {
 
-        ArrayList<String> items = new ArrayList<>();
-        items.add(getString(R.string.savings_bank));
-        items.add(getString(R.string.current_account));
-        items.add(getString(R.string.cash_credit));
+//        ArrayList<String> items = new ArrayList<>();
+//        items.add(getString(R.string.savings_bank));
+//        items.add(getString(R.string.current_account));
+//        items.add(getString(R.string.cash_credit));
+//
+//        if ( this == null )
+//            return;
+//
+//        ArrayAdapter<String> spinnerAdapter =
+//                new ArrayAdapter<>(this, R.layout.simple_spinner_item_dark, items);
+//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        mAccountTypeSpinner.setAdapter(spinnerAdapter);
+//        mAccountTypeSpinner.setOnItemSelectedListener(this);
 
-        if ( this == null )
-            return;
-
-        ArrayAdapter<String> spinnerAdapter =
-                new ArrayAdapter<>(this, R.layout.simple_spinner_item_dark, items);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAccountTypeSpinner.setAdapter(spinnerAdapter);
-        mAccountTypeSpinner.setOnItemSelectedListener(this);
+        getAccountType();
     }
+
+
 
     @SuppressLint("NewApi")
     @Override
@@ -749,7 +768,46 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             return;*/
         switch (id) {
             case R.id.btn_submit:
-                submit();
+               // submit();
+                String recieverAccountNo1 = confirmAndSetRecieversAccountNo();
+                if (strModule.equals("TLML") && recieverAccountNo1.length() == 12){
+                    if (ContinueChek){
+                        String amount = edtTxtAmount.getText().toString();
+                        if (amount != ""){
+                            final double LiaAmnt = Double.parseDouble(LiabilityAmount);
+                            amount = amount.replace(",", "");
+                            if ( Double.parseDouble(amount)<=LiaAmnt){
+                                submit();
+                            }
+                            else {
+                                alertMessage1("", "Amount should not be exceed total liability amount");
+                            }
+                        }
+                        else {
+                            edtTxtAmount.setError("Please enter valid amount.");
+                        }
+                    }else {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                        builder.setMessage("Select Continue")
+//                                builder.setMessage("No data found.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+//                        alertMessage1("", "Select Continue");
+
+
+                    }
+
+                }else {
+                    submit();
+                }
 
                 break;
             case R.id.btn_clear:
@@ -764,6 +822,14 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 edt_txt_remark.setText("");
                 tv_maxamount.setText("");
                 txt_amtinword.setText("");
+
+                strModuleShortName = "";
+                strModule = "";
+                LiabilityAmount = "";
+                tv_liabilityamnt.setVisibility(View.GONE);
+                DueAmount = "";
+                ContinueChek = false;
+
                 setAccountNumber();
                 setAccountType();
 
@@ -791,9 +857,172 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     startActivityForResult(intent, 100);
                 }
                 break;
+
+            case R.id.confirm_button:
+
+                String recieverAccountNo = confirmAndSetRecieversAccountNo();
+                if (recieverAccountNo.length() == 12) {
+                    LiabilityAmount = "";
+                    tv_liabilityamnt.setVisibility(View.GONE);
+                    DueAmount = "";
+                    ContinueChek =false;
+                    Log.e(TAG,"823   "+recieverAccountNo+"    "+strModule);
+                    getDueLiabilityAmnt(recieverAccountNo,strModule);
+                }
+                break;
             default:break;
         }
     }
+
+    private void getDueLiabilityAmnt(String recieverAccountNo, String strModule) {
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            progressDialog = new ProgressDialog(OtherAccountFundTransferActivity.this, R.style.Progress);
+            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setIndeterminateDrawable(this.getResources()
+                    .getDrawable(R.drawable.progress));
+            progressDialog.show();
+            try {
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                String reqmode = IScoreApplication.encryptStart("21");
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+                    SharedPreferences BankVerifierSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF32, 0);
+                    String BankVerifier =BankVerifierSP.getString("BankVerifier","");
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("34"));
+                    requestObject1.put("LoanNumber",IScoreApplication.encryptStart(recieverAccountNo));
+                    requestObject1.put("SubModule",IScoreApplication.encryptStart(strModule));
+                    requestObject1.put("token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+                    requestObject1.put("BankVerified",IScoreApplication.encryptStart(BankVerifier));
+
+                    Log.e(TAG,"requestObject1     8811   "+requestObject1);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getAccLiabilityAmount(body);
+                call.enqueue(new Callback<String>() {
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Log.e(TAG,"response  8812   "+response.body());
+                        try{
+                            progressDialog.dismiss();
+                            ArrayList<String> items = new ArrayList<>();
+                            Log.e(TAG," RecieverModuleList    8813       "+response.body());
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+                                ContinueChek =true;
+                                tv_liabilityamnt.setVisibility(View.VISIBLE);
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("LiabilityDetails");
+                                LiabilityAmount = jsonObj1.getString("TotalLiabilityAmount");
+                                double numLia =Double.parseDouble(LiabilityAmount);
+                                tv_liabilityamnt.setText("Total Liability : "+CommonUtilities.getDecimelFormate(numLia));
+                                DueAmount = "";
+
+
+                            }
+                            else {
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                                builder.setMessage(jsonObj.getString("EXMessage"))
+//                                builder.setMessage("No data found.")
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+
+                                            }
+                                        });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            progressDialog.dismiss();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                            builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        //  progressDialog.dismiss();
+                    }
+                });
+
+            }
+            catch (Exception e)
+            {
+                progressDialog.dismiss();
+                AlertDialog.Builder builder = new AlertDialog.Builder(OtherAccountFundTransferActivity.this);
+                builder.setMessage(e.toString())
+//                                builder.setMessage("No data found.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        }
+        else {
+            alertMessage1("", "Network is currently unavailable. Please try again later.");
+        }
+    }
+
     private void submit(){
         if ( this == null )
             return;
@@ -880,26 +1109,28 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
                     String  accountType = mAccountTypeSpinner.getSelectedItem().toString();
 
-                    if (accountType.equalsIgnoreCase(getString(R.string.savings_bank))) {
-                        type[0] = "SB";
-                    } else if (accountType.equalsIgnoreCase( getString(R.string.current_account) )) {
-                        type[0] = "CA";
-                    }
-                    else if (accountType.equalsIgnoreCase( getString(R.string.cash_credit) )) {
-                        type[0] = "OD";
-                    }
-                    else if (accountType.equalsIgnoreCase( getString(R.string.member_loan) )) {
-                        type[0] = "ML";
-                    }
-                    else if (accountType.equalsIgnoreCase( getString(R.string.recurring_deposit) )) {
-                        type[0] = "RD";
-                    }
-                    else if (accountType.equalsIgnoreCase( getString(R.string.jewell_loan) )) {
-                        type[0] = "JL";
-                    }
-                    else {
-                        type[0] = "GD";
-                    }
+//                    if (accountType.equalsIgnoreCase(getString(R.string.savings_bank))) {
+//                        type[0] = "SB";
+//                    } else if (accountType.equalsIgnoreCase( getString(R.string.current_account) )) {
+//                        type[0] = "CA";
+//                    }
+//                    else if (accountType.equalsIgnoreCase( getString(R.string.cash_credit) )) {
+//                        type[0] = "OD";
+//                    }
+//                    else if (accountType.equalsIgnoreCase( getString(R.string.member_loan) )) {
+//                        type[0] = "ML";
+//                    }
+//                    else if (accountType.equalsIgnoreCase( getString(R.string.recurring_deposit) )) {
+//                        type[0] = "RD";
+//                    }
+//                    else if (accountType.equalsIgnoreCase( getString(R.string.jewell_loan) )) {
+//                        type[0] = "JL";
+//                    }
+//                    else {
+//                        type[0] = "GD";
+//                    }
+
+                    type[0] = strModuleShortName;
                     String Finalamount = amount.replace(",","");
 
                     startTransfer1( accountNumber,typeShort, type[0], accNumber, Finalamount,remark);
@@ -1125,6 +1356,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         if (MaximumAmount != ""){
             final double MaximumAmountD = Double.parseDouble(MaximumAmount);
             amount = amount.replace(",", "");
+
 
             if (amount.length() < 1 && MaximumAmountD > 0){
                 edtTxtAmount.setError("Please enter amount between 1 and " + MaximumAmount + ".");
@@ -1476,6 +1708,39 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
         else if (adapterView.getId() == R.id.spn_account_type){
             Log.e(TAG,"SPINNN   spn_account_type  1046");
+            try {
+
+                edtTxtAccountNoFirstBlock.setText("");
+                edtTxtAccountNoSecondBlock.setText("");
+                edtTxtAccountNoThirdBlock.setText("");
+                edtTxtConfirmAccountNoFirstBlock.setText("");
+                edtTxtConfirmAccountNoSecondBlock.setText("");
+                edtTxtConfirmAccountNoThirdBlock.setText("");
+                edtTxtAmount.setText("");
+                edt_txt_remark.setText("");
+                tv_maxamount.setText("");
+                txt_amtinword.setText("");
+                ContinueChek = false;
+                strModuleShortName = "";
+                strModule = "";
+                tv_liabilityamnt.setVisibility(View.GONE);
+                JSONObject jsonObject = JarrayReceiver.getJSONObject(i);
+                strModuleShortName = jsonObject.getString("ModuleShortName");
+                strModule  = jsonObject.getString("Module");
+
+
+                if (jsonObject.getString("Module").equals("TLML")){
+
+                    confirm_button.setVisibility(View.VISIBLE);
+                }else {
+                    confirm_button.setVisibility(View.INVISIBLE);
+                }
+                getminTransAmount();
+            }catch (Exception e){
+
+            }
+
+
         }
     }
 
@@ -1640,21 +1905,23 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
 
-        String rtype =mAccountTypeSpinner.getSelectedItem().toString();
+        //String rtype =mAccountTypeSpinner.getSelectedItem().toString();
         String type ="";
 
-        if(rtype.equals("Savings bank"))
-        {
-            type = "SB";
-        }
-        else if(rtype.equals("Current account"))
-        {
-            type = "CA";
-        }
-        else if(rtype.equals("Cash credit"))
-        {
-            type = "OD";
-        }
+//        if(rtype.equals("Savings bank"))
+//        {
+//            type = "SB";
+//        }
+//        else if(rtype.equals("Current account"))
+//        {
+//            type = "CA";
+//        }
+//        else if(rtype.equals("Cash credit"))
+//        {
+//            type = "OD";
+//        }
+
+        type = strModuleShortName;
 
         receiveraccno =edtTxtConfirmAccountNoFirstBlock.getText().toString()+
                 edtTxtConfirmAccountNoSecondBlock.getText().toString()+
@@ -1777,6 +2044,164 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             e.printStackTrace();
         }
         return bmpUri;
+    }
+
+    private void getAccountType() {
+
+        confirm_button.setVisibility(View.INVISIBLE);
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+//            progressDialog = new ProgressDialog(OtherAccountFundTransferActivity.this, R.style.Progress);
+//            progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+//            progressDialog.setCancelable(false);
+//            progressDialog.setIndeterminate(true);
+//            progressDialog.setIndeterminateDrawable(this.getResources()
+//                    .getDrawable(R.drawable.progress));
+//            progressDialog.show();
+            try {
+
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                String reqmode = IScoreApplication.encryptStart("21");
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+                    SharedPreferences tokenIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String token=tokenIdSP.getString("Token", null);
+                    SharedPreferences customerIdSP =getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
+                    String cusid=customerIdSP.getString("customerId", null);
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+
+                    requestObject1.put("ReqMode",IScoreApplication.encryptStart("35"));
+                    requestObject1.put("Token", IScoreApplication.encryptStart(token));
+                    requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e(TAG,"requestObject1     18361   "+requestObject1);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    progressDialog.dismiss();
+
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getRecieverModuleList(body);
+                call.enqueue(new Callback<String>() {
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Log.e(TAG,"response  18362   "+response.body());
+                        try{
+                            progressDialog.dismiss();
+                            ArrayList<String> items = new ArrayList<>();
+                            Log.e(TAG," RecieverModuleList    18363       "+response.body());
+                            JSONObject jsonObj = new JSONObject(response.body());
+                            if(jsonObj.getString("StatusCode").equals("0")) {
+
+                                JSONObject jsonObj1 = jsonObj.getJSONObject("ReciverModuleDetails");
+                                JarrayReceiver  = jsonObj1.getJSONArray("RecieverModuleList");
+
+                                for (int i=0;i<JarrayReceiver.length();i++){
+                                   JSONObject jsonObject = JarrayReceiver.getJSONObject(i);
+                                    items.add(jsonObject.getString("ModuleName"));
+                                    if (i==0){
+                                        strModuleShortName = jsonObject.getString("ModuleShortName");
+                                        strModule  = jsonObject.getString("Module");
+                                        if (jsonObject.getString("Module").equals("TLML")){
+
+                                            confirm_button.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                }
+
+                                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(OtherAccountFundTransferActivity.this, R.layout.simple_spinner_item_dark, items);
+                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                mAccountTypeSpinner.setAdapter(spinnerAdapter);
+                                mAccountTypeSpinner.setOnItemSelectedListener(OtherAccountFundTransferActivity.this);
+
+                                Log.e(TAG," JarrayReceiver    18364       "+JarrayReceiver);
+                            }
+                            else {
+
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+//                                builder.setMessage(jsonObj.getString("EXMessage"))
+////                                builder.setMessage("No data found.")
+//                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                dialog.dismiss();
+//
+//                                            }
+//                                        });
+//                                AlertDialog alert = builder.create();
+//                                alert.show();
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+//                            progressDialog.dismiss();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+//                            builder.setMessage(e.toString())
+////                                builder.setMessage("No data found.")
+//                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            dialog.dismiss();
+//
+//                                        }
+//                                    });
+//                            AlertDialog alert = builder.create();
+//                            alert.show();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                      //  progressDialog.dismiss();
+                    }
+                });
+
+            }
+            catch (Exception e)
+            {
+//                progressDialog.dismiss();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(RechargeActivity.this);
+//                builder.setMessage(e.toString())
+////                                builder.setMessage("No data found.")
+//                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//
+//                            }
+//                        });
+//                AlertDialog alert = builder.create();
+//                alert.show();
+            }
+        }
+
     }
 
 

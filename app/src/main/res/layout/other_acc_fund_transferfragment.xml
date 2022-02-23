@@ -257,9 +257,9 @@
                                     android:id="@+id/btn_scan_acnt_no"
                                     android:layout_width="70dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:layout_alignParentRight="true"
-                                    android:layout_alignParentTop="true"
                                     android:layout_marginTop="5dp"
                                     android:background="@drawable/color_btn_bg"
                                     android:text="@string/scan"
@@ -346,13 +346,14 @@
                                     android:id="@+id/confirm_button"
                                     android:layout_width="70dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:layout_alignParentRight="true"
-                                    android:layout_alignParentTop="true"
-                                    android:background="@null"
-                                    android:text="@string/scan"
+                                    android:background="@drawable/color_btn_bg"
+                                    android:text="Continue"
                                     android:textAllCaps="false"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:visibility="invisible" />
 
                             </RelativeLayout>
                             <RelativeLayout
@@ -509,6 +510,21 @@
                                 <!--                android:background="@drawable/custom_edt_txt_account_border"-->
 
                                 <TextView
+                                    android:id="@+id/tv_liabilityamnt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingStart="8dp"
+                                    android:textSize="14dp"
+                                    android:visibility="gone"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:textColor="@color/DarkGreen"
+                                    android:text=""/>
+
+                                <TextView
                                     android:id="@+id/tv_maxamount"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -524,6 +540,34 @@
 
 
 
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:orientation="vertical">
+                                <LinearLayout
+                                    android:id="@+id/ll_needTochange"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:id="@+id/tvInstallment"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:textColor="@color/red_error_snack_bar"
+                                        android:textStyle="bold|italic"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="right"
+                                        android:text="Need To Change Payable Amount"/>
+
+                                </LinearLayout>
 
                             </LinearLayout>
 
