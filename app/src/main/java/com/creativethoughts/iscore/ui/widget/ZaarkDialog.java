@@ -69,6 +69,7 @@ public class ZaarkDialog extends AlertDialog implements DialogInterface.OnShowLi
 
         mIcon.setVisibility(View.GONE);
 
+        String tt = (String) builder.title;
         if (builder.title == null || builder.title.toString().trim().length() == 0) {
             mTitleFrame.setVisibility(View.GONE);
         } else {

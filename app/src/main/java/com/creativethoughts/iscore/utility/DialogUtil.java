@@ -1,7 +1,11 @@
 package com.creativethoughts.iscore.utility;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.ui.widget.ZaarkDialog;
@@ -19,7 +23,14 @@ public class DialogUtil {
      */
     public static void showAlert(Context context, String message) {
         if (message != null) {
-            showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name),
+            SharedPreferences ResellerNameeSP =context.getSharedPreferences(Config.SHARED_PREF2, 0);
+            String aapName = ResellerNameeSP.getString("ResellerName","");
+//            showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name),
+//                    message, IScoreApplication.getAppContext().getString(R.string.COMMON_ok), null,
+//                    null, null);
+
+
+            showAlert(context, aapName,
                     message, IScoreApplication.getAppContext().getString(R.string.COMMON_ok), null,
                     null, null);
         }
@@ -32,7 +43,10 @@ public class DialogUtil {
      * @param message - Content of the message resource id.
      */
     public static void showAlert(Context context, int message) {
-        showAlert(context, R.string.app_name, message, R.string.COMMON_ok, null, -1, null);
+        SharedPreferences ResellerNameeSP =context.getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+      //  showAlert(context, R.string.app_name, message, R.string.COMMON_ok, null, -1, null);
+        showAlert(context, aapName, message, R.string.COMMON_ok, null, -1, null);
     }
 
     /**
@@ -44,7 +58,12 @@ public class DialogUtil {
      */
     public static void showAlert(Context context, String message, ZaarkDialog.OnPositiveButtonClickListener posClickListener) {
         if (message != null) {
-            showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name),
+            SharedPreferences ResellerNameeSP =context.getSharedPreferences(Config.SHARED_PREF2, 0);
+            String aapName = ResellerNameeSP.getString("ResellerName","");
+//            showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name),
+//                    message, IScoreApplication.getAppContext().getString(R.string.COMMON_ok),
+//                    posClickListener, null, null);
+            showAlert(context, aapName,
                     message, IScoreApplication.getAppContext().getString(R.string.COMMON_ok),
                     posClickListener, null, null);
         }
@@ -58,7 +77,11 @@ public class DialogUtil {
      * @param posClickListener - Positive button click listener.
      */
     public static void showAlert(Context context, int message, ZaarkDialog.OnPositiveButtonClickListener posClickListener) {
-        showAlert(context, R.string.app_name, message, R.string.COMMON_ok, posClickListener, -1,
+        SharedPreferences ResellerNameeSP = context.getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+//        showAlert(context, R.string.app_name, message, R.string.COMMON_ok, posClickListener, -1,
+//                null);
+        showAlert(context, aapName, message, R.string.COMMON_ok, posClickListener, -1,
                 null);
     }
 
@@ -86,7 +109,7 @@ public class DialogUtil {
      * @param message          - Content of the message resource id.
      * @param posClickListener - Positive button click listener.
      */
-    public static void showAlert(Context context, int title, int message, ZaarkDialog.OnPositiveButtonClickListener posClickListener) {
+    public static void showAlert(Context context, String title, int message, ZaarkDialog.OnPositiveButtonClickListener posClickListener) {
         showAlert(context, title, message, R.string.COMMON_ok, posClickListener, -1, null);
     }
 
@@ -112,7 +135,7 @@ public class DialogUtil {
      * @param title   - title of the message resource id.
      * @param message - Content of the message resource id.
      */
-    public static void showAlert(Context context, int title, int message) {
+    public static void showAlert(Context context, String title, int message) {
         showAlert(context, title, message, R.string.COMMON_ok, null, -1, null);
     }
 
@@ -128,7 +151,12 @@ public class DialogUtil {
      */
     public static void showAlert(final Context context, final String message, final String positiveButton, final ZaarkDialog.OnPositiveButtonClickListener posClickListener, final String negativeButton, final ZaarkDialog.OnNegativeButtonClickListener negClickListener) {
 
-        showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name), message,
+        SharedPreferences ResellerNameeSP = context.getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+
+//        showAlert(context, IScoreApplication.getAppContext().getString(R.string.app_name), message,
+//                positiveButton, posClickListener, negativeButton, negClickListener);
+        showAlert(context, aapName, message,
                 positiveButton, posClickListener, negativeButton, negClickListener);
     }
 
@@ -144,7 +172,13 @@ public class DialogUtil {
      */
     public static void showAlert(final Context context, final int message, final int positiveButton, final ZaarkDialog.OnPositiveButtonClickListener posClickListener, final int negativeButton, final ZaarkDialog.OnNegativeButtonClickListener negClickListener) {
 
-        showAlert(context, R.string.app_name, message, positiveButton, posClickListener,
+        SharedPreferences ResellerNameeSP = context.getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+
+//        showAlert(context, R.string.app_name, message, positiveButton, posClickListener,
+//                negativeButton, negClickListener);
+
+        showAlert(context,aapName, message, positiveButton, posClickListener,
                 negativeButton, negClickListener);
     }
 
@@ -177,7 +211,7 @@ public class DialogUtil {
      * @param negativeButton   - Negative button text resource id.
      * @param negClickListener - Negative button click listener.
      */
-    public static void showAlert(final Context context, final int title, final int message, final int positiveButton, final ZaarkDialog.OnPositiveButtonClickListener posClickListener, final int negativeButton, final ZaarkDialog.OnNegativeButtonClickListener negClickListener) {
+    public static void showAlert(final Context context, final String title, final int message, final int positiveButton, final ZaarkDialog.OnPositiveButtonClickListener posClickListener, final int negativeButton, final ZaarkDialog.OnNegativeButtonClickListener negClickListener) {
         new ZaarkDialog.Builder(context).setTitle(title).setMessage(message)
                 .setPositiveText(positiveButton).setNegativeText(negativeButton)
                 .setOnPositiveButtonClickListener(posClickListener)
