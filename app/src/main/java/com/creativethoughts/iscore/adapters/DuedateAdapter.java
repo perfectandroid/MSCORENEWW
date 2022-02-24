@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.widget.TimePicker;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.utility.CommonUtilities;
 
@@ -157,8 +159,14 @@ public class DuedateAdapter extends RecyclerView.Adapter {
 
 
             builder.setView(layout);
+
+            SharedPreferences ResellerNameeSP = context.getSharedPreferences(Config.SHARED_PREF2, 0);
+            String aapName = ResellerNameeSP.getString("ResellerName","");
+
             final android.app.AlertDialog alertDialog = builder.create();
-            etdis.setText("Your "+accountType.toLowerCase()+" account in "+context.getString(R.string.app_name)+
+//            etdis.setText("Your "+accountType.toLowerCase()+" account in "+context.getString(R.string.app_name)+
+//                    "("+branchName.toLowerCase()+") will due on "+dueDate+". Please do the needful actions.");
+            etdis.setText("Your "+accountType.toLowerCase()+" account in "+aapName+
                     "("+branchName.toLowerCase()+") will due on "+dueDate+". Please do the needful actions.");
             Calendar c = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
