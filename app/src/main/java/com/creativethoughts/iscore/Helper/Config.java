@@ -77,4 +77,6 @@ public class Config {
     public static final String SHARED_PREF59 = "recvaccno";
     public static final String SHARED_PREF60 = "recvsndr";
 
+    public static final String SHARED_PREF61 = "transid";
+
 }

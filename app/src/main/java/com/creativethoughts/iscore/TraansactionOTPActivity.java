@@ -483,12 +483,41 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                         {
 
-                            String senderid = getIntent().getStringExtra("sender");
+                           /* String senderid = getIntent().getStringExtra("sender");
                             String receivrid = getIntent().getStringExtra("recvr");
                              otprefno = getIntent().getStringExtra("otprefno");
-                            String transid = getIntent().getStringExtra("transid");
+                            String transid = getIntent().getStringExtra("transid");*/
 
-                            getVerifypaymentOTP(otp,senderid,receivrid,otprefno,transid);
+                            SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                            String senderid=sndr.getString("senderid", null);
+
+                            SharedPreferences otpref = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno=otpref.getString("otprefno", null);
+
+                            SharedPreferences recvpref = this.getSharedPreferences(Config.SHARED_PREF52, 0);
+                            String receivrid=recvpref.getString("receiverid", null);
+
+                            SharedPreferences transpref = this.getSharedPreferences(Config.SHARED_PREF61, 0);
+                            String transid=transpref.getString("transid", null);
+
+                            SharedPreferences resendsp = this.getSharedPreferences(Config.SHARED_PREF55, 0);
+                            String resend=resendsp.getString("resend", null);
+
+                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno1=otprefnosp1.getString("otprefno", null);
+
+                            if(resend !=null && !resend.isEmpty())
+                            {
+                                if(resend.equals("2"))
+                                {
+                                    getVerifypaymentOTP(otp,senderid,receivrid,otprefno1,transid);
+                                }
+                            }
+                            else
+                            {
+                                getVerifypaymentOTP(otp,senderid,receivrid,otprefno,transid);
+                            }
+
                         }
                          else if(from.equals("receiver"))
                         {

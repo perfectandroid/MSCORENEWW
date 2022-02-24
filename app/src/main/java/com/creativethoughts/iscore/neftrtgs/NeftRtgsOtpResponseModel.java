@@ -28,6 +28,10 @@ public class NeftRtgsOtpResponseModel implements Parcelable {
     public String benaccno;
     @SerializedName("Branch")
     public String branch;
+    @SerializedName("TransDate")
+    public String transdate;
+    @SerializedName("Time")
+    public String time;
 
 
 
@@ -105,6 +109,22 @@ public class NeftRtgsOtpResponseModel implements Parcelable {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    public String getTransdate() {
+        return transdate;
+    }
+
+    public void setTransdate(String transdate) {
+        this.transdate = transdate;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
