@@ -1076,7 +1076,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     requestObject1.put("ConsumerName",IScoreApplication.encryptStart(tempStringConsumerName));
-                    requestObject1.put("MobileNo",IScoreApplication.encryptStart(tempStringMobileNumber));
+                   // requestObject1.put("MobileNo",IScoreApplication.encryptStart(tempStringMobileNumber));
+                    requestObject1.put("MobileNumber",IScoreApplication.encryptStart(tempStringMobileNumber));
                     requestObject1.put("ConsumerNo",IScoreApplication.encryptStart(tempStringConsumerNo));
                     requestObject1.put("SectionList",IScoreApplication.encryptStart(sectionCode));
                     requestObject1.put("BillNo",IScoreApplication.encryptStart(tempStringBillNo));
@@ -1145,44 +1146,61 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
                             Log.e(TAG," KSEBPaymentRequest    7902       "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
-//                            if(jsonObj.getString("StatusCode").equals("0")) {
-//
-//                                String EXMessage = jsonObj.getString("EXMessage");
-//                                String CommonRecharge = jsonObj.getString("CommonRecharge");
-//                                JSONObject jsonObjCommon = new JSONObject(CommonRecharge);
-//                                String RefID = jsonObjCommon.getString("RefID");
-//                                //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
-////                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
-////                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
-//
-//                                alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
-//                                        jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
-//                                        jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
-//                                        tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
-//                                        EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"));
-//
-//
-//                            }
-
-                             if(jsonObj.getString("StatusCode").equals("1")) {
+                            if(jsonObj.getString("StatusCode").equals("0")) {
 
                                 String EXMessage = jsonObj.getString("EXMessage");
                                 String CommonRecharge = jsonObj.getString("CommonRecharge");
                                 JSONObject jsonObjCommon = new JSONObject(CommonRecharge);
                                 String RefID = jsonObjCommon.getString("RefID");
-                              //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
-                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
-                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
+                                //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
+//                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+//                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
 
-//                                    alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
-//                                            jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
-//                                            jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
-//                                            tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
-//                                            EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"));
+                                alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
+                                        jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
+                                        jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
+                                        tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
+                                        EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"),
+                                        jsonObjCommon.getString("TransDate"),jsonObjCommon.getString("Time"));
 
+//                                "RefID": 774032,
+//                                        "MobileNumber": "1167898003096",
+//                                        "Amount": "15.00",
+//                                        "AccNumber": "001001001510",
+//                                        "ConsumrNo": "1167898003096",
+//                                        "ConsumerName": "Nalini",
+//                                        "ConsumerSection": "",
+//                                        "BillNo": "6789220204019",
+//                                        "Branch": "HEAD OFFICE",
+//                                        "DeductAmount": "15.00",
+//                                        "TransDate": "2022-02-24",
+//                                        "Time": "16:29:57",
+//                                        "ResponseCode": "0",
+//                                        "ResponseMessage": "Transaction Successful"
+//                            },
 
 
                             }
+
+//                             if(jsonObj.getString("StatusCode").equals("1")) {
+//
+//                                String EXMessage = jsonObj.getString("EXMessage");
+//                                String CommonRecharge = jsonObj.getString("CommonRecharge");
+//                                JSONObject jsonObjCommon = new JSONObject(CommonRecharge);
+//                                String RefID = jsonObjCommon.getString("RefID");
+//                              //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
+//                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+//                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
+//
+////                                    alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
+////                                            jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
+////                                            jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
+////                                            tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
+////                                            EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"));
+//
+//
+//
+//                            }
                             else if(jsonObj.getString("StatusCode").equals("3")) {
                                 alertMessage2("",jsonObj.getString("EXMessage"));
 //                                alertMessageSucces("3",jsonObj.getString("EXMessage"));
@@ -1297,7 +1315,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     private void alertMessageSucces1(String tempStringAccountNo, String tempStringConsumerName, String tempStringMobileNumber,
                                      String tempStringConsumerNo, String txt_section_name, String tempStringBillNo,
                                      String tempDisplaySection, String branchName, String tempStringAmount,
-                                     String exMessage,String RefId,String DeductAmount) {
+                                     String exMessage,String RefId,String DeductAmount,String dates,String times) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -1336,7 +1354,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         txtTitle.setText(""+exMessage);
         String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-        tvtime.setText("Time : "+currentTime);
+        //tvtime.setText("Time : "+currentTime);
+        tvtime.setText("Time : "+times);
 
         //current date
 
@@ -1345,7 +1364,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
-        tvdate.setText("Date : "+formattedDate);
+//        tvdate.setText("Date : "+formattedDate);
+        tvdate.setText("Date : "+dates);
 
         txtvMobno.setText(""+tempStringMobileNumber);
         String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
