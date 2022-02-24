@@ -310,6 +310,35 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                     requestObject1.put("receiver_accountno", IScoreApplication.encryptStart(accNumber));
                     requestObject1.put("imei", IScoreApplication.encryptStart(""));
 
+
+                    SharedPreferences recvnameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF56, 0);
+                    SharedPreferences.Editor recvnameSPEditer = recvnameSP.edit();
+                    recvnameSPEditer.putString("receiverName", receiverName);
+                    recvnameSPEditer.commit();
+
+                    SharedPreferences recvmobsp = getApplicationContext().getSharedPreferences(Config.SHARED_PREF57, 0);
+                    SharedPreferences.Editor recvmobspEditer = recvmobsp.edit();
+                    recvmobspEditer.putString("receivermobileno", mobileNumber);
+                    recvmobspEditer.commit();
+
+                    SharedPreferences recvifsc = getApplicationContext().getSharedPreferences(Config.SHARED_PREF58, 0);
+                    SharedPreferences.Editor recvifscEditer = recvifsc.edit();
+                    recvifscEditer.putString("receivrifsc", mobileNumber);
+                    recvifscEditer.commit();
+
+                    SharedPreferences recvaccno = getApplicationContext().getSharedPreferences(Config.SHARED_PREF59, 0);
+                    SharedPreferences.Editor recvaccnoEditer = recvaccno.edit();
+                    recvaccnoEditer.putString("recvaccno", mobileNumber);
+                    recvaccnoEditer.commit();
+
+                    SharedPreferences recvsndr = getApplicationContext().getSharedPreferences(Config.SHARED_PREF60, 0);
+                    SharedPreferences.Editor recvsndrEditer = recvsndr.edit();
+                    recvsndrEditer.putString("recvsndr", mobileNumber);
+                    recvsndrEditer.commit();
+
+
+
+
                     SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
                     String tokn =preftoken.getString("Token", "");
 
@@ -343,7 +372,7 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             String sender =jObject.getString("ID_Sender");
                             String receiver =jObject.getString("ID_Receiver");
                            // String mobileno =mMobileNumberEt.getText().toString();
-                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+                           /* AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
                             addSenderReceiverResponseModel.status =status;
                             addSenderReceiverResponseModel.statusCode = statscode;
                             addSenderReceiverResponseModel.senderid=sender;
@@ -351,7 +380,29 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             addSenderReceiverResponseModel.message=msg;
                              addSenderReceiverResponseModel.receiverid=receiver;
                             addSenderReceiverResponseModel.otprefno=otprefno;
-                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);*/
+
+                            SharedPreferences fromSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF50, 0);
+                            SharedPreferences.Editor fromSPEditer = fromSP.edit();
+                            fromSPEditer.putString("from", "receiver");
+                            fromSPEditer.commit();
+
+                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF51, 0);
+                            SharedPreferences.Editor sndridSPSPEditer = sndridSP.edit();
+                            sndridSPSPEditer.putString("senderid", sender);
+                            sndridSPSPEditer.commit();
+
+
+
+                            SharedPreferences receivrSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF52, 0);
+                            SharedPreferences.Editor receivrSPEditer = receivrSP.edit();
+                            receivrSPEditer.putString("receiverid", receiver);
+                            receivrSPEditer.commit();
+
+                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                            SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                            otprefSPEditer.putString("otprefno", otprefno);
+                            otprefSPEditer.commit();
 
                             if(statscode.equals("0"))
                             {
@@ -359,7 +410,9 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-                                alertMessage1("" ,msg );
+                                Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
+                               // alertMessage1("" ,msg );
                                /* String from ="receiver";
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
@@ -371,12 +424,12 @@ public class AddReceiverActivity extends AppCompatActivity implements View.OnCli
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {
-                                String from ="receiver";
+                              //  String from ="receiver";
                                 Intent i = new Intent(AddReceiverActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from",from);
+                               /* i.putExtra("from",from);
                                 i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
                                 i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
-                                i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());
+                                i.putExtra("receiver",addSenderReceiverResponseModels.get(0).getReceiverid());*/
 
                                 startActivity(i);
                             }

@@ -1256,6 +1256,15 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                                     fundTransferResult1.mobileNumber = object3.getString("MobileNumber");
                                     fundTransferResult1.amount=object3.getString("Amount");
                                     fundTransferResult1.accNo=object3.getString("AccNumber");
+
+                                    fundTransferResult1.senderacc=object3.getString("SenderAccNumber");
+                                    fundTransferResult1.senderbranch=object3.getString("SenderBranch");
+                                    fundTransferResult1.recvrbranch=object3.getString("RecBranch");
+                                    fundTransferResult1.recvrdate=object3.getString("TransDate");
+                                    fundTransferResult1.recvraccno=object3.getString("RecAccNumber");
+                                    fundTransferResult1.transdate=object3.getString("TransDate");
+                                    fundTransferResult1.time=object3.getString("Time");
+
                                     fundtransfrlist.add(fundTransferResult1);
 
                                 }
@@ -1864,19 +1873,23 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         tvrefe.setText("Ref.No "+fundtransfrlist.get(0).getrefId());
 
         //current time
-        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+      //  String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+        String currentTime = fundtransfrlist.get(0).getTime();
         tvtime.setText("Time : "+currentTime);
 
         //current date
 
-        Date c = Calendar.getInstance().getTime();
+      /*  Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
+        String formattedDate = df.format(c);*/
+
+        String formattedDate = fundtransfrlist.get(0).getTransdate();
         tvdate.setText("Date : "+formattedDate);
 
-        String amnt = edtTxtAmount.getText().toString().replaceAll(",", "");
+      //  String amnt = edtTxtAmount.getText().toString().replaceAll(",", "");
+        String amnt = fundtransfrlist.get(0).getAmount().replaceAll(",", "");
         String[] netAmountArr = amnt.split("\\.");
         String amountInWordPop = "";
         if ( netAmountArr.length > 0 ){
@@ -1901,8 +1914,10 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
 
-        txtvAcntno.setText("A/C :"+SourceAccountNumber);
-        txtvbranch.setText("Branch :"+BranchName);
+       // txtvAcntno.setText("A/C :"+SourceAccountNumber);
+        txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
+     //   txtvbranch.setText("Branch :"+BranchName);
+        txtvbranch.setText("Branch :"+fundtransfrlist.get(0).getSenderbranch());
         double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
@@ -1931,7 +1946,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 edtTxtConfirmAccountNoThirdBlock.getText().toString()+"("+type+")";
 
 
-        txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
+      //  txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
+        txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getRecvraccno());
 
 
 

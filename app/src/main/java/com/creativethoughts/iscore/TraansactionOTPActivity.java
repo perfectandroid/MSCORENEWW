@@ -83,7 +83,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private static final String BUNDLE_IS_SENDER = "is_sender";
     private static final String BUNDLE_SENDER_RECEIVER_OBJ = "sender_reciever_obj";
     protected Button button, btnResendOtp;
-    private String mSenderId;
+    private String mSenderId,msg;
     private String mReceiverId;
     private String mTransactionId;
     private boolean mIsForTransaction;
@@ -492,10 +492,40 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                         }
                          else if(from.equals("receiver"))
                         {
-                            String senderid = getIntent().getStringExtra("sender");
+                          /*  String senderid = getIntent().getStringExtra("sender");
                             String receivrid = getIntent().getStringExtra("receiver");
-                             otprefno = getIntent().getStringExtra("otprefno");
-                            getVerifyreceiverOTP(otp,otprefno,senderid,receivrid);
+                             otprefno = getIntent().getStringExtra("otprefno");*/
+
+                            SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                            String senderid=sndr.getString("senderid", null);
+
+                            SharedPreferences otpref = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno=otpref.getString("otprefno", null);
+
+                            SharedPreferences recvpref = this.getSharedPreferences(Config.SHARED_PREF52, 0);
+                            String receivrid=recvpref.getString("receiverid", null);
+
+                            SharedPreferences resendsp = this.getSharedPreferences(Config.SHARED_PREF55, 0);
+                            String resend=resendsp.getString("resend", null);
+
+                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno1=otprefnosp1.getString("otprefno", null);
+
+
+
+
+
+                            if(resend !=null && !resend.isEmpty())
+                            {
+                                if(resend.equals("2"))
+                                {
+                                    getVerifyreceiverOTP(otp,otprefno1,senderid,receivrid);
+                                }
+                            }
+                            else
+                            {
+                                getVerifyreceiverOTP(otp,otprefno,senderid,receivrid);
+                            }
                         }
                          else if(from.equals("sender"))
                         {
@@ -525,7 +555,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             {
                                 if(resend.equals("1"))
                                 {
-                                    getVerifysenderOTP(otp,"3443",otprefno1,"9895741473");
+                                    getVerifysenderOTP(otp,senderid,otprefno1,"9895741473");
                                 }
                             }
                             else
@@ -560,10 +590,35 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                 }
                 else if(from.equals("receiver"))
                 {
-                    String senderid = getIntent().getStringExtra("sender");
+                   /* String senderid = getIntent().getStringExtra("sender");
                     String receivrid = getIntent().getStringExtra("recvr");
-                     otprefno = getIntent().getStringExtra("otprefno");
-                    getVerifyreceiverOTP(otp, senderid, receivrid, otprefno);
+                     otprefno = getIntent().getStringExtra("otprefno");*/
+
+                 /*   SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                    String senderid=sndr.getString("senderid", null);
+
+                    SharedPreferences otpref = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                    String otprefno=otpref.getString("otprefno", null);
+
+                    SharedPreferences recvpref = this.getSharedPreferences(Config.SHARED_PREF52, 0);
+                    String receivrid=recvpref.getString("receiverid", null);*/
+
+                    SharedPreferences recvnmetoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF56, 0);
+                    String receiverName =recvnmetoken.getString("receiverName", "");
+
+                    SharedPreferences mobpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF57, 0);
+                    String mobileNumber =mobpref.getString("receivermobileno", "");
+
+                    SharedPreferences recvifscpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF58, 0);
+                    String ifscCode =recvifscpref.getString("receivrifsc", "");
+
+                    SharedPreferences recvaccpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF59, 0);
+                    String accNumber =recvaccpref.getString("recvaccno", "");
+
+                    SharedPreferences recvasndr =getApplicationContext().getSharedPreferences(Config.SHARED_PREF60, 0);
+                    String senderid =recvasndr.getString("recvsndr", "");
+
+                     getAddReceiver(receiverName,mobileNumber,ifscCode,accNumber,senderid);
                 }
                 else if(from.equals("sender"))
                 {
@@ -577,6 +632,153 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                 }
                 break;
         }
+    }
+
+    private void getAddReceiver(String receiverName, String mobileNumber, String ifscCode, String accNumber, String senderid) {
+
+
+        SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
+        String BASE_URL=pref.getString("baseurl", null);
+        if (NetworkUtil.isOnline()) {
+            try{
+                OkHttpClient client = new OkHttpClient.Builder()
+                        .sslSocketFactory(getSSLSocketFactory())
+                        .hostnameVerifier(getHostnameVerifier())
+                        .build();
+                Gson gson = new GsonBuilder()
+                        .setLenient()
+                        .create();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .build();
+                APIInterface apiService = retrofit.create(APIInterface.class);
+                final JSONObject requestObject1 = new JSONObject();
+                try {
+
+
+                    SharedPreferences cusidpref = TraansactionOTPActivity.this.getSharedPreferences(Config.SHARED_PREF26, 0);
+                    cusid=cusidpref.getString("customerId", null);
+
+
+
+                    //   requestObject1.put("ReqMode",IScoreApplication.encryptStart("24") );
+                    requestObject1.put("senderid", IScoreApplication.encryptStart(String.valueOf(senderid)));
+                    requestObject1.put("FK_Customer", IScoreApplication.encryptStart(cusid) );
+                    requestObject1.put("receiver_name", IScoreApplication.encryptStart(receiverName));
+                    requestObject1.put("receiver_mobile", IScoreApplication.encryptStart(mobileNumber));
+                    requestObject1.put("receiver_IFSCcode", IScoreApplication.encryptStart(ifscCode));
+                    requestObject1.put("receiver_accountno", IScoreApplication.encryptStart(accNumber));
+                    requestObject1.put("imei", IScoreApplication.encryptStart(""));
+
+                    SharedPreferences preftoken =getApplicationContext().getSharedPreferences(Config.SHARED_PREF35, 0);
+                    String tokn =preftoken.getString("Token", "");
+
+                    requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+
+                    SharedPreferences bankkeypref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
+                    String BankKey=bankkeypref.getString("bankkey", null);
+
+                    SharedPreferences bankheaderpref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF11, 0);
+                    String BankHeader=bankheaderpref.getString("bankheader", null);
+
+                    requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
+                    requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("requestObject1 addrecvr",""+requestObject1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
+                Call<String> call = apiService.getAddReceiver(body);
+                call.enqueue(new Callback<String>() {
+                    @Override public void onResponse(Call<String> call, Response<String> response) {
+                        try {
+                            Log.e("TAG","Response receivr   "+response.body());
+                            JSONObject jObject = new JSONObject(response.body());
+                            String statscode =jObject.getString("StatusCode");
+                            msg =jObject.getString("message");
+                            String otprefno =jObject.getString("otpRefNo");
+                            String status =jObject.getString("Status");
+                            String sender =jObject.getString("ID_Sender");
+                            String receiver =jObject.getString("ID_Receiver");
+                            // String mobileno =mMobileNumberEt.getText().toString();
+                           /* AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+                            addSenderReceiverResponseModel.status =status;
+                            addSenderReceiverResponseModel.statusCode = statscode;
+                            addSenderReceiverResponseModel.senderid=sender;
+                         //   addSenderReceiverResponseModel.mobileno=mobileno;
+                            addSenderReceiverResponseModel.message=msg;
+                             addSenderReceiverResponseModel.receiverid=receiver;
+                            addSenderReceiverResponseModel.otprefno=otprefno;
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);*/
+
+                            SharedPreferences fromSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF50, 0);
+                            SharedPreferences.Editor fromSPEditer = fromSP.edit();
+                            fromSPEditer.putString("from", "receiver");
+                            fromSPEditer.commit();
+
+                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF51, 0);
+                            SharedPreferences.Editor sndridSPSPEditer = sndridSP.edit();
+                            sndridSPSPEditer.putString("senderid", sender);
+                            sndridSPSPEditer.commit();
+
+
+
+                            SharedPreferences receivrSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF52, 0);
+                            SharedPreferences.Editor receivrSPEditer = receivrSP.edit();
+                            receivrSPEditer.putString("receiverid", receiver);
+                            receivrSPEditer.commit();
+
+                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                            SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                            otprefSPEditer.putString("otprefno", "1234");
+                            otprefSPEditer.commit();
+
+                            SharedPreferences resndSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF55, 0);
+                            SharedPreferences.Editor resndSPEditer = resndSP.edit();
+                            resndSPEditer.putString("resend", "2");
+                            resndSPEditer.commit();
+
+                            if(statscode.equals("0"))
+                            {
+
+                            }
+
+                            else
+                            {
+                                alertMessage1("" ,msg );
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            alertMessage1("" ,"Some technical issues." );
+//                            progressDialog.dismiss();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+//                        progressDialog.dismiss();
+                        alertMessage1("" ,"Some technical issues." );
+                    }
+                });
+            }
+            catch (Exception e) {
+//                progressDialog.dismiss();
+                e.printStackTrace();
+            }
+        } else {
+            alertMessage1("", " Network is currently unavailable. Please try again later.");
+
+            // DialogUtil.showAlert(this,
+            //"Network is currently unavailable. Please try again later.");
+        }
+
+
     }
 
     private void getResendersenderOTP(String senderid) {
@@ -646,7 +848,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             {
                                 JSONObject jobj = jObject.getJSONObject("MTResendSenderOTPDetails");
                                 String msg = jobj.getString( "ResponseMessage");
-                                otprefno = jobj.getString( "otpRefNo");
+                                String otprefno = jobj.getString( "otpRefNo");
 
 
                                 SharedPreferences resndSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF55, 0);
@@ -656,7 +858,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                                 SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
                                 SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
-                                otprefSPEditer.putString("otprefno", "6336");
+                                otprefSPEditer.putString("otprefno", otprefno);
                                 otprefSPEditer.commit();
 
                                /* resendOtp.otprefno=otpresend;

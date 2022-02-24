@@ -95,7 +95,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     Button btnResend,btnSubmt;
     int statusCode;
     PaymentModel paymentModel = new PaymentModel();
-    String accntno,module,bennme,benifsc,benacc,pin,amt,otpref,otpref1,benadd,statsmsg1,refid1,amt1,exmsg1;
+    String accntno,module,bennme,benifsc,benacc,pin,amt,otpref,otpref1,benadd,statsmsg1,refid1,amt1,exmsg1,accno,benaccno,brnch;
     NeftRtgsOtpResponseModel neftRtgsOtpResponseModel1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -244,6 +244,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                              refid1=jObject.getString("RefID");
                              amt1=jObject.getString("Amount");
                              exmsg1=jObject.getString("ExMessge");
+                            accno=jObject.getString("AccNo");
+                            benaccno=jObject.getString("BenAccNo");
+                            brnch=jObject.getString("Branch");
 
                            if(statusCode==200 && otpref1.equals("200"))
                             {
@@ -258,6 +261,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                                 neftRtgsOtpResponseModel.refId =refid1;
                                 neftRtgsOtpResponseModel.amount =amt1;
                                 neftRtgsOtpResponseModel.exMessage =exmsg1;
+                                neftRtgsOtpResponseModel.accno =accno;
+                                neftRtgsOtpResponseModel.benaccno =benaccno;
+                                neftRtgsOtpResponseModel.branch =brnch;
                                 neftRtgsOtpResponseModels.add(neftRtgsOtpResponseModel);
                                /* ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
                                 KeyValuePair keyValuePair = new KeyValuePair();
@@ -401,16 +407,18 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
 
-        txtvAcntno.setText("A/C :"+accntno);
-        txtvbranch.setText("Branch :"+branch);
+    //    txtvAcntno.setText("A/C :"+accntno);
+        txtvAcntno.setText("A/C :"+neftRtgsOtpResponseModels.get(0).getAccno());
+     //  txtvbranch.setText("Branch :"+branch);
+        txtvbranch.setText("Branch :"+neftRtgsOtpResponseModels.get(0).getBranch());
         double num1 = Double.parseDouble(bal) - Double.parseDouble(stramnt.replace(",",""));
         DecimalFormat fmt = new DecimalFormat("#,##,###.00");
 
 
 
 
-        txtvAcntnoto.setText("A/C : "+ benacc);
-  //      txtvbranchto.setText("Branch :"+result);
+    //    txtvAcntnoto.setText("A/C : "+ benacc);
+        txtvAcntnoto.setText("A/C : "+ neftRtgsOtpResponseModels.get(0).getBenaccno());
 
         dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
             try{

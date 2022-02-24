@@ -22,6 +22,13 @@ public class NeftRtgsOtpResponseModel implements Parcelable {
     public String refId;
     @SerializedName("Amount")
     public String amount;
+    @SerializedName("AccNo")
+    public String accno;
+    @SerializedName("BenAccNo")
+    public String benaccno;
+    @SerializedName("Branch")
+    public String branch;
+
 
 
     public NeftRtgsOtpResponseModel() {
@@ -74,6 +81,30 @@ public class NeftRtgsOtpResponseModel implements Parcelable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getAccno() {
+        return accno;
+    }
+
+    public void setAccno(String accno) {
+        this.accno = accno;
+    }
+
+    public String getBenaccno() {
+        return benaccno;
+    }
+
+    public void setBenaccno(String benaccno) {
+        this.benaccno = benaccno;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     @Override

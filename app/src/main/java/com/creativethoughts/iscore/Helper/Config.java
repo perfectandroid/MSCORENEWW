@@ -71,5 +71,10 @@ public class Config {
     public static final String SHARED_PREF54 = "otprefno";
     public static final String SHARED_PREF55 = "resend";
 
+    public static final String SHARED_PREF56 = "receiverName";
+    public static final String SHARED_PREF57 = "receivermobileno";
+    public static final String SHARED_PREF58 = "receivrifsc";
+    public static final String SHARED_PREF59 = "recvaccno";
+    public static final String SHARED_PREF60 = "recvsndr";
 
 }
