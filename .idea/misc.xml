@@ -30,12 +30,15 @@
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/other_acc_fund_transferfragment.xml" value="0.303125" />
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/quick_pay_success_popup.xml" value="0.3171875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable-xxhdpi/arrow_down.xml" value="0.3067708333333333" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable-xxhdpi/bg_select.xml" value="0.25833333333333336" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/arr1.xml" value="0.2578125" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/arrow_down.xml" value="0.3067708333333333" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/bg_select.xml" value="1.0333333333333334" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/but_drawable.xml" value="0.37864583333333335" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/lay_commision.xml" value="0.2578125" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/rounded_corner.xml" value="0.21875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/slide_left_in_layout_anim.xml" value="0.284375" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/drawable/visibility_off_eye.xml" value="0.25833333333333336" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/acclist.xml" value="0.3416666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/account_submenu_popup.xml" value="0.2833333333333333" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/acitivity_messages.xml" value="0.31197916666666664" />
@@ -106,7 +109,7 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_settings.xml" value="0.20925925925925926" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_virtualcard.xml" value="0.2677083333333333" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/kseb_confirmation_popup.xml" value="0.1390625" />
-        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/kseb_success_popup.xml" value="0.17708333333333334" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/kseb_success_popup.xml" value="0.33" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/list_content_spin.xml" value="0.303125" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/logout_popup.xml" value="0.346875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/message_item_row.xml" value="0.2833333333333333" />

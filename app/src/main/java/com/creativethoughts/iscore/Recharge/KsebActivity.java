@@ -1147,14 +1147,24 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                             JSONObject jsonObj = new JSONObject(response.body());
 //                            if(jsonObj.getString("StatusCode").equals("0")) {
 //
-//                                alertMessage2("",jsonObj.getString("EXMessage"));
+//                                String EXMessage = jsonObj.getString("EXMessage");
+//                                String CommonRecharge = jsonObj.getString("CommonRecharge");
+//                                JSONObject jsonObjCommon = new JSONObject(CommonRecharge);
+//                                String RefID = jsonObjCommon.getString("RefID");
+//                                //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
 ////                                alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
-////                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,jsonObj.getString("EXMessage"));
+////                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
+//
+//                                alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
+//                                        jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
+//                                        jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
+//                                        tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
+//                                        EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"));
 //
 //
 //                            }
 
-                                if(jsonObj.getString("StatusCode").equals("1")) {
+                             if(jsonObj.getString("StatusCode").equals("1")) {
 
                                 String EXMessage = jsonObj.getString("EXMessage");
                                 String CommonRecharge = jsonObj.getString("CommonRecharge");
@@ -1319,6 +1329,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView tv_amount = dialogView.findViewById( R.id.tv_amount );
         TextView tv_amount_words = dialogView.findViewById( R.id.tv_amount_words );
+        ImageView img_hdAccount = dialogView.findViewById( R.id.img_hdAccount );
 
         RelativeLayout rltv_share = dialogView.findViewById( R.id.rltv_share );
         RelativeLayout lay_share = dialogView.findViewById( R.id.lay_share );
@@ -1383,6 +1394,21 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                 //Do nothing
             }
         } );
+
+        img_hdAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtvAcntno.getText() == tempStringAccountNo){
+                    txtvAcntno.setText(maskAccountNumber);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+                }
+                else{
+                    txtvAcntno.setText(tempStringAccountNo);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
+
+                }
+            }
+        });
 
         lay_share.setOnClickListener(new View.OnClickListener() {
             @Override
