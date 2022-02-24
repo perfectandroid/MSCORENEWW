@@ -2053,6 +2053,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getRecvraccno());
       // txtvbranchto.setText("Branch :"+result);
        txtvbranchto.setText("Branch :"+fundtransfrlist.get(0).getRecvrbranch());
+       txtvbranchto.setVisibility(View.VISIBLE);
 
        dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
            try{
