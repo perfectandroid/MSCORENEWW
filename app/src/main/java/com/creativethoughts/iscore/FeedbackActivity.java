@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.creativethoughts.iscore.Helper.Config;
 
 public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -71,9 +74,12 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void sendEmail(String strrating, String strfeedback, String msg) {
+
+        SharedPreferences ResellerNameeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + "pssappfeedback@gmail.com"));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "MSCORE: Feedback & Rating");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Bank : "+getResources().getString(R.string.app_name)+"\n\n Customer Rating is : "+strrating+"\nFEEDBACK: ("+strfeedback+") \n\t"+msg);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Bank : "+aapName+"\n\n Customer Rating is : "+strrating+"\nFEEDBACK: ("+strfeedback+") \n\t"+msg);
         startActivity(Intent.createChooser(emailIntent, "Select One"));
     }
 
