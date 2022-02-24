@@ -184,7 +184,7 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             String sender =jObject.getString("ID_Sender");
                           //  String receiver =jObject.getString("ID_Receiver");
                             String mobileno =mMobileNumberEt.getText().toString();
-                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+                          /*  AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
 
 
                             addSenderReceiverResponseModel.status =status;
@@ -194,15 +194,40 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             addSenderReceiverResponseModel.message=msg;
                            // addSenderReceiverResponseModel.receiverid=receiver;
                             addSenderReceiverResponseModel.otprefno=otprefno;
-                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
-                            
+                            addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);*/
+
+
+                            SharedPreferences fromSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF50, 0);
+                            SharedPreferences.Editor fromSPEditer = fromSP.edit();
+                            fromSPEditer.putString("from", "sender");
+                            fromSPEditer.commit();
+
+                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF51, 0);
+                            SharedPreferences.Editor sndridSPSPEditer = sndridSP.edit();
+                            sndridSPSPEditer.putString("senderid", sender);
+                            sndridSPSPEditer.commit();
+
+
+
+                            SharedPreferences mobilSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF53, 0);
+                            SharedPreferences.Editor mobilSPEditer = mobilSP.edit();
+                            mobilSPEditer.putString("mobileno", mobileno);
+                            mobilSPEditer.commit();
+
+                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                            SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                            otprefSPEditer.putString("otprefno", otprefno);
+                            otprefSPEditer.commit();
+
+
                             if(statscode.equals("0"))
                             {
 
                             }
                            else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-
+                               // Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                              //  startActivity(i);
                               /*  String from ="sender";
                                 Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);
@@ -216,12 +241,12 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             }
                             else if(statscode.equals("200")&& !otprefno.equals("0"))
                             {
-                                String from ="sender";
+                             //   String from ="sender";
                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
-                               i.putExtra("from",from);
+                             /*  i.putExtra("from",from);
                                 i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
                                 i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
-                                i.putExtra("mob",addSenderReceiverResponseModels.get(0).getMobileno());
+                                i.putExtra("mob",addSenderReceiverResponseModels.get(0).getMobileno());*/
                                startActivity(i);
                             }
                             else if(statscode.equals("500"))

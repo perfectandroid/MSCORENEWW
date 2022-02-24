@@ -96,6 +96,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
     private String mResendLink;
     private ResendOtp resendOtp;
     String cusid,from;
+    SharedPreferences pref;
     String otp,sender,otprefno;
     String otpresend,otpresend1,otpresend2;
     private ArrayList<ResendOtp> resendOtps = new ArrayList<ResendOtp>();
@@ -107,9 +108,10 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
         setRegViews();
       //  Log.i("FRom",from);
-        from = getIntent().getStringExtra("from");
+      //  from = getIntent().getStringExtra("from");
 
-       // resendOtp=new ResendOtp();
+        pref = this.getSharedPreferences(Config.SHARED_PREF50, 0);
+        from=pref.getString("from", null);
     }
 
     private void getVerifyreceiverOTP( String otp,String otprefno, String senderid, String receivrid) {
@@ -475,6 +477,8 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                         otp = mOTPEt.getText().toString();
 
+
+
                         if(from.equals("quickpay"))
 
                         {
@@ -486,28 +490,55 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                             getVerifypaymentOTP(otp,senderid,receivrid,otprefno,transid);
                         }
-                         if(from.equals("receiver"))
+                         else if(from.equals("receiver"))
                         {
                             String senderid = getIntent().getStringExtra("sender");
                             String receivrid = getIntent().getStringExtra("receiver");
                              otprefno = getIntent().getStringExtra("otprefno");
                             getVerifyreceiverOTP(otp,otprefno,senderid,receivrid);
                         }
-                         if(from.equals("sender"))
+                         else if(from.equals("sender"))
                         {
 
-                            String senderid = getIntent().getStringExtra("sender");
+                           /* String senderid = getIntent().getStringExtra("sender");
                              otprefno = getIntent().getStringExtra("otprefno");
-                            String mob =getIntent().getStringExtra("mob");
+                            String mob =getIntent().getStringExtra("mob");*/
 
+                            SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                            String senderid=sndr.getString("senderid", null);
+
+                            SharedPreferences otpref = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno=otpref.getString("otprefno", null);
+
+                            SharedPreferences mobpref = this.getSharedPreferences(Config.SHARED_PREF53, 0);
+                            String mob=mobpref.getString("mobileno", null);
+
+
+
+
+                            SharedPreferences resendsp = this.getSharedPreferences(Config.SHARED_PREF55, 0);
+                            String resend=resendsp.getString("resend", null);
+
+                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                            String otprefno1=otprefnosp1.getString("otprefno", null);
+                            if(resend !=null && !resend.isEmpty())
+                            {
+                                if(resend.equals("1"))
+                                {
+                                    getVerifysenderOTP(otp,"3443",otprefno1,"9895741473");
+                                }
+                            }
+                            else
+                            {
                                 getVerifysenderOTP(otp,senderid,otprefno,mob);
-
-
-
+                            }
 
 
 
                         }
+
+
+
                     } else {
 
                         alertMessage1("",  "Network is currently unavailable. Please try again later.");
@@ -536,7 +567,10 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                 }
                 else if(from.equals("sender"))
                 {
-                    String senderid =  getIntent().getStringExtra("sender");
+                   // String senderid =  getIntent().getStringExtra("sender");
+                    SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                    String senderid=sndr.getString("senderid", null);
+
 
 
                     getResendersenderOTP(senderid);
@@ -614,10 +648,31 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                                 String msg = jobj.getString( "ResponseMessage");
                                 otprefno = jobj.getString( "otpRefNo");
 
+
+                                SharedPreferences resndSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF55, 0);
+                                SharedPreferences.Editor resndSPEditer = resndSP.edit();
+                                resndSPEditer.putString("resend", "1");
+                                resndSPEditer.commit();
+
+                                SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                                SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                                otprefSPEditer.putString("otprefno", "6336");
+                                otprefSPEditer.commit();
+
                                /* resendOtp.otprefno=otpresend;
                                 resendOtps.add(resendOtp);*/
                             }
+                            else if(statuscode.equals("500")){
+                                SharedPreferences resndSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF55, 0);
+                                SharedPreferences.Editor resndSPEditer = resndSP.edit();
+                                resndSPEditer.putString("resend", "1");
+                                resndSPEditer.commit();
 
+                                SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                                SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                                otprefSPEditer.putString("otprefno", "6336");
+                                otprefSPEditer.commit();
+                            }
                             else
                             {
                                 alertMessage1("", statusmsg);
