@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -92,6 +93,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 101;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     ImageView img_applogo;
+    TextView txt_app_name;
 
 
 
@@ -148,6 +150,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
             setContentView(R.layout.activity_register_user);
             mMobileNumberET = findViewById(R.id.phoneno);
+            txt_app_name = findViewById(R.id.txt_app_name);
+            SharedPreferences ResellerNameeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF2, 0);
+            String aapName = ResellerNameeSP.getString("ResellerName","");
+            txt_app_name.setText(aapName);
             init();
             queryPhoneNumber();
             addListenerOnButton();
