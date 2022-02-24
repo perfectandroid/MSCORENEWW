@@ -73,6 +73,7 @@ public class BarcodeFragment extends Fragment {
     Thread thread ;
     public final static int QRcodeWidth = 500 ;
     String cusid, token, vritualcardCombination;
+
     public BarcodeFragment() {
         // Required empty public constructor
     }
@@ -115,12 +116,17 @@ public class BarcodeFragment extends Fragment {
         TextView txtv_custgenid = (TextView) rootView.findViewById(R.id.txtv_custgenid);
         TextView txt_userid =  rootView.findViewById(R.id.txt_userid);
         ImageView img_applogo = rootView.findViewById(R.id.img_applogo);
+        TextView txt_app_name = rootView.findViewById(R.id.txt_app_name);
 
         SharedPreferences imageurlSP = getActivity().getSharedPreferences(Config.SHARED_PREF13, 0);
         String IMAGEURL = imageurlSP.getString("imageurl","");
         SharedPreferences AppIconImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF3, 0);
         String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
         PicassoTrustAll.getInstance(getActivity()).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        SharedPreferences ResellerNameeSP = getActivity().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+        txt_app_name.setText(aapName);
 
         String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         Log.i("Date",date);

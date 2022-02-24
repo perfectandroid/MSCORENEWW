@@ -75,7 +75,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class WalletServiceActivity extends AppCompatActivity implements View.OnClickListener{
     ProgressDialog progressDialog;
     TextView txt_userdetails,  txt_userid, txtv_totalbal, txt_amtinword;
-    TextView tvTransaction,tvLoadmoney, tvwalletbal;
+    TextView tvTransaction,tvLoadmoney, tvwalletbal,txt_app_name;
     LinearLayout ll_loadmoney, llministatement;
     RecyclerView rv_ministatmnt;
     private Spinner spn_account_type;
@@ -114,6 +114,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         edt_txt_amount = findViewById(R.id.edt_txt_amount);
         btn_submit = findViewById(R.id.btn_submit);
         img_applogo = findViewById(R.id.img_applogo);
+        txt_app_name = findViewById(R.id.txt_app_name);
 
         btn_submit.setOnClickListener(this);
 
@@ -132,6 +133,10 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
         String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
         PicassoTrustAll.getInstance(WalletServiceActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+        SharedPreferences ResellerNameeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+        txt_app_name.setText(aapName);
 
         //  showOwnAccToList();
         getWalletAmount();

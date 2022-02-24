@@ -21,7 +21,7 @@ import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 public class MoreFragment extends Fragment implements View.OnClickListener{
 
 
-    TextView tv_version, tv_abt_us, tv_contact_us, tv_features, tv_rate_us, tv_feed_back, tv_faq;
+    TextView tv_version, tv_abt_us, tv_contact_us, tv_features, tv_rate_us, tv_feed_back, tv_faq,txt_app_name;
     ImageView imCompanylogo,img_applogo;
     public MoreFragment() {
     }
@@ -54,6 +54,11 @@ public class MoreFragment extends Fragment implements View.OnClickListener{
         SharedPreferences CompanyLogoImageCodeSP = getActivity().getSharedPreferences(Config.SHARED_PREF4, 0);
         String companylogoPath =IMAGEURL+CompanyLogoImageCodeSP.getString("CompanyLogoImageCode","");
         PicassoTrustAll.getInstance(getActivity()).load(companylogoPath).error(R.drawable.errorlogo).into(imCompanylogo);
+
+        SharedPreferences ResellerNameeSP = getActivity().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+        txt_app_name.setText(aapName);
+
         return rootView;
     }
 
@@ -67,6 +72,7 @@ public class MoreFragment extends Fragment implements View.OnClickListener{
         tv_features=v.findViewById(R.id.tv_feat);
         imCompanylogo = v.findViewById(R.id.imCompanylogo);
         img_applogo = v.findViewById(R.id.img_applogo);
+        txt_app_name = v.findViewById(R.id.txt_app_name);
     }
 
     private void setRegViews() {

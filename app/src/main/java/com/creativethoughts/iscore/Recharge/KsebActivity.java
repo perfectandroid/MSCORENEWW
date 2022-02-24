@@ -1162,7 +1162,13 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                 String RefID = jsonObjCommon.getString("RefID");
                               //  alertMessageSucces("1",jsonObj.getString("EXMessage"));
                                 alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
-                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID);
+                                        txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,EXMessage,RefID,"0");
+
+//                                    alertMessageSucces1(jsonObjCommon.getString("AccNumber"),jsonObjCommon.getString("ConsumerName"),
+//                                            jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
+//                                            jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
+//                                            tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
+//                                            EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"));
 
 
 
@@ -1176,6 +1182,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             else {
 
+//                                    alertMessageSucces1(tempStringAccountNo,tempStringConsumerName,tempStringMobileNumber,tempStringConsumerNo,
+//                                            txt_section_name,tempStringBillNo,tempDisplaySection,BranchName,tempStringAmount,"Succee","123","15");
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
                                 builder.setMessage(jsonObj.getString("EXMessage"))
@@ -1278,7 +1286,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
     private void alertMessageSucces1(String tempStringAccountNo, String tempStringConsumerName, String tempStringMobileNumber,
                                      String tempStringConsumerNo, String txt_section_name, String tempStringBillNo,
-                                     String tempDisplaySection, String branchName, String tempStringAmount, String exMessage,String RefId) {
+                                     String tempDisplaySection, String branchName, String tempStringAmount,
+                                     String exMessage,String RefId,String DeductAmount) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -1328,7 +1337,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         tvdate.setText("Date : "+formattedDate);
 
         txtvMobno.setText(""+tempStringMobileNumber);
-        txtvAcntno.setText(""+tempStringAccountNo);
+        String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
+        txtvAcntno.setText(""+maskAccountNumber);
+       // txtvAcntno.setText(""+tempStringAccountNo);
         txtvbranch.setText(""+branchName);
 
 
@@ -1339,7 +1350,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         txtvBillNo.setText("Bill No  : "+tempStringBillNo);
 
 
-        String amnt = tempStringAmount.replaceAll(",", "");
+//        String amnt1 = tempStringAmount.replaceAll(",", "");
+        double amnt1 = Double.parseDouble(tempStringAmount.replace(",",""))+Double.parseDouble(strCommision);
+        String amnt = String.valueOf(amnt1);
         String[] netAmountArr = amnt.split("\\.");
         String amountInWordPop = "";
         if ( netAmountArr.length > 0 ){
