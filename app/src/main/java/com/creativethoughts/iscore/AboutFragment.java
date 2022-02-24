@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.creativethoughts.iscore.Helper.Config;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,8 +48,13 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
         TextView textViewVersionName = rootView.findViewById(R.id.textviewVersionName);
+        TextView txt_app_name = rootView.findViewById(R.id.txt_app_name);
         String versionName = "V-"+ IScoreApplication.versionName;
         textViewVersionName.setText(versionName);
+
+        SharedPreferences ResellerNameeSP = getActivity().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+        txt_app_name.setText(aapName);
 
         return rootView;
     }
