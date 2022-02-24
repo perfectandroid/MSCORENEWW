@@ -64,5 +64,12 @@ public class Config {
     public static final String SHARED_PREF48 = "Neft";
     public static final String SHARED_PREF49 = "OwnImps";
 
+    public static final String SHARED_PREF50 = "from";
+    public static final String SHARED_PREF51 = "senderid";
+    public static final String SHARED_PREF52 = "receiverid";
+    public static final String SHARED_PREF53 = "mobileno";
+    public static final String SHARED_PREF54 = "otprefno";
+    public static final String SHARED_PREF55 = "resend";
+
 
 }
