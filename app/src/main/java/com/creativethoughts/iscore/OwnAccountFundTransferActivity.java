@@ -1253,6 +1253,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                                     fundTransferResult1.recvrbranch=object3.getString("RecBranch");
                                     fundTransferResult1.recvrdate=object3.getString("TransDate");
                                     fundTransferResult1.recvraccno=object3.getString("RecAccNumber");
+                                    fundTransferResult1.transdate=object3.getString("TransDate");
+                                    fundTransferResult1.time=object3.getString("Time");
                                     fundtransfrlist.add(fundTransferResult1);
                                     
                                 }
@@ -2000,17 +2002,20 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        PicassoTrustAll.getInstance(OwnAccountFundTransferActivity.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
 
        //current time
-       String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+       String currentTime = fundtransfrlist.get(0).getTime();
+      // String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
      //  String currentTime =fundtransfrlist.get(0).getRecvrdate();
        tvtime.setText("Time : "+currentTime);
 
        //current date
 
-       Date c = Calendar.getInstance().getTime();
+       /*Date c = Calendar.getInstance().getTime();
        System.out.println("Current time => " + c);
 
        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-       String formattedDate = df.format(c);
+       String formattedDate = df.format(c);*/
+       String formattedDate = fundtransfrlist.get(0).getTransdate();
+
        tvdate.setText("Date : "+formattedDate);
       // tvdate.setText("Date : "+currentTime);
 

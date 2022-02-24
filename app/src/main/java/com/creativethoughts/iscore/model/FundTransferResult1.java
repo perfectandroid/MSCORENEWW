@@ -12,6 +12,8 @@ public class FundTransferResult1 {
     public String recvrbranch;
     public String recvrdate;
     public String recvraccno;
+    public String transdate;
+    public String time;
 
 
 
@@ -19,7 +21,7 @@ public class FundTransferResult1 {
 
 
     public FundTransferResult1(String refId, String mobileNumber, String amount, String accNo,String senderacc,String senderbranch,
-                               String recvrbranch,String recvrdate,String recvraccno) {
+                               String recvrbranch,String recvrdate,String recvraccno,String transdate,String time) {
         this.refId = refId;
         this.mobileNumber = mobileNumber;
         this.amount = amount;
@@ -29,6 +31,8 @@ public class FundTransferResult1 {
         this.recvrbranch = recvrbranch;
         this.recvrdate = recvrdate;
         this.recvraccno = recvraccno;
+        this.transdate = transdate;
+        this.time = time;
     }
 
     public FundTransferResult1() {
@@ -125,5 +129,20 @@ public class FundTransferResult1 {
 
     public void setRecvraccno(String recvraccno) {
         recvraccno = recvraccno;
+    }
+
+    public String getTransdate() {
+        return transdate;
+    }
+
+    public void setTransdate(String transdate) {
+        transdate = transdate;
+    }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        time = time;
     }
 }
