@@ -37,6 +37,7 @@ import io.reactivex.schedulers.Schedulers;
     private Button btnShwPassFourth;
     private Button btnShwPassFifth;
     private Button btnShwPassSixth;
+    private TextView  txt_app_name;
     private int counter = 0;
     private Button[] btnArray ;
     private Button[] btnOthersArray;
@@ -46,6 +47,7 @@ import io.reactivex.schedulers.Schedulers;
     private String  fourthLetter;
     private String  fifthLetter;
     private String  sixthLetter;
+
 
 
     @Override
@@ -109,10 +111,16 @@ import io.reactivex.schedulers.Schedulers;
 
         btnKeyPadClearAll   = findViewById(R.id.btn_keypad_clear_all);
         btnKeyPadBack       = findViewById(R.id.btn_keypad_back);
+        txt_app_name       = findViewById(R.id.txt_app_name);
 
 
         SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
         String customerName = customerNameSP.getString("customerName","");
+
+        SharedPreferences ResellerNameeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF2, 0);
+        String aapName = ResellerNameeSP.getString("ResellerName","");
+        txt_app_name.setText(aapName);
+
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
