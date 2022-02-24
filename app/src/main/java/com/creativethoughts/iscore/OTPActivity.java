@@ -89,7 +89,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     private EditText mEdtotp;
     private PaymentModel mPaymentModel;
     private SweetAlertDialog mSweetAlertDialog;
-    String paymntmodel,branch,bal;
+    String paymntmodel,branch,bal,time,transdate;
     private int maxFailedAttempt = 3;
     private TextView txtFailedAttempt;
     Button btnResend,btnSubmt;
@@ -247,6 +247,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                             accno=jObject.getString("AccNo");
                             benaccno=jObject.getString("BenAccNo");
                             brnch=jObject.getString("Branch");
+                            time=jObject.getString("Time");
+                            transdate=jObject.getString("TransDate");
 
                            if(statusCode==200 && otpref1.equals("200"))
                             {
@@ -264,6 +266,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                                 neftRtgsOtpResponseModel.accno =accno;
                                 neftRtgsOtpResponseModel.benaccno =benaccno;
                                 neftRtgsOtpResponseModel.branch =brnch;
+                                neftRtgsOtpResponseModel.transdate =transdate;
+                                neftRtgsOtpResponseModel.time =time;
                                 neftRtgsOtpResponseModels.add(neftRtgsOtpResponseModel);
                                /* ArrayList<KeyValuePair> keyValuePairs = new ArrayList<>();
                                 KeyValuePair keyValuePair = new KeyValuePair();
@@ -370,16 +374,20 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         txtMessage.setText(msg);
 
         //current time
-        String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+       // String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        String currentTime =neftRtgsOtpResponseModels.get(0).getTime();
         tvtime.setText("Time : "+currentTime);
 
         //current date
 
-        Date c = Calendar.getInstance().getTime();
+       /* Date c = Calendar.getInstance().getTime();
         System.out.println("Current time => " + c);
 
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
+        String formattedDate = df.format(c);*/
+
+        String formattedDate = neftRtgsOtpResponseModels.get(0).getTransdate();
         tvdate.setText("Date : "+formattedDate);
 
         String amnt = amm.replaceAll(",", "");

@@ -1201,7 +1201,36 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             String sendr = jObject.getString("ID_Sender");
                             String transid = jObject.getString("TrasactionID");
 
-                            AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
+
+                            SharedPreferences fromSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF50, 0);
+                            SharedPreferences.Editor fromSPEditer = fromSP.edit();
+                            fromSPEditer.putString("from", "quickpay");
+                            fromSPEditer.commit();
+
+                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF51, 0);
+                            SharedPreferences.Editor sndridSPSPEditer = sndridSP.edit();
+                            sndridSPSPEditer.putString("senderid", sendr);
+                            sndridSPSPEditer.commit();
+
+
+
+                            SharedPreferences rcvrSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF52, 0);
+                            SharedPreferences.Editor rcvrSPEditer = rcvrSP.edit();
+                            rcvrSPEditer.putString("receiverid", receivr);
+                            rcvrSPEditer.commit();
+
+                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                            SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
+                            otprefSPEditer.putString("otprefno", otpref);
+                            otprefSPEditer.commit();
+
+                            SharedPreferences transidsp = getApplicationContext().getSharedPreferences(Config.SHARED_PREF61, 0);
+                            SharedPreferences.Editor transidspEditer = transidsp.edit();
+                            transidspEditer.putString("transid", transid);
+                            transidspEditer.commit();
+
+
+                          /*  AddSenderReceiverResponseModel addSenderReceiverResponseModel = new AddSenderReceiverResponseModel();
 
 
                             addSenderReceiverResponseModel.status =status;
@@ -1211,28 +1240,23 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
                             addSenderReceiverResponseModel.receiverid=receivr;
                             addSenderReceiverResponseModel.otprefno=otpref;
                             addSenderReceiverResponseModels.add(addSenderReceiverResponseModel);
-
+*/
                             if ( statusCode!= null && statusCode.equals("200") &&!otpref.equals("0")){
-                                String from ="quickpay";
+                              //  String from ="quickpay";
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from",from);
+                              /*  i.putExtra("from",from);
                                 i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
                                 i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
                                 i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
-                                i.putExtra("transid",transid);
+                                i.putExtra("transid",transid);*/
                                 startActivity(i);
 
                             }
                             if ( statusCode!= null && statusCode.equals("200") &&otpref.equals("0")){
-                             /*   String from ="quickpay";
+
+                               // alertMessage1("" ,msg );
                                 Intent i = new Intent(QuickPayMoneyTransferActivity.this,TraansactionOTPActivity.class);
-                                i.putExtra("from",from);
-                                i.putExtra("otprefno",addSenderReceiverResponseModels.get(0).getOtprefno());
-                                i.putExtra("sender",addSenderReceiverResponseModels.get(0).getSenderid());
-                                i.putExtra("recvr",addSenderReceiverResponseModels.get(0).getReceiverid());
-                                i.putExtra("transid",transid);
-                                startActivity(i);*/
-                                alertMessage1("" ,msg );
+                                startActivity(i);
                             }
                             else if ( statusCode!= null && statusCode.equals("200")){
                                  //   moneyTransferResponseModel.getOtpRefNo().equals("0")){
