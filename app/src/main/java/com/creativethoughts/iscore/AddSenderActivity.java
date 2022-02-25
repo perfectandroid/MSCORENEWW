@@ -226,8 +226,8 @@ public class AddSenderActivity extends AppCompatActivity implements View.OnClick
                             }
                            else if(statscode.equals("200")&& otprefno.equals("0"))
                             {
-                               // Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
-                              //  startActivity(i);
+                                Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
+                                startActivity(i);
                               /*  String from ="sender";
                                 Intent i = new Intent(AddSenderActivity.this,TraansactionOTPActivity.class);
                                 i.putExtra("from",from);

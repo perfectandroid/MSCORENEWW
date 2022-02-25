@@ -355,8 +355,9 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         TextView txtvAcntnoto = dialogView.findViewById(R.id.txtvAcntnoto);
         /*TextView txtvbranchto = dialogView.findViewById(R.id.txtvbranchto);
         TextView txtvbalnceto = dialogView.findViewById(R.id.txtvbalnceto);*/
-
+        ImageView img_hdAccount = dialogView.findViewById( R.id.img_hdAccount);
         ImageView img_applogo = dialogView.findViewById(R.id.img_aapicon);
+        ImageView img_hdAccount1 = dialogView.findViewById( R.id.img_hdAccountto);
 
         SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
         String IMAGEURL = imageurlSP.getString("imageurl","");
@@ -416,7 +417,12 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
     //    txtvAcntno.setText("A/C :"+accntno);
-        txtvAcntno.setText("A/C :"+neftRtgsOtpResponseModels.get(0).getAccno());
+      //  txtvAcntno.setText("A/C :"+neftRtgsOtpResponseModels.get(0).getAccno());
+
+        String tempStringAccountNo =neftRtgsOtpResponseModels.get(0).getAccno();
+        String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
+        txtvAcntno.setText("A/C :"+maskAccountNumber);
+
      //  txtvbranch.setText("Branch :"+branch);
         txtvbranch.setText("Branch :"+neftRtgsOtpResponseModels.get(0).getBranch());
         double num1 = Double.parseDouble(bal) - Double.parseDouble(stramnt.replace(",",""));
@@ -426,7 +432,10 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
     //    txtvAcntnoto.setText("A/C : "+ benacc);
-        txtvAcntnoto.setText("A/C : "+ neftRtgsOtpResponseModels.get(0).getBenaccno());
+       // txtvAcntnoto.setText("A/C : "+ neftRtgsOtpResponseModels.get(0).getBenaccno());
+        String tempStringAccountNo1 =neftRtgsOtpResponseModels.get(0).getBenaccno();
+        String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
+        txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
 
         dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
             try{
@@ -438,7 +447,34 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 //Do nothing
             }
         } );
+        img_hdAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtvAcntno.getText().toString() == tempStringAccountNo){
+                    txtvAcntno.setText("A/C :"+maskAccountNumber);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+                }
+                else{
+                    txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
+                }
+            }
+        });
+        img_hdAccount1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtvAcntnoto.getText().toString() == tempStringAccountNo1){
+                    txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+                }
+                else{
+                    txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
+
+                }
+            }
+        });
         try{
 
             txtMessage.setText( message );

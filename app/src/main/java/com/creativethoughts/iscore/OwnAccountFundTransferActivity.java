@@ -1978,6 +1978,9 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        TextView txtTitle       = dialogView.findViewById( R.id.txt_success );
        TextView txtMessage = dialogView.findViewById( R.id.txt_message );
        TextView tvrefe = dialogView.findViewById( R.id.tvrefe );
+       ImageView img_hdAccount = dialogView.findViewById( R.id.img_hdAccount);
+       ImageView img_hdAccount1 = dialogView.findViewById( R.id.img_hdAccountto);
+
 
        TextView tvdate = dialogView.findViewById( R.id.tvdate );
        TextView tvtime = dialogView.findViewById( R.id.tvtime );
@@ -2047,7 +2050,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
 
      //  txtvAcntno.setText("A/C :"+SourceAccountNumber);
-       txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
+    //   txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
+       String tempStringAccountNo =fundtransfrlist.get(0).getSenderacc();
+       String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
+       txtvAcntno.setText("A/C :"+maskAccountNumber);
      //  txtvbranch.setText("Branch :"+BranchName);
        txtvbranch.setText("Branch :"+fundtransfrlist.get(0).getSenderbranch());
 
@@ -2055,10 +2061,45 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
 
      //  txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getAccNo());
-       txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getRecvraccno());
+    //   txtvAcntnoto.setText("A/C : "+ fundtransfrlist.get(0).getRecvraccno());
+
+       String tempStringAccountNo1 =fundtransfrlist.get(0).getRecvraccno();
+       String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
+       txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
       // txtvbranchto.setText("Branch :"+result);
        txtvbranchto.setText("Branch :"+fundtransfrlist.get(0).getRecvrbranch());
+
        txtvbranchto.setVisibility(View.VISIBLE);
+
+       img_hdAccount.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if (txtvAcntno.getText().toString() == tempStringAccountNo){
+                   txtvAcntno.setText("A/C :"+maskAccountNumber);
+                   img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+               }
+               else{
+                   txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                   img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
+
+               }
+           }
+       });
+
+       img_hdAccount1.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if (txtvAcntnoto.getText().toString() == tempStringAccountNo1){
+                   txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+                   img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+               }
+               else{
+                   txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                   img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
+
+               }
+           }
+       });
 
        dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
            try{
@@ -2092,7 +2133,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                    try {
 
-                       File file = saveBitmap(bitmap, SourceAccountNumber+".png");
+                       File file = saveBitmap(bitmap, tempStringAccountNo+".png");
                        Log.e("chase  2044   ", "filepath: "+file.getAbsolutePath());
                        Uri bmpUri = Uri.fromFile(file);
 

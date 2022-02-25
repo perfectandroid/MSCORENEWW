@@ -131,20 +131,36 @@
                     android:id="@+id/l0"
                     android:layout_below="@id/txtpfrom"
                     android:orientation="vertical">
-                    <TextView
-
-                        android:layout_marginTop="5dp"
-
-                        android:id="@+id/txtvAcntno"
-                        android:layout_weight="1"
-                        android:layout_below="@id/txtpfrom"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="50dp"
-                        android:text="">
-                    </TextView>
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:id="@+id/txtvAcntno"
+                            android:textStyle="bold"
+                            android:layout_below="@id/txtpfrom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="50dp"
+                            android:text=""/>
+
+                        <ImageView
+                            android:id="@+id/img_hdAccount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/visibility_eye"
+                            android:gravity="center"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/txtvbranch"
                         android:layout_marginTop="5dp"
@@ -210,17 +226,37 @@
                             android:textStyle="bold"
                             android:layout_marginLeft="50dp"
                             android:text=""></TextView>
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/txtvAcntnoto"
-                            android:textStyle="bold"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:layout_marginLeft="50dp"
-                            android:layout_weight="1"
-                            android:text="">
-                        </TextView>
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:id="@+id/txtvAcntnoto"
+                                android:textStyle="bold"
+                                android:layout_below="@id/txtpfrom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="50dp"
+                                android:text=""/>
+
+                            <ImageView
+                                android:id="@+id/img_hdAccountto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/visibility_eye"
+                                android:gravity="center"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout

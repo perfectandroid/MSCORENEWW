@@ -508,7 +508,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
                             if(resend !=null && !resend.isEmpty())
                             {
-                                if(resend.equals("2"))
+                                if(resend.equals("3"))
                                 {
                                     getVerifypaymentOTP(otp,senderid,receivrid,otprefno1,transid);
                                 }
@@ -655,9 +655,10 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
                     String senderid=sndr.getString("senderid", null);
 
+                    SharedPreferences mob = this.getSharedPreferences(Config.SHARED_PREF53, 0);
+                    String mob1=mob.getString("mobileno", null);
 
-
-                    getResendersenderOTP(senderid);
+                    getResendersenderOTP(senderid,mob1);
                 }
                 break;
         }
@@ -810,7 +811,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
 
     }
 
-    private void getResendersenderOTP(String senderid) {
+    private void getResendersenderOTP(String senderid, String mob1) {
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
@@ -851,6 +852,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                     requestObject1.put("senderid", IScoreApplication.encryptStart(senderid));
                     requestObject1.put("imei", IScoreApplication.encryptStart(""));
                     requestObject1.put("token", IScoreApplication.encryptStart(tokn));
+                    requestObject1.put("MobileNo", IScoreApplication.encryptStart(mob1));
                     requestObject1.put("BankKey", IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(""));
