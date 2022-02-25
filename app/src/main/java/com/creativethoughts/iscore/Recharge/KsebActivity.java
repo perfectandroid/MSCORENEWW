@@ -128,6 +128,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     String tempDisplaySection;
     String strCommision="";
     private String sectionCode = "";
+    private String sectionName = "";
     String selComm = "0";
 
     private static final int REQUEST_SELECT_SECTION = 100;
@@ -599,6 +600,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         autoCompleConsumerNo.setText("");
         txtSectionName.setText("");
         sectionCode = "";
+        sectionName = "";
         txt_amtinword.setText("");
         edtTxtBillNo.setText("");
         edtTxtAmount.setText("");
@@ -812,6 +814,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         tempDisplaySection = sectionDetails.getSectionName() + '(' + sectionDetails.getSectionCode() + ')';
                         txtSectionName.setText( tempDisplaySection );
                         sectionCode = sectionDetails.getSectionCode();
+                        sectionName = sectionDetails.getSectionName();
                         tempStringSectionList = tempDisplaySection;
                     }
                 }
@@ -1091,6 +1094,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified", IScoreApplication.encryptStart(BankVerifier));
                     requestObject1.put("DeductAmount", IScoreApplication.encryptStart("0")); // No Use
+                    requestObject1.put("SectioName", IScoreApplication.encryptStart(sectionName)); // No Use
 
                     Log.e(TAG,"requestObject1     790   "+requestObject1);
 
@@ -1099,6 +1103,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                             +"\n"+"MobileNo   "+tempStringMobileNumber
                             +"\n"+"ConsumerNo   "+tempStringConsumerNo
                             +"\n"+"SectionList   "+sectionCode
+                            +"\n"+"txtSectionName   "+sectionName
                             +"\n"+"BillNo   "+tempStringBillNo
                             +"\n"+"amount   "+mAmount
                             +"\n"+"AccountNo   "+extractedAccNo
