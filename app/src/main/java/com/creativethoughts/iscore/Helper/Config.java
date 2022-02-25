@@ -85,4 +85,10 @@ public class Config {
     public static final String SHARED_PREF65 = "rsndotp";
 
 
+    public static final String SHARED_PREF66 = "quicksndrid";
+    public static final String SHARED_PREF67 = "quickrecvrid";
+    public static final String SHARED_PREF68 = "quickotp";
+
+
+
 }

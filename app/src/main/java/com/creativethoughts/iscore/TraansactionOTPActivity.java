@@ -503,14 +503,20 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             SharedPreferences resendsp = this.getSharedPreferences(Config.SHARED_PREF55, 0);
                             String resend=resendsp.getString("resend", null);
 
-                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF54, 0);
-                            String otprefno1=otprefnosp1.getString("otprefno", null);
+                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF68, 0);
+                            String otprefno1=otprefnosp1.getString("quickotp", null);
+
+                            SharedPreferences quickrcvr = this.getSharedPreferences(Config.SHARED_PREF67, 0);
+                            String rcvrid1=quickrcvr.getString("quickrecvrid", null);
+
+                            SharedPreferences quicksndrid = this.getSharedPreferences(Config.SHARED_PREF66, 0);
+                            String sndrid1=quicksndrid.getString("quicksndrid", null);
 
                             if(resend !=null && !resend.isEmpty())
                             {
                                 if(resend.equals("3"))
                                 {
-                                    getVerifypaymentOTP(otp,senderid,receivrid,otprefno1,transid);
+                                    getVerifypaymentOTP(otp,sndrid1,rcvrid1,otprefno1,transid);
                                 }
                             }
                             else
@@ -537,10 +543,14 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             SharedPreferences resendsp = this.getSharedPreferences(Config.SHARED_PREF55, 0);
                             String resend=resendsp.getString("resend", null);
 
-                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF54, 0);
-                            String otprefno1=otprefnosp1.getString("otprefno", null);
+                            SharedPreferences otprefnosp1 = this.getSharedPreferences(Config.SHARED_PREF65, 0);
+                            String otprefno1=otprefnosp1.getString("rsndotp", null);
 
+                            SharedPreferences rcvrid1 = this.getSharedPreferences(Config.SHARED_PREF63, 0);
+                            String recvrid1=rcvrid1.getString("rsndrecvr", null);
 
+                            SharedPreferences sndrid1 = this.getSharedPreferences(Config.SHARED_PREF62, 0);
+                            String sndr1=sndrid1.getString("rsndsndr", null);
 
 
 
@@ -548,7 +558,7 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             {
                                 if(resend.equals("2"))
                                 {
-                                    getVerifyreceiverOTP(otp,otprefno1,senderid,receivrid);
+                                    getVerifyreceiverOTP(otp,otprefno1,sndr1,recvrid1);
                                 }
                             }
                             else
@@ -618,10 +628,25 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
              //   Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
                 if(from.equals("quickpay"))
                 {
-                    String senderid = getIntent().getStringExtra("sender");
+                  /*  String senderid = getIntent().getStringExtra("sender");
                     String receivrid = getIntent().getStringExtra("recvr");
                      otprefno = getIntent().getStringExtra("otprefno");
                     String transid = getIntent().getStringExtra("transid");
+*/
+                    SharedPreferences sndr = this.getSharedPreferences(Config.SHARED_PREF51, 0);
+                    String senderid=sndr.getString("senderid", null);
+
+                    SharedPreferences otpref = this.getSharedPreferences(Config.SHARED_PREF54, 0);
+                    String otprefno=otpref.getString("otprefno", null);
+
+                    SharedPreferences recvpref = this.getSharedPreferences(Config.SHARED_PREF52, 0);
+                    String receivrid=recvpref.getString("receiverid", null);
+
+                    SharedPreferences transpref = this.getSharedPreferences(Config.SHARED_PREF61, 0);
+                    String transid=transpref.getString("transid", null);
+
+
+
                     getVerifypaymentOTP(otp, senderid, receivrid, otprefno, transid);
                 }
                 else if(from.equals("receiver"))
@@ -758,21 +783,21 @@ public class TraansactionOTPActivity extends AppCompatActivity implements View.O
                             fromSPEditer.putString("from", "receiver");
                             fromSPEditer.commit();
 
-                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF51, 0);
+                            SharedPreferences sndridSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF62, 0);
                             SharedPreferences.Editor sndridSPSPEditer = sndridSP.edit();
-                            sndridSPSPEditer.putString("senderid", sender);
+                            sndridSPSPEditer.putString("rsndsndr", sender);
                             sndridSPSPEditer.commit();
 
 
 
-                            SharedPreferences receivrSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF52, 0);
+                            SharedPreferences receivrSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF63, 0);
                             SharedPreferences.Editor receivrSPEditer = receivrSP.edit();
-                            receivrSPEditer.putString("receiverid", receiver);
+                            receivrSPEditer.putString("rsndrecvr", receiver);
                             receivrSPEditer.commit();
 
-                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF54, 0);
+                            SharedPreferences otprefSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF65, 0);
                             SharedPreferences.Editor otprefSPEditer = otprefSP.edit();
-                            otprefSPEditer.putString("otprefno", "1234");
+                            otprefSPEditer.putString("rsndotp", "1234");
                             otprefSPEditer.commit();
 
                             SharedPreferences resndSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF55, 0);
