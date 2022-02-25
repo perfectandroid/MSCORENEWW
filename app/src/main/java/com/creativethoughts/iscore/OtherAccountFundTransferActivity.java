@@ -1853,6 +1853,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         TextView tvdate = dialogView.findViewById( R.id.tvdate );
         TextView tvtime = dialogView.findViewById( R.id.tvtime );
         TextView tv_amount_words = dialogView.findViewById( R.id.tv_amount_words );
+        ImageView img_hdAccount = dialogView.findViewById( R.id.img_hdAccount );
+        ImageView img_hdAccount1 = dialogView.findViewById( R.id.img_hdAccountto );
 
         TextView tv_amount = dialogView.findViewById(R.id.tv_amount);
         TextView txtvAcntno = dialogView.findViewById(R.id.txtvAcntno);
@@ -1915,7 +1917,13 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
        // txtvAcntno.setText("A/C :"+SourceAccountNumber);
-        txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
+      //  txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
+
+        String tempStringAccountNo =fundtransfrlist.get(0).getSenderacc();
+        String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
+        txtvAcntno.setText("A/C :"+maskAccountNumber);
+
+
      //   txtvbranch.setText("Branch :"+BranchName);
         txtvbranch.setText("Branch :"+fundtransfrlist.get(0).getSenderbranch());
         double num1 = Double.parseDouble(Balance) - Double.parseDouble(stramnt.replace(",",""));
@@ -1947,12 +1955,42 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
       //  txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getAccNo());
-        txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getRecvraccno());
+      //  txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getRecvraccno());
+        String tempStringAccountNo1 =fundtransfrlist.get(0).getRecvraccno();
+        String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
+        txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
 
 
 
+        img_hdAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtvAcntno.getText() == tempStringAccountNo){
+                    txtvAcntno.setText("A/C :"+maskAccountNumber);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+                }
+                else if (!(txtvAcntno.getText() == tempStringAccountNo)){
+                    txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
+                }
+            }
+        });
 
+        img_hdAccount1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtvAcntnoto.getText() == tempStringAccountNo1){
+                    txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
+                }
+                else if (!(txtvAcntnoto.getText() == tempStringAccountNo1)){
+                    txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
+
+                }
+            }
+        });
 
 
 
