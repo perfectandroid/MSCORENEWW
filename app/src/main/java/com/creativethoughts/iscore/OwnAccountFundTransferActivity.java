@@ -2086,7 +2086,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
            }
        });
 
-       img_hdAccount1.setOnClickListener(new View.OnClickListener() {
+      img_hdAccount1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                if (txtvAcntnoto.getText().toString() == tempStringAccountNo1){

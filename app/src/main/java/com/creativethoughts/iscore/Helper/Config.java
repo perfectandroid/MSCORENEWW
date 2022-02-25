@@ -79,4 +79,10 @@ public class Config {
 
     public static final String SHARED_PREF61 = "transid";
 
+    public static final String SHARED_PREF62 = "rsndsndr";
+    public static final String SHARED_PREF63 = "rsndrecvr";
+    public static final String SHARED_PREF64 = "rsndmob";
+    public static final String SHARED_PREF65 = "rsndotp";
+
+
 }
