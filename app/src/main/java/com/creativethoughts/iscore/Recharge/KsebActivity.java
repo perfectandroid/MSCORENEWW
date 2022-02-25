@@ -1076,8 +1076,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
 
                     requestObject1.put("ConsumerName",IScoreApplication.encryptStart(tempStringConsumerName));
-                   // requestObject1.put("MobileNo",IScoreApplication.encryptStart(tempStringMobileNumber));
-                    requestObject1.put("MobileNumber",IScoreApplication.encryptStart(tempStringMobileNumber));
+                    requestObject1.put("MobileNo",IScoreApplication.encryptStart(tempStringMobileNumber));
+//                    requestObject1.put("MobileNumber",IScoreApplication.encryptStart(tempStringMobileNumber));
                     requestObject1.put("ConsumerNo",IScoreApplication.encryptStart(tempStringConsumerNo));
                     requestObject1.put("SectionList",IScoreApplication.encryptStart(sectionCode));
                     requestObject1.put("BillNo",IScoreApplication.encryptStart(tempStringBillNo));
