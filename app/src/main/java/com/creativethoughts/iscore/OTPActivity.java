@@ -421,7 +421,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
         String tempStringAccountNo =neftRtgsOtpResponseModels.get(0).getAccno();
         String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
-        txtvAcntno.setText("A/C :"+maskAccountNumber);
+        txtvAcntno.setText(maskAccountNumber);
 
      //  txtvbranch.setText("Branch :"+branch);
         txtvbranch.setText("Branch :"+neftRtgsOtpResponseModels.get(0).getBranch());
@@ -435,7 +435,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
        // txtvAcntnoto.setText("A/C : "+ neftRtgsOtpResponseModels.get(0).getBenaccno());
         String tempStringAccountNo1 =neftRtgsOtpResponseModels.get(0).getBenaccno();
         String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
-        txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+        txtvAcntnoto.setText(maskAccountNumber1);
 
         dialogView.findViewById( R.id.rltv_footer ).setOnClickListener(view1 -> {
             try{
@@ -451,11 +451,11 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 if (txtvAcntno.getText().toString() == tempStringAccountNo){
-                    txtvAcntno.setText("A/C :"+maskAccountNumber);
+                    txtvAcntno.setText(maskAccountNumber);
                     img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                 }
                 else{
-                    txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                    txtvAcntno.setText(tempStringAccountNo);
                     img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                 }
@@ -465,11 +465,11 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 if (txtvAcntnoto.getText().toString() == tempStringAccountNo1){
-                    txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+                    txtvAcntnoto.setText(maskAccountNumber1);
                     img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                 }
                 else{
-                    txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                    txtvAcntnoto.setText(tempStringAccountNo1);
                     img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                 }

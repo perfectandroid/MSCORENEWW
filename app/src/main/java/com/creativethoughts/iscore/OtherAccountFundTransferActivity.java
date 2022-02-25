@@ -1921,7 +1921,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
         String tempStringAccountNo =fundtransfrlist.get(0).getSenderacc();
         String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
-        txtvAcntno.setText("A/C :"+maskAccountNumber);
+        txtvAcntno.setText(maskAccountNumber);
 
 
      //   txtvbranch.setText("Branch :"+BranchName);
@@ -1958,7 +1958,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
       //  txtvAcntnoto.setText("A/C : "+fundtransfrlist.get(0).getRecvraccno());
         String tempStringAccountNo1 =fundtransfrlist.get(0).getRecvraccno();
         String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
-        txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+        txtvAcntnoto.setText(maskAccountNumber1);
 
 
 
@@ -1966,11 +1966,11 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             @Override
             public void onClick(View v) {
                 if (txtvAcntno.getText() == tempStringAccountNo){
-                    txtvAcntno.setText("A/C :"+maskAccountNumber);
+                    txtvAcntno.setText(maskAccountNumber);
                     img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                 }
                 else if (!(txtvAcntno.getText() == tempStringAccountNo)){
-                    txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                    txtvAcntno.setText(tempStringAccountNo);
                     img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                 }
@@ -1981,11 +1981,11 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             @Override
             public void onClick(View v) {
                 if (txtvAcntnoto.getText() == tempStringAccountNo1){
-                    txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+                    txtvAcntnoto.setText(maskAccountNumber1);
                     img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                 }
                 else if (!(txtvAcntnoto.getText() == tempStringAccountNo1)){
-                    txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                    txtvAcntnoto.setText(tempStringAccountNo1);
                     img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                 }

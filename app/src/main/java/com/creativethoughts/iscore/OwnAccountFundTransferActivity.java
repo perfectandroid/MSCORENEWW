@@ -2053,7 +2053,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
     //   txtvAcntno.setText("A/C :"+fundtransfrlist.get(0).getSenderacc());
        String tempStringAccountNo =fundtransfrlist.get(0).getSenderacc();
        String maskAccountNumber =tempStringAccountNo.replaceAll("\\w(?=\\w{4})", "*");
-       txtvAcntno.setText("A/C :"+maskAccountNumber);
+       txtvAcntno.setText(maskAccountNumber);
      //  txtvbranch.setText("Branch :"+BranchName);
        txtvbranch.setText("Branch :"+fundtransfrlist.get(0).getSenderbranch());
 
@@ -2065,7 +2065,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
        String tempStringAccountNo1 =fundtransfrlist.get(0).getRecvraccno();
        String maskAccountNumber1 =tempStringAccountNo1.replaceAll("\\w(?=\\w{4})", "*");
-       txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+       txtvAcntnoto.setText(maskAccountNumber1);
       // txtvbranchto.setText("Branch :"+result);
        txtvbranchto.setText("Branch :"+fundtransfrlist.get(0).getRecvrbranch());
 
@@ -2074,27 +2074,27 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
        img_hdAccount.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               if (txtvAcntno.getText().toString() == tempStringAccountNo){
-                   txtvAcntno.setText("A/C :"+maskAccountNumber);
+               if (txtvAcntno.getText() == tempStringAccountNo){
+                   txtvAcntno.setText(maskAccountNumber);
                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                }
                else{
-                   txtvAcntno.setText("A/C :"+tempStringAccountNo);
+                   txtvAcntno.setText(tempStringAccountNo);
                    img_hdAccount.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                }
            }
        });
 
-      img_hdAccount1.setOnClickListener(new View.OnClickListener() {
+     img_hdAccount1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               if (txtvAcntnoto.getText().toString() == tempStringAccountNo1){
-                   txtvAcntnoto.setText("A/C :"+maskAccountNumber1);
+               if (txtvAcntnoto.getText() == tempStringAccountNo1){
+                   txtvAcntnoto.setText(maskAccountNumber1);
                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_eye));
                }
                else{
-                   txtvAcntnoto.setText("A/C :"+tempStringAccountNo1);
+                   txtvAcntnoto.setText(tempStringAccountNo1);
                    img_hdAccount1.setBackgroundDrawable(getResources().getDrawable(R.drawable.visibility_off_eye));
 
                }
