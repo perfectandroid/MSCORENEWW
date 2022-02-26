@@ -2124,7 +2124,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
            lay_share.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-
+                   img_hdAccount.setVisibility(View.INVISIBLE);
+                   img_hdAccount1.setVisibility(View.INVISIBLE);
                    Log.e("img_share","img_share   1170   ");
                    Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
                            rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
@@ -2152,7 +2153,8 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
                        e.printStackTrace();
                        Log.e("Exception","Exception   117   "+e.toString());
                    }
-
+                   img_hdAccount.setVisibility(View.VISIBLE);
+                   img_hdAccount1.setVisibility(View.VISIBLE);
                }
            });
 
@@ -2179,7 +2181,10 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         }
 
         File file = new File(docsFolder, fileName);
+        if(file.exists()){
 
+            file.delete();
+        }
 
         try {
             FileOutputStream fOut = new FileOutputStream(file);

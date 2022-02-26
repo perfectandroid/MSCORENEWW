@@ -1165,7 +1165,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                         jsonObjCommon.getString("MobileNumber"),jsonObjCommon.getString("ConsumrNo"),
                                         jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
                                         tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
-                                        EXMessage,jsonObjCommon.getString("RefID"),jsonObjCommon.getString("DeductAmount"),
+                                        EXMessage,jsonObjCommon.getString("TransactionID"),jsonObjCommon.getString("DeductAmount"),
                                         jsonObjCommon.getString("TransDate"),jsonObjCommon.getString("Time"));
 
 //                                "RefID": 774032,
@@ -1320,7 +1320,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     private void alertMessageSucces1(String tempStringAccountNo, String tempStringConsumerName, String tempStringMobileNumber,
                                      String tempStringConsumerNo, String txt_section_name, String tempStringBillNo,
                                      String tempDisplaySection, String branchName, String tempStringAmount,
-                                     String exMessage,String RefId,String DeductAmount,String dates,String times) {
+                                     String exMessage,String TransactionID,String DeductAmount,String dates,String times) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -1379,7 +1379,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         txtvbranch.setText(""+branchName);
 
 
-        txtvTransid.setText("Transaction ID : "+RefId);
+        txtvTransid.setText("Transaction ID : "+TransactionID);
         txtvConsumerName.setText("Consumer Name : "+tempStringConsumerName);
         txtvConsumerNo.setText("Consumer No : "+tempStringConsumerNo);
         txtvConsumerSection.setText("Consumer Section : "+txt_section_name);
@@ -1439,6 +1439,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
+                img_hdAccount.setVisibility(View.INVISIBLE);
                 Log.e("img_share","img_share   1170   ");
                 Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
                         rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
@@ -1466,7 +1467,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                     Log.e("Exception","Exception   117   "+e.toString());
                 }
-
+                img_hdAccount.setVisibility(View.VISIBLE);
             }
         });
 
@@ -1581,6 +1582,10 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         File file = new File(docsFolder, fileName);
+        if(file.exists()){
+
+            file.delete();
+        }
 
 
         try {

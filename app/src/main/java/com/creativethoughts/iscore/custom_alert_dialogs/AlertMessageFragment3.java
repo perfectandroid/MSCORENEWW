@@ -411,6 +411,10 @@ public class AlertMessageFragment3 extends Fragment {
         }
 
         File file = new File(docsFolder, fileName);
+        if(file.exists()){
+
+            file.delete();
+        }
         try {
             FileOutputStream fOut = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);

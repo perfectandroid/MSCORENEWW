@@ -2017,6 +2017,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                 @Override
                 public void onClick(View v) {
 
+                    img_hdAccount.setVisibility(View.INVISIBLE);
+                    img_hdAccount1.setVisibility(View.INVISIBLE);
                     Log.e("img_share","img_share   1170   ");
                     Bitmap bitmap = Bitmap.createBitmap(rltv_share.getWidth(),
                             rltv_share.getHeight(), Bitmap.Config.ARGB_8888);
@@ -2044,7 +2046,8 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     }
 
 
-
+                    img_hdAccount.setVisibility(View.VISIBLE);
+                    img_hdAccount1.setVisibility(View.VISIBLE);
 
 
                 }
@@ -2070,7 +2073,15 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
             Log.e("photoURI","StatementDownloadViewActivity   5683   ");
         }
 
+        Log.e(TAG,"fileName   2073   "+fileName);
+
         File file = new File(docsFolder, fileName);
+        if(file.exists()){
+//            File file1 = new File(docsFolder, "001001999300 (SB)2.png");
+            Log.e(TAG,"fileName   20732   "+file);
+            file.delete();
+        }
+
         try {
             FileOutputStream fOut = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.PNG, 90, fOut);
