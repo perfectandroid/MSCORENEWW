@@ -59,7 +59,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-//    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
+////    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
     public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
   //  public static final String API_NAME= "api/MV3";
@@ -89,35 +89,46 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
 //    public static final String CERTIFICATE_ASSET_NAME="naduviltest.pem";
 
-    // NADUVIL test
-//    public static final String BASE_URL="https://13.71.91.134:14008/MscoreQALive";
-//    public static final String IMAGE_URL="https://13.71.91.134:14008/MscoreQALive";
-//    public static final String API_NAME= "api/MV3";
+
+
+
+
+    //   Atholi LIVE
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
 //    public static final String BankKey= "D.2721";
-//    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+//    public static final String BankHeader= "Atholi Service Co-operative Bank Ltd., No.D.2721 Head Office Cum Main Branch";
 //    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
-//    public static final String CERTIFICATE_ASSET_NAME="naduviltesting.pem";
+//    public static final String CERTIFICATE_ASSET_NAME="atholi.pem";
 
+//    Kalpathur SCB
 
-//    LIVE
-    /*public static final String BASE_URL="https://13.71.91.134:14006/Mscore";
-    public static final String IMAGE_URL="https://13.71.91.134:14006/";
-    public static final String API_NAME= "api/MV3";
-    public static final String BankKey= "D.2721";
-    public static final String BankHeader= "Atholi Service Co-operative Bank Ltd., No.D.2721 Head Office Cum Main Branch";
-    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
-    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";*/
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "No.10096";
+//    public static final String BankHeader= "Kalpathur Service Co-operative Bank Ltd No.10096 HEAD OFFICE CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="kalpathur.pem";
+
+    //    NADUVI SCB
+//
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "LL.136";
+//    public static final String BankHeader= "Naduvil Service Co-operative Bank Ltd.No.LL.136 HEAD OFFICE";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="naduvil.pem";
 
 
     // kuruvattoor
 
- /*   public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
-    public static final String IMAGE_URL="https://103.78.221.136:14001/";
-    public static final String API_NAME= "api/MV3";
-    public static final String BankKey= "";
-    public static final String BankHeader= "";
-    public static final String HOSTNAME_SUBJECT="backoffice28";
-    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";*/
+//    public static final String BASE_URL="https://103.78.221.136:14001/MSCORE/";
+//    public static final String IMAGE_URL="https://103.78.221.136:14001/";
+////    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="backoffice28";
+//    public static final String CERTIFICATE_ASSET_NAME="mscorelive.pem";
 
 //kodiyathur
    /* public static final String BASE_URL="https://103.78.221.132:14001/MSCORE/";
@@ -140,6 +151,52 @@ public class SplashScreen extends AppCompatActivity {
     public static final String CERTIFICATE_ASSET_NAME="bm.pem";
 
 */
+
+//Amarambalam service bank
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "F.1099";
+//    public static final String BankHeader= "The Amarambalam Service Co-operative Bank Ltd.No.F.1099 HO CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="amarambalam.pem";
+
+    // Kallanode SCB
+//    public static final String BASE_URL="https://202.21.34.172:14051/Mscore";
+//    public static final String IMAGE_URL="https://202.21.34.172:14051/";
+//    public static final String BankKey= "F.1827";
+//    public static final String BankHeader= "Kallanode Service Co-operative Bank Ltd., No.F.1827 HEAD OFFICE";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="kallanodescb.pem";
+
+
+    // Kulathupuzha SCB
+//    public static final String BASE_URL="https://117.241.74.118:14001/mscore";
+//    public static final String IMAGE_URL="https://117.241.74.118:14001/";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="kulathupuzha.pem";
+
+    // Edacheri SCB
+//    public static final String BASE_URL="https://202.21.34.172:14051/Mscore";
+//    public static final String IMAGE_URL="https://202.21.34.172:14051/";
+//    public static final String BankKey= "No.9349";
+//    public static final String BankHeader= "The Edacheri Service Co-operative Bank Ltd., No.9349 HEAD OFFICE CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="edacheriscb.pem";
+
+
+
+
+    // TESTING
+//    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
+//    public static final String IMAGE_URL="https://112.133.227.123:14013/";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="BIZCORE";
+//    public static final String CERTIFICATE_ASSET_NAME="qatesting.pem";
+
+
 
 
 

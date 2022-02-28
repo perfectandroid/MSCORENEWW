@@ -630,7 +630,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             Log.e(TAG,"Exception     5064   "+e.toString());
                             progressDialog.dismiss();
                             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-                            builder.setMessage(e.toString())
+                            builder.setMessage("We are experiencing some technical issues, Please try again after some time.")
 //                                builder.setMessage("No data found.")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
@@ -652,7 +652,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                         Log.e(TAG,"onFailure     5065   "+t.toString());
                         progressDialog.dismiss();
                         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-                        builder.setMessage(t.toString())
+                        builder.setMessage("We are experiencing some technical issues, Please try again after some time.")
 //                                builder.setMessage("No data found.")
                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
@@ -674,7 +674,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserRegistrationActivity.this);
-                builder.setMessage(e.toString())
+                builder.setMessage("We are experiencing some technical issues, Please try again after some time.")
 //                                builder.setMessage("No data found.")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override

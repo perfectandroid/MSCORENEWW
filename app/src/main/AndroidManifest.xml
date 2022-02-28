@@ -390,7 +390,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8"/>
+            android:value="AIzaSyDwlkN4uLnRq-b602hE_tES3BRyiDedANA"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
