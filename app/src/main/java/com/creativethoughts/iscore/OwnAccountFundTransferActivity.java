@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
+import com.creativethoughts.iscore.Recharge.KsebActivity;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.adapters.AccountSplitBalanceDetailsAdapter;
 import com.creativethoughts.iscore.adapters.CustomListAdapter;
@@ -685,6 +686,20 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(OwnAccountFundTransferActivity.this);
+                        builder.setMessage("Some technical issues.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(OwnAccountFundTransferActivity.this, HomeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
 
                     }
                 });
@@ -1859,6 +1874,7 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                 //  finishAffinity();
                 alertDialog.dismiss();
+
             }
         });
         alertDialog.show();

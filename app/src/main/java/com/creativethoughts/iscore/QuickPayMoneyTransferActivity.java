@@ -1513,6 +1513,7 @@ public class QuickPayMoneyTransferActivity extends AppCompatActivity implements 
 
                 //  finishAffinity();
                 alertDialog.dismiss();
+
             }
         });
         alertDialog.show();

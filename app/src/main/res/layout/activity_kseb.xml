@@ -331,6 +331,7 @@
                                 android:textColor="@color/Green"
                                 android:textColorHint="@color/text_primary"
                                 android:textSize="22dp"
+                                android:text=""
                                 android:textStyle="bold" />
 
                             <TextView

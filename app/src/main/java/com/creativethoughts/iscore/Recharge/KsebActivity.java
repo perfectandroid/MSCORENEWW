@@ -41,6 +41,7 @@ import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.HomeActivity;
 import com.creativethoughts.iscore.IScoreApplication;
 import com.creativethoughts.iscore.OwnAccountFundTransferActivity;
+import com.creativethoughts.iscore.QuickPayMoneyTransferActivity;
 import com.creativethoughts.iscore.R;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
 import com.creativethoughts.iscore.kseb.KsebCommisionAdapter;
@@ -73,6 +74,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -127,6 +129,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     String SubModule="";
     String tempDisplaySection;
     String strCommision="";
+    String strCommision1;
     private String sectionCode = "";
     private String sectionName = "";
     String selComm = "0";
@@ -213,7 +216,40 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                         double num =Double.parseDouble(""+originalString);
-                        proceedToPayButton.setText( "PAY  "+"\u20B9 "+CommonUtilities.getDecimelFormate(num));
+
+                        strCommision1 = "0";
+                        SharedPreferences toknpref = KsebActivity.this.getSharedPreferences(Config.SHARED_PREF69, 0);
+                        String commision=toknpref.getString("commission", null);
+                        JSONArray JArrayComm = null;
+                        try {
+                            JArrayComm = new JSONArray(commision);
+                            for (int i = 0;i<commision.length();i++){
+                                try {
+                                    String mAmount = originalString.replace(",","");
+
+                                    JSONObject jsonObject = JArrayComm.getJSONObject(i);
+                                    Log.e(TAG,""+Double.parseDouble(""+jsonObject.getString("AmountFrom"))+"    <=   "+ Double.parseDouble(mAmount));
+                                    if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountTo"))) {
+                                        Log.e(TAG,"145   angle >= 90 && angle <= 180");
+                                        strCommision1 = jsonObject.getString("CommissionAmount");
+                                    }
+                                }
+                                catch (Exception e){
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        int s1=Integer.parseInt(strCommision1);
+                        int calctn =Integer.parseInt(originalString)+Integer.parseInt(strCommision1);
+                      //  double num1=Double.parseDouble(originalString)+Double.parseDouble(strCommision);
+                        double num1=Double.parseDouble(Integer.toString(calctn));
+
+
+                       // proceedToPayButton.setText( "PAY  "+"\u20B9 "+""+CommonUtilities.getDecimelFormate(num));
+                        proceedToPayButton.setText( "PAY  "+"\u20B9 "+""+CommonUtilities.getDecimelFormate(num1));
                     }
                     else{
                         proceedToPayButton.setText( "PAY");
@@ -329,6 +365,13 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("CommissionAmtDetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                 JArrayComm = object.getJSONArray("KSEBCommissionDetails");
+
+                                SharedPreferences commisionSp = getApplicationContext().getSharedPreferences(Config.SHARED_PREF69, 0);
+                                SharedPreferences.Editor commisionSpEditer = commisionSp.edit();
+                                commisionSpEditer.putString("commission", String.valueOf(JArrayComm));
+                                commisionSpEditer.commit();
+
+
 
                                 GridLayoutManager lLayout1 = new GridLayoutManager(getApplicationContext(), 1);
                                 recyc_commision.setLayoutManager(lLayout1);
@@ -976,6 +1019,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
             text_confirmationmsg.setText("Proceed Recharge With Above Amount"+ "..?");
             String[] netAmountArr = stramnt.split("\\.");
             String amountInWordPop = "";
@@ -1045,6 +1090,9 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
             try {
 
                 OkHttpClient client = new OkHttpClient.Builder()
+                        .connectTimeout(1, TimeUnit.MINUTES)
+                        .readTimeout(30, TimeUnit.SECONDS)
+                        .writeTimeout(15, TimeUnit.SECONDS)
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
                         .build();
@@ -1166,7 +1214,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                                         jsonObjCommon.getString("ConsumerSection"),jsonObjCommon.getString("BillNo"),
                                         tempDisplaySection,jsonObjCommon.getString("Branch"),jsonObjCommon.getString("Amount"),
                                         EXMessage,jsonObjCommon.getString("TransactionID"),jsonObjCommon.getString("DeductAmount"),
-                                        jsonObjCommon.getString("TransDate"),jsonObjCommon.getString("Time"));
+                                        jsonObjCommon.getString("TransDate"),jsonObjCommon.getString("Time"),jsonObjCommon.getString("ActualAmount"));
 
 //                                "RefID": 774032,
 //                                        "MobileNumber": "1167898003096",
@@ -1242,7 +1290,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                             Log.e(TAG,"Exception     7901   "+e.toString());
                             progressDialog.dismiss();
                             AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
-                            builder.setMessage(e.toString())
+                            builder.setMessage("Some technical issues.")
 //                                builder.setMessage("No data found.")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
@@ -1263,18 +1311,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         progressDialog.dismiss();
                         Log.e(TAG,"onFailure     7902   "+t.toString());
                         progressDialog.dismiss();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
-                        builder.setMessage(t.toString())
-//                                builder.setMessage("No data found.")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
 
-                                    }
-                                });
-                        AlertDialog alert = builder.create();
-                        alert.show();
                     }
                 });
 
@@ -1285,7 +1322,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
                 progressDialog.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(KsebActivity.this);
-                builder.setMessage(e.toString())
+                builder.setMessage("Some technical issues.")
 //                                builder.setMessage("No data found.")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
@@ -1320,7 +1357,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
     private void alertMessageSucces1(String tempStringAccountNo, String tempStringConsumerName, String tempStringMobileNumber,
                                      String tempStringConsumerNo, String txt_section_name, String tempStringBillNo,
                                      String tempDisplaySection, String branchName, String tempStringAmount,
-                                     String exMessage,String TransactionID,String DeductAmount,String dates,String times) {
+                                     String exMessage,String TransactionID,String DeductAmount,String dates,String times,String Actualamt) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -1387,7 +1424,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 
 
 //        String amnt1 = tempStringAmount.replaceAll(",", "");
-        double amnt1 = Double.parseDouble(tempStringAmount.replace(",",""))+Double.parseDouble(strCommision);
+       // double amnt1 = Double.parseDouble(tempStringAmount.replace(",",""))+Double.parseDouble(strCommision);
+        double amnt1 = Double.parseDouble(tempStringAmount);
         String amnt = String.valueOf(amnt1);
         String[] netAmountArr = amnt.split("\\.");
         String amountInWordPop = "";

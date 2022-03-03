@@ -89,6 +89,8 @@ public class Config {
     public static final String SHARED_PREF67 = "quickrecvrid";
     public static final String SHARED_PREF68 = "quickotp";
 
+    public static final String SHARED_PREF69 = "commission";
+
 
 
 }
