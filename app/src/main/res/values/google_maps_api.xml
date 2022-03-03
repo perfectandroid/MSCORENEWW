@@ -25,10 +25,13 @@
 -->
     //parapanangadi
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCA6UuZ9uwV4mj13ro0bFE2RTDICHALd6Y</string>-->
-//calicut town
+<!--//calicut town-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8</string>-->
-//kulathupuzha
- <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBASOXUUvJFd-u7vcZB5Hs0lq5fgMWNA2E</string>-->
+<!--//kulathupuzha-->
+<!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBASOXUUvJFd-u7vcZB5Hs0lq5fgMWNA2E</string>-->
+    <!--//Edacheri-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDwlkN4uLnRq-b602hE_tES3BRyiDedANA</string>
+
 
 <!--    //Thiruvambadi-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD4CUnSGLUsiPrGCGvsuyvaIyCvp7vEW6M</string>-->
@@ -65,7 +68,10 @@
 <!--    &lt;!&ndash;    //Cheranallur&ndash;&gt;-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC4uYTHANTrcaJby9e5BR4IpOOSjVFTm-Q</string>-->
     <!--amarambalam-->
-   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBPuEnN-RpEgtmWB_wq3cG5j742_3Q3NNA</string>-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBPuEnN-RpEgtmWB_wq3cG5j742_3Q3NNA</string>-->
+
+<!--    Kallanode scb-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCSuF018ONdMalZNNlB81rtaMZ_uVEkODs</string>-->
 
 <!--panniyankara-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAMdiGbC0JYE68XIWxKRcWdIMHeOBitzoA</string>-->
@@ -93,7 +99,7 @@
 -->
 <!--    atholi-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAuCq1Kb9yJP3vTXA6WzaDB0NlwWR6FsCQ</string>-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8</string>
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyARu5eLUW9O5VOH-UOU6xkFtr3fvk1L_e8</string>-->
 
 
     <!--    Kuruvattoor-->
@@ -111,7 +117,7 @@
 <!--cherukunnu-->
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBJNLV2fjMvcHRMMTWhzpzfs11CtwPILno</string>-->
 <!--naduvil-->
-  <!--  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyASMx4X8Ej_Sxo1pUIZDsp9edsca0KuL2c</string>-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyASMx4X8Ej_Sxo1pUIZDsp9edsca0KuL2c</string>-->
 <!--porora-->
    <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCm7DVVrYMJPFTgxTGqvMQBZX0seGGwY0U</string>
 -->
@@ -131,4 +137,7 @@
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCi-ZGfqbN2NhfyPMyGFinRWkodUCAJUeM</string>-->
 <!--pantheerankavu-->
   <!-- <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD9cX_5j437SVrfsi-yMuQp86Tk1Gw8HAU</string>-->
+
+    <!--Kalpathur-->
+<!--   <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBkswKsYtOyOISJ3JjFDAB27WAh2BmYbSY</string>-->
 </resources>

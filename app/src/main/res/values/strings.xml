@@ -1,10 +1,12 @@
 <resources>
   <!--  <string name="app_name">Mscore Demo</string>-->
    <!-- <string name="app_name">Parappanangadi CSB</string>-->
+<!--    <string name="app_name">Kalpathur SCB</string>-->
  <!--   <string name="app_name"> Calicut Town SCB</string>-->
-  <!--  <string name="app_name">Kulathupuzha SCB</string>-->
+<!--    <string name="app_name">Kulathupuzha SCB</string>-->
    <!-- <string name="app_name">Panniyankara SCB</string>-->
-  <!--  <string name="app_name">Edacheri SCB</string>-->
+<!--    <string name="app_name">Edacheri SCB</string>-->
+<!--    <string name="app_name">Kallanode SCB</string>-->
 
    <!-- <string name="app_name">Kadampazhipuram SCB</string>-->
   <!--  <string name="app_name">Chathamangalam SCB</string>-->
@@ -36,9 +38,9 @@
 <!--   <string name="app_name">Kuruvattoor Bank</string>-->
 
 <!--    <string name="app_name">Cheranalloor SCB</string>-->
-   <!-- <string name="app_name">Amarambalam SCB</string>-->
+<!--    <string name="app_name">Amarambalam SCB</string>-->
    <!-- <string name="app_name">Kayanna SCB</string>-->
-    <!--<string name="app_name">Naduvil SCB</string>-->
+<!--    <string name="app_name">Naduvil SCB</string>-->
     <!--<string name="app_name">Cherukunnu Scb</string>-->
   <!-- <string name="app_name">Vallapuzha SCB</string>-->
    <!-- <string name="app_name">Ulliyeri SCB</string>-->
