@@ -2,6 +2,7 @@ package com.creativethoughts.iscore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
+    private ProgressDialog progressDialog;
     private EditText mEdtTxtBeneficiaryName;
     private EditText  mEdtTxtBeneficiaryAccNo;
     private EditText  mEdtTxtBeneficiaryConfirmAccNo;
@@ -861,6 +863,15 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
         if (NetworkUtil.isOnline()) {
             try{
+
+                progressDialog = new ProgressDialog(NeftRtgsActivity.this, R.style.Progress);
+                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setIndeterminateDrawable(this.getResources()
+                        .getDrawable(R.drawable.progress));
+                progressDialog.show();
+
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -917,12 +928,14 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressDialog.dismiss();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getNeftPaymnt(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            progressDialog.dismiss();
                             Log.e("TAG","Response neft   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
@@ -1064,17 +1077,20 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
 
 
                         } catch (JSONException e) {
+                            progressDialog.dismiss();
                             e.printStackTrace();
 //                            progressDialog.dismiss();
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
+                        progressDialog.dismiss();
 //                        progressDialog.dismiss();
                     }
                 });
             }
             catch (Exception e) {
+                progressDialog.dismiss();
 //                progressDialog.dismiss();
                 e.printStackTrace();
             }

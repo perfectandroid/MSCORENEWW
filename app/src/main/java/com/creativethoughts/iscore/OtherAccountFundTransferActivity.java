@@ -1175,7 +1175,13 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try {
-
+                progressDialog = new ProgressDialog(OtherAccountFundTransferActivity.this, R.style.Progress);
+                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setIndeterminateDrawable(this.getResources()
+                        .getDrawable(R.drawable.progress));
+                progressDialog.show();
 
                 SharedPreferences bankkeypref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF9, 0);
                 String BankKey = bankkeypref.getString("bankkey", null);
@@ -1231,12 +1237,14 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressDialog.dismiss();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getfundtransfrintrabnk(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            progressDialog.dismiss();
                             Log.e(TAG,"Response otheraccount   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
@@ -1327,6 +1335,7 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
 
 
                         } catch (JSONException e) {
+                            progressDialog.dismiss();
                             e.printStackTrace();
 //                            progressDialog.dismiss();
                         }
@@ -1334,10 +1343,12 @@ public class OtherAccountFundTransferActivity extends AppCompatActivity implemen
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        progressDialog.dismiss();
                     }
                 });
             } catch (Exception e) {
                 //Do nothing
+                progressDialog.dismiss();
             }
         }
         else {

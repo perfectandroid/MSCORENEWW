@@ -1,6 +1,7 @@
 package com.creativethoughts.iscore;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -76,6 +77,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener{
+    private ProgressDialog progressDialog;
     private static final String BUNDLE_PAYMENT_MODEL = "payment_model";
     private ArrayList<NeftRtgsOtpResponseModel> neftRtgsOtpResponseModels = new ArrayList<NeftRtgsOtpResponseModel>();
     private static final String BUNDLE_REQUEST_NEFT_RTGS_OTP_RESPONSE_MODEL = "neft_rtgs_request_otp_request_response_model";
@@ -175,6 +177,13 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
         if (NetworkUtil.isOnline()) {
             try{
+                progressDialog = new ProgressDialog(OTPActivity.this, R.style.Progress);
+                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setIndeterminateDrawable(this.getResources()
+                        .getDrawable(R.drawable.progress));
+                progressDialog.show();
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -229,12 +238,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressDialog.dismiss();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getNeftPaymnt(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            progressDialog.dismiss();
                             Log.e("TAG","Response neftotp   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
@@ -296,6 +307,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
 
                         } catch (JSONException e) {
+                            progressDialog.dismiss();
                             e.printStackTrace();
                             alertMessage1("",  statsmsg1);
 //                            progressDialog.dismiss();
@@ -304,11 +316,13 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
 //                        progressDialog.dismiss();
+                        progressDialog.dismiss();
                         alertMessage1("",  statsmsg1);
                     }
                 });
             }
             catch (Exception e) {
+                progressDialog.dismiss();
 //                progressDialog.dismiss();
                 e.printStackTrace();
             }

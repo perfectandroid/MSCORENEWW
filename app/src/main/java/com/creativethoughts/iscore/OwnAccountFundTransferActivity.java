@@ -3,6 +3,7 @@ package com.creativethoughts.iscore;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -107,6 +108,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class OwnAccountFundTransferActivity extends AppCompatActivity implements View.OnClickListener, EditText.OnEditorActionListener,
         View.OnFocusChangeListener, TextWatcher, AdapterView.OnItemSelectedListener{
 
+    private ProgressDialog progressDialog;
     String TAG = "FundTransferFragment";
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Button button,btn_clear;
@@ -1187,6 +1189,14 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
             try{
+
+                progressDialog = new ProgressDialog(OwnAccountFundTransferActivity.this, R.style.Progress);
+                progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setIndeterminateDrawable(this.getResources()
+                        .getDrawable(R.drawable.progress));
+                progressDialog.show();
                 OkHttpClient client = new OkHttpClient.Builder()
                         .sslSocketFactory(getSSLSocketFactory())
                         .hostnameVerifier(getHostnameVerifier())
@@ -1238,12 +1248,14 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    progressDialog.dismiss();
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getfundtransfrintrabnk(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            progressDialog.dismiss();
                             Log.e(TAG,"Response ownaccount   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             JSONObject j1 = jObject.getJSONObject("FundTransferIntraBankList");
@@ -1327,20 +1339,22 @@ public class OwnAccountFundTransferActivity extends AppCompatActivity implements
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            progressDialog.dismiss();
 
                         }
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-
+                        progressDialog.dismiss();
                     }
                 });
             }
             catch (Exception e) {
-
+                progressDialog.dismiss();
                 e.printStackTrace();
             }
         } else {
+
             alertMessage1("", " Network is currently unavailable. Please try again later.");
 
         }
