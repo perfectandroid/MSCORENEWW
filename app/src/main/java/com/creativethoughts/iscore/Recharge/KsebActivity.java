@@ -218,27 +218,32 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                         double num =Double.parseDouble(""+originalString);
 
                         strCommision1 = "0";
-                        SharedPreferences toknpref = KsebActivity.this.getSharedPreferences(Config.SHARED_PREF69, 0);
-                        String commision=toknpref.getString("commission", null);
-                        JSONArray JArrayComm = null;
+//                        SharedPreferences toknpref = KsebActivity.this.getSharedPreferences(Config.SHARED_PREF69, 0);
+//                        String commision=toknpref.getString("commission", null);
+//                        JSONArray JArrayComm = null;
                         try {
-                            JArrayComm = new JSONArray(commision);
-                            for (int i = 0;i<commision.length();i++){
-                                try {
-                                    String mAmount = originalString.replace(",","");
+                          //  JArrayComm = new JSONArray(commision);
+                            Log.e(TAG,"JArrayComm   226    "+JArrayComm);
+                            if (JArrayComm.length()>0){
+                                for (int i = 0;i<JArrayComm.length();i++){
+                                    try {
+                                        String mAmount = originalString.replace(",","");
 
-                                    JSONObject jsonObject = JArrayComm.getJSONObject(i);
-                                    Log.e(TAG,""+Double.parseDouble(""+jsonObject.getString("AmountFrom"))+"    <=   "+ Double.parseDouble(mAmount));
-                                    if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountTo"))) {
-                                        Log.e(TAG,"145   angle >= 90 && angle <= 180");
-                                        strCommision1 = jsonObject.getString("CommissionAmount");
+                                        JSONObject jsonObject = JArrayComm.getJSONObject(i);
+
+                                        Log.e(TAG,""+Double.parseDouble(""+jsonObject.getString("AmountFrom"))+"    <=   "+ Double.parseDouble(mAmount));
+                                        if (Double.parseDouble(""+jsonObject.getString("AmountFrom")) <= Double.parseDouble(mAmount) && Double.parseDouble(mAmount) <= Double.parseDouble(""+jsonObject.getString("AmountTo"))) {
+                                            Log.e(TAG,"145   angle >= 90 && angle <= 180");
+                                            strCommision1 = jsonObject.getString("CommissionAmount");
+                                        }
+                                    }
+                                    catch (Exception e){
+
                                     }
                                 }
-                                catch (Exception e){
-
-                                }
                             }
-                        } catch (JSONException e) {
+
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -279,6 +284,8 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
 //        }catch (Exception e){
 //
 //        }
+
+        JArrayComm = new JSONArray();
 
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
@@ -706,6 +713,7 @@ public class KsebActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            Log.e(TAG,"requestObject1   501   "+response.body());
                             progressDialog.dismiss();
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
