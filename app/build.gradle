@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\calicut town bank\\calicut_town_bank.jks')
-            storePassword 'mocte$9012Zuma'
-            keyAlias 'Calicut Town Bank'
-            keyPassword 'mocte$9013Zuma'
+            storeFile file('D:\\Ranjith\\Mscore\\Chekkiad\\Credentials\\Chekkiad.jks')
+            storePassword 'mocte$8316Zumac'
+            keyAlias 'ChekkiadBank'
+            keyPassword 'mocte$8317Zumac'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -32,6 +32,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 30
         applicationId "com.mscore.pss"
+//        applicationId "com.mscore.demo"
+//        applicationId "com.mscore.koodali"
        // applicationId "com.mscore.kodiyathoor"
       //  applicationId "com.mscore.kuruvattoor"
        // applicationId "com.mscore.calicuttownbank"
@@ -39,14 +41,17 @@ android {
 //        applicationId "com.mscore.amarambalam"
 //        applicationId "com.mscore.kalpathur"
 //        applicationId "com.mscore.naduvil_scb"
-//        applicationId "com.mscore.amarambalam"
 //        applicationId "com.mscore.kallanode"
 //        applicationId "com.mscore.kulathupuzha"
 //        applicationId "com.mscore.edacheri"
-     //   applicationId "com.mscore.citypolice"
-       // applicationId "com.mscore.telk"
+//        applicationId "com.mscore.citypolice"
+//        applicationId "com.mscore.telk"
       //  applicationId "com.mscore.calicuttownbank"
        // applicationId "com.mscore.nadamel"
+//        applicationId "com.mscore.kuruvattoor"
+//        applicationId "com.mscore.nanminda"
+//        applicationId "com.mscore.cheranallurScb"
+//        applicationId "com.mscore.chekkiad"
 
 
         versionCode = 1
@@ -66,8 +71,8 @@ android {
        /* versionCode = 16
         versionName = '4.0.4'*/
 
-//        versionCode = 2
-//        versionName = '4.0.1'
+//        versionCode = 5
+//        versionName = '4.0.4'
 
     }
 

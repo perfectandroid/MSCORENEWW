@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: me.dm7.barcodescanner:core:1.9@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/res" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/b572637e681e64610ecbe6ad7a244a56/jetified-core-1.9/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/9c4b0401d4c13e556b07b6a0733dcb9f/jetified-core-1.9/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/9c4b0401d4c13e556b07b6a0733dcb9f/jetified-core-1.9/res" />
+      <root url="file://$PROJECT_DIR$/../../gradle-7.0.2/caches/transforms-2/files-2.1/9c4b0401d4c13e556b07b6a0733dcb9f/jetified-core-1.9/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab65083d6c5c4f4388c766fc880a4be6/transformed/jetified-core-1.9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ab65083d6c5c4f4388c766fc880a4be6/transformed/jetified-core-1.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab65083d6c5c4f4388c766fc880a4be6/transformed/jetified-core-1.9/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,5 +1,7 @@
 <resources>
-  <!--  <string name="app_name">Mscore Demo</string>-->
+    <string name="app_name">Mscore Demo</string>
+<!--    <string name="app_name">Nadamel SCB</string>-->
+<!--    <string name="app_name">KpscMob</string>-->
    <!-- <string name="app_name">Parappanangadi CSB</string>-->
 <!--    <string name="app_name">Kalpathur SCB</string>-->
  <!--   <string name="app_name"> Calicut Town SCB</string>-->
@@ -11,10 +13,10 @@
    <!-- <string name="app_name">Kadampazhipuram SCB</string>-->
   <!--  <string name="app_name">Chathamangalam SCB</string>-->
   <!--  <string name="app_name">Irinave SCB</string>-->
- <!--  <string name="app_name">Nanminda CRB</string>-->
+<!--   <string name="app_name">Nanminda CRB</string>-->
   <!--  <string name="app_name">Kottur SCB</string>-->
 
-  <!--<string name="app_name">Chekkiad SCB</string>-->
+<!--  <string name="app_name">Chekkiad SCB</string>-->
    <!-- <string name="app_name">PRCB</string>-->
    <!-- <string name="app_name">Vayyattupuzha SCB</string>-->
 
@@ -22,6 +24,7 @@
 
 
 <!--    <string name="app_name">TELK</string>-->
+<!--    <string name="app_name">City Police Co.op Society KKD</string>-->
  <!-- <string name="app_name">Nadamel SCB</string>-->
 
 <!--    <string name="app_name">Thiruvambady SCB</string>-->
@@ -62,7 +65,7 @@
 <!--    <string name="app_name">CSC Bank</string>-->
 <!--    <string name="app_name">Mezhuveli SCB</string> -->
  <!--  <string name="app_name">Kuttikkattoor Urban Society</string>-->
-    <string name="app_name">Calicut Town Co-Operative Bank</string>
+<!--    <string name="app_name">Calicut Town Co-Operative Bank</string>-->
     <!--<string name="app_name">Kayanna SCB</string>-->
 
 
@@ -315,8 +318,8 @@
     <string name="Technologypartner">TECHNOLOGY PARTNER :</string>
 
 
-  <string name="BankKey">d.22333</string>
-  <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>
+<!--  <string name="BankKey">d.22333</string>-->
+<!--  <string name="BankHeader">PERFECT SCORE BANK HEAD OFFICE</string>-->
 
    <!-- <string name="BankKey">F.1099</string>
     <string name="BankHeader">The Amarambalam Service Co-operative Bank Ltd.No.F.1099 HO CUM MAIN BRANCH</string>-->
