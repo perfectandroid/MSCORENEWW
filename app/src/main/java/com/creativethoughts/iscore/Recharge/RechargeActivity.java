@@ -438,6 +438,15 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                                                 mAmountEt.setText(""+jsonObject.getInt("RechargeRs"));
                                                 scrl_main.scrollTo(0,0);
 
+                                                if (mSelectedType.equals("2")){
+                                                    if (isCircleAccountNumberMandatory()) {
+                                                        ll_accountno.setVisibility(View.VISIBLE);
+                                                    }else {
+                                                        ll_accountno.setVisibility(View.GONE);
+                                                    }
+                                                }
+
+
 
 
                                             } catch (JSONException e) {
