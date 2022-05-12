@@ -138,7 +138,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     public JSONArray JarrayOperator;
     public JSONArray JarrayCircle;
     RecentHistoryAdapter adapter;
-    private JSONArray jresult = new JSONArray();
+//    public JSONArray jresult = new JSONArray();
+    public JSONArray jresult;
     private ArrayList<String> accountlist;
 
     AlertDialog dialog =  null;
@@ -479,6 +480,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getAccList() {
+//
         SharedPreferences pref =getApplicationContext().getSharedPreferences(Config.SHARED_PREF7, 0);
         String BASE_URL=pref.getString("baseurl", null);
         if (NetworkUtil.isOnline()) {
@@ -537,11 +539,14 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                             progressDialog.dismiss();
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
-
                                 JSONObject jsonObj1 = jsonObj.getJSONObject("OwnAccountdetails");
                                 JSONObject object = new JSONObject(String.valueOf(jsonObj1));
                                 JSONArray newJArray = object.getJSONArray("OwnAccountdetailsList");
+                                accountlist.clear();
+                                jresult =new JSONArray();
 
+                                Log.e(TAG,"newJArray   5461    "+newJArray+"   ");
+                                Log.e(TAG,"newJArray   5462    "+newJArray.length()+"   ");
                                 for(int i=0;i<newJArray.length();i++){
                                     try {
                                         JSONObject json = newJArray.getJSONObject(i);
@@ -555,7 +560,9 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                                     }
                                 }
                                 Log.e(TAG,"accountlist   501   "+accountlist);
+                                Log.e(TAG,"accountlist   54623   "+accountlist.size());
                                 Log.e(TAG,"jresult   501   "+jresult);
+                                Log.e(TAG,"jresult   54624   "+jresult.length());
 //                                mAccountSpinner.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, accountlist));
 //
 //                                mAccountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
