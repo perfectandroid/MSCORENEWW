@@ -412,7 +412,7 @@
                                 android:background="@android:color/transparent"
                                 android:backgroundTint="@color/color_edtbg"
                                 android:imeOptions="actionDone"
-                                android:inputType="phone"
+                                android:inputType="number"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Green"
                                 android:textColorHint="@color/text_primary"

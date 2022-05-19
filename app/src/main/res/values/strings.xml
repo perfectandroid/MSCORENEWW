@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mscore Demo</string>
+  <!--  <string name="app_name">Mscore Demo</string>-->
 <!--    <string name="app_name">Nadamel SCB</string>-->
 <!--    <string name="app_name">KpscMob</string>-->
    <!-- <string name="app_name">Parappanangadi CSB</string>-->
@@ -61,7 +61,7 @@
 <!--    <string name="app_name">Vallapuzha SCB</string>-->
 <!--    <string name="app_name">Cherukunnu Scb</string>-->
 <!--    <string name="app_name">Naduvil SCB</string>-->
-<!--    <string name="app_name">Porora SCB</string>-->
+   <string name="app_name">Porora SCB</string>
 <!--    <string name="app_name">CSC Bank</string>-->
 <!--    <string name="app_name">Mezhuveli SCB</string> -->
  <!--  <string name="app_name">Kuttikkattoor Urban Society</string>-->

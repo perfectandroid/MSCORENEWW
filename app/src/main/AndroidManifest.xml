@@ -390,7 +390,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDSs7MrCgQyw8mKmifEJvkwOvwW_T8iRfk"/>
+            android:value="AIzaSyCm7DVVrYMJPFTgxTGqvMQBZX0seGGwY0U"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -602,15 +602,6 @@
             android:name=".TransactionDetailActivity"
             android:label="Transaction Details"
             android:parentActivityName=".PassbookActivity"
-            android:theme="@style/HomeActivityTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.creativethoughts.iscore.HomeActivity" />
-        </activity>
-        <activity
-            android:name=".SearchResultActivity"
-            android:label="@string/title_activity_search_result"
-            android:parentActivityName=".HomeActivity"
             android:theme="@style/HomeActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

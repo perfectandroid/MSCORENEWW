@@ -57,24 +57,21 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SplashScreen extends AppCompatActivity {
 
 
-//    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
 
 
-//    public static final String BASE_URL="https://202.164.150.65:14264/MscoreQA";
-
-
-    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+  //  public static final String BASE_URL="https://112.133.227.123:14013/mscore";
+  /*  public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
     // public static final String BankKey= "";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     //  public static final String BankHeader= "";
-    public static final String HOSTNAME_SUBJECT="STATIC-VM";
+    public static final String HOSTNAME_SUBJECT="BIZCORE";
     // public static final String HOSTNAME_SUBJECT="TEST16";
-    public static final String CERTIFICATE_ASSET_NAME="staticvm.pem";
+    public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
     //public static final String CERTIFICATE_ASSET_NAME="test16.pem";
-
+*/
 
     //railwire
 //    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
@@ -84,6 +81,14 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String HOSTNAME_SUBJECT="BIZCORE";
 //    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
 
+   //porora scb
+    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+    public static final String API_NAME= "api/MV3";
+    public static final String BankKey= "C.8";
+    public static final String BankHeader= "The Porora Service Co-Operative Bank Ltd., No.C.8 HEAD OFFICE CUM MAIN BRANCH";
+    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+    public static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";
 
 
 
