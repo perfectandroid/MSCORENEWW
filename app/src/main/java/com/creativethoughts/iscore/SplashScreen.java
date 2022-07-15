@@ -57,10 +57,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class SplashScreen extends AppCompatActivity {
 
 
-
-
-  //  public static final String BASE_URL="https://112.133.227.123:14013/mscore";
-  /*  public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+////    public static final String BASE_URL="https://112.133.227.123:14013/mscore";
+   public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
     public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String API_NAME= "api/MV3";
     public static final String BankKey= "d.22333";
@@ -71,7 +69,7 @@ public class SplashScreen extends AppCompatActivity {
     // public static final String HOSTNAME_SUBJECT="TEST16";
     public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
     //public static final String CERTIFICATE_ASSET_NAME="test16.pem";
-*/
+
 
     //railwire
 //    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
@@ -81,14 +79,14 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String HOSTNAME_SUBJECT="BIZCORE";
 //    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
 
-   //porora scb
-    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
-    public static final String IMAGE_URL="https://13.71.91.134:14009/";
-    public static final String API_NAME= "api/MV3";
-    public static final String BankKey= "C.8";
-    public static final String BankHeader= "The Porora Service Co-Operative Bank Ltd., No.C.8 HEAD OFFICE CUM MAIN BRANCH";
-    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
-    public static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";
+//   //porora scb
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "C.8";
+//    public static final String BankHeader= "The Porora Service Co-Operative Bank Ltd., No.C.8 HEAD OFFICE CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";
 
 
 
@@ -308,6 +306,34 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String CERTIFICATE_ASSET_NAME="chekkiad.pem";
 
 
+//    //MANNUR SERVICE
+//    public static final String BASE_URL="https://103.199.161.144:14001/Mscore";
+//    public static final String IMAGE_URL="https://103.199.161.144:14001/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="mannurmscore.pem";
+
+    //AR Nagar
+//    public static final String BASE_URL="https://117.240.157.162:14001/mscore";
+//    public static final String IMAGE_URL="https://117.240.157.162:14001/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "";
+//    public static final String BankHeader= "";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="arnagrmscore.pem";
+
+    //Karthedom RCS  13.07.2022
+//    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "No.385";
+//    public static final String BankHeader= "Karthedom Rural Co-Operative Society Ltd.No.385 HEAD OFFICE";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="karthedommscore.pem";
+
+
 
 
     static String bank_Key, bank_Header;
@@ -473,6 +499,8 @@ public class SplashScreen extends AppCompatActivity {
 
                  //   requestObject1.put("BankKey" +"" +"",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
+
+                    Log.e("TAG","BASE_URL   2351 "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();

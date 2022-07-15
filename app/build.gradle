@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\porora\\pororanew.jks')
-            storePassword '8GLNGT46PHDAJ663'
-            keyAlias 'porora'
-            keyPassword 'QUPC2DWVGLEVAR7D'
+            storeFile file('D:\\Ranjith\\Mscore\\Telk\\Keystore\\telkmscore.jks')
+            storePassword 'telkmscore123'
+            keyAlias 'telkmscore'
+            keyPassword 'telkmscore123'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -31,7 +31,7 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 30
-       // applicationId "com.mscore.pss"
+//        applicationId "com.mscore.pss"
 //        applicationId "com.mscore.demo"
 //        applicationId "com.mscore.koodali"
        // applicationId "com.mscore.kodiyathoor"
@@ -45,20 +45,23 @@ android {
 //        applicationId "com.mscore.kulathupuzha"
 //        applicationId "com.mscore.edacheri"
 //        applicationId "com.mscore.citypolice"
-//        applicationId "com.mscore.telk"
+        applicationId "com.mscore.telk"
       //  applicationId "com.mscore.calicuttownbank"
        // applicationId "com.mscore.nadamel"
 //        applicationId "com.mscore.kuruvattoor"
 //        applicationId "com.mscore.nanminda"
 //        applicationId "com.mscore.cheranallurScb"
 //        applicationId "com.mscore.chekkiad"
-        applicationId "com.mscore.porora"
+//        applicationId "com.mscore.porora"
+//        applicationId "com.mscore.mannurcrb"
+//        applicationId "com.mscore.arnagarscb"
+//        applicationId "com.mscore.karthedom"
 
-       /* versionCode = 1
-        versionName = '1.0.0'*/
+        versionCode = 1
+        versionName = '1.0.0'
 
-        versionCode = 4
-        versionName = '4.0.3'
+//        versionCode = 5
+//        versionName = '4.0.4'
 
        /* versionCode = 15
         versionName = '4.0.0'*/

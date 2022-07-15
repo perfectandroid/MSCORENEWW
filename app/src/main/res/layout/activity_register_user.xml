@@ -20,11 +20,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentTop="true" />
+
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
@@ -146,14 +147,15 @@
                         android:layout_gravity="center"
                         android:background="@color/white"
                         android:textSize="18sp"/>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/mobile_no_inputlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingEnd="8dp"
+                        android:paddingStart="8dp"
                         android:paddingLeft="8dp"
-                        android:paddingStart="8dp">
+                        android:paddingEnd="8dp">
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/phoneno1"
@@ -163,10 +165,10 @@
                             android:inputType="phone"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
-                            android:visibility="gone"
                             android:textColor="@color/black_75_per"
                             android:textColorHint="@color/text_secondary"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp"
+                            android:visibility="gone" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"

@@ -170,6 +170,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
 
+                    Log.e("TAG","requestObject1    173    "+requestObject1);
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -47,8 +47,10 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/acitivity_offers.xml" value="0.31302083333333336" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_about_us.xml" value="0.33" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_accsummarydetails.xml" value="0.2265625" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_accsummarydetails1.xml" value="0.24375" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_add_sender_receiver.xml" value="0.14375" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_balance_enq.xml" value="0.346875" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_branch_details.xml" value="0.18541666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_home.xml" value="0.2994791666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_kseb.xml" value="0.33" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/activity_kseb_section_selection.xml" value="0.3098958333333333" />
@@ -82,6 +84,7 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/alert_recharge.xml" value="0.32760416666666664" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/circle_list.xml" value="0.1515625" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/confirmation_msg_popup.xml" value="0.18697916666666667" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/content_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/custom_action_bar.xml" value="0.1" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_about.xml" value="0.29270833333333335" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_accsummary.xml" value="0.30885416666666665" />
@@ -94,7 +97,7 @@
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_home.xml" value="0.2994791666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_kseb_bill.xml" value="0.18541666666666667" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_kseb_bill_status.xml" value="0.3307291666666667" />
-        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_menu_card.xml" value="0.2994791666666667" />
+        <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_menu_card.xml" value="0.5" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_message_alert.xml" value="0.17864583333333334" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_message_alert_new.xml" value="0.2296875" />
         <entry key="..\:/Project/MSCORENEW/app/src/main/res/layout/fragment_message_alert_new1.xml" value="0.1421875" />
@@ -143,7 +146,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
