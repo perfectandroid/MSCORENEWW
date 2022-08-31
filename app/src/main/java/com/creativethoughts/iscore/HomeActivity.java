@@ -602,7 +602,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationDrawerC
 //            String url = getResources().getString(R.string.app_link );
             SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF6, 0);
             String url = pref.getString("PlayStoreLink", null);
-
+            Log.e("TAG","url    605    "+url);
             new URL( url );
         }catch ( MalformedURLException e ){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);

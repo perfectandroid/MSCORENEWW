@@ -23,7 +23,7 @@ public class LoanListInfoAdapter extends RecyclerView.Adapter {
     JSONArray jsonArray;
     JSONObject jsonObject = null;
     Context context;
-    String loantype, accno, branch,amt,status,submodule,account, loantypemode,IsDue;
+    String loantype, accno, branch,amt,LoanAmount,status,submodule,account, loantypemode,IsDue;
     LinearLayout l2;
 
     public LoanListInfoAdapter(Context context, JSONArray jsonArray, String loantypemode) {
@@ -51,6 +51,7 @@ public class LoanListInfoAdapter extends RecyclerView.Adapter {
                 accno = jsonObject.getString("AccountNumber");
                 branch = jsonObject.getString("BranchName");
                 amt = jsonObject.getString("Balance");
+                LoanAmount = jsonObject.getString("LoanAmount");
                 status = jsonObject.getString("Status");
                 submodule = jsonObject.getString("SubModule");
                 account = jsonObject.getString("FK_Account");
@@ -103,6 +104,7 @@ public class LoanListInfoAdapter extends RecyclerView.Adapter {
                             status = jsonObject.getString("Status");
                             String acno = jsonObject.getString("AccountNumber");
                             String amount = jsonObject.getString("Balance");
+                            String LoanAmount = jsonObject.getString("LoanAmount");
                             String type = jsonObject.getString("LoanType");
                             String fund =jsonObject.getString("FundTransferAccount");
                             String ifsc =jsonObject.getString("IFSCCode");
@@ -113,6 +115,7 @@ public class LoanListInfoAdapter extends RecyclerView.Adapter {
                             i.putExtra("FK_Account", account);
                             i.putExtra("Accno", acno);
                             i.putExtra("Amt", amount);
+                            i.putExtra("LoanAmount", LoanAmount);
                             i.putExtra("Status", status);
                             i.putExtra("type", type);
                             i.putExtra("Type", "Depo");

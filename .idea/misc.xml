@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/drawable/test.xml" value="0.169" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/account_submenu_popup.xml" value="0.3265625" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/activity_accsummarydetails1.xml" value="0.22083333333333333" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/activity_home.xml" value="0.24322916666666666" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/activity_loan_ministatement.xml" value="0.36666666666666664" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/activity_statement_download_view.xml" value="0.27037037037037037" />
+        <entry key="..\:/BuildProject/MSCORENEW/app/src/main/res/layout/fragment_menu_card.xml" value="0.27037037037037037" />
         <entry key="..\:/GIT PROJECTS/MSCORE(MAY 16)/app/src/main/res/layout/activity_reacharge.xml" value="0.3546875" />
         <entry key="..\:/GIT PROJECTS/MSCORE(MAY 16)/app/src/main/res/layout/activity_reacharge_offers.xml" value="0.3546875" />
         <entry key="..\:/Project/MSCORE/app/src/main/res/layout/activity_about_us.xml" value="0.20520833333333333" />

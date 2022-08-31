@@ -33,6 +33,9 @@
 <!--    ARNAGAR-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC0t9nmB7cbI5jqteUID1GiLDTgFvWwIAg</string>-->
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDzwRebsKNTV-Nt7F8Za687Aiqld7WKF20</string>
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDzwRebsKNTV-Nt7F8Za687Aiqld7WKF20</string>-->
+
+<!--    Karthedom-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBuVM2leW90oOl2uEgT1aqH8hgdG0zCIok</string>
 
 </resources>

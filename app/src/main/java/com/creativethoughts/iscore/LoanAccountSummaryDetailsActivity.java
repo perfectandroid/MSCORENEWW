@@ -62,7 +62,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
     public  String TAG = "LoanAccountSummaryDetailsActivity";
     private ProgressDialog progressDialog;
     RecyclerView rv_accountSummary;
-    String cusid, subModule, token,account,accno,amount,status,type,type1,fund,ifsc, loantypemode,IsShareAc, EnableDownloadStatement;
+    String cusid, subModule, token,account,accno,amount,LoanAmount,status,type,type1,fund,ifsc, loantypemode,IsShareAc, EnableDownloadStatement;
     TextView tv_loanslab,tv_share,tv_bal,tv_accno,acc_type,tv_ifsc,tv_fund,tv_ministatmnt;
     JSONArray jsonArrayKey;
     String shareData = "";
@@ -78,6 +78,7 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
         account = getIntent().getStringExtra("FK_Account");
         accno = getIntent().getStringExtra("Accno");
         amount = getIntent().getStringExtra("Amt");
+        LoanAmount = getIntent().getStringExtra("LoanAmount");
         status = getIntent().getStringExtra("Status");
         type1 = getIntent().getStringExtra("type");
 
@@ -149,10 +150,17 @@ public class LoanAccountSummaryDetailsActivity extends AppCompatActivity impleme
         {
             tv_accno.setText(accno);
         }
-        if(amount!=null)
+//        if(amount!=null)
+//        {
+//
+//            double num =Double.parseDouble(amount);
+//            DecimalFormat fmt = new DecimalFormat("#,##,###.00");
+//            tv_bal.setText("\u20B9 "+ fmt.format(num));
+//        }
+        if(LoanAmount!=null)
         {
 
-            double num =Double.parseDouble(amount);
+            double num =Double.parseDouble(LoanAmount);
             DecimalFormat fmt = new DecimalFormat("#,##,###.00");
             tv_bal.setText("\u20B9 "+ fmt.format(num));
         }

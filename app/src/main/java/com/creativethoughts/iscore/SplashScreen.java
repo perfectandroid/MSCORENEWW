@@ -331,7 +331,7 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String BankKey= "No.385";
 //    public static final String BankHeader= "Karthedom Rural Co-Operative Society Ltd.No.385 HEAD OFFICE";
 //    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
-//    public static final String CERTIFICATE_ASSET_NAME="karthedommscore.pem";
+//    public static final String CERTIFICATE_ASSET_NAME="karthedom.pem";
 
 
 

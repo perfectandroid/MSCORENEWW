@@ -147,6 +147,11 @@ public class ShareActivity extends AppCompatActivity implements View.OnClickList
 
                     Log.e(TAG,"requestObject1   152  "+requestObject1);
                     Log.e(TAG,"requestObject1   152  "+token+"   "+name+"   "+cusid);
+                    Log.e(TAG,"requestObject1   15212  "
+                    +"\n ReqMode    "+reqmode
+                            +"\n Token   "+token
+                            +"\n FK_Customer   "+cusid
+                            +"\n BankKey  "+BankKey );
 
                 } catch (Exception e) {
                     e.printStackTrace();
