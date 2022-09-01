@@ -924,7 +924,8 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     requestObject1.put("BankHeader", IScoreApplication.encryptStart(BankHeader));
                     requestObject1.put("BankVerified",IScoreApplication.encryptStart(""));
 
-                    Log.e("requestObject1   344   ",""+requestObject1);
+                    Log.e("requestObject11 ","3441   "+requestObject1);
+                    Log.e("amot1      ","     3442   "+amot);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -936,7 +937,7 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
                     @Override public void onResponse(Call<String> call, Response<String> response) {
                         try {
                             progressDialog.dismiss();
-                            Log.e("TAG","Response neft   "+response.body());
+                            Log.e("TAG","Response1 neft  3443   "+response.body());
 
                             JSONObject jObject = new JSONObject(response.body());
                             int statusCode=jObject.getInt("HttpStatusCode");

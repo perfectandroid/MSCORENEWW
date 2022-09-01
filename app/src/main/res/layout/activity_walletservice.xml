@@ -261,13 +261,26 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Top Up Wallet"
+                        android:text="Top Up"
                         android:textStyle="bold"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:background="@drawable/toggle1"
                         android:src="@drawable/ic_right_arrow"/>
+
+                    <TextView
+                        android:id="@+id/tvPayBack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Pay Back"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/toggle5"
+                        android:src="@drawable/ic_right_arrow"/>
+
                     <TextView
                         android:id="@+id/tvTransaction"
                         android:layout_width="0dp"
@@ -276,7 +289,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_weight="1"
-                        android:text="Wallet Statement"
+                        android:text="Statement"
                         android:background="@drawable/toggle3"
                         android:src="@drawable/ic_right_arrow"/>
                 </LinearLayout>
@@ -285,7 +298,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="vertical">
 
                     <androidx.cardview.widget.CardView
@@ -301,6 +314,21 @@
                             android:gravity="center"
                             android:layout_gravity="center"
                             android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_messages"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:paddingRight="8dp"
+                                android:paddingLeft="8dp"
+                                android:layout_gravity="center"
+                                android:gravity="left"
+                                android:textColor="@color/gray_btn_bg_color"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:text=""/>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

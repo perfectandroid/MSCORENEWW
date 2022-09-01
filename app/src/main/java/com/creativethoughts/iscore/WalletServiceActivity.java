@@ -73,19 +73,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class WalletServiceActivity extends AppCompatActivity implements View.OnClickListener{
+    public String TAG = "WalletServiceActivity";
     ProgressDialog progressDialog;
-    TextView txt_userdetails,  txt_userid, txtv_totalbal, txt_amtinword;
-    TextView tvTransaction,tvLoadmoney, tvwalletbal,txt_app_name;
+    TextView txt_userdetails,  txt_userid, txtv_totalbal, txt_amtinword,tv_messages;
+    TextView tvTransaction,tvLoadmoney,tvPayBack, tvwalletbal,txt_app_name;
     LinearLayout ll_loadmoney, llministatement;
     RecyclerView rv_ministatmnt;
     private Spinner spn_account_type;
     ArrayList<ToAccountDetails> AccountDetails = new ArrayList<>();
     ArrayAdapter<ToAccountDetails> AccountAdapter = null;
     String strAccNo, strFKacc, strSubModule;
-    EditText edt_txt_amount;
+    EditText edt_txt_amount,edt_txt_remark;
     Button btn_submit;
     Spinner mAccountSpinner;
     ImageView img_applogo;
+
+    String SubTranType = "";
 
     private JSONArray jresult = new JSONArray();
     private ArrayList<String> accountlist;
@@ -96,14 +99,18 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_walletservice);
         //accountlist = new ArrayList<String>();
 
+        SubTranType = "P";
         mAccountSpinner = findViewById(R.id.spnAccountNum);
 
         tvwalletbal = findViewById(R.id.tvwalletbal);
         tvTransaction = findViewById(R.id.tvTransaction);
         txt_amtinword = findViewById(R.id.txt_amtinword);
+        tv_messages = findViewById(R.id.tv_messages);
         tvTransaction.setOnClickListener(this);
         tvLoadmoney = findViewById(R.id.tvLoadmoney);
+        tvPayBack = findViewById(R.id.tvPayBack);
         tvLoadmoney.setOnClickListener(this);
+        tvPayBack.setOnClickListener(this);
         txt_userid =  findViewById(R.id.txt_userid);
         txt_userdetails =  findViewById(R.id.txt_userdetails);
         txtv_totalbal =  findViewById(R.id.txtv_totalbal);
@@ -112,6 +119,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         rv_ministatmnt =  findViewById(R.id.rv_ministatmnt);
         spn_account_type = findViewById(R.id.spn_account_type);
         edt_txt_amount = findViewById(R.id.edt_txt_amount);
+        edt_txt_remark = findViewById(R.id.edt_txt_remark);
         btn_submit = findViewById(R.id.btn_submit);
         img_applogo = findViewById(R.id.img_applogo);
         txt_app_name = findViewById(R.id.txt_app_name);
@@ -125,6 +133,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         tvwalletbal.setText( "WALLET BALANCE ON "+currentDate);
+        tv_messages.setText("** Top Up the amount to the Prepaid Card");
 
         SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
         String IMAGEURL = imageurlSP.getString("imageurl","");
@@ -269,6 +278,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         try {
+                            Log.e(TAG,"response   275   "+response.body());
                             JSONObject jsonObj = new JSONObject(response.body());
                             if(jsonObj.getString("StatusCode").equals("0")) {
 
@@ -435,6 +445,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                         try {
+                            Log.e(TAG,"response   442   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
                                 JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
@@ -545,7 +556,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("AccNo",IScoreApplication.encryptStart(straccno) );
                     requestObject1.put("Fk_AccountCode",IScoreApplication.encryptStart(stracccode) );
                     requestObject1.put("SubModule",IScoreApplication.encryptStart(strsubmodule) );
-                    requestObject1.put("SubTranType",IScoreApplication.encryptStart("P") );
+                  //  requestObject1.put("SubTranType",IScoreApplication.encryptStart("P") );
+                    requestObject1.put("SubTranType",IScoreApplication.encryptStart(SubTranType) );
                     requestObject1.put("Amount",IScoreApplication.encryptStart(stramount) );
 
 
@@ -554,6 +566,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("CustId",IScoreApplication.encryptStart(customerName));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
 
+
+                    Log.e(TAG,"requestObject1   5861    "+requestObject1);
+                    Log.e(TAG,"SubTranType      5862    "+SubTranType);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -683,6 +698,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                         try {
                             progressDialog.dismiss();
+                            Log.e(TAG,"response   689   "+response.body());
                             JSONObject jObject = new JSONObject(response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
 
@@ -818,19 +834,45 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         switch (v.getId()){
             case R.id.tvLoadmoney:
                 tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle3));
+                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle5));
                 tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle1));
                 tvTransaction.setTextColor(Color.parseColor("#000000"));
+                tvPayBack.setTextColor(Color.parseColor("#000000"));
                 tvLoadmoney.setTextColor(Color.parseColor("#ffffff"));
                 ll_loadmoney.setVisibility(View.VISIBLE);
                 llministatement.setVisibility(View.GONE);
+                edt_txt_amount.setText("");
+                txt_amtinword.setText("");
+                edt_txt_remark.setText("");
+                SubTranType = "P";
+                tv_messages.setText("** Top Up the amount to the Prepaid Card");
+//                acctype ="1";
+//                strHeader="Load Money";
+                break;
 
+            case R.id.tvPayBack:
+                tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle3));
+                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle6));
+                tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
+                tvTransaction.setTextColor(Color.parseColor("#000000"));
+                tvPayBack.setTextColor(Color.parseColor("#ffffff"));
+                tvLoadmoney.setTextColor(Color.parseColor("#000000"));
+                ll_loadmoney.setVisibility(View.VISIBLE);
+                llministatement.setVisibility(View.GONE);
+                edt_txt_amount.setText("");
+                txt_amtinword.setText("");
+                edt_txt_remark.setText("");
+                SubTranType = "R";
+                tv_messages.setText("** Release the amount from Prepaid Card");
 //                acctype ="1";
 //                strHeader="Load Money";
                 break;
             case R.id.tvTransaction:
                 tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle));
+                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle5));
                 tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
                 tvTransaction.setTextColor(Color.parseColor("#ffffff"));
+                tvPayBack.setTextColor(Color.parseColor("#000000"));
                 tvLoadmoney.setTextColor(Color.parseColor("#000000"));
                 llministatement.setVisibility(View.VISIBLE);
                 ll_loadmoney.setVisibility(View.GONE);
