@@ -357,7 +357,7 @@
                                     android:id="@+id/edt_txt_amount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="number"
+                                    android:inputType="numberDecimal"
                                     android:drawableLeft="@drawable/ruppe"
                                     android:drawablePadding="10dp"
                                     android:textSize="30dp"

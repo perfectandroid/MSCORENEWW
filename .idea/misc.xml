@@ -153,6 +153,11 @@
         <entry key="..\:/Project/MscoreRelease/MSCORE/app/src/main/res/layout/activity_statement_download_view.xml" value="0.29259259259259257" />
         <entry key="..\:/Project/MscoreRelease/MSCORE/app/src/main/res/layout/download_popup.xml" value="0.36666666666666664" />
         <entry key="..\:/Project/MscoreRelease/MSCORE/app/src/main/res/layout/view_popup.xml" value="0.24427083333333333" />
+        <entry key="..\:/Working/MSCORENEW/app/src/main/res/layout/activity_home.xml" value="0.20677083333333332" />
+        <entry key="..\:/Working/MSCORENEW/app/src/main/res/layout/activity_pin_login.xml" value="0.27037037037037037" />
+        <entry key="..\:/Working/MSCORENEW/app/src/main/res/layout/activity_walletservice.xml" value="0.2359375" />
+        <entry key="..\:/Working/MSCORENEW/app/src/main/res/layout/fragment_home.xml" value="0.20677083333333332" />
+        <entry key="..\:/Working/MSCORENEW/app/src/main/res/layout/fragment_menu_card.xml" value="0.20677083333333332" />
       </map>
     </option>
   </component>

@@ -549,6 +549,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
                     String customerName = customerNameSP.getString("customerName","");
 
+                    SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+                    String cusno = customerNoSP.getString("customerNo","");
+
 
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
@@ -563,12 +566,13 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
                     requestObject1.put("ID_Customer",IScoreApplication.encryptStart(customerId));
                     requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
-                    requestObject1.put("CustId",IScoreApplication.encryptStart(customerName));
+                    requestObject1.put("CustId",IScoreApplication.encryptStart(cusno));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
 
 
                     Log.e(TAG,"requestObject1   5861    "+requestObject1);
                     Log.e(TAG,"SubTranType      5862    "+SubTranType);
+                    Log.e(TAG,"cusno      5862    "+cusno);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -689,6 +693,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey));
                    /* requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));*/
+
+                    Log.e(TAG,"requestObject1   697   "+requestObject1);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -68,13 +68,13 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String HOSTNAME_SUBJECT="BIZCORE";
 //    // public static final String HOSTNAME_SUBJECT="TEST16";
 //    public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
-//    //public static final String CERTIFICATE_ASSET_NAME="test16.pem";
+//    public static final String CERTIFICATE_ASSET_NAME="test16.pem";
 
 
     //railwire
     public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
     public static final String IMAGE_URL="https://112.133.227.123:14013/";
-    public static final String BankKey= "d.22333";
+    public static final String BankKey= "12345";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="BIZCORE";
     public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
