@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MSCORENEW.iml" filepath="$PROJECT_DIR$/.idea/modules/MSCORENEW.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORENEW.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORENEW.MPChartLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORENEW.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORENEW.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MSCORE_NEW.iml" filepath="$PROJECT_DIR$/.idea/modules/MSCORE_NEW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORE_NEW.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/MSCORE_NEW.MPChartLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MSCORE_NEW.app.unitTest.iml" />
     </modules>
   </component>
 </project>
