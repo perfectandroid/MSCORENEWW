@@ -58,26 +58,26 @@ public class SplashScreen extends AppCompatActivity {
 
 
 ////    public static final String BASE_URL="https://112.133.227.123:14013/mscore";
-   public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
-    public static final String IMAGE_URL="https://202.164.150.65:14264/";
-    public static final String API_NAME= "api/MV3";
-    public static final String BankKey= "d.22333";
-    // public static final String BankKey= "";
-    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
-    //  public static final String BankHeader= "";
-    public static final String HOSTNAME_SUBJECT="BIZCORE";
-    // public static final String HOSTNAME_SUBJECT="TEST16";
-    public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
-//    public static final String CERTIFICATE_ASSET_NAME="test16.pem";
-
-
-    //railwire
-//    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
-//    public static final String IMAGE_URL="https://112.133.227.123:14013/";
-//    public static final String BankKey= "12345";
+//   public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+//    public static final String IMAGE_URL="https://202.164.150.65:14264/";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankKey= "d.22333";
+//    // public static final String BankKey= "";
 //    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+//    //  public static final String BankHeader= "";
 //    public static final String HOSTNAME_SUBJECT="BIZCORE";
-//    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
+//    // public static final String HOSTNAME_SUBJECT="TEST16";
+//    public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
+////    public static final String CERTIFICATE_ASSET_NAME="test16.pem";
+
+
+    //QA
+    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
+    public static final String IMAGE_URL="https://112.133.227.123:14013/";
+    public static final String BankKey= "12345";
+    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+    public static final String HOSTNAME_SUBJECT="BIZCORE";
+    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
 
 //   //porora scb
 //    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
