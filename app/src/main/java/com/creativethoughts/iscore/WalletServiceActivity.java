@@ -160,7 +160,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
         strFKacc="25567";
         strSubModule="DDSB";*/
 
-        getTransactiondetails(strAccNo,strFKacc,strSubModule);
+//        getTransactiondetails(strAccNo,strFKacc,strSubModule);
 
 
 
@@ -306,7 +306,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                             strAccNo = jresult.getJSONObject(position).getString("AccountNumber");
                                             strFKacc = jresult.getJSONObject(position).getString("FK_Account");
                                             strSubModule = jresult.getJSONObject(position).getString("SubModule");
-                                            getTransactiondetails(strAccNo,strFKacc,strSubModule);
+//                                            getTransactiondetails(strAccNo,strFKacc,strSubModule);
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -435,7 +435,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
                     requestObject1.put("CustId",IScoreApplication.encryptStart(customerNo));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
-                    Log.i("Requeststring",requestObject1.toString());
+
+                    Log.e(TAG,"requestObject1   442   "+requestObject1);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -451,11 +452,11 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                 JSONObject jobj = jObject.getJSONObject("CardMiniStatementDetails");
                                 JSONArray jarray = jobj.getJSONArray("Data");
                                 if(jarray.length()!=0){
-                                    GridLayoutManager lLayout = new GridLayoutManager(WalletServiceActivity.this, 1);
-                                    rv_ministatmnt.setLayoutManager(lLayout);
-                                    rv_ministatmnt.setHasFixedSize(true);
-                                    WalletMintransAdapter adapter = new WalletMintransAdapter(WalletServiceActivity.this, jarray);
-                                    rv_ministatmnt.setAdapter(adapter);
+//                                    GridLayoutManager lLayout = new GridLayoutManager(WalletServiceActivity.this, 1);
+//                                    rv_ministatmnt.setLayoutManager(lLayout);
+//                                    rv_ministatmnt.setHasFixedSize(true);
+//                                    WalletMintransAdapter adapter = new WalletMintransAdapter(WalletServiceActivity.this, jarray);
+//                                    rv_ministatmnt.setAdapter(adapter);
                                 }else {
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage("No data found.")
@@ -549,6 +550,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
                     String customerName = customerNameSP.getString("customerName","");
 
+                    SharedPreferences customerNoSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+                    String cusno = customerNoSP.getString("customerNo","");
+
 
                     requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));
@@ -563,12 +567,13 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
                     requestObject1.put("ID_Customer",IScoreApplication.encryptStart(customerId));
                     requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
-                    requestObject1.put("CustId",IScoreApplication.encryptStart(customerName));
+                    requestObject1.put("CustId",IScoreApplication.encryptStart(cusno));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
 
 
                     Log.e(TAG,"requestObject1   5861    "+requestObject1);
                     Log.e(TAG,"SubTranType      5862    "+SubTranType);
+                    Log.e(TAG,"cusno      5862    "+cusno);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -577,9 +582,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                 Call<String> call = apiService.getCardTopUpandReverse(body);
                 call.enqueue(new Callback<String>() {
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                        Log.e(TAG,"eee  "+response.body());
                         try {
                             JSONObject jObject = new JSONObject(response.body());
-                            Log.i("responses",response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                 JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");
@@ -637,7 +642,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) { }
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.e(TAG,"eee  "+t.getMessage());
+                    }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
@@ -690,6 +697,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey));
                    /* requestObject1.put("BankKey",IScoreApplication.encryptStart(BankKey));
                     requestObject1.put("BankHeader",IScoreApplication.encryptStart(BankHeader));*/
+
+                    Log.e(TAG,"requestObject1   697   "+requestObject1);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -853,7 +863,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
             case R.id.tvPayBack:
                 tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle3));
-                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle6));
+                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle));
                 tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
                 tvTransaction.setTextColor(Color.parseColor("#000000"));
                 tvPayBack.setTextColor(Color.parseColor("#ffffff"));
@@ -868,19 +878,19 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 //                acctype ="1";
 //                strHeader="Load Money";
                 break;
-            case R.id.tvTransaction:
-                tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle));
-                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle5));
-                tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
-                tvTransaction.setTextColor(Color.parseColor("#ffffff"));
-                tvPayBack.setTextColor(Color.parseColor("#000000"));
-                tvLoadmoney.setTextColor(Color.parseColor("#000000"));
-                llministatement.setVisibility(View.VISIBLE);
-                ll_loadmoney.setVisibility(View.GONE);
+//            case R.id.tvTransaction:
+//                tvTransaction.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle));
+//                tvPayBack.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle5));
+//                tvLoadmoney.setBackground(ContextCompat.getDrawable(WalletServiceActivity.this, R.drawable.toggle4));
+//                tvTransaction.setTextColor(Color.parseColor("#ffffff"));
+//                tvPayBack.setTextColor(Color.parseColor("#000000"));
+//                tvLoadmoney.setTextColor(Color.parseColor("#000000"));
+//                llministatement.setVisibility(View.VISIBLE);
+//                ll_loadmoney.setVisibility(View.GONE);
 
 //                acctype ="2";
 //                strHeader="Transactions";
-                break;
+//                break;
             case R.id.btn_submit:
                 validationforloadmoney();
                 break;
