@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -895,12 +896,22 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
                     }
                 }).build();
+
+
+
+
         PendingIntent pendingIntent = Auth.CredentialsApi.getHintPickerIntent( apiClient, hintRequest );
         try{
             startIntentSenderForResult( pendingIntent.getIntentSender(), PHONE_FETCHING, null,0,0,0);
         }catch ( IntentSender.SendIntentException e ){
 
         }
+
+
+
+
+
+
     }
     @Override
     public void onActivityResult( int requestCode, int responseCode, Intent data ){

@@ -435,7 +435,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     requestObject1.put("MobNo",IScoreApplication.encryptStart(mobileNo));
                     requestObject1.put("CustId",IScoreApplication.encryptStart(customerNo));
                     requestObject1.put("CorpCode",IScoreApplication.encryptStart(BankKey) );
-
+                    Log.i("Requeststring",requestObject1.toString());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -579,6 +579,7 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                     @Override public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                         try {
                             JSONObject jObject = new JSONObject(response.body());
+                            Log.i("responses",response.body());
                             if(jObject.getString("StatusCode").equals("0")) {
 
                                 JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");

@@ -56,28 +56,52 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class SplashScreen extends AppCompatActivity {
 
+//DEVELOPMENT
 
-////    public static final String BASE_URL="https://112.133.227.123:14013/mscore";
-//   public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
-//    public static final String IMAGE_URL="https://202.164.150.65:14264/";
-//    public static final String API_NAME= "api/MV3";
-//    public static final String BankKey= "d.22333";
-//    // public static final String BankKey= "";
-//    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
-//    //  public static final String BankHeader= "";
-//    public static final String HOSTNAME_SUBJECT="BIZCORE";
-//    // public static final String HOSTNAME_SUBJECT="TEST16";
-//    public static final String CERTIFICATE_ASSET_NAME="bizcore.pem";
-//    //public static final String CERTIFICATE_ASSET_NAME="test16.pem";
+   //Thodupuzha
+/*    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+    //  public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+    //  public static final String API_NAME= "api/MV3";
+    public static final String BankKey= "No.I.145";
+    public static final String BankHeader= "Thodupuzha Taluk Aided School Teachers Co-operative Society Ltd.,No.I.145 HEAD OFFICE CUM MAIN BRANCH";
+    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+    public static final String CERTIFICATE_ASSET_NAME="thodupuzha.pem";*/
 
+    //PERIYA
 
-    //railwire
-    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
-    public static final String IMAGE_URL="https://112.133.227.123:14013/";
+    public static final String BASE_URL=" https://59.96.23.71:14001/MSCORE";
+    public static final String IMAGE_URL=" https://59.96.23.71:14001/";
+    public static final String BankKey= "";
+    public static final String API_NAME= "api/MV3";
+    public static final String BankHeader= "";
+    public static final String HOSTNAME_SUBJECT="STSERVER";
+    public static final String CERTIFICATE_ASSET_NAME="periyascb.pem";
+
+//DEVELOPMENT
+  /* public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+    public static final String IMAGE_URL="https://202.164.150.65:14264/";
     public static final String BankKey= "d.22333";
+
+    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
+    public static final String HOSTNAME_SUBJECT="STATIC-VM";
+    public static final String CERTIFICATE_ASSET_NAME="static-vm.pem";
+*/
+    //Mananthavady
+ /*   public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
+    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+    public static final String BankKey= "W.221";
+    public static final String BankHeader= "The Mananthavady Co-operative Urban Society Ltd.No.W.221 HEAD OFFICE CUM MAIN BRANCH";
+    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+    public static final String CERTIFICATE_ASSET_NAME="mananthavady.pem";*/
+
+    //QA
+ /*  public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
+    public static final String IMAGE_URL="https://112.133.227.123:14013/";
+    public static final String BankKey= "12345";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="BIZCORE";
-    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
+    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";*/
 
 //   //porora scb
 //    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
@@ -194,7 +218,7 @@ public class SplashScreen extends AppCompatActivity {
     public static final String BankKey= "";
     public static final String BankHeader= "";
     public static final String HOSTNAME_SUBJECT="MSCORESERVER";
-    public static final String CERTIFICATE_ASSET_NAME="mscoreserver.pem";*/
+    public static final String CERTIFICATE_ASSET_NAME="nadamel.pem";*/
 
 //Atholi service bank
 //    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";

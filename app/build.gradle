@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\Ranjith\\Mscore\\Karthedom\\KeyStore\\karthedom.jks')
-            storePassword 'karthedomrcs#753'
-            keyAlias 'karthedomrcs'
-            keyPassword 'karthedomrcs#753'
+            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\PERIYA\\periya.jks')
+            storePassword '794613periya@'
+            keyAlias 'periya_scb'
+            keyPassword '794613periya@'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -31,7 +31,7 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 31
-        applicationId "com.mscore.pss"
+     //  applicationId "com.mscore.pss"
 //        applicationId "com.mscore.demo"
 //        applicationId "com.mscore.koodali"
        // applicationId "com.mscore.kodiyathoor"
@@ -48,6 +48,9 @@ android {
 //        applicationId "com.mscore.telk"
       //  applicationId "com.mscore.calicuttownbank"
        // applicationId "com.mscore.nadamel"
+       // applicationId "com.mscore.thodupuzha_ast"
+        applicationId "com.mscore.periya_scb"
+       // applicationId "com.mscore.mananthavady"
 //        applicationId "com.mscore.kuruvattoor"
 //        applicationId "com.mscore.nanminda"
 //        applicationId "com.mscore.cheranallurScb"
@@ -58,13 +61,13 @@ android {
 //        applicationId "com.mscore.karthedom"
 
         versionCode = 1
-        versionName = '1.0.0'
+        versionName = '4.0.0'
 
-//        versionCode = 5
+//       versionCode = 3
 //        versionName = '4.0.1'
 
-//        versionCode = 4
-//        versionName = '4.0.0'
+       /* versionCode = 4
+        versionName = '4.0.3'*/
 
        /* versionCode = 15
         versionName = '4.0.0'*/
@@ -83,6 +86,9 @@ android {
 //        versionCode = 5
 //        versionName = '4.0.4'
 
+
+        /*versionCode = 3
+        versionName = '4.0.2'*/
     }
 
     buildTypes {
@@ -133,7 +139,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.4.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+  //  implementation 'com.google.android.gms:play-services-auth:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.5'
