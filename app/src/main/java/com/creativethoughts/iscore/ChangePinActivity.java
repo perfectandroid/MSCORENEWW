@@ -174,6 +174,7 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
                     requestObject1.put("newPin",IScoreApplication.encryptStart(edtCnfrmPin.getText().toString()));
 
                     Log.e(TAG,"requestObject1  1731    "+requestObject1);
+                    Log.e(TAG,"iemi  1731    "+iemi);
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -118,17 +118,14 @@ public class IScoreApplication extends Application {
 
     public static String getIEMI() {
         try {
-            TelephonyManager mngr = (TelephonyManager) getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-             String iemi = Settings.Secure.getString(getAppContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            if (iemi.isEmpty()){
-                return IScoreApplication.EXCEPTION_NOIEMI;
-            }else {
-                return iemi;
-            }
+
+            return "f34d64b61f8baf6f";
         }catch (Exception e){
             return IScoreApplication.EXCEPTION_NOIEMI;
         }
     }
+
+
     public static String getBankkey() {
         try {
             String bank_Key, bankKey;
