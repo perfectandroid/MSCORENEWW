@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\PERIYA\\periya.jks')
-            storePassword '794613periya@'
-            keyAlias 'periya_scb'
-            keyPassword '794613periya@'
+            storeFile file('D:\\Ranjith\\Mscore\\Karthedom\\KeyStore\\karthedom.jks')
+            storePassword 'karthedomrcs#753'
+            keyAlias 'karthedomrcs'
+            keyPassword 'karthedomrcs#753'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -31,7 +31,7 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 31
-     //  applicationId "com.mscore.pss"
+       applicationId "com.mscore.pss"
 //        applicationId "com.mscore.demo"
 //        applicationId "com.mscore.koodali"
        // applicationId "com.mscore.kodiyathoor"
@@ -49,7 +49,7 @@ android {
       //  applicationId "com.mscore.calicuttownbank"
        // applicationId "com.mscore.nadamel"
        // applicationId "com.mscore.thodupuzha_ast"
-        applicationId "com.mscore.periya_scb"
+//        applicationId "com.mscore.periya_scb"
        // applicationId "com.mscore.mananthavady"
 //        applicationId "com.mscore.kuruvattoor"
 //        applicationId "com.mscore.nanminda"
