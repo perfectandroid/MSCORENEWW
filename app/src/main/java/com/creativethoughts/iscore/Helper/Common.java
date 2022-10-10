@@ -2,6 +2,8 @@ package com.creativethoughts.iscore.Helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.view.View;
 
 public class Common {
 
@@ -16,6 +18,8 @@ public class Common {
         return HOSTNAMEVERFICATION_MANUAL;
     }
 
+
+
    /* public static String getHostnameSubject() {
         return HOSTNAME_SUBJECT;
     }
@@ -24,6 +28,17 @@ public class Common {
         return CERTIFICATE_ASSET_NAME;
     }*/
 
+    public static void disableClick(View v) {
+
+        v.setClickable(false);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                v.setClickable(true);
+            }
+        }, 3000);
+    }
 
 
 }

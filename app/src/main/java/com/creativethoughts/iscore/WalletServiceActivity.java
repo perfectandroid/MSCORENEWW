@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.creativethoughts.iscore.Helper.Common;
 import com.creativethoughts.iscore.Helper.Config;
 import com.creativethoughts.iscore.Helper.PicassoTrustAll;
 import com.creativethoughts.iscore.Retrofit.APIInterface;
@@ -590,7 +591,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                 JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");
 
                                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
-                                builder.setMessage("Congrats on successful top up, your Transaction Reference number is "+jobj.getString("TransactonrefNo"))
+//                                builder.setMessage("Congrats on successful top up, your Transaction Reference number is "+jobj.getString("TransactonrefNo"))
+                                builder.setMessage(""+jObject.getString("EXMessage"))
                                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -600,13 +602,14 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                             }
                                         });
                                 android.app.AlertDialog alert = builder.create();
+                                alert.setCancelable(false);
                                 alert.show();
 
                             }
                             else{
                                 try{
-                                    JSONObject jobj = jObject.getJSONObject("CardTopUpDetails");
-                                    String ResponseMessage = jobj.getString("ResponseMessage");
+
+                                    String ResponseMessage = jObject.getString("EXMessage");
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
                                     builder.setMessage(ResponseMessage)
 //                                builder.setMessage("No data found.")
@@ -620,9 +623,9 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                                     alert.show();
 
                                 }catch (JSONException e){
-                                    String EXMessage = jObject.getString("EXMessage");
+                                   // String EXMessage = jObject.getString("EXMessage");
                                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
-                                    builder.setMessage(EXMessage)
+                                    builder.setMessage("Some technical issues")
 //                                builder.setMessage("No data found.")
                                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
@@ -637,7 +640,18 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
                             }
 
                         }
-                        catch (JSONException e) {
+                        catch (Exception e) {
+                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(WalletServiceActivity.this);
+                            builder.setMessage("Some technical issues")
+//                                builder.setMessage("No data found.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            android.app.AlertDialog alert = builder.create();
+                            alert.show();
                             e.printStackTrace();
                         }
                     }
@@ -892,6 +906,8 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 //                strHeader="Transactions";
 //                break;
             case R.id.btn_submit:
+                Common.disableClick(v);
+                Log.e(TAG,"btn_submit   899   ");
                 validationforloadmoney();
                 break;
         }
