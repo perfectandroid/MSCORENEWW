@@ -317,7 +317,8 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         String strEwireCardService=ewarepref.getString("EwireCardService", null);
         if(strEwireCardService.equals("1")) {
 
-            tvwallet.setText("Wallet Services");
+           // tvwallet.setText("Wallet Services");
+            tvwallet.setText("Ewire Card");
             imwallet.setImageDrawable(getResources().getDrawable(R.drawable.walllet));
         }else {
             tvwallet.setText("More");

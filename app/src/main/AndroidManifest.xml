@@ -83,7 +83,7 @@
             android:theme="@style/PinLoginActivityTheme" />
 
         <activity android:name=".WalletServiceActivity"
-            android:label="Wallet Services"
+            android:label="Ewire Card"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/HomeActivityTheme">
             <meta-data

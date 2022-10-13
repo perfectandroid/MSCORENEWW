@@ -127,13 +127,13 @@ public class WalletServiceActivity extends AppCompatActivity implements View.OnC
 
         btn_submit.setOnClickListener(this);
 
-        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF26, 0);
-        txt_userid.setText( "Customer Id : "+customerIdSP.getString("customerId",""));
+        SharedPreferences customerIdSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF27, 0);
+        txt_userid.setText( "Customer Id : "+customerIdSP.getString("customerNo",""));
         SharedPreferences customerNameSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF28, 0);
         txt_userdetails.setText( customerNameSP.getString("customerName",""));
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
-        tvwalletbal.setText( "WALLET BALANCE ON "+currentDate);
+        tvwalletbal.setText( "CARD BALANCE ON "+currentDate);
         tv_messages.setText("** Top Up the amount to the Prepaid Card");
 
         SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
