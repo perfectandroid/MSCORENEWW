@@ -1,6 +1,9 @@
 <resources>
-<!--   <string name="app_name">Mscore Demo</string>   -->
-  <string name="app_name">Mscore QA</string>
+<!--   <string name="app_name">Mscore Demo</string>-->
+   <string name="app_name">Olavanna SCB</string>
+   <!--   <string name="app_name">Teachers Society Thodupuzha</string>-->
+<!-- <string name="app_name">Mananthavady Farmers SCB</string>-->
+<!--  <string name="app_name">Mscore QA</string>-->
 <!--<string name="app_name">Nadamel SCB</string>-->
 <!--    <string name="app_name">PERIYA SCB</string>-->
    <!-- <string name="app_name">Thodupuzha AST</string>-->

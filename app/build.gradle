@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\Ranjith\\Mscore\\Karthedom\\KeyStore\\karthedom.jks')
-            storePassword 'karthedomrcs#753'
-            keyAlias 'karthedomrcs'
-            keyPassword 'karthedomrcs#753'
+            storeFile file('D:\\akshaylal\\OLAVANNA SCB\\olavannakeystore.jks')
+            storePassword 'V5KtmxNLk6yxc9Gp'
+            keyAlias 'olavannascb'
+            keyPassword 'PrtC6pq5qBg2z2KM'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -31,7 +31,9 @@ android {
         multiDexEnabled true
         minSdkVersion 15
         targetSdkVersion 31
-       applicationId "com.mscore.pss"
+//        applicationId "com.mscore.mananthavadyfsc"
+        applicationId "com.mscore.olavanna"
+//        applicationId "com.mscore.pss"
 //        applicationId "com.mscore.demo"
 //        applicationId "com.mscore.koodali"
        // applicationId "com.mscore.kodiyathoor"
@@ -48,8 +50,8 @@ android {
 //        applicationId "com.mscore.telk"
       //  applicationId "com.mscore.calicuttownbank"
        // applicationId "com.mscore.nadamel"
-       // applicationId "com.mscore.thodupuzha_ast"
-//        applicationId "com.mscore.periya_scb"
+//        applicationId "com.mscore.thodupuzha_ast"
+//        applicationId "com.mscore.periyasc_bank"
        // applicationId "com.mscore.mananthavady"
 //        applicationId "com.mscore.kuruvattoor"
 //        applicationId "com.mscore.nanminda"

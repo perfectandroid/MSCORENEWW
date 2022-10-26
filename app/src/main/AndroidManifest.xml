@@ -355,6 +355,7 @@
             android:label="About Us"
             android:parentActivityName=".MoreActivity"
             android:theme="@style/HomeActivityTheme">
+            android:theme="@style/HomeActivityTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.creativethoughts.iscore.HomeActivity" />
@@ -390,7 +391,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBuVM2leW90oOl2uEgT1aqH8hgdG0zCIok"/>
+            android:value="AIzaSyDcgQDJiv2Iyr0S5n0sL1QxUJzVcuzfbT8"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

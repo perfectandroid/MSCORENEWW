@@ -70,21 +70,40 @@ public class SplashScreen extends AppCompatActivity {
 
     //PERIYA
 
-//    public static final String BASE_URL=" https://59.96.23.71:14001/MSCORE";
-//    public static final String IMAGE_URL=" https://59.96.23.71:14001/";
+//    public static final String BASE_URL="https://59.96.23.71:14001/MSCORE";
+//    public static final String IMAGE_URL="https://59.96.23.71:14001/";
 //    public static final String BankKey= "";
 //    public static final String API_NAME= "api/MV3";
-//    public static final String BankHeader= "";
+//    public static final String BankHeader= "The Periya Service Co-operative Bank Ltd., No.W.284 HO CUM MAIN BRANCH";
 //    public static final String HOSTNAME_SUBJECT="STSERVER";
-//    public static final String CERTIFICATE_ASSET_NAME="periyascb.pem";
+//    public static final String CERTIFICATE_ASSET_NAME="periyascb_live.pem";
 
 //DEVELOPMENT
-//   public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
+//    public static final String BASE_URL="https://202.164.150.65:14264/Mscore";
 //    public static final String IMAGE_URL="https://202.164.150.65:14264/";
 //    public static final String BankKey= "d.22333";
 //    public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
 //    public static final String HOSTNAME_SUBJECT="BIZCORE";
 //    public static final String CERTIFICATE_ASSET_NAME="mscoreqa.pem";
+
+//  THODUPUZHA 20.10.2022
+//    public static final String BASE_URL="https://13.71.91.134:14009/MSCORETHODUPUZHA";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "No.I.145";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankHeader= "Thodupuzha Taluk Aided School Teachers Co-operative Society Ltd.,No.I.145 HEAD OFFICE CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="thodupuzhalive.pem";
+
+
+//  Olavanna SCB 21.10.2022
+//    public static final String BASE_URL="https://103.203.75.11:14001/MSCORE";
+//    public static final String IMAGE_URL="https://103.203.75.11:14001/";
+//    public static final String BankKey= "";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankHeader= "Olavanna Service Co-Operative Bank ltd., No.2663, Head Office";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="olavannalive.pem";
 
 //   //porora scb
 //    public static final String BASE_URL="https://13.71.91.134:14009/Mscore";
@@ -278,6 +297,35 @@ public class SplashScreen extends AppCompatActivity {
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="ewiretest.perfectlimited.com";
     public static final String CERTIFICATE_ASSET_NAME="qatesting.pem";
+
+
+//    NANMINDA 15.10.2022
+//    public static final String BASE_URL="https://13.71.91.134:14009/MSCORENANMINDA";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "F.1238";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankHeader= "Nanminda Co-operative Rural Bank Ltd., No.F.1238 HO And Main Branch";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="nanminda_live.pem";
+
+//  Mananthavady Farmers 18.10.2022
+//    public static final String BASE_URL="https://117.216.136.166:14001/mscore";
+//    public static final String IMAGE_URL="https://117.216.136.166:14001/";
+//    public static final String BankKey= "";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankHeader= "The Mananthavady Farmers Service Co-operative Bank Ltd., No.F.4034 HO AND MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="BIZCORE";
+//    public static final String CERTIFICATE_ASSET_NAME="mananthavadyfarmers.pem";
+
+
+//  citypolice
+//    public static final String BASE_URL="https://13.71.91.134:14009/MSCORECITYPOLICEEMP";
+//    public static final String IMAGE_URL="https://13.71.91.134:14009/";
+//    public static final String BankKey= "F.963";
+//    public static final String API_NAME= "api/MV3";
+//    public static final String BankHeader= "Kozhikode City Police Employees Co-operative Society Ltd.No.F.963 HEAD OFFICE CUM MAIN BRANCH";
+//    public static final String HOSTNAME_SUBJECT="MSCORESERVER";
+//    public static final String CERTIFICATE_ASSET_NAME="citypolice_live.pem";
 
 
 //    public static final String BASE_URL="https://103.154.55.80:14001/Mscore";

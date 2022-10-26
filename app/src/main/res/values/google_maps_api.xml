@@ -38,7 +38,7 @@
 <!--    thodupuzha-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB_rpWSc8IRRTr2ZBuuTohaRnt-p6mWnU4</string>-->
 
-<!--    Karthedom-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBuVM2leW90oOl2uEgT1aqH8hgdG0zCIok</string>
+<!--    Nnminda-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDcgQDJiv2Iyr0S5n0sL1QxUJzVcuzfbT8</string>
 
 </resources>
