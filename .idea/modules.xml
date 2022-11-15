@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PERIYA_15.10.22.iml" filepath="$PROJECT_DIR$/.idea/modules/PERIYA_15.10.22.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/PERIYA_15.10.22.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/PERIYA_15.10.22.MPChartLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PERIYA_15.10.22.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mscore.iml" filepath="$PROJECT_DIR$/.idea/modules/Mscore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MPChartLib/Mscore.MPChartLib.iml" filepath="$PROJECT_DIR$/.idea/modules/MPChartLib/Mscore.MPChartLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mscore.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mscore.app.iml" />
     </modules>
   </component>
 </project>

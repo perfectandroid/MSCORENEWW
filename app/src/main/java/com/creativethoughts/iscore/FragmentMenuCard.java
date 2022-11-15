@@ -318,18 +318,13 @@ public class FragmentMenuCard extends Fragment implements View.OnClickListener {
         if(strEwireCardService.equals("1")) {
 
            // tvwallet.setText("Wallet Services");
-            tvwallet.setText("Ewire Card");
+           // tvwallet.setText("Ewire Card");
+            tvwallet.setText("Card Service");
             imwallet.setImageDrawable(getResources().getDrawable(R.drawable.walllet));
         }else {
             tvwallet.setText("More");
             imwallet.setImageDrawable(getResources().getDrawable(R.drawable.more));
         }
-
-
-
-
-
-
 
         llVirtualcard.setOnClickListener(this);
         // llRecharge.setOnClickListener(this);
