@@ -1,11 +1,13 @@
 package com.creativethoughts.iscore;
 
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 /**
  * Created by vishnu on 7/17/2017 - 11:42 AM.

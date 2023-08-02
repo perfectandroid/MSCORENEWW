@@ -11,10 +11,10 @@ android {
     signingConfigs {
         // HIDE
         release {
-            storeFile file('D:\\akshaylal\\OLAVANNA SCB\\olavannakeystore.jks')
-            storePassword 'V5KtmxNLk6yxc9Gp'
-            keyAlias 'olavannascb'
-            keyPassword 'PrtC6pq5qBg2z2KM'
+            storeFile file('D:\\release\\Mscore\\NEW MSCORE\\cheekkilode_scb\\cheekilode_scb.jks')
+            storePassword 'cheekilodecheeki'
+            keyAlias 'cheeekilode'
+            keyPassword 'cheekilodecheeki'
 //            v1SigningEnabled true
 //            v2SigningEnabled true
         }
@@ -32,7 +32,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 31
 //        applicationId "com.mscore.mananthavadyfsc"
-        applicationId "com.mscore.olavanna"
+     //   applicationId "com.mscore.olavanna"
+        applicationId "com.mscore.cheekklode_scbbank"
 //        applicationId "com.mscore.pss"
 //        applicationId "com.mscore.demo"
 //        applicationId "com.mscore.koodali"
@@ -62,8 +63,11 @@ android {
 //        applicationId "com.mscore.arnagarscb"
 //        applicationId "com.mscore.karthedom"
 
-        versionCode = 1
-        versionName = '4.0.0'
+      /*  versionCode = 1
+        versionName = '4.0.0'*/
+
+        versionCode = 5
+        versionName = '4.0.2'
 
 //       versionCode = 3
 //        versionName = '4.0.1'

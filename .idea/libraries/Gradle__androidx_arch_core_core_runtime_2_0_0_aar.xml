@@ -1,17 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/res" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/res" />
       <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/b7defc9e07ec5d40ae3e42bd0490e3a9/transformed/core-runtime-2.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.4-all/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.0.0/bc41b287c95bc50a3cd27cb1b7cfb301805ba7f1/core-runtime-2.0.0-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.0.0/bc41b287c95bc50a3cd27cb1b7cfb301805ba7f1/core-runtime-2.0.0-sources.jar!/" />
     </SOURCES>
   </library>

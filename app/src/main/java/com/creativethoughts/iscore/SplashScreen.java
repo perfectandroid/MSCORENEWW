@@ -1,11 +1,13 @@
 package com.creativethoughts.iscore;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -291,12 +293,22 @@ public class SplashScreen extends AppCompatActivity {
 //    public static final String CERTIFICATE_ASSET_NAME="demos.pem";
 
     // TESTING
-    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
+/*    public static final String BASE_URL="https://112.133.227.123:14013/Mscore";
     public static final String IMAGE_URL="https://112.133.227.123:14013/";
     public static final String BankKey= "12345";
     public static final String BankHeader= "PERFECT SCORE BANK HEAD OFFICE";
     public static final String HOSTNAME_SUBJECT="ewiretest.perfectlimited.com";
-    public static final String CERTIFICATE_ASSET_NAME="qatesting.pem";
+    public static final String
+    ="qatesting.pem";*/
+
+    //Cheekilode SCB
+    public static final String BASE_URL="https://59.96.62.36:14001/Mscorecheekilode";
+    public static final String IMAGE_URL="https://59.96.62.36:14001/";
+    public static final String BankKey= "";
+    public static final String BankHeader= "";
+    public static final String HOSTNAME_SUBJECT="node2";
+    public static final String CERTIFICATE_ASSET_NAME="node.pem";
+
 
 
 //    NANMINDA 15.10.2022
@@ -701,6 +713,7 @@ public class SplashScreen extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
 
+
                 }
                 RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestObject1.toString());
                 Call<String> call = apiService.getResellerDetails(body);
@@ -1021,18 +1034,33 @@ public class SplashScreen extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         Log.i("Imagedetails","Something went wrong");
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SplashScreen.this);
+                        builder.setMessage("Some technical issues.")
+//                                builder.setMessage("No data found.")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        android.app.AlertDialog alert = builder.create();
+                        alert.show();
                     }
                 });
             }
             catch (Exception e) {
-                Log.e("Imagedetails",e.toString());
 
+
+                Log.e("Imagedetails",e.toString());
                 e.printStackTrace();
+
             }
         }
         else {
             DialogUtil.showAlert(SplashScreen.this,
                     "Network is currently unavailable. Please try again later.");
+
+
         }
     }
 
@@ -1061,5 +1089,45 @@ public class SplashScreen extends AppCompatActivity {
 //            return IScoreApplication.EXCEPTION_NOIEMI;
 //        }
 //    }
+private void alertMessage1(String msg1, String msg2) {
 
+    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SplashScreen.this);
+
+    LayoutInflater inflater =this.getLayoutInflater();
+    View dialogView = inflater.inflate(R.layout.alert_layout, null);
+    dialogBuilder.setView(dialogView);
+
+    AlertDialog alertDialog = dialogBuilder.create();
+    TextView tv_share =  dialogView.findViewById(R.id.tv_share);
+    TextView tv_msg =  dialogView.findViewById(R.id.txt1);
+    TextView tv_msg2 =  dialogView.findViewById(R.id.txt2);
+
+    tv_msg.setText(msg1);
+    tv_msg2.setText(msg2);
+    ImageView img_applogo = dialogView.findViewById(R.id.img_applogo);
+
+    SharedPreferences imageurlSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF13, 0);
+    String IMAGEURL = imageurlSP.getString("imageurl","");
+    SharedPreferences AppIconImageCodeSP = getApplicationContext().getSharedPreferences(Config.SHARED_PREF3, 0);
+    String AppIconImageCodePath =IMAGEURL+AppIconImageCodeSP.getString("AppIconImageCode","");
+    PicassoTrustAll.getInstance(SplashScreen.this).load(AppIconImageCodePath).error(R.drawable.errorlogo).into(img_applogo);
+
+    TextView tv_cancel =  dialogView.findViewById(R.id.tv_cancel);
+    tv_cancel.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            alertDialog.dismiss();
+        }
+    });
+    tv_share.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            //  finishAffinity();
+            alertDialog.dismiss();
+
+        }
+    });
+    alertDialog.show();
+}
 }

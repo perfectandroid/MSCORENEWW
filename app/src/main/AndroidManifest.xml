@@ -32,9 +32,9 @@
         android:allowBackup="true"
         android:icon="@drawable/aappicon"
         android:label="@string/app_name"
-        android:hardwareAccelerated="true"
         android:requestLegacyExternalStorage="true"
         android:largeHeap="true"
+        android:hardwareAccelerated="false"
         android:theme="@style/AppTheme"
         tools:replace="icon, label"
         android:fullBackupContent="false">
@@ -391,7 +391,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDcgQDJiv2Iyr0S5n0sL1QxUJzVcuzfbT8"/>
+            android:value="AIzaSyAmYrFfhosUTpgN2xMInCRTB-U_3EfLd_o"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

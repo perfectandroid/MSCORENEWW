@@ -1,20 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.lecho:hellocharts-library:1.5.8@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/a3d2bab8a1774fff05ad2a37d18a930b/transformed/jetified-hellocharts-library-1.5.8/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/a3d2bab8a1774fff05ad2a37d18a930b/transformed/jetified-hellocharts-library-1.5.8/res" />
-      <root url="file://$PROJECT_DIR$/../../gradle-7.4-all/caches/transforms-3/a3d2bab8a1774fff05ad2a37d18a930b/transformed/jetified-hellocharts-library-1.5.8/AndroidManifest.xml" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-6.5/caches/transforms-3/089ea8302a2d44622ad53edcdef04f3b/transformed/jetified-hellocharts-library-1.5.8/res" />
-      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/ef87dc1ef1b88ac630ae66325c4f3c01/transformed/jetified-hellocharts-library-1.5.8/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/ef87dc1ef1b88ac630ae66325c4f3c01/transformed/jetified-hellocharts-library-1.5.8/res" />
-      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/ef87dc1ef1b88ac630ae66325c4f3c01/transformed/jetified-hellocharts-library-1.5.8/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/7020fd5ab4405e6ecf48bfd14c90e27a/transformed/jetified-hellocharts-library-1.5.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/transforms-3/7020fd5ab4405e6ecf48bfd14c90e27a/transformed/jetified-hellocharts-library-1.5.8/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.4-all/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/593fb22f70474038fe2a72f19e72060eb9f65db8/hellocharts-library-1.5.8-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/593fb22f70474038fe2a72f19e72060eb9f65db8/hellocharts-library-1.5.8-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../gradle-7.4-all/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/51798d4793c333553a68292ee3a47b4758c2ec47/hellocharts-library-1.5.8-sources.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../Dilsha/gradle-7.2/caches/modules-2/files-2.1/com.github.lecho/hellocharts-library/1.5.8/51798d4793c333553a68292ee3a47b4758c2ec47/hellocharts-library-1.5.8-sources.jar!/" />
     </SOURCES>
   </library>
