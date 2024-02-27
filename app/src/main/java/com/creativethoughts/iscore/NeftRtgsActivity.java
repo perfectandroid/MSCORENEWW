@@ -529,8 +529,8 @@ public class NeftRtgsActivity extends Activity  implements View.OnClickListener{
             focusScrollView(mEdtTxtBeneficiaryConfirmAccNo );
             return false;
         }
-
-        if (! tempBeneficiaryAccNo.matches("^\\d+$" ) ){
+        String pattern = "^[a-zA-Z0-9]*$";
+        if (! tempBeneficiaryAccNo.matches(pattern) ){
             showSnackBar("Invalid beneficiary account numbers " );
             changeBackground(mEdtTxtBeneficiaryAccNo, true );
             focusScrollView(mEdtTxtBeneficiaryAccNo );
